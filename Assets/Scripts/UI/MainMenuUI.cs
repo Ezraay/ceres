@@ -58,6 +58,7 @@ public partial class MainMenuUI : MonoBehaviour {
     void Awake () {
         instance = this;
         versionText.text = Constants.version;
+        Application.targetFrameRate = Constants.frameRate; // TODO: Read from settings FPS
     }
 
     void Update () {
@@ -66,10 +67,10 @@ public partial class MainMenuUI : MonoBehaviour {
 
         if (Input.GetKeyDown (KeyCode.Tab)) {
             if (usernameInput.isFocused) {
-                usernameInput.DeactivateInputField();
+                usernameInput.DeactivateInputField ();
                 passwordInput.ActivateInputField ();
             } else {
-                passwordInput.DeactivateInputField();
+                passwordInput.DeactivateInputField ();
                 usernameInput.ActivateInputField ();
             }
         }

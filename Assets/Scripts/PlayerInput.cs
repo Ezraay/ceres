@@ -1,33 +1,38 @@
 using UnityEngine;
 
 public class PlayerInput : MonoBehaviour {
-    private Rigidbody rigidBody;
-    public float moveSpeed;
-    private Vector3 targetRotation;
-    public float smoothTime;
     public static Vector2 input;
+
+    [SerializeField] float moveSpeed;
+    [SerializeField] float smoothTime;
+
+    Vector3 targetRotation;
+    new Rigidbody rigidbody;
+
     void Update () {
-        if (GameManager.showingUI || StateManager.server) return;
-        if (rigidBody == null){
-            rigidBody = GameManager.mainPlayer.GetComponent<Rigidbody>();
-        }
-        float horzInput = Input.GetAxisRaw("Horizontal");
-        float vertInput = Input.GetAxisRaw("Vertical");
-        rigidBody.velocity = new Vector3(horzInput,0,vertInput)*moveSpeed*Time.deltaTime;
-        if (horzInput != 0 || vertInput != 0)
-        {
-            targetRotation = new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(horzInput,vertInput), 0);
-        }
+        float horizontalInput = Input.GetAxisRaw ("Horizontal");
+        float verticalInput = Input.GetAxisRaw ("Vertical");
+        input = new Vector2 (horizontalInput, verticalInput).normalized;
+
+        if (input.x != 0 || input.y != 0)
+            targetRotation = new Vector3 (0, Mathf.Rad2Deg * Mathf.Atan2 (input.x, input.y), 0);
+
         if (targetRotation.y >= 180)
-        {
             targetRotation.y -= 360;
-        }
         else if (targetRotation.y <= -180)
-            {
             targetRotation.y += 360;
-            }
-        rigidBody.transform.rotation = Quaternion.Lerp(rigidBody.transform.rotation, Quaternion.Euler(targetRotation), smoothTime * Time.deltaTime);
-        input = new Vector2(horzInput, vertInput);
+
+        if (rigidbody != null)
+            rigidbody.transform.rotation = Quaternion.Lerp (rigidbody.transform.rotation, Quaternion.Euler (targetRotation), smoothTime * Time.deltaTime);
+    }
+
+    void FixedUpdate () {
+        if (GameManager.showingUI || StateManager.server) return;
+        if (rigidbody == null) 
+            rigidbody = GameManager.mainPlayer.GetComponent<Rigidbody> ();
+        
+        if (rigidbody != null)
+            rigidbody.velocity = new Vector3 (input.x, 0, input.y) * moveSpeed;
     }
 
 }

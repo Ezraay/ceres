@@ -1,5 +1,6 @@
 public static class Constants {
-    public const int ticksPerSecond = 32;
+    public const int ticksPerSecond = 64;
+    public const int frameRate = 120;
     public const int millisecondsPerTick = 1000 / ticksPerSecond;
 #if DEVELOPMENT_BUILD || UNITY_EDITOR
     public const string serverIP = "127.0.0.1";

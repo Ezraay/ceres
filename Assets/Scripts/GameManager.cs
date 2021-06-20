@@ -27,10 +27,12 @@ public class GameManager : MonoBehaviour {
     void Start () {
         if (StateManager.singlePlayer) {
             SpawnPlayer (Vector3.up, Quaternion.identity);
+            Application.targetFrameRate = Constants.frameRate; // TODO: Read from settings FPS
         } else if (StateManager.client) {
             PacketSender.PlayerDataRequest ();
             PacketSender.ItemPickupDataRequest();
             PacketSender.BankDataRequest();
+            Application.targetFrameRate = Constants.frameRate; // TODO: Read from settings FPS
         } else {
             #if UNITY_SERVER || UNITY_EDITOR
             GameServer.Server.Start ();
@@ -39,6 +41,8 @@ public class GameManager : MonoBehaviour {
             Application.targetFrameRate = Constants.ticksPerSecond;
             #endif
         }
+
+        // Time.fixedDeltaTime = 1f / Constants.ticksPerSecond;
     }
 
     void LateUpdate () {
