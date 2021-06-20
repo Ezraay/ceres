@@ -2,40 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent (typeof (Camera))]
 public class CameraController : MonoBehaviour {
     static Transform target;
-    static Vector3 offset;
-    static float zoom;
+    static new Camera camera;
 
-    [SerializeField] float smoothTime = 0.5f;
-    [SerializeField] float moveSpeed = 10f;
-    [SerializeField] float minimumZoom = 5f;
-    [SerializeField] float maximumZoom = 13f;
-    [SerializeField] float zoomSpeed = 0.25f;
+    [SerializeField] float angle = 45;
+    [SerializeField] float smoothTime = 4;
+    [SerializeField] float minimumZoom = 10;
+    [SerializeField] float maximumZoom = 20;
+    float zoom;
 
-    public static void SetTarget (Transform target, bool reposition = true) {
+    public static void SetTarget (Transform target) {
         CameraController.target = target;
-        if (reposition)
-            Camera.main.transform.position = target.position + offset;
     }
 
-    void Awake () {
+    void Start () {
         zoom = minimumZoom;
-        offset = transform.position;
     }
 
     void Update () {
-        if (target != null)
-            transform.position = Vector3.Lerp (transform.position, target.transform.position + offset, smoothTime * Time.deltaTime);
-        else {
-            Vector3 input = new Vector3 (Input.GetAxisRaw ("Horizontal"), 0, Input.GetAxisRaw ("Vertical"));
-            transform.position += input * moveSpeed * Time.deltaTime;
-        }
+        float scrollDelta = Input.mouseScrollDelta.y;
+        zoom -= scrollDelta;
+        zoom = Mathf.Clamp (zoom, minimumZoom, maximumZoom);
 
-        Vector2 scrollDelta = Input.mouseScrollDelta;
-        zoom -= scrollDelta.y * zoomSpeed;
-        if (!StateManager.server)
-            zoom = Mathf.Clamp (zoom, minimumZoom, maximumZoom);
-        Camera.main.orthographicSize = Mathf.Lerp (Camera.main.orthographicSize, zoom, smoothTime * Time.deltaTime);
+        float angleRadians = angle * Mathf.Deg2Rad;
+        Vector3 offset = new Vector3 (0, zoom * Mathf.Sin(angleRadians), -zoom * Mathf.Cos(angleRadians));
+        Vector3 targetPosition = target.position + offset;
+
+        transform.position = Vector3.Lerp (transform.position, targetPosition, smoothTime * Time.deltaTime);
+        transform.rotation = Quaternion.Euler (angle, 0, 0);
     }
 }

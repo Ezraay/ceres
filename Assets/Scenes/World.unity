@@ -4487,7 +4487,7 @@ Camera:
   m_GameObject: {fileID: 615612444}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.20000002, g: 0.53333336, b: 0.8705883, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -4504,7 +4504,7 @@ Camera:
   near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 12
   m_Depth: 0
   m_CullingMask:
@@ -4547,11 +4547,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 124e8cb9c6e7a6b41a9c98fd706b078e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothTime: 4
-  moveSpeed: 10
-  minimumZoom: 5
-  maximumZoom: 13
-  zoomSpeed: 0.25
+  angle: 50
+  smoothTime: 8
+  minimumZoom: 4
+  maximumZoom: 18
 --- !u!4 &684171951 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2230924991788993564, guid: 11975eeeffaec65409c8430718ba6aa7, type: 3}
@@ -13285,7 +13284,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.9124748, b: 0.5990566, a: 1}
-  m_Intensity: 2
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
