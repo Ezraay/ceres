@@ -13,6 +13,12 @@ namespace GameServer {
             }
         }
 
+        public static void ConnectedUDP (Client client) {
+            using (Packet packet = new Packet (ServerPackets.ConnectedUDP)) {
+                SendTCPData (client, packet);
+            }
+        }
+
         public static void VersionAccepted (Client client) {
             using (Packet packet = new Packet (ServerPackets.VersionAccepted)) {
                 SendTCPData (client, packet);
@@ -69,14 +75,14 @@ namespace GameServer {
             using (Packet packet = new Packet (ServerPackets.OtherPlayerLoggedIn)) {
                 packet.Write (client.id);
                 packet.Write (client.player.transform.position);
-                BroadcastLoggedIn (packet, client);
+                BroadcastLoggedInTCP (packet, client);
             }
         }
 
         public static void OtherPlayerLoggedOut (Client client) {
             using (Packet packet = new Packet (ServerPackets.OtherPlayerLoggedOut)) {
                 packet.Write (client.id);
-                BroadcastLoggedIn (packet, client);
+                BroadcastLoggedInTCP (packet, client);
             }
         }
 
@@ -91,14 +97,14 @@ namespace GameServer {
             using (Packet packet = new Packet (ServerPackets.OtherPlayerMoved)) {
                 packet.Write (client.id);
                 packet.Write (destination);
-                BroadcastLoggedIn (packet, client);
+                BroadcastLoggedInTCP (packet, client);
             }
         }
 
         public static void ChatMessage (Client client, string message) {
             using (Packet packet = new Packet (ServerPackets.ChatMessage)) {
                 packet.Write (message);
-                BroadcastLoggedIn (packet, client);
+                BroadcastLoggedInTCP (packet, client);
             }
         }
         #endregion
@@ -139,7 +145,7 @@ namespace GameServer {
                 packet.Write (pickupID);
                 packet.Write (position);
                 packet.Write (itemID);
-                BroadcastLoggedIn (packet, client);
+                BroadcastLoggedInTCP (packet, client);
             }
         }
 
@@ -147,12 +153,12 @@ namespace GameServer {
             using (Packet packet = new Packet (ServerPackets.ItemPickedUp)) {
                 packet.Write (pickupID);
                 packet.Write (removedCount);
-                BroadcastLoggedIn (packet, client);
+                BroadcastLoggedInTCP (packet, client);
             }
         }
         #endregion
         #endregion
-        
+
         static void SendTCPData (Client client, Packet packet) {
             packet.WriteLength ();
             client.tcp.SendData (packet);
@@ -170,7 +176,7 @@ namespace GameServer {
             }
         }
 
-        static void BroadcastLoggedIn (Packet packet, Client exceptClient = null) {
+        static void BroadcastLoggedInTCP (Packet packet, Client exceptClient = null) {
             packet.WriteLength ();
             for (int clientID = 0; clientID < Server.maxPlayers; clientID++) {
                 Client client = Server.GetClient (clientID);
@@ -178,6 +184,34 @@ namespace GameServer {
 
                 if (client != exceptClient) {
                     client.tcp.SendData (packet);
+                }
+            }
+        }
+
+        static void SendUDPData (Client client, Packet packet) {
+            packet.WriteLength ();
+            client.udp.SendData (packet);
+        }
+
+        static void SendUDPDataToAll (Packet packet, Client exceptClient = null) {
+            packet.WriteLength ();
+            for (int clientID = 0; clientID < Server.maxPlayers; clientID++) {
+                Client client = Server.GetClient (clientID);
+
+                if (client != exceptClient) {
+                    client.udp.SendData (packet);
+                }
+            }
+        }
+
+        static void BroadcastLoggedInUDP (Packet packet, Client exceptClient = null) {
+            packet.WriteLength ();
+            for (int clientID = 0; clientID < Server.maxPlayers; clientID++) {
+                Client client = Server.GetClient (clientID);
+                if (client == null || !client.loggedIn) continue;
+
+                if (client != exceptClient) {
+                    client.udp.SendData (packet);
                 }
             }
         }

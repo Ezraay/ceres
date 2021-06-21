@@ -10,10 +10,12 @@ namespace GameServer {
         public static int maxPlayers { get; private set; }
         public static int port { get; private set; }
         public const string version = "1.0.0";
+
         public static bool active { get; private set; } = false;
 
         static Dictionary<int, Client> clients = new Dictionary<int, Client> ();
         static TcpListener tcpListener;
+        static UdpClient udpListener;
 
         public static void Start () {
             active = true;
@@ -32,6 +34,8 @@ namespace GameServer {
             tcpListener.Start ();
             tcpListener.BeginAcceptTcpClient (TCPConnectCallback, null);
 
+            udpListener = new UdpClient (port);
+            udpListener.BeginReceive (UDPReceiveCallback, null);
             FirebaseSetup.Start ();
 
             Console.Log ("Server started");
@@ -85,6 +89,54 @@ namespace GameServer {
             }
 
             Console.Log ($"Failed to connect: server full ({client.Client.RemoteEndPoint})");
+        }
+
+        private static void UDPReceiveCallback (IAsyncResult result) {
+            try {
+                IPEndPoint endPoint = new IPEndPoint (IPAddress.Any, 0);
+                byte[] data = udpListener.EndReceive (result, ref endPoint);
+                udpListener.BeginReceive (UDPReceiveCallback, null);
+
+                if (data.Length < 4) {
+                    return;
+                }
+
+                using (Packet packet = new Packet (data)) {
+                    int clientID = packet.ReadInt ();
+                    if (clientID < 0 || maxPlayers <= clientID) {
+                        return;
+                    }
+
+                    Client client = GetClient (clientID);
+                    if (client.udp.endPoint == null) {
+                        client.udp.Connect (endPoint);
+                        return;
+                    }
+
+                    if (client.udp.endPoint.ToString () == endPoint.ToString ()) {
+                        client.udp.HandleData (packet);
+                    }
+                }
+            } catch (Exception exception) {
+                Debug.Log ($"[Server] Error receivng UDP: {exception}");
+            }
+        }
+
+        public static void SendUDPData (IPEndPoint endpoint, Packet packet) {
+            try {
+                if (endpoint != null) {
+                    udpListener.BeginSend (packet.ToArray (), packet.Length (), endpoint, null, null);
+                }
+            } catch (Exception exception) {
+                Debug.Log ($"[Server] Error sending UDP: {exception}");
+            }
+        }
+
+        public static void Disconnect (Client client) {
+            ThreadManager.ExecuteOnMainThread (() => {
+                client.Disconnect ();
+                clients.Remove (client.id);
+            });
         }
     }
 }

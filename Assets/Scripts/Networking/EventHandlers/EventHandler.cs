@@ -6,8 +6,11 @@ using UnityEngine;
 
 public static class EventHandler {
     delegate void PacketHandler (Packet packet);
-    static Dictionary<int, PacketHandler> packetHandlers = new Dictionary<int, PacketHandler> () { {
-        (int) ServerPackets.ConnectedTCP, ConnectedTCP }, {
+    static Dictionary<int, PacketHandler> packetHandlers = new Dictionary<int, PacketHandler> () {
+        {
+        (int) ServerPackets.ConnectedTCP, ConnectedTCP
+        }, {
+        (int) ServerPackets.ConnectedUDP, ConnectedUDP }, {
         (int) ServerPackets.VersionAccepted,
         VersionAccepted
         }, {
@@ -68,6 +71,12 @@ public static class EventHandler {
         Client.id = clientID;
         Console.Log ($"TCP connected. ClientID: {clientID}");
 
+        int port = ((IPEndPoint)Client.TCP.socket.Client.LocalEndPoint).Port;
+        Client.UDP.Connect (port);
+    }
+
+    private static void ConnectedUDP (Packet packet) {
+        Debug.Log ($"[Client] UDP connected");
         PacketSender.VersionCheck ();
     }
 

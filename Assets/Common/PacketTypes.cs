@@ -1,6 +1,7 @@
 public enum ServerPackets {
     // Server --> Client
     ConnectedTCP,
+    ConnectedUDP,
     VersionAccepted,
     VersionDenied,
     LoginAccepted,

@@ -38,6 +38,7 @@ public static partial class Client {
             id = -1;
 
             TCP.Disconnect ();
+            UDP.Disconnect ();
             // TODO: Show a disconnect message
             Application.Quit ();
         }

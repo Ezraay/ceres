@@ -8,6 +8,11 @@ public static class PacketSender {
         Client.TCP.SendData (packet);
     }
 
+    private static void SendUDPData (Packet packet) {
+        packet.WriteLength ();
+        Client.UDP.SendData (packet);
+    }
+
     #region Packets
     public static void VersionCheck () {
         using (Packet packet = new Packet (ClientPackets.VersionCheck)) {
