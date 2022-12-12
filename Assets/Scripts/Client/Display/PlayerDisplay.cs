@@ -5,7 +5,7 @@ namespace CardGame.Client.Display
     public class PlayerDisplay : MonoBehaviour
     {
         [SerializeField] private MultiCardSlotDisplay hand;
-        [SerializeField] private CardSlotDisplay champion;
+        [SerializeField] private SingleCardSlotDisplay champion;
         
         public void Setup(Player player)
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CardGame.Slots
 {
-    public class MultiCardSlot
+    public class MultiCardSlot : ISlot
     {
         public List<Card> Cards;
         public event Action<Card> OnAdd;

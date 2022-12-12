@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8958628460277778657}
   - component: {fileID: 8958628460277778662}
-  m_Layer: 0
+  - component: {fileID: 3788866566847872708}
+  m_Layer: 7
   m_Name: Card Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,3 +45,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardDisplayPrefab: {fileID: 8391467694181813925, guid: ca7f65a0df4d2264fbf39ac4bc64e915, type: 3}
+--- !u!65 &3788866566847872708
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8958628460277778656}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4, y: 5, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}

@@ -1,4 +1,5 @@
 using CardGame.Actions;
+using CardGame.Client.Display;
 using UnityEngine;
 
 namespace CardGame.Client
@@ -7,21 +8,37 @@ namespace CardGame.Client
     {
         [SerializeField] private BattleManager battleManager;
         [SerializeField] private LayerMask cardMask;
+        [SerializeField] private LayerMask slotMask;
 
         private void Update()
         {
             if (Input.GetMouseButtonDown(0))
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity, cardMask))
-                {
-                    CardDisplay display = hit.collider.GetComponent<CardDisplay>();
-                    battleManager.battle.Execute(new AscendAction(display.Card), battleManager.battle.Player1);
-                }
-            }
+                CardDisplay card = RaycastCard();
+                ICardSlotDisplay display = RaycastSlot();
+                if (display == null && card == null) return;
                 
+                // if (display?.Slot == battleManager.battle.PriorityPlayer.Hand)
+                //     battleManager.battle.Execute(new AscendFromHand(card.Card), battleManager.battle.PriorityPlayer);
+            }
+        }
+
+        private CardDisplay RaycastCard()
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, cardMask))
+                return hit.collider.GetComponent<CardDisplay>();
+            return null;
+        }
+
+        private ICardSlotDisplay RaycastSlot()
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, slotMask))
+                return hit.collider.GetComponent<ICardSlotDisplay>();
+            return null;
         }
     }
 }
