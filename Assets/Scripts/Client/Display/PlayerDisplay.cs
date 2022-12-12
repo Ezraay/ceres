@@ -9,8 +9,8 @@ namespace CardGame
         
         public void Setup(Player player)
         {
-            hand.Setup(player.Hand);
-            champion.Setup(player.Champion);
+            hand.Setup(player.Hand, player);
+            champion.Setup(player.Champion, player);
         }
     }
 }

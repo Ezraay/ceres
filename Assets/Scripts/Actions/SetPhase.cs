@@ -1,4 +1,6 @@
-﻿namespace CardGame
+﻿using UnityEngine;
+
+namespace CardGame
 {
     public class SetPhase : IAction
     {
@@ -16,6 +18,7 @@
 
         public void Execute(Battle battle, Player player)
         {
+            Debug.Log(phase);
             battle.Phase.Set(phase);
         }
     }

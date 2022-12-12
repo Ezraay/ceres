@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using JetBrains.Annotations;
+using UnityEngine;
 
 namespace CardGame
 {
@@ -10,13 +11,14 @@ namespace CardGame
         Draw,
         Attack,
         Defend,
-        Damage
+        Damage,
+        End
     }
 
     public class BattlePhaseManager : IEquatable<BattlePhase>
     {
-        private static readonly BattlePhase FirstPhase = Enum.GetValues(typeof(BattlePhase)).Cast<BattlePhase>().Min();
-        private static readonly BattlePhase LastPhase = Enum.GetValues(typeof(BattlePhase)).Cast<BattlePhase>().Max();
+        public static readonly BattlePhase FirstPhase = Enum.GetValues(typeof(BattlePhase)).Cast<BattlePhase>().Min();
+        public static readonly BattlePhase LastPhase = Enum.GetValues(typeof(BattlePhase)).Cast<BattlePhase>().Max();
         public BattlePhase Value { get; private set; }
         public event Action OnTurnEnd;
         public event Action<BattlePhase> OnPhaseEnter;
@@ -31,6 +33,8 @@ namespace CardGame
 
         public void Advance()
         {
+            // Debug.Log(FirstPhase);
+            // Debug.Log(LastPhase);
             if (Value == LastPhase)
             {
                 Value = FirstPhase;

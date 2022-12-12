@@ -26,6 +26,11 @@ namespace CardGame
             OnRemove?.Invoke(card);
         }
 
+        public void Clear()
+        {
+            for (int i = Cards.Count - 1; i >= 0; i--) RemoveCard(Cards[i]);
+        }
+
         public Card PopCard()
         {
             if (Cards.Count == 0) return null;

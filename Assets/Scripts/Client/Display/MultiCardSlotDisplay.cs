@@ -11,14 +11,16 @@ namespace CardGame
         private BoxCollider collider;
         private readonly Dictionary<Card, CardDisplay> displays = new Dictionary<Card, CardDisplay>();
         public ISlot Slot { get; private set; }
+        public Player Owner { get; private set; } // TODO: This feels wrong to put here
 
         private void Awake()
         {
             collider = GetComponent<BoxCollider>();
         }
 
-        public void Setup(MultiCardSlot slot)
+        public void Setup(MultiCardSlot slot, Player player)
         {
+            Owner = player;
             Slot = slot;
             slot.OnAdd += SlotOnOnAdd;
             slot.OnRemove += SlotOnOnRemove;

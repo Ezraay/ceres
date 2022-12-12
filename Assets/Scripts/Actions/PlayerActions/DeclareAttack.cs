@@ -16,7 +16,7 @@
 
         public void Execute(Battle battle, Player player)
         {
-            battle.AttackManager.AddAttacker(slot);
+            battle.CombatManager.AddAttacker(slot);
         }
     }
 }

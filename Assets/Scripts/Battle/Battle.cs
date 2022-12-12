@@ -3,21 +3,28 @@
     public class Battle
     {
         public Player PriorityPlayer => Player1Priority ? Player1 : Player2;
+        public Player AttackingPlayer => player1Turn ? Player1 : Player2;
+        public Player DefendingPlayer => player1Turn ? Player2 : Player1;
+        public bool Player1Priority { get; private set; } = true;
+        public readonly CombatManager CombatManager;
+        public readonly BattlePhaseManager Phase;
         public readonly Player Player1;
         public readonly Player Player2;
-        public AttackManager AttackManager;
-        public BattlePhaseManager Phase;
-        public bool Player1Priority = true;
+        private bool player1Turn = true;
 
         public Battle(Player player1, Player player2)
         {
             Player1 = player1;
             Player2 = player2;
 
-            Phase = new BattlePhaseManager();
-            Phase.OnTurnEnd += () => Player1Priority = !Player1Priority;
+            CombatManager = new CombatManager();
 
-            AttackManager = new AttackManager();
+            Phase = new BattlePhaseManager();
+            Phase.OnTurnEnd += () =>
+            {
+                player1Turn = !player1Turn;
+                Player1Priority = player1Turn;
+            };
 
             SetupPlayer(player1);
             SetupPlayer(player2);
@@ -27,14 +34,22 @@
                 switch (phase)
                 {
                     case BattlePhase.Stand:
-                        Execute(new Alert(PriorityPlayer.Champion));
+                        Execute(new Alert(AttackingPlayer.Champion));
                         break;
                     case BattlePhase.Draw:
                         Execute(new DrawFromPile());
                         break;
                     case BattlePhase.Defend:
-                        if (!AttackManager.ValidAttack)
-                            Execute(new SetPhase(BattlePhase.Draw));
+                        if (!CombatManager.ValidAttack)
+                            Execute(new SetPhase(BattlePhaseManager.LastPhase));
+                        else
+                            Player1Priority = !player1Turn;
+                        break;
+                    case BattlePhase.Damage:
+                        Player1Priority = player1Turn;
+                        break;
+                    case BattlePhase.End:
+                        CombatManager.Reset(DefendingPlayer.Graveyard);
                         break;
                 }
             };
