@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CardGame.Client.Display
+namespace CardGame
 {
     public class PlayerDisplay : MonoBehaviour
     {

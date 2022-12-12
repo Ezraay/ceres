@@ -1,8 +1,6 @@
-﻿using CardGame.Client.Display;
-using CardGame.Slots;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace CardGame.Client
+namespace CardGame
 {
     public class DisplayManager : MonoBehaviour
     {

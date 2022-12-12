@@ -1,4 +1,4 @@
-﻿namespace CardGame.Slots
+﻿namespace CardGame
 {
     public interface ISlot
     {

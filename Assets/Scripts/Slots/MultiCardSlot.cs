@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CardGame.Slots
+namespace CardGame
 {
     public class MultiCardSlot : ISlot
     {

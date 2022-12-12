@@ -1,14 +1,13 @@
-﻿using CardGame.Actions;
-
-namespace CardGame
+﻿namespace CardGame
 {
     public class Battle
     {
         public Player PriorityPlayer => Player1Priority ? Player1 : Player2;
         public readonly Player Player1;
         public readonly Player Player2;
-        public bool Player1Priority = true;
+        public AttackManager AttackManager;
         public BattlePhaseManager Phase;
+        public bool Player1Priority = true;
 
         public Battle(Player player1, Player player2)
         {
@@ -17,18 +16,28 @@ namespace CardGame
 
             Phase = new BattlePhaseManager();
             Phase.OnTurnEnd += () => Player1Priority = !Player1Priority;
-            Phase.OnChange += phase =>
-            {
-                switch (phase)
-                {
-                    case BattlePhase.Draw:
-                        Execute(new DrawFromPile());
-                        break;
-                }
-            };
+
+            AttackManager = new AttackManager();
 
             SetupPlayer(player1);
             SetupPlayer(player2);
+
+            Phase.OnPhaseEnter += phase =>
+            {
+                switch (phase)
+                {
+                    case BattlePhase.Stand:
+                        Execute(new Alert(PriorityPlayer.Champion));
+                        break;
+                    case BattlePhase.Draw:
+                        Execute(new DrawFromPile());
+                        break;
+                    case BattlePhase.Defend:
+                        if (!AttackManager.ValidAttack)
+                            Execute(new SetPhase(BattlePhase.Draw));
+                        break;
+                }
+            };
         }
 
         private void SetupPlayer(Player player)

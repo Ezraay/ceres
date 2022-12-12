@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using CardGame.Client.Display;
-using CardGame.Slots;
 using UnityEngine;
 
-namespace CardGame.Client
+namespace CardGame
 {
     public class MultiCardSlotDisplay : MonoBehaviour, ICardSlotDisplay
     {

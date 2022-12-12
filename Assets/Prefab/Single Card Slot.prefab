@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8958628460277778662}
   - component: {fileID: 3788866566847872708}
   m_Layer: 7
-  m_Name: Card Slot
+  m_Name: Single Card Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardDisplayPrefab: {fileID: 8391467694181813925, guid: ca7f65a0df4d2264fbf39ac4bc64e915, type: 3}
+  alertRotation: {x: 0, y: 0, z: 0, w: 0}
+  exhaustedRotation: {x: 0, y: 0, z: -0.70710677, w: 0.70710677}
 --- !u!65 &3788866566847872708
 BoxCollider:
   m_ObjectHideFlags: 0

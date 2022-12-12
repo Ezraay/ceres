@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using CardGame.Actions;
-using CardGame.Client;
 using UnityEngine;
 
 namespace CardGame

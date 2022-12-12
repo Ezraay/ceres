@@ -1,8 +1,6 @@
-using CardGame.Actions;
-using CardGame.Client.Display;
 using UnityEngine;
 
-namespace CardGame.Client
+namespace CardGame
 {
     public class InputManager : MonoBehaviour
     {
@@ -16,10 +14,18 @@ namespace CardGame.Client
             {
                 CardDisplay card = RaycastCard();
                 ICardSlotDisplay display = RaycastSlot();
-                if (display == null && card == null) return;
+                if (display == null) return;
                 
                 // if (display?.Slot == battleManager.battle.PriorityPlayer.Hand)
                 //     battleManager.battle.Execute(new AscendFromHand(card.Card), battleManager.battle.PriorityPlayer);
+
+                CardSlot cardSlot = display.Slot as CardSlot;
+                if (cardSlot != null &&
+                    cardSlot == battleManager.battle.PriorityPlayer.Champion &&
+                    battleManager.battle.Phase == BattlePhase.Attack)
+                {
+                    battleManager.battle.Execute(new DeclareAttack(cardSlot));
+                }
             }
         }
 

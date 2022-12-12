@@ -1,4 +1,4 @@
-﻿namespace CardGame.Actions
+﻿namespace CardGame
 {
     public class AscendFromHand : IAction
     {

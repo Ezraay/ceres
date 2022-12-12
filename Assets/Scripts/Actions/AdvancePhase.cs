@@ -1,13 +1,10 @@
-﻿using System;
-using System.Linq;
-
-namespace CardGame.Actions
+﻿namespace CardGame
 {
     public class AdvancePhase : IAction
     {
         public bool CanExecute(Battle battle, Player player)
         {
-            return true;
+            return player == battle.PriorityPlayer;
         }
 
         public void Execute(Battle battle, Player player)

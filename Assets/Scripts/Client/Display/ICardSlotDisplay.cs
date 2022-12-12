@@ -1,7 +1,4 @@
-﻿using CardGame.Slots;
-using UnityEngine;
-
-namespace CardGame.Client.Display
+﻿namespace CardGame
 {
     public interface ICardSlotDisplay
     {
