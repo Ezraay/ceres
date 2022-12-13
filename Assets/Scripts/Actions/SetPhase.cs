@@ -18,7 +18,6 @@ namespace CardGame
 
         public void Execute(Battle battle, Player player)
         {
-            Debug.Log(phase);
             battle.Phase.Set(phase);
         }
     }

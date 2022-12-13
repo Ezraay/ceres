@@ -27,6 +27,10 @@ namespace CardGame
                 } else if (multiCardSlot == battleManager.battle.DefendingPlayer.Hand && battleManager.battle.Phase == BattlePhase.Defend)
                 {
                     battleManager.battle.Execute(new DefendFromHand(card.Card));
+                } else if (multiCardSlot == battleManager.battle.AttackingPlayer.Hand &&
+                           battleManager.battle.Phase == BattlePhase.Ascend)
+                {
+                    battleManager.battle.Execute(new AscendFromHand(card.Card));
                 }
             }
         }

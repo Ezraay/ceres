@@ -9,6 +9,7 @@ namespace CardGame
     {
         Stand,
         Draw,
+        Ascend,
         Attack,
         Defend,
         Damage,

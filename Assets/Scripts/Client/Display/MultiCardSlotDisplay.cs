@@ -8,14 +8,14 @@ namespace CardGame
     {
         [SerializeField] private CardDisplay cardDisplayPrefab;
         [SerializeField] private Vector3 cardOffset;
-        private BoxCollider collider;
+        private BoxCollider boxCollider;
         private readonly Dictionary<Card, CardDisplay> displays = new Dictionary<Card, CardDisplay>();
         public ISlot Slot { get; private set; }
         public Player Owner { get; private set; } // TODO: This feels wrong to put here
 
         private void Awake()
         {
-            collider = GetComponent<BoxCollider>();
+            boxCollider = GetComponent<BoxCollider>();
         }
 
         public void Setup(MultiCardSlot slot, Player player)
@@ -48,7 +48,7 @@ namespace CardGame
         {
             int cardCount = displays.Count;
             Vector3 halfOffset = cardOffset * (cardCount - 1) / 2;
-            collider.size = new Vector3(cardCount * CardDisplay.CardSize.x, CardDisplay.CardSize.y, CardDisplay.CardSize.z);
+            boxCollider.size = new Vector3(cardCount * CardDisplay.CardSize.x, CardDisplay.CardSize.y, CardDisplay.CardSize.z);
             CardDisplay[] cardDisplays = displays.Values.ToArray();
             for (int i = 0; i < cardCount; i++) cardDisplays[i].transform.localPosition = -halfOffset + cardOffset * i;
         }

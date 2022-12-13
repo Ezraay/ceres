@@ -11,13 +11,17 @@
 
         public bool CanExecute(Battle battle, Player player)
         {
-            return false; 
+            return battle.Phase == BattlePhase.Ascend && (
+                card.Data.Tier == player.Champion.Card.Data.Tier || 
+                card.Data.Tier == player.Champion.Card.Data.Tier + 1
+                ); 
         }
 
         public void Execute(Battle battle, Player player)
         {
             player.Champion.SetCard(card);
             player.Hand.RemoveCard(card);
+            battle.Phase.Advance();
         }
     }
 }

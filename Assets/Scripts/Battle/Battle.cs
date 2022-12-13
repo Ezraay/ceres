@@ -47,6 +47,7 @@
                         break;
                     case BattlePhase.Damage:
                         Player1Priority = player1Turn;
+                        CombatManager.AddTarget(DefendingPlayer.Champion); // TODO: Let player choose target
                         for (int i = 0; i < CombatManager.DamageCount(); i++)
                         {
                             Execute(new DamageFromPile(), DefendingPlayer);

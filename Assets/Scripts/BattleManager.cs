@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace CardGame
 {
     public class BattleManager : MonoBehaviour
     {
         [SerializeField] private CardData testCard;
+        [SerializeField] private CardData testCard2;
         [SerializeField] private DisplayManager displayManager;
         private Player player1;
         private Player player2;
@@ -34,7 +36,7 @@ namespace CardGame
 
             for (int i = 0; i < 50; i++)
             {
-                pile.Add(new Card(testCard));
+                pile.Add(new Card(Random.Range(0f, 1f) < 0.5f ? testCard : testCard2));
             }
 
             return pile;
