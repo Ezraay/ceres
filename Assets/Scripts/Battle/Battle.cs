@@ -47,6 +47,10 @@
                         break;
                     case BattlePhase.Damage:
                         Player1Priority = player1Turn;
+                        for (int i = 0; i < CombatManager.DamageCount(); i++)
+                        {
+                            Execute(new DamageFromPile(), DefendingPlayer);
+                        }
                         break;
                     case BattlePhase.End:
                         CombatManager.Reset(DefendingPlayer.Graveyard);
