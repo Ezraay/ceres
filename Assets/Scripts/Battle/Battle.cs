@@ -1,4 +1,6 @@
-﻿namespace CardGame
+﻿using UnityEngine;
+
+namespace CardGame
 {
     public class Battle
     {
@@ -41,7 +43,11 @@
                         break;
                     case BattlePhase.Defend:
                         if (!CombatManager.ValidAttack)
+                        {
+                        Debug.Log("AAAA");
+                            
                             Execute(new SetPhase(BattlePhaseManager.LastPhase));
+                        }
                         else
                             Player1Priority = !player1Turn;
                         break;

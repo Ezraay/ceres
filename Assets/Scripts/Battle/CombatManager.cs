@@ -4,15 +4,15 @@ namespace CardGame
 {
     public class CombatManager
     {
-        public bool ValidAttack => attacker != null;
+        public bool ValidAttack => Attacker != null;
         public readonly MultiCardSlot Defenders = new MultiCardSlot();
         private CardSlot target;
-        private CardSlot attacker;
+        public CardSlot Attacker;
         private readonly int damage = 1;
 
         public void AddAttacker(CardSlot slot)
         {
-            attacker = slot;
+            Attacker = slot;
             slot.Exhaust();
         }
 
@@ -28,14 +28,14 @@ namespace CardGame
 
         public void Reset(MultiCardSlot graveyard)
         {
-            attacker = null;
+            Attacker = null;
             foreach (var defender in Defenders.Cards) graveyard.AddCard(defender);
             Defenders.Clear();
         }
 
         public int DamageCount()
         {
-            int attack = attacker.Card.Data.Attack;
+            int attack = Attacker.Card.Data.Attack;
             int defense = Defenders.Cards.Sum(card => card.Data.Defense);
             return defense + target.Card.Data.Attack > attack ? 0 : damage;
         }
