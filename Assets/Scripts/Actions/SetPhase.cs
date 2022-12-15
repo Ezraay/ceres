@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace CardGame
+﻿namespace CardGame
 {
     public class SetPhase : IAction
     {

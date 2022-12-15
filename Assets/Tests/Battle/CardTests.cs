@@ -1,7 +1,8 @@
 ﻿using CardGame;
 using NUnit.Framework;
+using Tests.Slots;
 
-namespace Tests.Slots
+namespace Tests.Battle
 {
     public class CardTests
     {
