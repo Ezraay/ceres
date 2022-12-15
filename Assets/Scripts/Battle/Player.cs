@@ -10,7 +10,7 @@ namespace CardGame
         public MultiCardSlot Graveyard { get; } = new MultiCardSlot();
         public MultiCardSlot Damage { get; } = new MultiCardSlot();
 
-        public Player(List<Card> pile, Card champion)
+        public Player(List<ICard> pile, ICard champion)
         {
             Pile = new MultiCardSlot(pile);
             Champion = new CardSlot(champion);

@@ -1,11 +1,12 @@
 namespace CardGame
 {
-    public class Card
+    public class Card : ICard
     {
-        public readonly CardData Data;
+        public ICardData Data { get; }
+
         public Card(CardData data)
         {
-            this.Data = data;
+            Data = data;
         }
     }
 }

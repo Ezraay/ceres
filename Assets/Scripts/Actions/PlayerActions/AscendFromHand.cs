@@ -2,9 +2,9 @@
 {
     public class AscendFromHand : IAction
     {
-        private readonly Card card;
+        private readonly ICard card;
 
-        public AscendFromHand(Card card)
+        public AscendFromHand(ICard card)
         {
             this.card = card;
         }

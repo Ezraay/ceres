@@ -9,7 +9,7 @@ namespace CardGame
         [SerializeField] private CardDisplay cardDisplayPrefab;
         [SerializeField] private Vector3 cardOffset;
         private BoxCollider boxCollider;
-        private readonly Dictionary<Card, CardDisplay> displays = new Dictionary<Card, CardDisplay>();
+        private readonly Dictionary<ICard, CardDisplay> displays = new Dictionary<ICard, CardDisplay>();
         public ISlot Slot { get; private set; }
         public Player Owner { get; private set; } // TODO: This feels wrong to put here
 
@@ -24,10 +24,10 @@ namespace CardGame
             Slot = slot;
             slot.OnAdd += SlotOnOnAdd;
             slot.OnRemove += SlotOnOnRemove;
-            foreach (Card card in slot.Cards) SlotOnOnAdd(card);
+            foreach (ICard card in slot.Cards) SlotOnOnAdd(card);
         }
 
-        private void SlotOnOnRemove(Card card)
+        private void SlotOnOnRemove(ICard card)
         {
             Destroy(displays[card].gameObject);
             displays.Remove(card);
@@ -35,7 +35,7 @@ namespace CardGame
             Reposition();
         }
 
-        private void SlotOnOnAdd(Card card)
+        private void SlotOnOnAdd(ICard card)
         {
             CardDisplay cardDisplay = Instantiate(cardDisplayPrefab, transform);
             cardDisplay.Show(card);

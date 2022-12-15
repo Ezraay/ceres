@@ -10,9 +10,9 @@ namespace CardGame
         [SerializeField] private Text title;
         [SerializeField] private Text attackText;
         [SerializeField] private Text defenseText;
-        public Card Card { get; private set; }
+        public ICard Card { get; private set; }
 
-        public void Show(Card card)
+        public void Show(ICard card)
         {
             Card = card;
             title.text = card.Data.Name;

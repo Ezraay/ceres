@@ -4,13 +4,13 @@ namespace CardGame
 {
     public class CardSlot : ISlot
     {
-        public Card Card { get; private set; }
+        public ICard Card { get; private set; }
         public bool Exhausted { get; private set; }
-        public event Action<Card> OnChange;
+        public event Action<ICard> OnChange;
         public event Action OnExhaust;
         public event Action OnAlert;
 
-        public CardSlot(Card card = null)
+        public CardSlot(ICard card = null)
         {
             Card = card;
         }
@@ -27,7 +27,7 @@ namespace CardGame
             OnAlert?.Invoke();
         }
 
-        public void SetCard(Card card, bool exhausted = false)
+        public void SetCard(ICard card, bool exhausted = false)
         {
             Card = card;
             Exhausted = exhausted;

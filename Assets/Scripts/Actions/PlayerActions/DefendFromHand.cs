@@ -2,9 +2,9 @@
 {
     public class DefendFromHand : IAction
     {
-        private readonly Card card;
+        private readonly ICard card;
 
-        public DefendFromHand(Card card)
+        public DefendFromHand(ICard card)
         {
             this.card = card;
         }

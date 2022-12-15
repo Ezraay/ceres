@@ -38,7 +38,7 @@ namespace CardGame
             cardDisplay.transform.localRotation = exhaustedRotation;
         }
 
-        private void SlotOnOnChange(Card card, bool exhausted)
+        private void SlotOnOnChange(ICard card, bool exhausted)
         {
             cardDisplay = cardDisplay == null ? Instantiate(cardDisplayPrefab, transform) : cardDisplay;
             if (card != null)

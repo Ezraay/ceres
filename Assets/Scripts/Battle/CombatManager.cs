@@ -21,7 +21,7 @@ namespace CardGame
             target = slot;
         }
 
-        public void AddDefender(Card card)
+        public void AddDefender(ICard card)
         {
             Defenders.AddCard(card);
         }

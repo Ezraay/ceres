@@ -21,16 +21,16 @@ namespace CardGame
 
                 CardSlot cardSlot = display.Slot as CardSlot;
                 MultiCardSlot multiCardSlot = display.Slot as MultiCardSlot;
-                if (cardSlot != null && battleManager.battle.Phase == BattlePhase.Attack && display.Owner == battleManager.battle.AttackingPlayer)
+                if (cardSlot != null && battleManager.Battle.Phase == BattlePhase.Attack && display.Owner == battleManager.Battle.AttackingPlayer)
                 {
-                    battleManager.battle.Execute(new DeclareAttack(cardSlot), display.Owner);
-                } else if (multiCardSlot == battleManager.battle.DefendingPlayer.Hand && battleManager.battle.Phase == BattlePhase.Defend)
+                    battleManager.Battle.Execute(new DeclareAttack(cardSlot), display.Owner);
+                } else if (multiCardSlot == battleManager.Battle.DefendingPlayer.Hand && battleManager.Battle.Phase == BattlePhase.Defend)
                 {
-                    battleManager.battle.Execute(new DefendFromHand(card.Card));
-                } else if (multiCardSlot == battleManager.battle.AttackingPlayer.Hand &&
-                           battleManager.battle.Phase == BattlePhase.Ascend)
+                    battleManager.Battle.Execute(new DefendFromHand(card.Card));
+                } else if (multiCardSlot == battleManager.Battle.AttackingPlayer.Hand &&
+                           battleManager.Battle.Phase == BattlePhase.Ascend)
                 {
-                    battleManager.battle.Execute(new AscendFromHand(card.Card));
+                    battleManager.Battle.Execute(new AscendFromHand(card.Card));
                 }
             }
         }

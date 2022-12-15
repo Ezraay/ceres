@@ -12,14 +12,14 @@ namespace CardGame
 
         private void Start()
         {
-            battleManager.battle.Phase.OnPhaseEnter +=
-                phase => UpdatePhaseText(phase, battleManager.battle.Player1Priority);
-            UpdatePhaseText(battleManager.battle.Phase.Value, battleManager.battle.Player1Priority);
+            battleManager.Battle.Phase.OnPhaseEnter +=
+                phase => UpdatePhaseText(phase, battleManager.Battle.Player1Priority);
+            UpdatePhaseText(battleManager.Battle.Phase.Value, battleManager.Battle.Player1Priority);
         }
 
         public void NextPhaseButton()
         {
-            battleManager.battle.Execute(new AdvancePhase());
+            battleManager.Battle.Execute(new AdvancePhase());
         }
 
         private void UpdatePhaseText(BattlePhase phase, bool player1Turn)

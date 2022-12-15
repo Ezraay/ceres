@@ -5,22 +5,22 @@ namespace CardGame
 {
     public class MultiCardSlot : ISlot
     {
-        public List<Card> Cards;
-        public event Action<Card> OnAdd;
-        public event Action<Card> OnRemove;
+        public List<ICard> Cards;
+        public event Action<ICard> OnAdd;
+        public event Action<ICard> OnRemove;
 
-        public MultiCardSlot(List<Card> cards = null)
+        public MultiCardSlot(List<ICard> cards = null)
         {
-            Cards = cards ?? new List<Card>();
+            Cards = cards ?? new List<ICard>();
         }
 
-        public void AddCard(Card card)
+        public void AddCard(ICard card)
         {
             Cards.Add(card);
             OnAdd?.Invoke(card);
         }
 
-        public void RemoveCard(Card card)
+        public void RemoveCard(ICard card)
         {
             Cards.Remove(card);
             OnRemove?.Invoke(card);
@@ -31,11 +31,11 @@ namespace CardGame
             for (int i = Cards.Count - 1; i >= 0; i--) RemoveCard(Cards[i]);
         }
 
-        public Card PopCard()
+        public ICard PopCard()
         {
             if (Cards.Count == 0) return null;
 
-            Card card = Cards[0];
+            ICard card = Cards[0];
             Cards.RemoveAt(0);
             OnRemove?.Invoke(card);
             return card;
