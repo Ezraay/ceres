@@ -1,0 +1,1940 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CoverageSession xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="0.0.0.0">
+  <Summary numSequencePoints="485" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="30" visitedMethods="0" numMethods="136" />
+  <Modules>
+    <Module>
+      <Summary numSequencePoints="56" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="4" visitedMethods="0" numMethods="19" />
+      <ModuleTime>0001-01-01T00:00:00</ModuleTime>
+      <ModuleName>Tests</ModuleName>
+      <Files>
+        <File uid="1" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Tests/Slots/CardSlotTests.cs" />
+        <File uid="2" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Tests/Slots/CardTests.cs" />
+        <File uid="3" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Tests/Slots/TestCardData.cs" />
+      </Files>
+      <Classes>
+        <Class>
+          <Summary numSequencePoints="38" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="7" />
+          <FullName>Tests.Slots.CardSlotTests</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="5" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663297</MetadataToken>
+              <Name>System.Void Tests.Slots.CardSlotTests::SetCard()</Name>
+              <FileRef uid="1" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="971" ordinal="0" offset="0" sl="12" sc="0" el="12" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="972" ordinal="0" offset="1" sl="13" sc="0" el="13" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="973" ordinal="0" offset="8" sl="14" sc="0" el="14" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="974" ordinal="0" offset="22" sl="15" sc="0" el="15" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="975" ordinal="0" offset="40" sl="16" sc="0" el="16" ec="0" bec="0" bev="0" fileid="1" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="6" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663298</MetadataToken>
+              <Name>System.Void Tests.Slots.CardSlotTests::ClearCard()</Name>
+              <FileRef uid="1" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="976" ordinal="0" offset="0" sl="20" sc="0" el="20" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="977" ordinal="0" offset="1" sl="21" sc="0" el="21" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="978" ordinal="0" offset="8" sl="22" sc="0" el="22" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="979" ordinal="0" offset="22" sl="23" sc="0" el="23" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="980" ordinal="0" offset="29" sl="24" sc="0" el="24" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="981" ordinal="0" offset="42" sl="25" sc="0" el="25" ec="0" bec="0" bev="0" fileid="1" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="8" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663299</MetadataToken>
+              <Name>System.Void Tests.Slots.CardSlotTests::OnCardChange()</Name>
+              <FileRef uid="1" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="982" ordinal="0" offset="6" sl="29" sc="0" el="29" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="983" ordinal="0" offset="7" sl="30" sc="0" el="30" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="984" ordinal="0" offset="14" sl="31" sc="0" el="31" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="985" ordinal="0" offset="21" sl="31" sc="0" el="31" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="986" ordinal="0" offset="22" sl="32" sc="0" el="32" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="987" ordinal="0" offset="41" sl="33" sc="0" el="33" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="988" ordinal="0" offset="55" sl="34" sc="0" el="34" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="989" ordinal="0" offset="73" sl="35" sc="0" el="35" ec="0" bec="0" bev="0" fileid="1" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="5" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663300</MetadataToken>
+              <Name>System.Void Tests.Slots.CardSlotTests::SlotShouldBeAlertOnStart()</Name>
+              <FileRef uid="1" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="990" ordinal="0" offset="0" sl="39" sc="0" el="39" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="991" ordinal="0" offset="1" sl="40" sc="0" el="40" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="992" ordinal="0" offset="8" sl="41" sc="0" el="41" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="993" ordinal="0" offset="22" sl="42" sc="0" el="42" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="994" ordinal="0" offset="34" sl="43" sc="0" el="43" ec="0" bec="0" bev="0" fileid="1" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="6" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663301</MetadataToken>
+              <Name>System.Void Tests.Slots.CardSlotTests::Exhaust()</Name>
+              <FileRef uid="1" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="995" ordinal="0" offset="0" sl="47" sc="0" el="47" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="996" ordinal="0" offset="1" sl="48" sc="0" el="48" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="997" ordinal="0" offset="8" sl="49" sc="0" el="49" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="998" ordinal="0" offset="22" sl="50" sc="0" el="50" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="999" ordinal="0" offset="29" sl="51" sc="0" el="51" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="1000" ordinal="0" offset="41" sl="52" sc="0" el="52" ec="0" bec="0" bev="0" fileid="1" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="7" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663302</MetadataToken>
+              <Name>System.Void Tests.Slots.CardSlotTests::Alert()</Name>
+              <FileRef uid="1" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1001" ordinal="0" offset="0" sl="56" sc="0" el="56" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="1002" ordinal="0" offset="1" sl="57" sc="0" el="57" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="1003" ordinal="0" offset="8" sl="58" sc="0" el="58" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="1004" ordinal="0" offset="22" sl="59" sc="0" el="59" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="1005" ordinal="0" offset="29" sl="60" sc="0" el="60" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="1006" ordinal="0" offset="36" sl="61" sc="0" el="61" ec="0" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="0" uspid="1007" ordinal="0" offset="48" sl="62" sc="0" el="62" ec="0" bec="0" bev="0" fileid="1" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663303</MetadataToken>
+              <Name>Tests.Slots.CardSlotTests::CardSlotTests()</Name>
+              <FileRef uid="1" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1008" ordinal="0" offset="0" sl="8" sc="0" el="8" ec="0" bec="0" bev="0" fileid="1" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="5" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="2" />
+          <FullName>Tests.Slots.CardTests</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663304</MetadataToken>
+              <Name>System.Void Tests.Slots.CardTests::Constructor()</Name>
+              <FileRef uid="2" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1009" ordinal="0" offset="0" sl="12" sc="9" el="12" ec="9" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="0" uspid="1010" ordinal="0" offset="1" sl="13" sc="13" el="13" ec="13" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="0" uspid="1011" ordinal="0" offset="13" sl="14" sc="13" el="14" ec="13" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="0" uspid="1012" ordinal="0" offset="31" sl="15" sc="9" el="15" ec="9" bec="0" bev="0" fileid="2" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663305</MetadataToken>
+              <Name>Tests.Slots.CardTests::CardTests()</Name>
+              <FileRef uid="2" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1013" ordinal="0" offset="0" sl="8" sc="9" el="8" ec="9" bec="0" bev="0" fileid="2" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="12" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="9" />
+          <FullName>Tests.Slots.TestCardData</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663306</MetadataToken>
+              <Name>System.String Tests.Slots.TestCardData::get_Name()</Name>
+              <FileRef uid="3" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1014" ordinal="0" offset="0" sl="7" sc="0" el="7" ec="0" bec="0" bev="0" fileid="3" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="true">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663307</MetadataToken>
+              <Name>System.Void Tests.Slots.TestCardData::set_Name(System.String)</Name>
+              <FileRef uid="3" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1015" ordinal="0" offset="0" sl="7" sc="0" el="7" ec="0" bec="0" bev="0" fileid="3" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663308</MetadataToken>
+              <Name>System.Int32 Tests.Slots.TestCardData::get_Tier()</Name>
+              <FileRef uid="3" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1016" ordinal="0" offset="0" sl="8" sc="0" el="8" ec="0" bec="0" bev="0" fileid="3" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="true">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663309</MetadataToken>
+              <Name>System.Void Tests.Slots.TestCardData::set_Tier(System.Int32)</Name>
+              <FileRef uid="3" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1017" ordinal="0" offset="0" sl="8" sc="0" el="8" ec="0" bec="0" bev="0" fileid="3" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663310</MetadataToken>
+              <Name>System.Int32 Tests.Slots.TestCardData::get_Attack()</Name>
+              <FileRef uid="3" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1018" ordinal="0" offset="0" sl="9" sc="0" el="9" ec="0" bec="0" bev="0" fileid="3" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="true">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663311</MetadataToken>
+              <Name>System.Void Tests.Slots.TestCardData::set_Attack(System.Int32)</Name>
+              <FileRef uid="3" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1019" ordinal="0" offset="0" sl="9" sc="0" el="9" ec="0" bec="0" bev="0" fileid="3" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663312</MetadataToken>
+              <Name>System.Int32 Tests.Slots.TestCardData::get_Defense()</Name>
+              <FileRef uid="3" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1020" ordinal="0" offset="0" sl="10" sc="0" el="10" ec="0" bec="0" bev="0" fileid="3" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="true">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663313</MetadataToken>
+              <Name>System.Void Tests.Slots.TestCardData::set_Defense(System.Int32)</Name>
+              <FileRef uid="3" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1021" ordinal="0" offset="0" sl="10" sc="0" el="10" ec="0" bec="0" bev="0" fileid="3" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663314</MetadataToken>
+              <Name>Tests.Slots.TestCardData::TestCardData()</Name>
+              <FileRef uid="3" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1022" ordinal="0" offset="0" sl="7" sc="44" el="7" ec="44" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="1023" ordinal="0" offset="11" sl="8" sc="41" el="8" ec="41" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="1024" ordinal="0" offset="18" sl="9" sc="43" el="9" ec="43" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="1025" ordinal="0" offset="25" sl="10" sc="44" el="10" ec="44" bec="0" bev="0" fileid="3" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="1" />
+          <FullName>Tests.Slots.CardSlotTests/&lt;&gt;c__DisplayClass3_0</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663316</MetadataToken>
+              <Name>System.Void Tests.Slots.CardSlotTests/&lt;&gt;c__DisplayClass3_0::&lt;OnCardChange&gt;b__0(CardGame.ICard)</Name>
+              <FileRef uid="1" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1026" ordinal="0" offset="0" sl="32" sc="0" el="32" ec="0" bec="0" bev="0" fileid="1" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+      </Classes>
+    </Module>
+    <Module>
+      <Summary numSequencePoints="429" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="26" visitedMethods="0" numMethods="117" />
+      <ModuleTime>0001-01-01T00:00:00</ModuleTime>
+      <ModuleName>Core</ModuleName>
+      <Files>
+        <File uid="4" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Scripts/Actions/Alert.cs" />
+        <File uid="5" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Scripts/Actions/DamageFromPile.cs" />
+        <File uid="6" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Scripts/Actions/DrawFromPile.cs" />
+        <File uid="7" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Scripts/Actions/PlayerActions/AdvancePhase.cs" />
+        <File uid="8" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Scripts/Actions/PlayerActions/AscendFromHand.cs" />
+        <File uid="9" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Scripts/Actions/PlayerActions/DeclareAttack.cs" />
+        <File uid="10" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Scripts/Actions/PlayerActions/DefendFromHand.cs" />
+        <File uid="11" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Scripts/Actions/SetPhase.cs" />
+        <File uid="12" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Scripts/Battle/Battle.cs" />
+        <File uid="13" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Scripts/Battle/BattlePhase.cs" />
+        <File uid="14" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Scripts/Battle/Card.cs" />
+        <File uid="15" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Scripts/Battle/CardData.cs" />
+        <File uid="16" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Scripts/Battle/CombatManager.cs" />
+        <File uid="17" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Scripts/Battle/Player.cs" />
+        <File uid="18" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Scripts/BattleManager.cs" />
+        <File uid="19" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Scripts/Client/BattleOverlayManager.cs" />
+        <File uid="20" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Scripts/Client/Display/CardDisplay.cs" />
+        <File uid="21" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Scripts/Client/Display/MultiCardSlotDisplay.cs" />
+        <File uid="22" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Scripts/Client/Display/PlayerDisplay.cs" />
+        <File uid="23" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Scripts/Client/Display/SingleCardSlotDisplay.cs" />
+        <File uid="24" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Scripts/Client/DisplayManager.cs" />
+        <File uid="25" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Scripts/Client/InputManager.cs" />
+        <File uid="26" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Scripts/Slots/CardSlot.cs" />
+        <File uid="27" fullPath="C:/Users/Valeriy/Documents/Projects/Project Card Game/Card Game/Assets/Scripts/Slots/MultiCardSlot.cs" />
+      </Files>
+      <Classes>
+        <Class>
+          <Summary numSequencePoints="10" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="3" />
+          <FullName>CardGame.Alert</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663298</MetadataToken>
+              <Name>System.Boolean CardGame.Alert::CanExecute(CardGame.Battle, CardGame.Player)</Name>
+              <FileRef uid="4" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1027" ordinal="0" offset="0" sl="13" sc="0" el="13" ec="0" bec="0" bev="0" fileid="4" />
+                <SequencePoint vc="0" uspid="1028" ordinal="0" offset="1" sl="14" sc="0" el="14" ec="0" bec="0" bev="0" fileid="4" />
+                <SequencePoint vc="0" uspid="1029" ordinal="0" offset="5" sl="15" sc="0" el="15" ec="0" bec="0" bev="0" fileid="4" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663299</MetadataToken>
+              <Name>System.Void CardGame.Alert::Execute(CardGame.Battle, CardGame.Player)</Name>
+              <FileRef uid="4" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1030" ordinal="0" offset="0" sl="18" sc="0" el="18" ec="0" bec="0" bev="0" fileid="4" />
+                <SequencePoint vc="0" uspid="1031" ordinal="0" offset="1" sl="19" sc="0" el="19" ec="0" bec="0" bev="0" fileid="4" />
+                <SequencePoint vc="0" uspid="1032" ordinal="0" offset="13" sl="20" sc="0" el="20" ec="0" bec="0" bev="0" fileid="4" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663297</MetadataToken>
+              <Name>CardGame.Alert::Alert(CardGame.CardSlot)</Name>
+              <FileRef uid="4" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1033" ordinal="0" offset="0" sl="7" sc="0" el="7" ec="0" bec="0" bev="0" fileid="4" />
+                <SequencePoint vc="0" uspid="1034" ordinal="0" offset="7" sl="8" sc="0" el="8" ec="0" bec="0" bev="0" fileid="4" />
+                <SequencePoint vc="0" uspid="1035" ordinal="0" offset="8" sl="9" sc="0" el="9" ec="0" bec="0" bev="0" fileid="4" />
+                <SequencePoint vc="0" uspid="1036" ordinal="0" offset="15" sl="10" sc="0" el="10" ec="0" bec="0" bev="0" fileid="4" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="6" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="2" />
+          <FullName>CardGame.DamageFromPile</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663300</MetadataToken>
+              <Name>System.Boolean CardGame.DamageFromPile::CanExecute(CardGame.Battle, CardGame.Player)</Name>
+              <FileRef uid="5" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1037" ordinal="0" offset="0" sl="6" sc="0" el="6" ec="0" bec="0" bev="0" fileid="5" />
+                <SequencePoint vc="0" uspid="1038" ordinal="0" offset="1" sl="7" sc="0" el="7" ec="0" bec="0" bev="0" fileid="5" />
+                <SequencePoint vc="0" uspid="1039" ordinal="0" offset="23" sl="8" sc="0" el="8" ec="0" bec="0" bev="0" fileid="5" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663301</MetadataToken>
+              <Name>System.Void CardGame.DamageFromPile::Execute(CardGame.Battle, CardGame.Player)</Name>
+              <FileRef uid="5" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1040" ordinal="0" offset="0" sl="11" sc="0" el="11" ec="0" bec="0" bev="0" fileid="5" />
+                <SequencePoint vc="0" uspid="1041" ordinal="0" offset="1" sl="12" sc="0" el="12" ec="0" bec="0" bev="0" fileid="5" />
+                <SequencePoint vc="0" uspid="1042" ordinal="0" offset="24" sl="13" sc="0" el="13" ec="0" bec="0" bev="0" fileid="5" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="6" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="2" />
+          <FullName>CardGame.DrawFromPile</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663303</MetadataToken>
+              <Name>System.Boolean CardGame.DrawFromPile::CanExecute(CardGame.Battle, CardGame.Player)</Name>
+              <FileRef uid="6" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1043" ordinal="0" offset="0" sl="6" sc="0" el="6" ec="0" bec="0" bev="0" fileid="6" />
+                <SequencePoint vc="0" uspid="1044" ordinal="0" offset="1" sl="7" sc="0" el="7" ec="0" bec="0" bev="0" fileid="6" />
+                <SequencePoint vc="0" uspid="1045" ordinal="0" offset="23" sl="8" sc="0" el="8" ec="0" bec="0" bev="0" fileid="6" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663304</MetadataToken>
+              <Name>System.Void CardGame.DrawFromPile::Execute(CardGame.Battle, CardGame.Player)</Name>
+              <FileRef uid="6" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1046" ordinal="0" offset="0" sl="11" sc="0" el="11" ec="0" bec="0" bev="0" fileid="6" />
+                <SequencePoint vc="0" uspid="1047" ordinal="0" offset="1" sl="12" sc="0" el="12" ec="0" bec="0" bev="0" fileid="6" />
+                <SequencePoint vc="0" uspid="1048" ordinal="0" offset="24" sl="13" sc="0" el="13" ec="0" bec="0" bev="0" fileid="6" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="6" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="2" />
+          <FullName>CardGame.AdvancePhase</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663308</MetadataToken>
+              <Name>System.Boolean CardGame.AdvancePhase::CanExecute(CardGame.Battle, CardGame.Player)</Name>
+              <FileRef uid="7" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1049" ordinal="0" offset="0" sl="6" sc="0" el="6" ec="0" bec="0" bev="0" fileid="7" />
+                <SequencePoint vc="0" uspid="1050" ordinal="0" offset="1" sl="7" sc="0" el="7" ec="0" bec="0" bev="0" fileid="7" />
+                <SequencePoint vc="0" uspid="1051" ordinal="0" offset="13" sl="8" sc="0" el="8" ec="0" bec="0" bev="0" fileid="7" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663309</MetadataToken>
+              <Name>System.Void CardGame.AdvancePhase::Execute(CardGame.Battle, CardGame.Player)</Name>
+              <FileRef uid="7" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1052" ordinal="0" offset="0" sl="11" sc="0" el="11" ec="0" bec="0" bev="0" fileid="7" />
+                <SequencePoint vc="0" uspid="1053" ordinal="0" offset="1" sl="12" sc="0" el="12" ec="0" bec="0" bev="0" fileid="7" />
+                <SequencePoint vc="0" uspid="1054" ordinal="0" offset="13" sl="13" sc="0" el="13" ec="0" bec="0" bev="0" fileid="7" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="12" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="3" />
+          <FullName>CardGame.AscendFromHand</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663312</MetadataToken>
+              <Name>System.Boolean CardGame.AscendFromHand::CanExecute(CardGame.Battle, CardGame.Player)</Name>
+              <FileRef uid="8" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1055" ordinal="0" offset="0" sl="13" sc="0" el="13" ec="0" bec="0" bev="0" fileid="8" />
+                <SequencePoint vc="0" uspid="1056" ordinal="0" offset="1" sl="14" sc="0" el="14" ec="0" bec="0" bev="0" fileid="8" />
+                <SequencePoint vc="0" uspid="1057" ordinal="0" offset="104" sl="18" sc="0" el="18" ec="0" bec="0" bev="0" fileid="8" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="5" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663313</MetadataToken>
+              <Name>System.Void CardGame.AscendFromHand::Execute(CardGame.Battle, CardGame.Player)</Name>
+              <FileRef uid="8" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1058" ordinal="0" offset="0" sl="21" sc="0" el="21" ec="0" bec="0" bev="0" fileid="8" />
+                <SequencePoint vc="0" uspid="1059" ordinal="0" offset="1" sl="22" sc="0" el="22" ec="0" bec="0" bev="0" fileid="8" />
+                <SequencePoint vc="0" uspid="1060" ordinal="0" offset="20" sl="23" sc="0" el="23" ec="0" bec="0" bev="0" fileid="8" />
+                <SequencePoint vc="0" uspid="1061" ordinal="0" offset="38" sl="24" sc="0" el="24" ec="0" bec="0" bev="0" fileid="8" />
+                <SequencePoint vc="0" uspid="1062" ordinal="0" offset="50" sl="25" sc="0" el="25" ec="0" bec="0" bev="0" fileid="8" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663311</MetadataToken>
+              <Name>CardGame.AscendFromHand::AscendFromHand(CardGame.ICard)</Name>
+              <FileRef uid="8" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1063" ordinal="0" offset="0" sl="7" sc="0" el="7" ec="0" bec="0" bev="0" fileid="8" />
+                <SequencePoint vc="0" uspid="1064" ordinal="0" offset="7" sl="8" sc="0" el="8" ec="0" bec="0" bev="0" fileid="8" />
+                <SequencePoint vc="0" uspid="1065" ordinal="0" offset="8" sl="9" sc="0" el="9" ec="0" bec="0" bev="0" fileid="8" />
+                <SequencePoint vc="0" uspid="1066" ordinal="0" offset="15" sl="10" sc="0" el="10" ec="0" bec="0" bev="0" fileid="8" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="10" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="3" />
+          <FullName>CardGame.DeclareAttack</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663315</MetadataToken>
+              <Name>System.Boolean CardGame.DeclareAttack::CanExecute(CardGame.Battle, CardGame.Player)</Name>
+              <FileRef uid="9" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1067" ordinal="0" offset="0" sl="13" sc="0" el="13" ec="0" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="0" uspid="1068" ordinal="0" offset="1" sl="14" sc="0" el="14" ec="0" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="0" uspid="1069" ordinal="0" offset="30" sl="15" sc="0" el="15" ec="0" bec="0" bev="0" fileid="9" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663316</MetadataToken>
+              <Name>System.Void CardGame.DeclareAttack::Execute(CardGame.Battle, CardGame.Player)</Name>
+              <FileRef uid="9" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1070" ordinal="0" offset="0" sl="18" sc="0" el="18" ec="0" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="0" uspid="1071" ordinal="0" offset="1" sl="19" sc="0" el="19" ec="0" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="0" uspid="1072" ordinal="0" offset="19" sl="20" sc="0" el="20" ec="0" bec="0" bev="0" fileid="9" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663314</MetadataToken>
+              <Name>CardGame.DeclareAttack::DeclareAttack(CardGame.CardSlot)</Name>
+              <FileRef uid="9" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1073" ordinal="0" offset="0" sl="7" sc="0" el="7" ec="0" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="0" uspid="1074" ordinal="0" offset="7" sl="8" sc="0" el="8" ec="0" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="0" uspid="1075" ordinal="0" offset="8" sl="9" sc="0" el="9" ec="0" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="0" uspid="1076" ordinal="0" offset="15" sl="10" sc="0" el="10" ec="0" bec="0" bev="0" fileid="9" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="11" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="3" />
+          <FullName>CardGame.DefendFromHand</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663318</MetadataToken>
+              <Name>System.Boolean CardGame.DefendFromHand::CanExecute(CardGame.Battle, CardGame.Player)</Name>
+              <FileRef uid="10" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1077" ordinal="0" offset="0" sl="13" sc="0" el="13" ec="0" bec="0" bev="0" fileid="10" />
+                <SequencePoint vc="0" uspid="1078" ordinal="0" offset="1" sl="14" sc="0" el="14" ec="0" bec="0" bev="0" fileid="10" />
+                <SequencePoint vc="0" uspid="1079" ordinal="0" offset="72" sl="15" sc="0" el="15" ec="0" bec="0" bev="0" fileid="10" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663319</MetadataToken>
+              <Name>System.Void CardGame.DefendFromHand::Execute(CardGame.Battle, CardGame.Player)</Name>
+              <FileRef uid="10" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1080" ordinal="0" offset="0" sl="18" sc="0" el="18" ec="0" bec="0" bev="0" fileid="10" />
+                <SequencePoint vc="0" uspid="1081" ordinal="0" offset="1" sl="19" sc="0" el="19" ec="0" bec="0" bev="0" fileid="10" />
+                <SequencePoint vc="0" uspid="1082" ordinal="0" offset="19" sl="20" sc="0" el="20" ec="0" bec="0" bev="0" fileid="10" />
+                <SequencePoint vc="0" uspid="1083" ordinal="0" offset="37" sl="21" sc="0" el="21" ec="0" bec="0" bev="0" fileid="10" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663317</MetadataToken>
+              <Name>CardGame.DefendFromHand::DefendFromHand(CardGame.ICard)</Name>
+              <FileRef uid="10" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1084" ordinal="0" offset="0" sl="7" sc="0" el="7" ec="0" bec="0" bev="0" fileid="10" />
+                <SequencePoint vc="0" uspid="1085" ordinal="0" offset="7" sl="8" sc="0" el="8" ec="0" bec="0" bev="0" fileid="10" />
+                <SequencePoint vc="0" uspid="1086" ordinal="0" offset="8" sl="9" sc="0" el="9" ec="0" bec="0" bev="0" fileid="10" />
+                <SequencePoint vc="0" uspid="1087" ordinal="0" offset="15" sl="10" sc="0" el="10" ec="0" bec="0" bev="0" fileid="10" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="10" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="3" />
+          <FullName>CardGame.SetPhase</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663321</MetadataToken>
+              <Name>System.Boolean CardGame.SetPhase::CanExecute(CardGame.Battle, CardGame.Player)</Name>
+              <FileRef uid="11" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1088" ordinal="0" offset="0" sl="15" sc="0" el="15" ec="0" bec="0" bev="0" fileid="11" />
+                <SequencePoint vc="0" uspid="1089" ordinal="0" offset="1" sl="16" sc="0" el="16" ec="0" bec="0" bev="0" fileid="11" />
+                <SequencePoint vc="0" uspid="1090" ordinal="0" offset="5" sl="17" sc="0" el="17" ec="0" bec="0" bev="0" fileid="11" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663322</MetadataToken>
+              <Name>System.Void CardGame.SetPhase::Execute(CardGame.Battle, CardGame.Player)</Name>
+              <FileRef uid="11" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1091" ordinal="0" offset="0" sl="20" sc="0" el="20" ec="0" bec="0" bev="0" fileid="11" />
+                <SequencePoint vc="0" uspid="1092" ordinal="0" offset="1" sl="21" sc="0" el="21" ec="0" bec="0" bev="0" fileid="11" />
+                <SequencePoint vc="0" uspid="1093" ordinal="0" offset="19" sl="22" sc="0" el="22" ec="0" bec="0" bev="0" fileid="11" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663320</MetadataToken>
+              <Name>CardGame.SetPhase::SetPhase(CardGame.BattlePhase)</Name>
+              <FileRef uid="11" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1094" ordinal="0" offset="0" sl="9" sc="0" el="9" ec="0" bec="0" bev="0" fileid="11" />
+                <SequencePoint vc="0" uspid="1095" ordinal="0" offset="7" sl="10" sc="0" el="10" ec="0" bec="0" bev="0" fileid="11" />
+                <SequencePoint vc="0" uspid="1096" ordinal="0" offset="8" sl="11" sc="0" el="11" ec="0" bec="0" bev="0" fileid="11" />
+                <SequencePoint vc="0" uspid="1097" ordinal="0" offset="15" sl="12" sc="0" el="12" ec="0" bec="0" bev="0" fileid="11" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="60" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="11" />
+          <FullName>CardGame.Battle</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663323</MetadataToken>
+              <Name>CardGame.Player CardGame.Battle::get_PriorityPlayer()</Name>
+              <FileRef uid="12" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1098" ordinal="0" offset="0" sl="7" sc="0" el="7" ec="0" bec="0" bev="0" fileid="12" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663324</MetadataToken>
+              <Name>CardGame.Player CardGame.Battle::get_AttackingPlayer()</Name>
+              <FileRef uid="12" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1099" ordinal="0" offset="0" sl="8" sc="0" el="8" ec="0" bec="0" bev="0" fileid="12" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663325</MetadataToken>
+              <Name>CardGame.Player CardGame.Battle::get_DefendingPlayer()</Name>
+              <FileRef uid="12" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1100" ordinal="0" offset="0" sl="9" sc="0" el="9" ec="0" bec="0" bev="0" fileid="12" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663326</MetadataToken>
+              <Name>System.Boolean CardGame.Battle::get_Player1Priority()</Name>
+              <FileRef uid="12" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1101" ordinal="0" offset="0" sl="10" sc="0" el="10" ec="0" bec="0" bev="0" fileid="12" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="true">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663327</MetadataToken>
+              <Name>System.Void CardGame.Battle::set_Player1Priority(System.Boolean)</Name>
+              <FileRef uid="12" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1102" ordinal="0" offset="0" sl="10" sc="0" el="10" ec="0" bec="0" bev="0" fileid="12" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="6" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663329</MetadataToken>
+              <Name>System.Void CardGame.Battle::SetupPlayer(CardGame.Player)</Name>
+              <FileRef uid="12" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1103" ordinal="0" offset="0" sl="70" sc="0" el="70" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1104" ordinal="0" offset="1" sl="72" sc="0" el="72" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1105" ordinal="0" offset="5" sl="72" sc="0" el="72" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1106" ordinal="0" offset="18" sl="72" sc="0" el="72" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1107" ordinal="0" offset="22" sl="72" sc="0" el="72" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1108" ordinal="0" offset="30" sl="73" sc="0" el="73" ec="0" bec="0" bev="0" fileid="12" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663330</MetadataToken>
+              <Name>System.Void CardGame.Battle::Execute(CardGame.IAction, CardGame.Player)</Name>
+              <FileRef uid="12" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1109" ordinal="0" offset="0" sl="76" sc="0" el="76" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1110" ordinal="0" offset="1" sl="77" sc="0" el="77" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1111" ordinal="0" offset="13" sl="78" sc="0" el="78" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1112" ordinal="0" offset="22" sl="79" sc="0" el="79" ec="0" bec="0" bev="0" fileid="12" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663331</MetadataToken>
+              <Name>System.Void CardGame.Battle::Execute(CardGame.IAction)</Name>
+              <FileRef uid="12" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1113" ordinal="0" offset="0" sl="82" sc="0" el="82" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1114" ordinal="0" offset="1" sl="83" sc="0" el="83" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1115" ordinal="0" offset="15" sl="84" sc="0" el="84" ec="0" bec="0" bev="0" fileid="12" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663332</MetadataToken>
+              <Name>System.Void CardGame.Battle::&lt;.ctor&gt;b__15_0()</Name>
+              <FileRef uid="12" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1116" ordinal="0" offset="0" sl="26" sc="0" el="26" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1117" ordinal="0" offset="1" sl="27" sc="0" el="27" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1118" ordinal="0" offset="16" sl="28" sc="0" el="28" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1119" ordinal="0" offset="29" sl="29" sc="0" el="29" ec="0" bec="0" bev="0" fileid="12" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="25" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663333</MetadataToken>
+              <Name>System.Void CardGame.Battle::&lt;.ctor&gt;b__15_1(CardGame.BattlePhase)</Name>
+              <FileRef uid="12" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1120" ordinal="0" offset="0" sl="35" sc="0" el="35" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1121" ordinal="0" offset="1" sl="36" sc="0" el="36" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1122" ordinal="0" offset="44" sl="39" sc="0" el="39" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1123" ordinal="0" offset="67" sl="40" sc="0" el="40" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1124" ordinal="0" offset="72" sl="42" sc="0" el="42" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1125" ordinal="0" offset="84" sl="43" sc="0" el="43" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1126" ordinal="0" offset="89" sl="45" sc="0" el="45" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1127" ordinal="0" offset="107" sl="46" sc="0" el="46" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1128" ordinal="0" offset="108" sl="47" sc="0" el="47" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1129" ordinal="0" offset="119" sl="49" sc="0" el="49" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1130" ordinal="0" offset="136" sl="50" sc="0" el="50" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1131" ordinal="0" offset="139" sl="52" sc="0" el="52" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1132" ordinal="0" offset="155" sl="53" sc="0" el="53" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1133" ordinal="0" offset="157" sl="55" sc="0" el="55" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1134" ordinal="0" offset="170" sl="56" sc="0" el="56" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1135" ordinal="0" offset="193" sl="57" sc="0" el="57" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1136" ordinal="0" offset="197" sl="58" sc="0" el="58" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1137" ordinal="0" offset="198" sl="59" sc="0" el="59" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1138" ordinal="0" offset="216" sl="60" sc="0" el="60" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1139" ordinal="0" offset="217" sl="57" sc="0" el="57" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1140" ordinal="0" offset="221" sl="57" sc="0" el="57" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1141" ordinal="0" offset="241" sl="61" sc="0" el="61" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1142" ordinal="0" offset="243" sl="63" sc="0" el="63" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1143" ordinal="0" offset="266" sl="64" sc="0" el="64" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1144" ordinal="0" offset="268" sl="66" sc="0" el="66" ec="0" bec="0" bev="0" fileid="12" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="13" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663328</MetadataToken>
+              <Name>CardGame.Battle::Battle(CardGame.Player, CardGame.Player)</Name>
+              <FileRef uid="12" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1145" ordinal="0" offset="0" sl="10" sc="0" el="10" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1146" ordinal="0" offset="7" sl="15" sc="0" el="15" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1147" ordinal="0" offset="14" sl="17" sc="0" el="17" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1148" ordinal="0" offset="21" sl="18" sc="0" el="18" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1149" ordinal="0" offset="22" sl="19" sc="0" el="19" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1150" ordinal="0" offset="29" sl="20" sc="0" el="20" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1151" ordinal="0" offset="36" sl="22" sc="0" el="22" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1152" ordinal="0" offset="47" sl="24" sc="0" el="24" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1153" ordinal="0" offset="58" sl="25" sc="0" el="25" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1154" ordinal="0" offset="82" sl="31" sc="0" el="31" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1155" ordinal="0" offset="90" sl="32" sc="0" el="32" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1156" ordinal="0" offset="98" sl="34" sc="0" el="34" ec="0" bec="0" bev="0" fileid="12" />
+                <SequencePoint vc="0" uspid="1157" ordinal="0" offset="122" sl="67" sc="0" el="67" ec="0" bec="0" bev="0" fileid="12" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="36" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="10" />
+          <FullName>CardGame.BattlePhaseManager</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663334</MetadataToken>
+              <Name>CardGame.BattlePhase CardGame.BattlePhaseManager::get_Value()</Name>
+              <FileRef uid="13" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1158" ordinal="0" offset="0" sl="23" sc="0" el="23" ec="0" bec="0" bev="0" fileid="13" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="true">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663335</MetadataToken>
+              <Name>System.Void CardGame.BattlePhaseManager::set_Value(CardGame.BattlePhase)</Name>
+              <FileRef uid="13" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1159" ordinal="0" offset="0" sl="23" sc="0" el="23" ec="0" bec="0" bev="0" fileid="13" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="6" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663340</MetadataToken>
+              <Name>System.Void CardGame.BattlePhaseManager::Set(CardGame.BattlePhase)</Name>
+              <FileRef uid="13" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1160" ordinal="0" offset="0" sl="28" sc="0" el="28" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1161" ordinal="0" offset="1" sl="29" sc="0" el="29" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1162" ordinal="0" offset="14" sl="29" sc="0" el="29" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1163" ordinal="0" offset="32" sl="30" sc="0" el="30" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1164" ordinal="0" offset="40" sl="32" sc="0" el="32" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1165" ordinal="0" offset="64" sl="33" sc="0" el="33" ec="0" bec="0" bev="0" fileid="13" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="11" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663341</MetadataToken>
+              <Name>System.Void CardGame.BattlePhaseManager::Advance()</Name>
+              <FileRef uid="13" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1166" ordinal="0" offset="0" sl="36" sc="0" el="36" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1167" ordinal="0" offset="1" sl="39" sc="0" el="39" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1168" ordinal="0" offset="18" sl="40" sc="0" el="40" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1169" ordinal="0" offset="19" sl="41" sc="0" el="41" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1170" ordinal="0" offset="31" sl="42" sc="0" el="42" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1171" ordinal="0" offset="49" sl="43" sc="0" el="43" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1172" ordinal="0" offset="52" sl="45" sc="0" el="45" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1173" ordinal="0" offset="53" sl="46" sc="0" el="46" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1174" ordinal="0" offset="70" sl="47" sc="0" el="47" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1175" ordinal="0" offset="71" sl="49" sc="0" el="49" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1176" ordinal="0" offset="95" sl="50" sc="0" el="50" ec="0" bec="0" bev="0" fileid="13" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663342</MetadataToken>
+              <Name>System.Boolean CardGame.BattlePhaseManager::Equals(CardGame.BattlePhase)</Name>
+              <FileRef uid="13" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1177" ordinal="0" offset="0" sl="53" sc="0" el="53" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1178" ordinal="0" offset="1" sl="54" sc="0" el="54" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1179" ordinal="0" offset="13" sl="55" sc="0" el="55" ec="0" bec="0" bev="0" fileid="13" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="true" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663343</MetadataToken>
+              <Name>static System.Boolean CardGame.BattlePhaseManager::operator==(CardGame.BattlePhaseManager, CardGame.BattlePhase)</Name>
+              <FileRef uid="13" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1180" ordinal="0" offset="0" sl="58" sc="0" el="58" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1181" ordinal="0" offset="1" sl="59" sc="0" el="59" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1182" ordinal="0" offset="11" sl="60" sc="0" el="60" ec="0" bec="0" bev="0" fileid="13" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="true" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663344</MetadataToken>
+              <Name>static System.Boolean CardGame.BattlePhaseManager::operator!=(CardGame.BattlePhaseManager, CardGame.BattlePhase)</Name>
+              <FileRef uid="13" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1183" ordinal="0" offset="0" sl="63" sc="0" el="63" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1184" ordinal="0" offset="1" sl="64" sc="0" el="64" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1185" ordinal="0" offset="14" sl="65" sc="0" el="65" ec="0" bec="0" bev="0" fileid="13" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663345</MetadataToken>
+              <Name>System.Boolean CardGame.BattlePhaseManager::Equals(System.Object)</Name>
+              <FileRef uid="13" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1186" ordinal="0" offset="0" sl="68" sc="0" el="68" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1187" ordinal="0" offset="1" sl="69" sc="0" el="69" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1188" ordinal="0" offset="16" sl="70" sc="0" el="70" ec="0" bec="0" bev="0" fileid="13" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663346</MetadataToken>
+              <Name>System.Int32 CardGame.BattlePhaseManager::GetHashCode()</Name>
+              <FileRef uid="13" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1189" ordinal="0" offset="0" sl="73" sc="0" el="73" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1190" ordinal="0" offset="1" sl="74" sc="0" el="74" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1191" ordinal="0" offset="10" sl="75" sc="0" el="75" ec="0" bec="0" bev="0" fileid="13" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="true" isStatic="true" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="2" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663348</MetadataToken>
+              <Name>static CardGame.BattlePhaseManager::BattlePhaseManager()</Name>
+              <FileRef uid="13" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1192" ordinal="0" offset="0" sl="21" sc="0" el="21" ec="0" bec="0" bev="0" fileid="13" />
+                <SequencePoint vc="0" uspid="1193" ordinal="0" offset="30" sl="22" sc="0" el="22" ec="0" bec="0" bev="0" fileid="13" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="5" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="2" />
+          <FullName>CardGame.Card</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663349</MetadataToken>
+              <Name>CardGame.ICardData CardGame.Card::get_Data()</Name>
+              <FileRef uid="14" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1194" ordinal="0" offset="0" sl="5" sc="33" el="5" ec="33" bec="0" bev="0" fileid="14" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663350</MetadataToken>
+              <Name>CardGame.Card::Card(CardGame.ICardData)</Name>
+              <FileRef uid="14" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1195" ordinal="0" offset="0" sl="7" sc="9" el="7" ec="9" bec="0" bev="0" fileid="14" />
+                <SequencePoint vc="0" uspid="1196" ordinal="0" offset="7" sl="8" sc="9" el="8" ec="9" bec="0" bev="0" fileid="14" />
+                <SequencePoint vc="0" uspid="1197" ordinal="0" offset="8" sl="9" sc="13" el="9" ec="13" bec="0" bev="0" fileid="14" />
+                <SequencePoint vc="0" uspid="1198" ordinal="0" offset="15" sl="10" sc="9" el="10" ec="9" bec="0" bev="0" fileid="14" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="8" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="8" />
+          <FullName>CardGame.CardData</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663351</MetadataToken>
+              <Name>System.String CardGame.CardData::get_Name()</Name>
+              <FileRef uid="15" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1199" ordinal="0" offset="0" sl="8" sc="0" el="8" ec="0" bec="0" bev="0" fileid="15" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="true">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663352</MetadataToken>
+              <Name>System.Void CardGame.CardData::set_Name(System.String)</Name>
+              <FileRef uid="15" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1200" ordinal="0" offset="0" sl="8" sc="0" el="8" ec="0" bec="0" bev="0" fileid="15" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663353</MetadataToken>
+              <Name>System.Int32 CardGame.CardData::get_Attack()</Name>
+              <FileRef uid="15" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1201" ordinal="0" offset="0" sl="9" sc="0" el="9" ec="0" bec="0" bev="0" fileid="15" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="true">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663354</MetadataToken>
+              <Name>System.Void CardGame.CardData::set_Attack(System.Int32)</Name>
+              <FileRef uid="15" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1202" ordinal="0" offset="0" sl="9" sc="0" el="9" ec="0" bec="0" bev="0" fileid="15" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663355</MetadataToken>
+              <Name>System.Int32 CardGame.CardData::get_Defense()</Name>
+              <FileRef uid="15" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1203" ordinal="0" offset="0" sl="10" sc="0" el="10" ec="0" bec="0" bev="0" fileid="15" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="true">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663356</MetadataToken>
+              <Name>System.Void CardGame.CardData::set_Defense(System.Int32)</Name>
+              <FileRef uid="15" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1204" ordinal="0" offset="0" sl="10" sc="0" el="10" ec="0" bec="0" bev="0" fileid="15" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663357</MetadataToken>
+              <Name>System.Int32 CardGame.CardData::get_Tier()</Name>
+              <FileRef uid="15" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1205" ordinal="0" offset="0" sl="11" sc="0" el="11" ec="0" bec="0" bev="0" fileid="15" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="true">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663358</MetadataToken>
+              <Name>System.Void CardGame.CardData::set_Tier(System.Int32)</Name>
+              <FileRef uid="15" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1206" ordinal="0" offset="0" sl="11" sc="0" el="11" ec="0" bec="0" bev="0" fileid="15" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="27" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="7" />
+          <FullName>CardGame.CombatManager</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663360</MetadataToken>
+              <Name>System.Boolean CardGame.CombatManager::get_ValidAttack()</Name>
+              <FileRef uid="16" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1207" ordinal="0" offset="0" sl="7" sc="0" el="7" ec="0" bec="0" bev="0" fileid="16" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663361</MetadataToken>
+              <Name>System.Void CardGame.CombatManager::AddAttacker(CardGame.CardSlot)</Name>
+              <FileRef uid="16" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1208" ordinal="0" offset="0" sl="14" sc="0" el="14" ec="0" bec="0" bev="0" fileid="16" />
+                <SequencePoint vc="0" uspid="1209" ordinal="0" offset="1" sl="15" sc="0" el="15" ec="0" bec="0" bev="0" fileid="16" />
+                <SequencePoint vc="0" uspid="1210" ordinal="0" offset="8" sl="16" sc="0" el="16" ec="0" bec="0" bev="0" fileid="16" />
+                <SequencePoint vc="0" uspid="1211" ordinal="0" offset="15" sl="17" sc="0" el="17" ec="0" bec="0" bev="0" fileid="16" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663362</MetadataToken>
+              <Name>System.Void CardGame.CombatManager::AddTarget(CardGame.CardSlot)</Name>
+              <FileRef uid="16" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1212" ordinal="0" offset="0" sl="20" sc="0" el="20" ec="0" bec="0" bev="0" fileid="16" />
+                <SequencePoint vc="0" uspid="1213" ordinal="0" offset="1" sl="21" sc="0" el="21" ec="0" bec="0" bev="0" fileid="16" />
+                <SequencePoint vc="0" uspid="1214" ordinal="0" offset="8" sl="22" sc="0" el="22" ec="0" bec="0" bev="0" fileid="16" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663363</MetadataToken>
+              <Name>System.Void CardGame.CombatManager::AddDefender(CardGame.ICard)</Name>
+              <FileRef uid="16" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1215" ordinal="0" offset="0" sl="25" sc="0" el="25" ec="0" bec="0" bev="0" fileid="16" />
+                <SequencePoint vc="0" uspid="1216" ordinal="0" offset="1" sl="26" sc="0" el="26" ec="0" bec="0" bev="0" fileid="16" />
+                <SequencePoint vc="0" uspid="1217" ordinal="0" offset="14" sl="27" sc="0" el="27" ec="0" bec="0" bev="0" fileid="16" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="9" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663364</MetadataToken>
+              <Name>System.Void CardGame.CombatManager::Reset(CardGame.MultiCardSlot)</Name>
+              <FileRef uid="16" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1218" ordinal="0" offset="0" sl="30" sc="0" el="30" ec="0" bec="0" bev="0" fileid="16" />
+                <SequencePoint vc="0" uspid="1219" ordinal="0" offset="1" sl="31" sc="0" el="31" ec="0" bec="0" bev="0" fileid="16" />
+                <SequencePoint vc="0" uspid="1220" ordinal="0" offset="8" sl="32" sc="0" el="32" ec="0" bec="0" bev="0" fileid="16" />
+                <SequencePoint vc="0" uspid="1221" ordinal="0" offset="9" sl="32" sc="0" el="32" ec="0" bec="0" bev="0" fileid="16" />
+                <SequencePoint vc="0" uspid="1222" ordinal="0" offset="28" sl="32" sc="0" el="32" ec="0" bec="0" bev="0" fileid="16" />
+                <SequencePoint vc="0" uspid="1223" ordinal="0" offset="36" sl="32" sc="0" el="32" ec="0" bec="0" bev="0" fileid="16" />
+                <SequencePoint vc="0" uspid="1224" ordinal="0" offset="44" sl="32" sc="0" el="32" ec="0" bec="0" bev="0" fileid="16" />
+                <SequencePoint vc="0" uspid="1225" ordinal="0" offset="70" sl="33" sc="0" el="33" ec="0" bec="0" bev="0" fileid="16" />
+                <SequencePoint vc="0" uspid="1226" ordinal="0" offset="82" sl="34" sc="0" el="34" ec="0" bec="0" bev="0" fileid="16" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="5" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663365</MetadataToken>
+              <Name>System.Int32 CardGame.CombatManager::DamageCount()</Name>
+              <FileRef uid="16" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1227" ordinal="0" offset="0" sl="37" sc="0" el="37" ec="0" bec="0" bev="0" fileid="16" />
+                <SequencePoint vc="0" uspid="1228" ordinal="0" offset="1" sl="38" sc="0" el="38" ec="0" bec="0" bev="0" fileid="16" />
+                <SequencePoint vc="0" uspid="1229" ordinal="0" offset="23" sl="39" sc="0" el="39" ec="0" bec="0" bev="0" fileid="16" />
+                <SequencePoint vc="0" uspid="1230" ordinal="0" offset="71" sl="40" sc="0" el="40" ec="0" bec="0" bev="0" fileid="16" />
+                <SequencePoint vc="0" uspid="1231" ordinal="0" offset="109" sl="41" sc="0" el="41" ec="0" bec="0" bev="0" fileid="16" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="2" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663366</MetadataToken>
+              <Name>CardGame.CombatManager::CombatManager()</Name>
+              <FileRef uid="16" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1232" ordinal="0" offset="0" sl="8" sc="0" el="8" ec="0" bec="0" bev="0" fileid="16" />
+                <SequencePoint vc="0" uspid="1233" ordinal="0" offset="12" sl="11" sc="0" el="11" ec="0" bec="0" bev="0" fileid="16" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="13" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="6" />
+          <FullName>CardGame.Player</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663372</MetadataToken>
+              <Name>CardGame.CardSlot CardGame.Player::get_Champion()</Name>
+              <FileRef uid="17" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1234" ordinal="0" offset="0" sl="7" sc="0" el="7" ec="0" bec="0" bev="0" fileid="17" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663373</MetadataToken>
+              <Name>CardGame.MultiCardSlot CardGame.Player::get_Pile()</Name>
+              <FileRef uid="17" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1235" ordinal="0" offset="0" sl="8" sc="0" el="8" ec="0" bec="0" bev="0" fileid="17" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663374</MetadataToken>
+              <Name>CardGame.MultiCardSlot CardGame.Player::get_Hand()</Name>
+              <FileRef uid="17" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1236" ordinal="0" offset="0" sl="9" sc="0" el="9" ec="0" bec="0" bev="0" fileid="17" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663375</MetadataToken>
+              <Name>CardGame.MultiCardSlot CardGame.Player::get_Graveyard()</Name>
+              <FileRef uid="17" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1237" ordinal="0" offset="0" sl="10" sc="0" el="10" ec="0" bec="0" bev="0" fileid="17" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663376</MetadataToken>
+              <Name>CardGame.MultiCardSlot CardGame.Player::get_Damage()</Name>
+              <FileRef uid="17" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1238" ordinal="0" offset="0" sl="11" sc="0" el="11" ec="0" bec="0" bev="0" fileid="17" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="8" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663377</MetadataToken>
+              <Name>CardGame.Player::Player(System.Collections.Generic.List[ICard], CardGame.ICard)</Name>
+              <FileRef uid="17" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1239" ordinal="0" offset="0" sl="9" sc="0" el="9" ec="0" bec="0" bev="0" fileid="17" />
+                <SequencePoint vc="0" uspid="1240" ordinal="0" offset="12" sl="10" sc="0" el="10" ec="0" bec="0" bev="0" fileid="17" />
+                <SequencePoint vc="0" uspid="1241" ordinal="0" offset="24" sl="11" sc="0" el="11" ec="0" bec="0" bev="0" fileid="17" />
+                <SequencePoint vc="0" uspid="1242" ordinal="0" offset="36" sl="13" sc="0" el="13" ec="0" bec="0" bev="0" fileid="17" />
+                <SequencePoint vc="0" uspid="1243" ordinal="0" offset="43" sl="14" sc="0" el="14" ec="0" bec="0" bev="0" fileid="17" />
+                <SequencePoint vc="0" uspid="1244" ordinal="0" offset="44" sl="15" sc="0" el="15" ec="0" bec="0" bev="0" fileid="17" />
+                <SequencePoint vc="0" uspid="1245" ordinal="0" offset="56" sl="16" sc="0" el="16" ec="0" bec="0" bev="0" fileid="17" />
+                <SequencePoint vc="0" uspid="1246" ordinal="0" offset="68" sl="17" sc="0" el="17" ec="0" bec="0" bev="0" fileid="17" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="20" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="3" />
+          <FullName>CardGame.BattleManager</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="6" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663378</MetadataToken>
+              <Name>System.Void CardGame.BattleManager::Awake()</Name>
+              <FileRef uid="18" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1247" ordinal="0" offset="0" sl="18" sc="0" el="18" ec="0" bec="0" bev="0" fileid="18" />
+                <SequencePoint vc="0" uspid="1248" ordinal="0" offset="1" sl="19" sc="0" el="19" ec="0" bec="0" bev="0" fileid="18" />
+                <SequencePoint vc="0" uspid="1249" ordinal="0" offset="29" sl="20" sc="0" el="20" ec="0" bec="0" bev="0" fileid="18" />
+                <SequencePoint vc="0" uspid="1250" ordinal="0" offset="57" sl="21" sc="0" el="21" ec="0" bec="0" bev="0" fileid="18" />
+                <SequencePoint vc="0" uspid="1251" ordinal="0" offset="80" sl="24" sc="0" el="24" ec="0" bec="0" bev="0" fileid="18" />
+                <SequencePoint vc="0" uspid="1252" ordinal="0" offset="98" sl="25" sc="0" el="25" ec="0" bec="0" bev="0" fileid="18" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663379</MetadataToken>
+              <Name>System.Void CardGame.BattleManager::Update()</Name>
+              <FileRef uid="18" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1253" ordinal="0" offset="0" sl="28" sc="0" el="28" ec="0" bec="0" bev="0" fileid="18" />
+                <SequencePoint vc="0" uspid="1254" ordinal="0" offset="1" sl="29" sc="0" el="29" ec="0" bec="0" bev="0" fileid="18" />
+                <SequencePoint vc="0" uspid="1255" ordinal="0" offset="15" sl="30" sc="0" el="30" ec="0" bec="0" bev="0" fileid="18" />
+                <SequencePoint vc="0" uspid="1256" ordinal="0" offset="32" sl="31" sc="0" el="31" ec="0" bec="0" bev="0" fileid="18" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="10" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663380</MetadataToken>
+              <Name>System.Collections.Generic.List[ICard] CardGame.BattleManager::CreateTestPile()</Name>
+              <FileRef uid="18" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1257" ordinal="0" offset="0" sl="34" sc="0" el="34" ec="0" bec="0" bev="0" fileid="18" />
+                <SequencePoint vc="0" uspid="1258" ordinal="0" offset="1" sl="35" sc="0" el="35" ec="0" bec="0" bev="0" fileid="18" />
+                <SequencePoint vc="0" uspid="1259" ordinal="0" offset="7" sl="37" sc="0" el="37" ec="0" bec="0" bev="0" fileid="18" />
+                <SequencePoint vc="0" uspid="1260" ordinal="0" offset="11" sl="38" sc="0" el="38" ec="0" bec="0" bev="0" fileid="18" />
+                <SequencePoint vc="0" uspid="1261" ordinal="0" offset="12" sl="39" sc="0" el="39" ec="0" bec="0" bev="0" fileid="18" />
+                <SequencePoint vc="0" uspid="1262" ordinal="0" offset="60" sl="40" sc="0" el="40" ec="0" bec="0" bev="0" fileid="18" />
+                <SequencePoint vc="0" uspid="1263" ordinal="0" offset="61" sl="37" sc="0" el="37" ec="0" bec="0" bev="0" fileid="18" />
+                <SequencePoint vc="0" uspid="1264" ordinal="0" offset="65" sl="37" sc="0" el="37" ec="0" bec="0" bev="0" fileid="18" />
+                <SequencePoint vc="0" uspid="1265" ordinal="0" offset="74" sl="42" sc="0" el="42" ec="0" bec="0" bev="0" fileid="18" />
+                <SequencePoint vc="0" uspid="1266" ordinal="0" offset="78" sl="43" sc="0" el="43" ec="0" bec="0" bev="0" fileid="18" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="14" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="5" />
+          <FullName>CardGame.BattleOverlayManager</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663382</MetadataToken>
+              <Name>System.Void CardGame.BattleOverlayManager::Start()</Name>
+              <FileRef uid="19" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1267" ordinal="0" offset="0" sl="14" sc="0" el="14" ec="0" bec="0" bev="0" fileid="19" />
+                <SequencePoint vc="0" uspid="1268" ordinal="0" offset="1" sl="15" sc="0" el="15" ec="0" bec="0" bev="0" fileid="19" />
+                <SequencePoint vc="0" uspid="1269" ordinal="0" offset="35" sl="17" sc="0" el="17" ec="0" bec="0" bev="0" fileid="19" />
+                <SequencePoint vc="0" uspid="1270" ordinal="0" offset="79" sl="18" sc="0" el="18" ec="0" bec="0" bev="0" fileid="19" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663383</MetadataToken>
+              <Name>System.Void CardGame.BattleOverlayManager::NextPhaseButton()</Name>
+              <FileRef uid="19" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1271" ordinal="0" offset="0" sl="21" sc="0" el="21" ec="0" bec="0" bev="0" fileid="19" />
+                <SequencePoint vc="0" uspid="1272" ordinal="0" offset="1" sl="22" sc="0" el="22" ec="0" bec="0" bev="0" fileid="19" />
+                <SequencePoint vc="0" uspid="1273" ordinal="0" offset="23" sl="23" sc="0" el="23" ec="0" bec="0" bev="0" fileid="19" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663384</MetadataToken>
+              <Name>System.Void CardGame.BattleOverlayManager::UpdatePhaseText(CardGame.BattlePhase, System.Boolean)</Name>
+              <FileRef uid="19" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1274" ordinal="0" offset="0" sl="26" sc="0" el="26" ec="0" bec="0" bev="0" fileid="19" />
+                <SequencePoint vc="0" uspid="1275" ordinal="0" offset="1" sl="27" sc="0" el="27" ec="0" bec="0" bev="0" fileid="19" />
+                <SequencePoint vc="0" uspid="1276" ordinal="0" offset="26" sl="28" sc="0" el="28" ec="0" bec="0" bev="0" fileid="19" />
+                <SequencePoint vc="0" uspid="1277" ordinal="0" offset="55" sl="29" sc="0" el="29" ec="0" bec="0" bev="0" fileid="19" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663386</MetadataToken>
+              <Name>System.Void CardGame.BattleOverlayManager::&lt;Start&gt;b__4_0(CardGame.BattlePhase)</Name>
+              <FileRef uid="19" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1278" ordinal="0" offset="0" sl="16" sc="0" el="16" ec="0" bec="0" bev="0" fileid="19" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="2" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663385</MetadataToken>
+              <Name>CardGame.BattleOverlayManager::BattleOverlayManager()</Name>
+              <FileRef uid="19" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1279" ordinal="0" offset="0" sl="10" sc="26" el="10" ec="26" bec="0" bev="0" fileid="19" />
+                <SequencePoint vc="0" uspid="1280" ordinal="0" offset="11" sl="11" sc="26" el="11" ec="26" bec="0" bev="0" fileid="19" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="9" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="4" />
+          <FullName>CardGame.CardDisplay</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663387</MetadataToken>
+              <Name>CardGame.ICard CardGame.CardDisplay::get_Card()</Name>
+              <FileRef uid="20" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1281" ordinal="0" offset="0" sl="13" sc="0" el="13" ec="0" bec="0" bev="0" fileid="20" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="true">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663388</MetadataToken>
+              <Name>System.Void CardGame.CardDisplay::set_Card(CardGame.ICard)</Name>
+              <FileRef uid="20" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1282" ordinal="0" offset="0" sl="13" sc="0" el="13" ec="0" bec="0" bev="0" fileid="20" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="6" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663389</MetadataToken>
+              <Name>System.Void CardGame.CardDisplay::Show(CardGame.ICard)</Name>
+              <FileRef uid="20" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1283" ordinal="0" offset="0" sl="16" sc="0" el="16" ec="0" bec="0" bev="0" fileid="20" />
+                <SequencePoint vc="0" uspid="1284" ordinal="0" offset="1" sl="17" sc="0" el="17" ec="0" bec="0" bev="0" fileid="20" />
+                <SequencePoint vc="0" uspid="1285" ordinal="0" offset="9" sl="18" sc="0" el="18" ec="0" bec="0" bev="0" fileid="20" />
+                <SequencePoint vc="0" uspid="1286" ordinal="0" offset="32" sl="19" sc="0" el="19" ec="0" bec="0" bev="0" fileid="20" />
+                <SequencePoint vc="0" uspid="1287" ordinal="0" offset="73" sl="20" sc="0" el="20" ec="0" bec="0" bev="0" fileid="20" />
+                <SequencePoint vc="0" uspid="1288" ordinal="0" offset="114" sl="21" sc="0" el="21" ec="0" bec="0" bev="0" fileid="20" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="true" isStatic="true" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663391</MetadataToken>
+              <Name>static CardGame.CardDisplay::CardDisplay()</Name>
+              <FileRef uid="20" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1289" ordinal="0" offset="0" sl="8" sc="9" el="8" ec="9" bec="0" bev="0" fileid="20" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="40" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="10" />
+          <FullName>CardGame.MultiCardSlotDisplay</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663394</MetadataToken>
+              <Name>CardGame.ISlot CardGame.MultiCardSlotDisplay::get_Slot()</Name>
+              <FileRef uid="21" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1290" ordinal="0" offset="0" sl="13" sc="0" el="13" ec="0" bec="0" bev="0" fileid="21" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="true">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663395</MetadataToken>
+              <Name>System.Void CardGame.MultiCardSlotDisplay::set_Slot(CardGame.ISlot)</Name>
+              <FileRef uid="21" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1291" ordinal="0" offset="0" sl="13" sc="0" el="13" ec="0" bec="0" bev="0" fileid="21" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663396</MetadataToken>
+              <Name>CardGame.Player CardGame.MultiCardSlotDisplay::get_Owner()</Name>
+              <FileRef uid="21" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1292" ordinal="0" offset="0" sl="14" sc="0" el="14" ec="0" bec="0" bev="0" fileid="21" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="true">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663397</MetadataToken>
+              <Name>System.Void CardGame.MultiCardSlotDisplay::set_Owner(CardGame.Player)</Name>
+              <FileRef uid="21" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1293" ordinal="0" offset="0" sl="14" sc="0" el="14" ec="0" bec="0" bev="0" fileid="21" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663398</MetadataToken>
+              <Name>System.Void CardGame.MultiCardSlotDisplay::Awake()</Name>
+              <FileRef uid="21" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1294" ordinal="0" offset="0" sl="17" sc="0" el="17" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1295" ordinal="0" offset="1" sl="18" sc="0" el="18" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1296" ordinal="0" offset="13" sl="19" sc="0" el="19" ec="0" bec="0" bev="0" fileid="21" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="11" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663399</MetadataToken>
+              <Name>System.Void CardGame.MultiCardSlotDisplay::Setup(CardGame.MultiCardSlot, CardGame.Player)</Name>
+              <FileRef uid="21" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1297" ordinal="0" offset="0" sl="22" sc="0" el="22" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1298" ordinal="0" offset="1" sl="23" sc="0" el="23" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1299" ordinal="0" offset="9" sl="24" sc="0" el="24" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1300" ordinal="0" offset="17" sl="25" sc="0" el="25" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1301" ordinal="0" offset="36" sl="26" sc="0" el="26" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1302" ordinal="0" offset="55" sl="27" sc="0" el="27" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1303" ordinal="0" offset="56" sl="27" sc="0" el="27" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1304" ordinal="0" offset="70" sl="27" sc="0" el="27" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1305" ordinal="0" offset="78" sl="27" sc="0" el="27" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1306" ordinal="0" offset="86" sl="27" sc="0" el="27" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1307" ordinal="0" offset="112" sl="28" sc="0" el="28" ec="0" bec="0" bev="0" fileid="21" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="5" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663400</MetadataToken>
+              <Name>System.Void CardGame.MultiCardSlotDisplay::SlotOnOnRemove(CardGame.ICard)</Name>
+              <FileRef uid="21" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1308" ordinal="0" offset="0" sl="31" sc="0" el="31" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1309" ordinal="0" offset="1" sl="32" sc="0" el="32" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1310" ordinal="0" offset="24" sl="33" sc="0" el="33" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1311" ordinal="0" offset="37" sl="35" sc="0" el="35" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1312" ordinal="0" offset="44" sl="36" sc="0" el="36" ec="0" bec="0" bev="0" fileid="21" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="6" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663401</MetadataToken>
+              <Name>System.Void CardGame.MultiCardSlotDisplay::SlotOnOnAdd(CardGame.ICard)</Name>
+              <FileRef uid="21" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1313" ordinal="0" offset="0" sl="39" sc="0" el="39" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1314" ordinal="0" offset="1" sl="40" sc="0" el="40" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1315" ordinal="0" offset="19" sl="41" sc="0" el="41" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1316" ordinal="0" offset="27" sl="42" sc="0" el="42" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1317" ordinal="0" offset="41" sl="44" sc="0" el="44" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1318" ordinal="0" offset="48" sl="45" sc="0" el="45" ec="0" bec="0" bev="0" fileid="21" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="10" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663402</MetadataToken>
+              <Name>System.Void CardGame.MultiCardSlotDisplay::Reposition()</Name>
+              <FileRef uid="21" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1319" ordinal="0" offset="0" sl="48" sc="0" el="48" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1320" ordinal="0" offset="1" sl="49" sc="0" el="49" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1321" ordinal="0" offset="13" sl="50" sc="0" el="50" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1322" ordinal="0" offset="39" sl="51" sc="0" el="51" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1323" ordinal="0" offset="89" sl="52" sc="0" el="52" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1324" ordinal="0" offset="106" sl="53" sc="0" el="53" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1325" ordinal="0" offset="110" sl="53" sc="0" el="53" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1326" ordinal="0" offset="148" sl="53" sc="0" el="53" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1327" ordinal="0" offset="152" sl="53" sc="0" el="53" ec="0" bec="0" bev="0" fileid="21" />
+                <SequencePoint vc="0" uspid="1328" ordinal="0" offset="162" sl="54" sc="0" el="54" ec="0" bec="0" bev="0" fileid="21" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663403</MetadataToken>
+              <Name>CardGame.MultiCardSlotDisplay::MultiCardSlotDisplay()</Name>
+              <FileRef uid="21" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1329" ordinal="0" offset="0" sl="12" sc="9" el="12" ec="9" bec="0" bev="0" fileid="21" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="5" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="1" />
+          <FullName>CardGame.PlayerDisplay</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="5" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663404</MetadataToken>
+              <Name>System.Void CardGame.PlayerDisplay::Setup(CardGame.Player)</Name>
+              <FileRef uid="22" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1330" ordinal="0" offset="0" sl="12" sc="0" el="12" ec="0" bec="0" bev="0" fileid="22" />
+                <SequencePoint vc="0" uspid="1331" ordinal="0" offset="1" sl="13" sc="0" el="13" ec="0" bec="0" bev="0" fileid="22" />
+                <SequencePoint vc="0" uspid="1332" ordinal="0" offset="20" sl="14" sc="0" el="14" ec="0" bec="0" bev="0" fileid="22" />
+                <SequencePoint vc="0" uspid="1333" ordinal="0" offset="39" sl="15" sc="0" el="15" ec="0" bec="0" bev="0" fileid="22" />
+                <SequencePoint vc="0" uspid="1334" ordinal="0" offset="58" sl="16" sc="0" el="16" ec="0" bec="0" bev="0" fileid="22" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="28" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="9" />
+          <FullName>CardGame.SingleCardSlotDisplay</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663406</MetadataToken>
+              <Name>CardGame.ISlot CardGame.SingleCardSlotDisplay::get_Slot()</Name>
+              <FileRef uid="23" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1335" ordinal="0" offset="0" sl="12" sc="0" el="12" ec="0" bec="0" bev="0" fileid="23" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="true">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663407</MetadataToken>
+              <Name>System.Void CardGame.SingleCardSlotDisplay::set_Slot(CardGame.ISlot)</Name>
+              <FileRef uid="23" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1336" ordinal="0" offset="0" sl="12" sc="0" el="12" ec="0" bec="0" bev="0" fileid="23" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663408</MetadataToken>
+              <Name>CardGame.Player CardGame.SingleCardSlotDisplay::get_Owner()</Name>
+              <FileRef uid="23" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1337" ordinal="0" offset="0" sl="13" sc="0" el="13" ec="0" bec="0" bev="0" fileid="23" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="true">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663409</MetadataToken>
+              <Name>System.Void CardGame.SingleCardSlotDisplay::set_Owner(CardGame.Player)</Name>
+              <FileRef uid="23" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1338" ordinal="0" offset="0" sl="13" sc="0" el="13" ec="0" bec="0" bev="0" fileid="23" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663410</MetadataToken>
+              <Name>System.Void CardGame.SingleCardSlotDisplay::Awake()</Name>
+              <FileRef uid="23" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1339" ordinal="0" offset="0" sl="16" sc="0" el="16" ec="0" bec="0" bev="0" fileid="23" />
+                <SequencePoint vc="0" uspid="1340" ordinal="0" offset="1" sl="17" sc="0" el="17" ec="0" bec="0" bev="0" fileid="23" />
+                <SequencePoint vc="0" uspid="1341" ordinal="0" offset="13" sl="18" sc="0" el="18" ec="0" bec="0" bev="0" fileid="23" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="8" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663411</MetadataToken>
+              <Name>System.Void CardGame.SingleCardSlotDisplay::Setup(CardGame.CardSlot, CardGame.Player)</Name>
+              <FileRef uid="23" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1342" ordinal="0" offset="20" sl="21" sc="0" el="21" ec="0" bec="0" bev="0" fileid="23" />
+                <SequencePoint vc="0" uspid="1343" ordinal="0" offset="21" sl="22" sc="0" el="22" ec="0" bec="0" bev="0" fileid="23" />
+                <SequencePoint vc="0" uspid="1344" ordinal="0" offset="29" sl="23" sc="0" el="23" ec="0" bec="0" bev="0" fileid="23" />
+                <SequencePoint vc="0" uspid="1345" ordinal="0" offset="42" sl="24" sc="0" el="24" ec="0" bec="0" bev="0" fileid="23" />
+                <SequencePoint vc="0" uspid="1346" ordinal="0" offset="66" sl="25" sc="0" el="25" ec="0" bec="0" bev="0" fileid="23" />
+                <SequencePoint vc="0" uspid="1347" ordinal="0" offset="90" sl="26" sc="0" el="26" ec="0" bec="0" bev="0" fileid="23" />
+                <SequencePoint vc="0" uspid="1348" ordinal="0" offset="114" sl="28" sc="0" el="28" ec="0" bec="0" bev="0" fileid="23" />
+                <SequencePoint vc="0" uspid="1349" ordinal="0" offset="143" sl="29" sc="0" el="29" ec="0" bec="0" bev="0" fileid="23" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663412</MetadataToken>
+              <Name>System.Void CardGame.SingleCardSlotDisplay::SlotOnOnAlert()</Name>
+              <FileRef uid="23" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1350" ordinal="0" offset="0" sl="32" sc="0" el="32" ec="0" bec="0" bev="0" fileid="23" />
+                <SequencePoint vc="0" uspid="1351" ordinal="0" offset="1" sl="33" sc="0" el="33" ec="0" bec="0" bev="0" fileid="23" />
+                <SequencePoint vc="0" uspid="1352" ordinal="0" offset="24" sl="34" sc="0" el="34" ec="0" bec="0" bev="0" fileid="23" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663413</MetadataToken>
+              <Name>System.Void CardGame.SingleCardSlotDisplay::SlotOnOnExhaust()</Name>
+              <FileRef uid="23" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1353" ordinal="0" offset="0" sl="37" sc="0" el="37" ec="0" bec="0" bev="0" fileid="23" />
+                <SequencePoint vc="0" uspid="1354" ordinal="0" offset="1" sl="38" sc="0" el="38" ec="0" bec="0" bev="0" fileid="23" />
+                <SequencePoint vc="0" uspid="1355" ordinal="0" offset="24" sl="39" sc="0" el="39" ec="0" bec="0" bev="0" fileid="23" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="7" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663414</MetadataToken>
+              <Name>System.Void CardGame.SingleCardSlotDisplay::SlotOnOnChange(CardGame.ICard, System.Boolean)</Name>
+              <FileRef uid="23" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1356" ordinal="0" offset="0" sl="42" sc="0" el="42" ec="0" bec="0" bev="0" fileid="23" />
+                <SequencePoint vc="0" uspid="1357" ordinal="0" offset="1" sl="43" sc="0" el="43" ec="0" bec="0" bev="0" fileid="23" />
+                <SequencePoint vc="0" uspid="1358" ordinal="0" offset="46" sl="44" sc="0" el="44" ec="0" bec="0" bev="0" fileid="23" />
+                <SequencePoint vc="0" uspid="1359" ordinal="0" offset="54" sl="45" sc="0" el="45" ec="0" bec="0" bev="0" fileid="23" />
+                <SequencePoint vc="0" uspid="1360" ordinal="0" offset="69" sl="47" sc="0" el="47" ec="0" bec="0" bev="0" fileid="23" />
+                <SequencePoint vc="0" uspid="1361" ordinal="0" offset="86" sl="48" sc="0" el="48" ec="0" bec="0" bev="0" fileid="23" />
+                <SequencePoint vc="0" uspid="1362" ordinal="0" offset="102" sl="49" sc="0" el="49" ec="0" bec="0" bev="0" fileid="23" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="5" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="1" />
+          <FullName>CardGame.DisplayManager</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="5" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663416</MetadataToken>
+              <Name>System.Void CardGame.DisplayManager::Setup(CardGame.Battle)</Name>
+              <FileRef uid="24" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1363" ordinal="0" offset="0" sl="12" sc="0" el="12" ec="0" bec="0" bev="0" fileid="24" />
+                <SequencePoint vc="0" uspid="1364" ordinal="0" offset="1" sl="13" sc="0" el="13" ec="0" bec="0" bev="0" fileid="24" />
+                <SequencePoint vc="0" uspid="1365" ordinal="0" offset="19" sl="14" sc="0" el="14" ec="0" bec="0" bev="0" fileid="24" />
+                <SequencePoint vc="0" uspid="1366" ordinal="0" offset="37" sl="15" sc="0" el="15" ec="0" bec="0" bev="0" fileid="24" />
+                <SequencePoint vc="0" uspid="1367" ordinal="0" offset="61" sl="16" sc="0" el="16" ec="0" bec="0" bev="0" fileid="24" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="35" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="3" />
+          <FullName>CardGame.InputManager</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="23" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663418</MetadataToken>
+              <Name>System.Void CardGame.InputManager::Update()</Name>
+              <FileRef uid="25" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1368" ordinal="0" offset="0" sl="12" sc="0" el="12" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1369" ordinal="0" offset="1" sl="13" sc="0" el="13" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1370" ordinal="0" offset="14" sl="14" sc="0" el="14" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1371" ordinal="0" offset="15" sl="15" sc="0" el="15" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1372" ordinal="0" offset="22" sl="16" sc="0" el="16" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1373" ordinal="0" offset="29" sl="17" sc="0" el="17" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1374" ordinal="0" offset="39" sl="17" sc="0" el="17" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1375" ordinal="0" offset="44" sl="22" sc="0" el="22" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1376" ordinal="0" offset="56" sl="23" sc="0" el="23" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1377" ordinal="0" offset="69" sl="24" sc="0" el="24" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1378" ordinal="0" offset="129" sl="25" sc="0" el="25" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1379" ordinal="0" offset="130" sl="26" sc="0" el="26" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1380" ordinal="0" offset="159" sl="27" sc="0" el="27" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1381" ordinal="0" offset="165" sl="27" sc="0" el="27" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1382" ordinal="0" offset="221" sl="28" sc="0" el="28" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1383" ordinal="0" offset="222" sl="29" sc="0" el="29" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1384" ordinal="0" offset="250" sl="30" sc="0" el="30" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1385" ordinal="0" offset="253" sl="30" sc="0" el="30" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1386" ordinal="0" offset="309" sl="32" sc="0" el="32" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1387" ordinal="0" offset="310" sl="33" sc="0" el="33" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1388" ordinal="0" offset="338" sl="34" sc="0" el="34" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1389" ordinal="0" offset="339" sl="35" sc="0" el="35" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1390" ordinal="0" offset="340" sl="36" sc="0" el="36" ec="0" bec="0" bev="0" fileid="25" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="6" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663419</MetadataToken>
+              <Name>CardGame.CardDisplay CardGame.InputManager::RaycastCard()</Name>
+              <FileRef uid="25" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1391" ordinal="0" offset="0" sl="39" sc="0" el="39" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1392" ordinal="0" offset="1" sl="40" sc="0" el="40" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1393" ordinal="0" offset="17" sl="42" sc="0" el="42" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1394" ordinal="0" offset="45" sl="43" sc="0" el="43" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1395" ordinal="0" offset="60" sl="44" sc="0" el="44" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1396" ordinal="0" offset="64" sl="45" sc="0" el="45" ec="0" bec="0" bev="0" fileid="25" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="6" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663420</MetadataToken>
+              <Name>CardGame.ICardSlotDisplay CardGame.InputManager::RaycastSlot()</Name>
+              <FileRef uid="25" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1397" ordinal="0" offset="0" sl="48" sc="0" el="48" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1398" ordinal="0" offset="1" sl="49" sc="0" el="49" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1399" ordinal="0" offset="17" sl="51" sc="0" el="51" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1400" ordinal="0" offset="45" sl="52" sc="0" el="52" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1401" ordinal="0" offset="60" sl="53" sc="0" el="53" ec="0" bec="0" bev="0" fileid="25" />
+                <SequencePoint vc="0" uspid="1402" ordinal="0" offset="64" sl="54" sc="0" el="54" ec="0" bec="0" bev="0" fileid="25" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="25" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="9" />
+          <FullName>CardGame.CardSlot</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663422</MetadataToken>
+              <Name>CardGame.ICard CardGame.CardSlot::get_Card()</Name>
+              <FileRef uid="26" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1403" ordinal="0" offset="0" sl="7" sc="0" el="7" ec="0" bec="0" bev="0" fileid="26" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="true">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663423</MetadataToken>
+              <Name>System.Void CardGame.CardSlot::set_Card(CardGame.ICard)</Name>
+              <FileRef uid="26" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1404" ordinal="0" offset="0" sl="7" sc="0" el="7" ec="0" bec="0" bev="0" fileid="26" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663424</MetadataToken>
+              <Name>System.Boolean CardGame.CardSlot::get_Exhausted()</Name>
+              <FileRef uid="26" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1405" ordinal="0" offset="0" sl="8" sc="0" el="8" ec="0" bec="0" bev="0" fileid="26" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="true">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663425</MetadataToken>
+              <Name>System.Void CardGame.CardSlot::set_Exhausted(System.Boolean)</Name>
+              <FileRef uid="26" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1406" ordinal="0" offset="0" sl="8" sc="0" el="8" ec="0" bec="0" bev="0" fileid="26" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663433</MetadataToken>
+              <Name>System.Void CardGame.CardSlot::Exhaust()</Name>
+              <FileRef uid="26" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1407" ordinal="0" offset="0" sl="19" sc="0" el="19" ec="0" bec="0" bev="0" fileid="26" />
+                <SequencePoint vc="0" uspid="1408" ordinal="0" offset="1" sl="20" sc="0" el="20" ec="0" bec="0" bev="0" fileid="26" />
+                <SequencePoint vc="0" uspid="1409" ordinal="0" offset="9" sl="21" sc="0" el="21" ec="0" bec="0" bev="0" fileid="26" />
+                <SequencePoint vc="0" uspid="1410" ordinal="0" offset="27" sl="22" sc="0" el="22" ec="0" bec="0" bev="0" fileid="26" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663434</MetadataToken>
+              <Name>System.Void CardGame.CardSlot::Alert()</Name>
+              <FileRef uid="26" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1411" ordinal="0" offset="0" sl="25" sc="0" el="25" ec="0" bec="0" bev="0" fileid="26" />
+                <SequencePoint vc="0" uspid="1412" ordinal="0" offset="1" sl="26" sc="0" el="26" ec="0" bec="0" bev="0" fileid="26" />
+                <SequencePoint vc="0" uspid="1413" ordinal="0" offset="9" sl="27" sc="0" el="27" ec="0" bec="0" bev="0" fileid="26" />
+                <SequencePoint vc="0" uspid="1414" ordinal="0" offset="27" sl="28" sc="0" el="28" ec="0" bec="0" bev="0" fileid="26" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="5" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663435</MetadataToken>
+              <Name>System.Void CardGame.CardSlot::SetCard(CardGame.ICard, System.Boolean)</Name>
+              <FileRef uid="26" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1415" ordinal="0" offset="0" sl="31" sc="0" el="31" ec="0" bec="0" bev="0" fileid="26" />
+                <SequencePoint vc="0" uspid="1416" ordinal="0" offset="1" sl="32" sc="0" el="32" ec="0" bec="0" bev="0" fileid="26" />
+                <SequencePoint vc="0" uspid="1417" ordinal="0" offset="9" sl="33" sc="0" el="33" ec="0" bec="0" bev="0" fileid="26" />
+                <SequencePoint vc="0" uspid="1418" ordinal="0" offset="17" sl="34" sc="0" el="34" ec="0" bec="0" bev="0" fileid="26" />
+                <SequencePoint vc="0" uspid="1419" ordinal="0" offset="41" sl="35" sc="0" el="35" ec="0" bec="0" bev="0" fileid="26" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663436</MetadataToken>
+              <Name>System.Void CardGame.CardSlot::ClearCard()</Name>
+              <FileRef uid="26" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1420" ordinal="0" offset="0" sl="38" sc="0" el="38" ec="0" bec="0" bev="0" fileid="26" />
+                <SequencePoint vc="0" uspid="1421" ordinal="0" offset="1" sl="39" sc="0" el="39" ec="0" bec="0" bev="0" fileid="26" />
+                <SequencePoint vc="0" uspid="1422" ordinal="0" offset="9" sl="40" sc="0" el="40" ec="0" bec="0" bev="0" fileid="26" />
+                <SequencePoint vc="0" uspid="1423" ordinal="0" offset="28" sl="41" sc="0" el="41" ec="0" bec="0" bev="0" fileid="26" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663432</MetadataToken>
+              <Name>CardGame.CardSlot::CardSlot(CardGame.ICard)</Name>
+              <FileRef uid="26" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1424" ordinal="0" offset="0" sl="13" sc="0" el="13" ec="0" bec="0" bev="0" fileid="26" />
+                <SequencePoint vc="0" uspid="1425" ordinal="0" offset="7" sl="14" sc="0" el="14" ec="0" bec="0" bev="0" fileid="26" />
+                <SequencePoint vc="0" uspid="1426" ordinal="0" offset="8" sl="15" sc="0" el="15" ec="0" bec="0" bev="0" fileid="26" />
+                <SequencePoint vc="0" uspid="1427" ordinal="0" offset="16" sl="16" sc="0" el="16" ec="0" bec="0" bev="0" fileid="26" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="26" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="5" />
+          <FullName>CardGame.MultiCardSlot</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663442</MetadataToken>
+              <Name>System.Void CardGame.MultiCardSlot::AddCard(CardGame.ICard)</Name>
+              <FileRef uid="27" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1428" ordinal="0" offset="0" sl="18" sc="0" el="18" ec="0" bec="0" bev="0" fileid="27" />
+                <SequencePoint vc="0" uspid="1429" ordinal="0" offset="1" sl="19" sc="0" el="19" ec="0" bec="0" bev="0" fileid="27" />
+                <SequencePoint vc="0" uspid="1430" ordinal="0" offset="14" sl="20" sc="0" el="20" ec="0" bec="0" bev="0" fileid="27" />
+                <SequencePoint vc="0" uspid="1431" ordinal="0" offset="33" sl="21" sc="0" el="21" ec="0" bec="0" bev="0" fileid="27" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663443</MetadataToken>
+              <Name>System.Void CardGame.MultiCardSlot::RemoveCard(CardGame.ICard)</Name>
+              <FileRef uid="27" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1432" ordinal="0" offset="0" sl="24" sc="0" el="24" ec="0" bec="0" bev="0" fileid="27" />
+                <SequencePoint vc="0" uspid="1433" ordinal="0" offset="1" sl="25" sc="0" el="25" ec="0" bec="0" bev="0" fileid="27" />
+                <SequencePoint vc="0" uspid="1434" ordinal="0" offset="14" sl="26" sc="0" el="26" ec="0" bec="0" bev="0" fileid="27" />
+                <SequencePoint vc="0" uspid="1435" ordinal="0" offset="33" sl="27" sc="0" el="27" ec="0" bec="0" bev="0" fileid="27" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="6" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663444</MetadataToken>
+              <Name>System.Void CardGame.MultiCardSlot::Clear()</Name>
+              <FileRef uid="27" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1436" ordinal="0" offset="0" sl="30" sc="0" el="30" ec="0" bec="0" bev="0" fileid="27" />
+                <SequencePoint vc="0" uspid="1437" ordinal="0" offset="1" sl="31" sc="0" el="31" ec="0" bec="0" bev="0" fileid="27" />
+                <SequencePoint vc="0" uspid="1438" ordinal="0" offset="17" sl="31" sc="0" el="31" ec="0" bec="0" bev="0" fileid="27" />
+                <SequencePoint vc="0" uspid="1439" ordinal="0" offset="36" sl="31" sc="0" el="31" ec="0" bec="0" bev="0" fileid="27" />
+                <SequencePoint vc="0" uspid="1440" ordinal="0" offset="40" sl="31" sc="0" el="31" ec="0" bec="0" bev="0" fileid="27" />
+                <SequencePoint vc="0" uspid="1441" ordinal="0" offset="51" sl="32" sc="0" el="32" ec="0" bec="0" bev="0" fileid="27" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="8" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663445</MetadataToken>
+              <Name>CardGame.ICard CardGame.MultiCardSlot::PopCard()</Name>
+              <FileRef uid="27" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1442" ordinal="0" offset="0" sl="35" sc="0" el="35" ec="0" bec="0" bev="0" fileid="27" />
+                <SequencePoint vc="0" uspid="1443" ordinal="0" offset="1" sl="36" sc="0" el="36" ec="0" bec="0" bev="0" fileid="27" />
+                <SequencePoint vc="0" uspid="1444" ordinal="0" offset="19" sl="36" sc="0" el="36" ec="0" bec="0" bev="0" fileid="27" />
+                <SequencePoint vc="0" uspid="1445" ordinal="0" offset="23" sl="38" sc="0" el="38" ec="0" bec="0" bev="0" fileid="27" />
+                <SequencePoint vc="0" uspid="1446" ordinal="0" offset="36" sl="39" sc="0" el="39" ec="0" bec="0" bev="0" fileid="27" />
+                <SequencePoint vc="0" uspid="1447" ordinal="0" offset="49" sl="40" sc="0" el="40" ec="0" bec="0" bev="0" fileid="27" />
+                <SequencePoint vc="0" uspid="1448" ordinal="0" offset="68" sl="41" sc="0" el="41" ec="0" bec="0" bev="0" fileid="27" />
+                <SequencePoint vc="0" uspid="1449" ordinal="0" offset="72" sl="42" sc="0" el="42" ec="0" bec="0" bev="0" fileid="27" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663441</MetadataToken>
+              <Name>CardGame.MultiCardSlot::MultiCardSlot(System.Collections.Generic.List[ICard])</Name>
+              <FileRef uid="27" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1450" ordinal="0" offset="0" sl="12" sc="0" el="12" ec="0" bec="0" bev="0" fileid="27" />
+                <SequencePoint vc="0" uspid="1451" ordinal="0" offset="7" sl="13" sc="0" el="13" ec="0" bec="0" bev="0" fileid="27" />
+                <SequencePoint vc="0" uspid="1452" ordinal="0" offset="8" sl="14" sc="0" el="14" ec="0" bec="0" bev="0" fileid="27" />
+                <SequencePoint vc="0" uspid="1453" ordinal="0" offset="24" sl="15" sc="0" el="15" ec="0" bec="0" bev="0" fileid="27" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="1" />
+          <FullName>CardGame.CombatManager/&lt;&gt;c</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663448</MetadataToken>
+              <Name>System.Int32 CardGame.CombatManager/&lt;&gt;c::&lt;DamageCount&gt;b__10_0(CardGame.ICard)</Name>
+              <FileRef uid="16" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1454" ordinal="0" offset="0" sl="39" sc="0" el="39" ec="0" bec="0" bev="0" fileid="16" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="1" visitedMethods="0" numMethods="1" />
+          <FullName>CardGame.SingleCardSlotDisplay/&lt;&gt;c__DisplayClass14_0</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663450</MetadataToken>
+              <Name>System.Void CardGame.SingleCardSlotDisplay/&lt;&gt;c__DisplayClass14_0::&lt;Setup&gt;b__0(CardGame.ICard)</Name>
+              <FileRef uid="23" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="1455" ordinal="0" offset="0" sl="24" sc="0" el="24" ec="0" bec="0" bev="0" fileid="23" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+      </Classes>
+    </Module>
+  </Modules>
+</CoverageSession>

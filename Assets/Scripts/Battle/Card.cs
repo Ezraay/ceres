@@ -4,7 +4,7 @@ namespace CardGame
     {
         public ICardData Data { get; }
 
-        public Card(CardData data)
+        public Card(ICardData data)
         {
             Data = data;
         }

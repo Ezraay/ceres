@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CoverageReport scope="Summary">
+  <Summary>
+    <Generatedon>12/15/2022 - 3:37:54 PM</Generatedon>
+    <Parser>MultiReportParser (2x OpenCoverParser)</Parser>
+    <Assemblies>2</Assemblies>
+    <Classes>27</Classes>
+    <Files>27</Files>
+    <Coveredlines>77</Coveredlines>
+    <Uncoveredlines>353</Uncoveredlines>
+    <Coverablelines>430</Coverablelines>
+    <Totallines>891</Totallines>
+    <Linecoverage>17.9</Linecoverage>
+    <Coveredbranches>0</Coveredbranches>
+    <Totalbranches>0</Totalbranches>
+    <Coveredmethods>31</Coveredmethods>
+    <Totalmethods>130</Totalmethods>
+    <Methodcoverage>23.8</Methodcoverage>
+  </Summary>
+  <Coverage>
+    <Assembly name="Core" classes="24" coverage="8" coveredlines="31" coverablelines="384" totallines="798" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="13" totalmethods="112" methodcoverage="11.6">
+      <Class name="CardGame.AdvancePhase" coverage="0" coveredlines="0" coverablelines="6" totallines="15" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
+      <Class name="CardGame.Alert" coverage="0" coveredlines="0" coverablelines="10" totallines="22" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
+      <Class name="CardGame.AscendFromHand" coverage="0" coveredlines="0" coverablelines="12" totallines="27" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
+      <Class name="CardGame.Battle" coverage="0" coveredlines="0" coverablelines="53" totallines="86" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="9" methodcoverage="0" />
+      <Class name="CardGame.BattleManager" coverage="0" coveredlines="0" coverablelines="18" totallines="45" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
+      <Class name="CardGame.BattleOverlayManager" coverage="14.2" coveredlines="2" coverablelines="14" totallines="31" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="4" methodcoverage="25" />
+      <Class name="CardGame.BattlePhaseManager" coverage="0" coveredlines="0" coverablelines="34" totallines="77" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="10" methodcoverage="0" />
+      <Class name="CardGame.Card" coverage="100" coveredlines="5" coverablelines="5" totallines="12" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="CardGame.CardData" coverage="0" coveredlines="0" coverablelines="4" totallines="13" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="8" methodcoverage="0" />
+      <Class name="CardGame.CardDisplay" coverage="0" coveredlines="0" coverablelines="8" totallines="23" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="4" methodcoverage="0" />
+      <Class name="CardGame.CardSlot" coverage="100" coveredlines="23" coverablelines="23" totallines="43" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="9" totalmethods="9" methodcoverage="100" />
+      <Class name="CardGame.CombatManager" coverage="0" coveredlines="0" coverablelines="23" totallines="43" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="7" methodcoverage="0" />
+      <Class name="CardGame.DamageFromPile" coverage="0" coveredlines="0" coverablelines="6" totallines="15" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
+      <Class name="CardGame.DeclareAttack" coverage="0" coveredlines="0" coverablelines="10" totallines="22" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
+      <Class name="CardGame.DefendFromHand" coverage="0" coveredlines="0" coverablelines="11" totallines="23" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
+      <Class name="CardGame.DisplayManager" coverage="0" coveredlines="0" coverablelines="5" totallines="18" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="1" methodcoverage="0" />
+      <Class name="CardGame.DrawFromPile" coverage="0" coveredlines="0" coverablelines="6" totallines="15" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
+      <Class name="CardGame.InputManager" coverage="0" coveredlines="0" coverablelines="32" totallines="56" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
+      <Class name="CardGame.MultiCardSlot" coverage="0" coveredlines="0" coverablelines="22" totallines="44" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="5" methodcoverage="0" />
+      <Class name="CardGame.MultiCardSlotDisplay" coverage="3.2" coveredlines="1" coverablelines="31" totallines="56" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="10" methodcoverage="10" />
+      <Class name="CardGame.Player" coverage="0" coveredlines="0" coverablelines="10" totallines="19" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="6" methodcoverage="0" />
+      <Class name="CardGame.PlayerDisplay" coverage="0" coveredlines="0" coverablelines="5" totallines="18" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="1" methodcoverage="0" />
+      <Class name="CardGame.SetPhase" coverage="0" coveredlines="0" coverablelines="10" totallines="24" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
+      <Class name="CardGame.SingleCardSlotDisplay" coverage="0" coveredlines="0" coverablelines="26" totallines="51" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="9" methodcoverage="0" />
+    </Assembly>
+    <Assembly name="Tests" classes="3" coverage="100" coveredlines="46" coverablelines="46" totallines="93" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="18" totalmethods="18" methodcoverage="100">
+      <Class name="Tests.Slots.CardSlotTests" coverage="100" coveredlines="37" coverablelines="37" totallines="64" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="7" totalmethods="7" methodcoverage="100" />
+      <Class name="Tests.Slots.CardTests" coverage="100" coveredlines="5" coverablelines="5" totallines="17" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="Tests.Slots.TestCardData" coverage="100" coveredlines="4" coverablelines="4" totallines="12" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="9" totalmethods="9" methodcoverage="100" />
+    </Assembly>
+  </Coverage>
+</CoverageReport>

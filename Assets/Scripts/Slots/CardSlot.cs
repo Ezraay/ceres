@@ -33,5 +33,11 @@ namespace CardGame
             Exhausted = exhausted;
             OnChange?.Invoke(Card);
         }
+
+        public void ClearCard()
+        {
+            Card = null;
+            OnChange?.Invoke(null);
+        }
     }
 }
