@@ -27,6 +27,8 @@ namespace CardGame
         {
             if (Input.GetKeyDown(KeyCode.F1))
                 Battle.Execute(new AdvancePhase());
+
+            Battle.Tick();
         }
 
         private List<ICard> CreateTestPile()

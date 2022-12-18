@@ -9,7 +9,7 @@
 
         public void Execute(Battle battle, Player player)
         {
-            battle.Phase.Advance();
+            battle.BattlePhaseManager.Advance();
         }
     }
 }
