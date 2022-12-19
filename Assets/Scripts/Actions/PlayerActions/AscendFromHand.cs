@@ -11,7 +11,9 @@
 
         public bool CanExecute(Battle battle, Player player)
         {
-            return battle.BattlePhaseManager.Phase == BattlePhase.Ascend && (
+            return battle.BattlePhaseManager.Phase == BattlePhase.Ascend && 
+                   player.Hand.Cards.Contains(card) && 
+                   player == battle.AttackingPlayer && (
                 card.Data.Tier == player.Champion.Card.Data.Tier || 
                 card.Data.Tier == player.Champion.Card.Data.Tier + 1
                 ); 

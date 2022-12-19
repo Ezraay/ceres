@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Tests.Slots;
 
-namespace Tests.Battle
+namespace Tests
 {
     public class CardTests
     {

@@ -2,9 +2,8 @@
 using System.Linq;
 using CardGame;
 using NUnit.Framework;
-using UnityEngine.UI;
 
-namespace Tests.Battle
+namespace Tests
 {
     public class BattlePhaseManagerTests
     {

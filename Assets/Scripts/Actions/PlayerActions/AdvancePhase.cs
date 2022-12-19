@@ -1,4 +1,6 @@
-﻿namespace CardGame
+﻿using UnityEngine;
+
+namespace CardGame
 {
     public class AdvancePhase : IAction
     {

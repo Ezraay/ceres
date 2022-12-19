@@ -29,9 +29,6 @@ namespace CardGame
                 Player1Priority = player1Turn;
             };
 
-            SetupPlayer(player1);
-            SetupPlayer(player2);
-
             BattlePhaseManager.OnPhaseExit += phase =>
             {
                 switch (phase)
@@ -64,12 +61,6 @@ namespace CardGame
                         break;
                 }
             };
-        }
-
-        private void SetupPlayer(Player player)
-        {
-            // TODO: Move this to the Player class
-            for (int i = 0; i < 6; i++) Execute(new DrawFromPile(), player);
         }
 
         public void Execute(IAction action, Player author)
