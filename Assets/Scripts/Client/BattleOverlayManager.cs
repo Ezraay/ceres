@@ -12,9 +12,9 @@ namespace CardGame
 
         private void Start()
         {
-            battleManager.Battle.Phase.OnPhaseEnter +=
+            battleManager.Battle.BattlePhaseManager.OnPhaseEnter +=
                 phase => UpdatePhaseText(phase, battleManager.Battle.Player1Priority);
-            UpdatePhaseText(battleManager.Battle.Phase.Value, battleManager.Battle.Player1Priority);
+            UpdatePhaseText(battleManager.Battle.BattlePhaseManager.Phase, battleManager.Battle.Player1Priority);
         }
 
         public void NextPhaseButton()

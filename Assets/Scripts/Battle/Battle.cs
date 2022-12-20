@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
 
 namespace CardGame
 {
@@ -9,10 +9,11 @@ namespace CardGame
         public Player DefendingPlayer => player1Turn ? Player2 : Player1;
         public bool Player1Priority { get; private set; } = true;
         public readonly CombatManager CombatManager;
-        public readonly BattlePhaseManager Phase;
+        public readonly BattlePhaseManager BattlePhaseManager;
         public readonly Player Player1;
         public readonly Player Player2;
         private bool player1Turn = true;
+        private List<(IAction, Player)> actionQueue = new List<(IAction, Player)>();
 
         public Battle(Player player1, Player player2)
         {
@@ -21,8 +22,8 @@ namespace CardGame
 
             CombatManager = new CombatManager();
 
-            Phase = new BattlePhaseManager();
-            Phase.OnTurnEnd += () =>
+            BattlePhaseManager = new BattlePhaseManager();
+            BattlePhaseManager.OnTurnEnd += () =>
             {
                 player1Turn = !player1Turn;
                 Player1Priority = player1Turn;
@@ -31,7 +32,17 @@ namespace CardGame
             SetupPlayer(player1);
             SetupPlayer(player2);
 
-            Phase.OnPhaseEnter += phase =>
+            BattlePhaseManager.OnPhaseExit += phase =>
+            {
+                switch (phase)
+                {
+                    case BattlePhase.Damage:
+                        CombatManager.Reset(DefendingPlayer.Graveyard);
+                        break;
+                }
+            };
+
+            BattlePhaseManager.OnPhaseEnter += phase =>
             {
                 switch (phase)
                 {
@@ -42,25 +53,14 @@ namespace CardGame
                         Execute(new DrawFromPile());
                         break;
                     case BattlePhase.Defend:
-                        if (!CombatManager.ValidAttack)
-                        {
-                        Debug.Log("AAAA");
-                            
-                            Execute(new SetPhase(BattlePhaseManager.LastPhase));
-                        }
-                        else
-                            Player1Priority = !player1Turn;
+                        if (!CombatManager.ValidAttack) Execute(new SetPhase(BattlePhaseManager.LastPhase));
+                        else Player1Priority = !player1Turn;
                         break;
                     case BattlePhase.Damage:
                         Player1Priority = player1Turn;
                         CombatManager.AddTarget(DefendingPlayer.Champion); // TODO: Let player choose target
                         for (int i = 0; i < CombatManager.DamageCount(); i++)
-                        {
                             Execute(new DamageFromPile(), DefendingPlayer);
-                        }
-                        break;
-                    case BattlePhase.End:
-                        CombatManager.Reset(DefendingPlayer.Graveyard);
                         break;
                 }
             };
@@ -75,7 +75,18 @@ namespace CardGame
         public void Execute(IAction action, Player author)
         {
             if (action.CanExecute(this, author))
-                action.Execute(this, author);
+                actionQueue.Add((action, author));
+                //action.Execute(this, author);
+        }
+
+        public void Tick()
+        {
+            if (actionQueue.Count > 0)
+            {
+                (IAction action, Player player) = actionQueue[0];
+                action.Execute(this, player);
+                actionQueue.RemoveAt(0);
+            }
         }
 
         public void Execute(IAction action)

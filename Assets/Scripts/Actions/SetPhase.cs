@@ -16,7 +16,7 @@
 
         public void Execute(Battle battle, Player player)
         {
-            battle.Phase.Set(phase);
+            battle.BattlePhaseManager.Set(phase);
         }
     }
 }

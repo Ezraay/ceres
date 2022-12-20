@@ -11,7 +11,7 @@
         
         public bool CanExecute(Battle battle, Player player)
         {
-            return battle.Phase == BattlePhase.Defend && player != battle.AttackingPlayer && card.Data.Tier <= player.Champion.Card.Data.Tier;
+            return battle.BattlePhaseManager.Phase == BattlePhase.Defend && player != battle.AttackingPlayer && card.Data.Tier <= player.Champion.Card.Data.Tier;
         }
 
         public void Execute(Battle battle, Player player)
