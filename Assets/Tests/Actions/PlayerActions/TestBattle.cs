@@ -6,10 +6,17 @@ namespace Tests.Actions.PlayerActions
     {
         public static Battle CreateTestBattle()
         {
-            Player player1 = new Player();
-            Player player2 = new Player();
-            Battle battle = new Battle(player1, player2);
-            return battle;
+            return CreateTestBattle(new Player());
+        }
+        
+        public static Battle CreateTestBattle(Player player1)
+        {
+            return CreateTestBattle(player1, new Player());
+        }
+
+        public static Battle CreateTestBattle(Player player1, Player player2)
+        {
+            return new Battle(player1, player2);
         }
     }
 }

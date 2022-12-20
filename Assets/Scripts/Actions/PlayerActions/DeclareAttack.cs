@@ -11,7 +11,9 @@
         
         public bool CanExecute(Battle battle, Player player)
         {
-            return battle.BattlePhaseManager.Phase == BattlePhase.Attack && player == battle.PriorityPlayer;
+            return slot != null && 
+                   battle.BattlePhaseManager.Phase == BattlePhase.Attack && 
+                   player == battle.PriorityPlayer;
         }
 
         public void Execute(Battle battle, Player player)
