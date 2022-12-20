@@ -1,4 +1,6 @@
-﻿namespace CardGame
+﻿using UnityEngine;
+
+namespace CardGame
 {
     public class DefendFromHand : IAction
     {
@@ -11,7 +13,11 @@
         
         public bool CanExecute(Battle battle, Player player)
         {
-            return battle.BattlePhaseManager.Phase == BattlePhase.Defend && player != battle.AttackingPlayer && card.Data.Tier <= player.Champion.Card.Data.Tier;
+            return card != null && 
+                   player.Hand.Cards.Contains(card) &&
+                   battle.BattlePhaseManager.Phase == BattlePhase.Defend && 
+                   player == battle.DefendingPlayer && 
+                   card.Data.Tier <= player.Champion.Card.Data.Tier;
         }
 
         public void Execute(Battle battle, Player player)
