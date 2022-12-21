@@ -20,6 +20,9 @@ namespace CardGame
         {
             Player1 = player1;
             Player2 = player2;
+            
+            player1.PreGameSetup();
+            player2.PreGameSetup();
 
             CombatManager = new CombatManager();
 

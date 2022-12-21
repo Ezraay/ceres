@@ -14,7 +14,6 @@ namespace CardGame
         {
             Pile = new MultiCardSlot(pile);
             Champion = new CardSlot(champion);
-            Setup();
         }
 
         public Player()
@@ -23,7 +22,7 @@ namespace CardGame
             Champion = new CardSlot();
         }
 
-        private void Setup()
+        public void PreGameSetup()
         {
             for (int i = 0; i < 6; i++) 
                 Hand.AddCard(Pile.PopCard());
