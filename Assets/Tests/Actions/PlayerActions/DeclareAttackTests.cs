@@ -15,8 +15,7 @@ namespace Tests.Actions.PlayerActions
             Player player2 = new Player(null, new Card(testCard));
             Battle battle = new Battle(player1, player2);
 
-            battle.Execute(new SetPhase(BattlePhase.Attack));
-            battle.Tick();
+            battle.ExecuteImmediately(new SetPhase(BattlePhase.Attack));
             
             Assert.IsTrue(new DeclareAttack(player1.Champion).CanExecute(battle, battle.Player1));
             Assert.IsFalse(new DeclareAttack(null).CanExecute(battle, battle.Player1));
@@ -43,10 +42,8 @@ namespace Tests.Actions.PlayerActions
             Player player = new Player(null, new Card(testCard));
             Battle battle = TestBattle.CreateTestBattle(player);
             
-            battle.Execute(new SetPhase(BattlePhase.Attack));
-            battle.Tick();
-            battle.Execute(new DeclareAttack(battle.Player1.Champion));
-            battle.Tick();
+            battle.ExecuteImmediately(new SetPhase(BattlePhase.Attack));
+            battle.ExecuteImmediately(new DeclareAttack(battle.Player1.Champion));
             
             Assert.AreEqual(battle.CombatManager.Attacker, battle.Player1.Champion);
         }

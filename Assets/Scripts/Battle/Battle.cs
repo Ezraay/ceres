@@ -59,7 +59,7 @@ namespace CardGame
                         Player1Priority = player1Turn;
                         CombatManager.AddTarget(DefendingPlayer.Champion); // TODO: Let player choose target
                         for (int i = 0; i < CombatManager.DamageCount(); i++)
-                            Execute(new DamageFromPile(), DefendingPlayer);
+                            ExecuteImmediately(new DamageFromPile(), DefendingPlayer);
                         break;
                 }
             };
@@ -67,10 +67,25 @@ namespace CardGame
 
         public void Execute(IAction action, Player author)
         {
-            Debug.Log(action);
             if (action.CanExecute(this, author))
                 actionQueue.Add((action, author));
                 //action.Execute(this, author);
+        }
+        
+        public void Execute(IAction action)
+        {
+            Execute(action, PriorityPlayer);
+        }
+
+        public void ExecuteImmediately(IAction action, Player author)
+        {
+            Execute(action, author);
+            Tick();
+        }
+
+        public void ExecuteImmediately(IAction action)
+        {
+            ExecuteImmediately(action, PriorityPlayer);
         }
 
         public void Tick()
@@ -82,11 +97,6 @@ namespace CardGame
                 actionQueue.RemoveAt(0);
                 Debug.Log(action);
             }
-        }
-
-        public void Execute(IAction action)
-        {
-            Execute(action, PriorityPlayer);
         }
     }
 }

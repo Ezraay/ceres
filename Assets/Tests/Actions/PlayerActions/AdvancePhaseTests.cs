@@ -23,8 +23,7 @@ namespace Tests.Actions.PlayerActions
             Battle battle = TestBattle.CreateTestBattle();
 
             BattlePhase phase = battle.BattlePhaseManager.Phase;
-            battle.Execute(new AdvancePhase());
-            battle.Tick();
+            battle.ExecuteImmediately(new AdvancePhase());
             Assert.IsTrue(phase + 1 == battle.BattlePhaseManager.Phase);
         }
     }

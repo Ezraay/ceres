@@ -41,8 +41,7 @@ namespace Tests.Actions.PlayerActions
             ICard card = player.Hand.AddCard(new Card(cardData));
             Battle battle = TestBattle.CreateTestBattle(new Player(), player);
             IAction command = new DefendFromHand(card);
-            battle.Execute(new SetPhase(BattlePhase.Defend));
-            battle.Tick();
+            battle.ExecuteImmediately(new SetPhase(BattlePhase.Defend));
             Assert.IsFalse(command.CanExecute(battle, player));
         }
 
@@ -52,8 +51,7 @@ namespace Tests.Actions.PlayerActions
             Player player = new Player();
             Battle battle = TestBattle.CreateTestBattle(new Player(), player);
             IAction command = new DefendFromHand(null);
-            battle.Execute(new SetPhase(BattlePhase.Defend));
-            battle.Tick();
+            battle.ExecuteImmediately(new SetPhase(BattlePhase.Defend));
             Assert.IsFalse(command.CanExecute(battle, player));
         }
 
@@ -64,8 +62,7 @@ namespace Tests.Actions.PlayerActions
             ICard card = new Card(testCard);
             Battle battle = TestBattle.CreateTestBattle(new Player(), player);
             IAction command = new DefendFromHand(card);
-            battle.Execute(new SetPhase(BattlePhase.Defend));
-            battle.Tick();
+            battle.ExecuteImmediately(new SetPhase(BattlePhase.Defend));
             Assert.IsFalse(command.CanExecute(battle, player));
         }
 
@@ -76,8 +73,7 @@ namespace Tests.Actions.PlayerActions
             ICard card = player.Hand.AddCard(new Card(testCard));
             Battle battle = TestBattle.CreateTestBattle(new Player(), player);
             DefendFromHand command = new DefendFromHand(card);
-            battle.Execute(new SetPhase(BattlePhase.Defend));
-            battle.Tick();
+            battle.ExecuteImmediately(new SetPhase(BattlePhase.Defend));
             Assert.IsTrue(command.CanExecute(battle, player));
         }
 
@@ -88,11 +84,9 @@ namespace Tests.Actions.PlayerActions
             ICard card = player.Hand.AddCard(new Card(testCard));
             Battle battle = TestBattle.CreateTestBattle(new Player(), player);
             
-            battle.Execute(new SetPhase(BattlePhase.Defend));
-            battle.Tick();
-            battle.Execute(new DefendFromHand(card), player);
-            battle.Tick();
-            
+            battle.ExecuteImmediately(new SetPhase(BattlePhase.Defend));
+            battle.ExecuteImmediately(new DefendFromHand(card), player);
+
             Assert.Contains(card, battle.CombatManager.Defenders.Cards);
         }
     }

@@ -54,10 +54,8 @@ namespace Tests.Actions.PlayerActions
             Card card = new Card(first);
             player.Hand.AddCard(card);
 
-            battle.Execute(new SetPhase(BattlePhase.Ascend));
-            battle.Tick();
-            battle.Execute(new AscendFromHand(card));
-            battle.Tick();
+            battle.ExecuteImmediately(new SetPhase(BattlePhase.Ascend));
+            battle.ExecuteImmediately(new AscendFromHand(card));
             Assert.AreEqual(card, player.Champion.Card);
         }
     }
