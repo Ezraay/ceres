@@ -11,7 +11,8 @@
         
         public bool CanExecute(Battle battle, Player player)
         {
-            return true;
+            return slot != null && 
+                   slot.Card != null;
         }
 
         public void Execute(Battle battle, Player player)
