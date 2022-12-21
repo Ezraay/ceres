@@ -11,8 +11,8 @@ namespace Tests.Actions.PlayerActions
         [Test]
         public void CanExecuteTrue()
         {
-            Player player1 = new Player(null, new Card(testCard));
-            Player player2 = new Player(null, new Card(testCard));
+            IPlayer player1 = new Player(null, new Card(testCard));
+            IPlayer player2 = new Player(null, new Card(testCard));
             Battle battle = new Battle(player1, player2);
 
             battle.ExecuteImmediately(new SetPhase(BattlePhase.Attack));
@@ -26,8 +26,8 @@ namespace Tests.Actions.PlayerActions
         [Test]
         public void CantExecuteOutsidePhase()
         {
-            Player player1 = new Player(null, new Card(testCard));
-            Player player2 = new Player(null, new Card(testCard));
+            IPlayer player1 = new Player(null, new Card(testCard));
+            IPlayer player2 = new Player(null, new Card(testCard));
             Battle battle = new Battle(player1, player2);
             
             Assert.IsFalse(new DeclareAttack(player1.Champion).CanExecute(battle, battle.Player1));
@@ -39,7 +39,7 @@ namespace Tests.Actions.PlayerActions
         [Test]
         public void Execute()
         {
-            Player player = new Player(null, new Card(testCard));
+            IPlayer player = new Player(null, new Card(testCard));
             Battle battle = TestBattle.CreateTestBattle(player);
             
             battle.ExecuteImmediately(new SetPhase(BattlePhase.Attack));

@@ -11,7 +11,7 @@ namespace CardGame
             this.card = card;
         }
         
-        public bool CanExecute(Battle battle, Player player)
+        public bool CanExecute(Battle battle, IPlayer player)
         {
             return card != null && 
                    player.Hand.Cards.Contains(card) &&
@@ -20,7 +20,7 @@ namespace CardGame
                    card.Data.Tier <= player.Champion.Card.Data.Tier;
         }
 
-        public void Execute(Battle battle, Player player)
+        public void Execute(Battle battle, IPlayer player)
         {
             player.Hand.RemoveCard(card);
             battle.CombatManager.AddDefender(card);

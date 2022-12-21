@@ -5,18 +5,18 @@ namespace CardGame
 {
     public class Battle
     {
-        public Player PriorityPlayer => Player1Priority ? Player1 : Player2;
-        public Player AttackingPlayer => player1Turn ? Player1 : Player2;
-        public Player DefendingPlayer => player1Turn ? Player2 : Player1;
+        public IPlayer PriorityPlayer => Player1Priority ? Player1 : Player2;
+        public IPlayer AttackingPlayer => player1Turn ? Player1 : Player2;
+        public IPlayer DefendingPlayer => player1Turn ? Player2 : Player1;
         public bool Player1Priority { get; private set; } = true;
         public readonly CombatManager CombatManager;
         public readonly BattlePhaseManager BattlePhaseManager;
-        public readonly Player Player1;
-        public readonly Player Player2;
+        public readonly IPlayer Player1;
+        public readonly IPlayer Player2;
         private bool player1Turn = true;
-        private List<(IAction, Player)> actionQueue = new List<(IAction, Player)>();
+        private List<(IAction, IPlayer)> actionQueue = new List<(IAction, IPlayer)>();
 
-        public Battle(Player player1, Player player2)
+        public Battle(IPlayer player1, IPlayer player2)
         {
             Player1 = player1;
             Player2 = player2;
@@ -68,7 +68,7 @@ namespace CardGame
             };
         }
 
-        public void Execute(IAction action, Player author)
+        public void Execute(IAction action, IPlayer author)
         {
             if (action.CanExecute(this, author))
                 actionQueue.Add((action, author));
@@ -80,7 +80,7 @@ namespace CardGame
             Execute(action, PriorityPlayer);
         }
 
-        public void ExecuteImmediately(IAction action, Player author)
+        public void ExecuteImmediately(IAction action, IPlayer author)
         {
             Execute(action, author);
             Tick();
@@ -95,7 +95,7 @@ namespace CardGame
         {
             if (actionQueue.Count > 0)
             {
-                (IAction action, Player player) = actionQueue[0];
+                (IAction action, IPlayer player) = actionQueue[0];
                 action.Execute(this, player);
                 actionQueue.RemoveAt(0);
                 Debug.Log(action);

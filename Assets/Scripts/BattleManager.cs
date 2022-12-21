@@ -9,8 +9,8 @@ namespace CardGame
         [SerializeField] private CardData testCard;
         [SerializeField] private CardData testCard2;
         [SerializeField] private DisplayManager displayManager;
-        private Player player1;
-        private Player player2;
+        private IPlayer player1;
+        private IPlayer player2;
         public Battle Battle;
         
         private void Awake()

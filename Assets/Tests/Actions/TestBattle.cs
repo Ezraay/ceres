@@ -9,12 +9,12 @@ namespace Tests.Actions.PlayerActions
             return CreateTestBattle(new Player());
         }
         
-        public static Battle CreateTestBattle(Player player1)
+        public static Battle CreateTestBattle(IPlayer player1)
         {
             return CreateTestBattle(player1, new Player());
         }
 
-        public static Battle CreateTestBattle(Player player1, Player player2)
+        public static Battle CreateTestBattle(IPlayer player1, IPlayer player2)
         {
             return new Battle(player1, player2);
         }

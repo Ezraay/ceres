@@ -9,7 +9,7 @@
             this.card = card;
         }
 
-        public bool CanExecute(Battle battle, Player player)
+        public bool CanExecute(Battle battle, IPlayer player)
         {
             return battle.BattlePhaseManager.Phase == BattlePhase.Ascend && 
                    player.Hand.Cards.Contains(card) && 
@@ -19,7 +19,7 @@
                 ); 
         }
 
-        public void Execute(Battle battle, Player player)
+        public void Execute(Battle battle, IPlayer player)
         {
             player.Champion.SetCard(card);
             player.Hand.RemoveCard(card);

@@ -24,8 +24,8 @@ namespace Tests.Actions.PlayerActions
         [Test]
         public void CanExecuteTrue()
         {
-            Player player1 = new Player(null, new Card(first));
-            Player player2 = new Player(null, new Card(first));
+            IPlayer player1 = new Player(null, new Card(first));
+            IPlayer player2 = new Player(null, new Card(first));
             Battle battle = new Battle(player1, player2);
 
             Card card1 = new Card(first);
@@ -49,8 +49,8 @@ namespace Tests.Actions.PlayerActions
         [Test]
         public void Execute()
         {
-            Player player = new Player(null, new Card(first));
-            Battle battle = new Battle(player, null);
+            IPlayer player = new Player(null, new Card(first));
+            Battle battle = new Battle(player, new NullPlayer());
             Card card = new Card(first);
             player.Hand.AddCard(card);
 

@@ -13,7 +13,7 @@ namespace Tests.Actions.PlayerActions
         [Test]
         public void CantDefendWhenAttacking()
         {
-            Player player = new Player();
+            IPlayer player = new Player();
             ICard card = player.Hand.AddCard(new Card(testCard));
             Battle battle = TestBattle.CreateTestBattle(player);
             IAction command = new DefendFromHand(card);
@@ -23,9 +23,9 @@ namespace Tests.Actions.PlayerActions
         [Test]
         public void CantDefendOutsidePhase()
         {
-            Player player = new Player();
+            IPlayer player = new Player();
             ICard card = player.Hand.AddCard(new Card(testCard));
-            Battle battle = TestBattle.CreateTestBattle(new Player(), player);
+            Battle battle = TestBattle.CreateTestBattle(new NullPlayer(), player);
             IAction command = new DefendFromHand(card);
             Assert.IsFalse(command.CanExecute(battle, player));
         }
@@ -33,13 +33,13 @@ namespace Tests.Actions.PlayerActions
         [Test]
         public void CantDefendHigherTier()
         {
-            Player player = new Player(null, new Card(testCard));
+            IPlayer player = new Player(null, new Card(testCard));
             ICardData cardData = new TestCardData
             {
                 Tier = 3
             };
             ICard card = player.Hand.AddCard(new Card(cardData));
-            Battle battle = TestBattle.CreateTestBattle(new Player(), player);
+            Battle battle = TestBattle.CreateTestBattle(new NullPlayer(), player);
             IAction command = new DefendFromHand(card);
             battle.ExecuteImmediately(new SetPhase(BattlePhase.Defend));
             Assert.IsFalse(command.CanExecute(battle, player));
@@ -48,8 +48,8 @@ namespace Tests.Actions.PlayerActions
         [Test]
         public void CantDefendWithNull()
         {
-            Player player = new Player();
-            Battle battle = TestBattle.CreateTestBattle(new Player(), player);
+            IPlayer player = new Player();
+            Battle battle = TestBattle.CreateTestBattle(new NullPlayer(), player);
             IAction command = new DefendFromHand(null);
             battle.ExecuteImmediately(new SetPhase(BattlePhase.Defend));
             Assert.IsFalse(command.CanExecute(battle, player));
@@ -58,9 +58,9 @@ namespace Tests.Actions.PlayerActions
         [Test]
         public void CantDefendWithCardNotInHand()
         {
-            Player player = new Player();
+            IPlayer player = new Player();
             ICard card = new Card(testCard);
-            Battle battle = TestBattle.CreateTestBattle(new Player(), player);
+            Battle battle = TestBattle.CreateTestBattle(new NullPlayer(), player);
             IAction command = new DefendFromHand(card);
             battle.ExecuteImmediately(new SetPhase(BattlePhase.Defend));
             Assert.IsFalse(command.CanExecute(battle, player));
@@ -69,9 +69,9 @@ namespace Tests.Actions.PlayerActions
         [Test]
         public void CanDefend()
         {
-            Player player = new Player(null, new Card(testCard));
+            IPlayer player = new Player(null, new Card(testCard));
             ICard card = player.Hand.AddCard(new Card(testCard));
-            Battle battle = TestBattle.CreateTestBattle(new Player(), player);
+            Battle battle = TestBattle.CreateTestBattle(new NullPlayer(), player);
             DefendFromHand command = new DefendFromHand(card);
             battle.ExecuteImmediately(new SetPhase(BattlePhase.Defend));
             Assert.IsTrue(command.CanExecute(battle, player));
@@ -80,7 +80,7 @@ namespace Tests.Actions.PlayerActions
         [Test]
         public void Execute()
         {
-            Player player = new Player(null, new Card(testCard));
+            IPlayer player = new Player(null, new Card(testCard));
             ICard card = player.Hand.AddCard(new Card(testCard));
             Battle battle = TestBattle.CreateTestBattle(new Player(), player);
             

@@ -2,7 +2,9 @@
 
 namespace CardGame
 {
-    public class Player
+    
+
+    public class Player : IPlayer
     {
         public CardSlot Champion { get; }
         public MultiCardSlot Pile { get; }

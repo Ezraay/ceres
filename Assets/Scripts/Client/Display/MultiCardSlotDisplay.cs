@@ -11,14 +11,14 @@ namespace CardGame
         private BoxCollider boxCollider;
         private readonly Dictionary<ICard, CardDisplay> displays = new Dictionary<ICard, CardDisplay>();
         public ISlot Slot { get; private set; }
-        public Player Owner { get; private set; } // TODO: This feels wrong to put here
+        public IPlayer Owner { get; private set; } // TODO: This feels wrong to put here
 
         private void Awake()
         {
             boxCollider = GetComponent<BoxCollider>();
         }
 
-        public void Setup(MultiCardSlot slot, Player player)
+        public void Setup(MultiCardSlot slot, IPlayer player)
         {
             Owner = player;
             Slot = slot;

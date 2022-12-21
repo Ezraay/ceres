@@ -2,17 +2,16 @@
 using CardGame;
 using NUnit.Framework;
 using Tests.Slots;
-using UnityEngine;
 
 namespace Tests.Actions
 {
-    public class DamageFromPileTests
+    public class DrawFromPileTests
     {
         [Test]
         public void CantExecuteWhenNoCardsInPile()
         {
             IPlayer player = new Player(new List<ICard>(), null);
-            DamageFromPile command = new DamageFromPile();
+            DrawFromPile command = new DrawFromPile();
 
             Assert.IsFalse(command.CanExecute(null, player));
         }
@@ -22,7 +21,7 @@ namespace Tests.Actions
         {
             ICard card = new Card(new TestCardData());
             IPlayer player = new Player(new List<ICard>() {card}, null);
-            DamageFromPile command = new DamageFromPile();
+            DrawFromPile command = new DrawFromPile();
             Assert.IsTrue(command.CanExecute(null, player));
         }
         
@@ -33,12 +32,12 @@ namespace Tests.Actions
             List<ICard> pile = new List<ICard>() {card};
             IPlayer player = new Player(pile, null);
 
-            DamageFromPile command = new DamageFromPile();
+            DrawFromPile command = new DrawFromPile();
             command.Execute(null, player);
 
-            Assert.IsTrue(player.Damage.Cards.Count > 0);
+            Assert.IsTrue(player.Hand.Cards.Count > 0);
             Assert.IsEmpty(player.Pile.Cards);
-            Assert.AreEqual(card, player.Damage.Cards[0]);
+            Assert.AreEqual(card, player.Hand.Cards[0]);
         }
     }
 }
