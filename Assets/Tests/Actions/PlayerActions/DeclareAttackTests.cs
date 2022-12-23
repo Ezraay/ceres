@@ -9,7 +9,7 @@ namespace Tests.Actions.PlayerActions
         private TestCardData testCard = new TestCardData();
         
         [Test]
-        public void CanExecuteTrue()
+        public void CanExecute()
         {
             IPlayer player1 = new Player(null, new Card(testCard));
             IPlayer player2 = new Player(null, new Card(testCard));
@@ -18,9 +18,6 @@ namespace Tests.Actions.PlayerActions
             battle.ExecuteImmediately(new SetPhase(BattlePhase.Attack));
             
             Assert.IsTrue(new DeclareAttack(player1.Champion).CanExecute(battle, battle.Player1));
-            Assert.IsFalse(new DeclareAttack(null).CanExecute(battle, battle.Player1));
-            Assert.IsFalse(new DeclareAttack(player2.Champion).CanExecute(battle, battle.Player2));
-            Assert.IsFalse(new DeclareAttack(null).CanExecute(battle, battle.Player2));
         }
         
         [Test]
@@ -31,9 +28,17 @@ namespace Tests.Actions.PlayerActions
             Battle battle = new Battle(player1, player2);
             
             Assert.IsFalse(new DeclareAttack(player1.Champion).CanExecute(battle, battle.Player1));
-            Assert.IsFalse(new DeclareAttack(null).CanExecute(battle, battle.Player1));
-            Assert.IsFalse(new DeclareAttack(player2.Champion).CanExecute(battle, battle.Player2));
-            Assert.IsFalse(new DeclareAttack(null).CanExecute(battle, battle.Player2));
+        }
+
+        [Test]
+        public void CantExecuteNotAttacking()
+        {
+            IPlayer player1 = new Player(null, new Card(testCard));
+            IPlayer player2 = new Player(null, new Card(testCard));
+            Battle battle = new Battle(player1, player2);
+            battle.ExecuteImmediately(new SetPhase(BattlePhase.Attack));
+            
+            Assert.IsFalse(new DeclareAttack(player1.Champion).CanExecute(battle, battle.Player2));
         }
 
         [Test]
