@@ -43,6 +43,7 @@ namespace CardGame
                 }
             };
 
+
             BattlePhaseManager.OnPhaseEnter += phase =>
             {
                 switch (phase)
