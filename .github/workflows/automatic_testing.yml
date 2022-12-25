@@ -3,17 +3,14 @@ name: Automated Testing Pipeline
 on: [push, pull_request]
 
 jobs:
-  testAllModes:
+  Client-Testing:
     name: Test in ${{ matrix.testMode }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        projectPath:
-          - ./
         testMode:
-          - PlayMode
-          - EditMode
+          - All
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -23,10 +20,10 @@ jobs:
       - name: Restore Cache
         uses: actions/cache@v2
         with:
-          path: ${{ matrix.projectPath }}/Library
-          key: Library-${{ matrix.projectPath }}
+          path: /Library
+          key: Library
           restore-keys: |
-            Library-
+            Library
             
       - name: Run Tests for ${{ matrix.testMode }}
         uses: game-ci/unity-test-runner@v2
@@ -34,7 +31,6 @@ jobs:
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
-          projectPath: ${{ matrix.projectPath }}
           testMode: ${{ matrix.testMode }}
           artifactsPath: ${{ matrix.testMode }} Artifacts
           githubToken: ${{ secrets.GITHUB_TOKEN }}
