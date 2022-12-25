@@ -1,6 +1,7 @@
 name: Automatic Testing
 
-on: [push, pull_request]
+#on: [push, pull_request]
+on: []
 
 jobs:
   testAllModes:
