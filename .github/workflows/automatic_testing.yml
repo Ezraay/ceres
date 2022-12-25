@@ -16,14 +16,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           lfs: true
-          
-      - name: Restore Cache
-        uses: actions/cache@v2
-        with:
-          path: /Library
-          key: Library
-          restore-keys: |
-            Library
             
       - name: Run Tests for ${{ matrix.testMode }}
         uses: game-ci/unity-test-runner@v2
