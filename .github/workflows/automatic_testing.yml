@@ -1,49 +1,46 @@
-name: Automatic Testing
+name: Test project
 
 on: [push, pull_request]
 
 jobs:
-#  checkLicense:
-#    name: Check for the Unity License
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Fail - No license
-#        if: ${{ !startsWith(env.UNITY_LICENSE, '<') }}
-#        run: exit 1
-  testEditMode:
-    name: Test in Edit Mode
+  testAllModes:
+    name: Test in ${{ matrix.testMode }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        projectPath:
+          - test-project
+        testMode:
+          - playmode
+          - editmode
     steps:
       - uses: actions/checkout@v2
         with:
           lfs: true
-
       - uses: actions/cache@v2
         with:
-          path: Library
+          path: /Library
           key: Library
           restore-keys: |
-            Library
-          
+            Library-
       - uses: game-ci/unity-test-runner@v2
         id: tests
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
-          testMode: All
-          artifactsPath: Client Artifacts
+          testMode: ${{ matrix.testMode }}
+          artifactsPath: ${{ matrix.testMode }}-artifacts
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-          checkName: Client Test Results
+          checkName: ${{ matrix.testMode }} Test Results
           coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport;assemblyFilters:+my.assembly.*'
-          
       - uses: actions/upload-artifact@v2
         if: always()
         with:
-          name: Test results for Client EditMode
+          name: Test results for ${{ matrix.testMode }}
           path: ${{ steps.tests.outputs.artifactsPath }}
-          
       - uses: actions/upload-artifact@v2
         if: always()
         with:
-          name: Coverage results for Client EditMode
+          name: Coverage results for ${{ matrix.testMode }}
           path: ${{ steps.tests.outputs.coveragePath }}
