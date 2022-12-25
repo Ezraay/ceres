@@ -3,13 +3,13 @@ name: Automatic Testing
 on: [push, pull_request]
 
 jobs:
-  checkLicense:
-    name: Check for the Unity License
-    runs-on: ubuntu-latest
-    steps:
-      - name: Fail - No license
-        if: ${{ !startsWith(env.UNITY_LICENSE, '<') }}
-        run: exit 1
+#  checkLicense:
+#    name: Check for the Unity License
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Fail - No license
+#        if: ${{ !startsWith(env.UNITY_LICENSE, '<') }}
+#        run: exit 1
   testEditMode:
     name: Test in Edit Mode
     runs-on: ubuntu-latest
