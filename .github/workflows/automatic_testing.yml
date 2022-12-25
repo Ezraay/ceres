@@ -19,11 +19,11 @@ jobs:
           lfs: true
 
       - uses: actions/cache@v2
-          with:
-            path: Library
-            key: Library
-            restore-keys: |
-              Library
+        with:
+          path: Library
+          key: Library
+          restore-keys: |
+            Library
           
       - uses: game-ci/unity-test-runner@v2
         id: tests
