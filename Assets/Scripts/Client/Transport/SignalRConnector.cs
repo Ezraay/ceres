@@ -1,14 +1,18 @@
 using System;
 using System.Threading.Tasks;
+using UnityEngine;
 using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.AspNetCore.Http.Connections;
+
 public class SignalRConnector
 {
 
     private HubConnection connection;
     public async Task InitAsync()
     {
+
         connection = new HubConnectionBuilder()
-                .WithUrl("http://localhost:5146/Lobby")
+                .WithUrl("http://localhost:5146/Lobby",HttpTransportType.WebSockets)
                 .Build();
         // connection.On<string, string>("ReceiveMessage", (user, message) =>
         // {
@@ -30,7 +34,8 @@ public class SignalRConnector
         }
         catch (Exception ex)
         {
-            UnityEngine.Debug.LogError($"Error {ex.Message}");
+            Debug.Log("Error connecting to the SignalR server: " +ex.Message);
+            Debug.Log("StackTrace: " +ex.StackTrace);
         }
     }
 }

@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class MainPage : MonoBehaviour
+public class SignalRHelper : MonoBehaviour
 {
     private SignalRConnector connector;
     public async Task Start()
