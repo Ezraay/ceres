@@ -1,28 +1,16 @@
-TEMPL='/tmp/card-game-nugets'
-mkdir -p $TEMPL
-
-if [[ ! "$TEMPL" || ! -d "$TEMPL" ]]; then
-  echo "Could not create template dir"
-  exit 1
-fi
-
-WORK_DIR=`mktemp -d -p $TEMPL`
-TMPWORKDIR=$(basename $WORK_DIR)
+# Creating a temp folder
+WORK_DIR=`mktemp -d`
 if [[ ! "$WORK_DIR" || ! -d "$WORK_DIR" ]]; then
-  echo "Could not create temp dir"
+  echo "Could not create temp dir ${WORK_DIR}"
   exit 1
 fi
+echo "Created temp dir ${WORK_DIR}"
 
-# deletes the temp directory
-function cleanup {   
-  rm -r "${TEMPL}/${TMPWORKDIR}/*"
-  rmdir "${TEMPL}/${TMPWORKDIR}"
-  echo "Deleted temp working directory ${TEMPL}/${TMPWORKDIR}"
-}
+# register the cleanup action to be called on the EXIT signal
+trap '{ rm -rf "$WORK_DIR"; }' EXIT
 
-# register the cleanup function to be called on the EXIT signal
-trap cleanup EXIT
-
+# Install SignalR and all dependecies into the temp folder
 nuget install Microsoft.AspNetCore.SignalR.Client -OutputDirectory "$WORK_DIR" -Framework 'netstandard2.0'
-# nuget install System.IO -OutputDirectory './tmp' -Framework 'netstandard2.0'
+
+# find only .dll in the temp folder and copy it accross to the current directory
 find "$WORK_DIR" -name 'netstandard2.0' -exec find {} -name '*.dll' \; | xargs -i cp -fv {} ./
