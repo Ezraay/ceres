@@ -12,8 +12,9 @@ public class SignalRConnector
     {
 
         connection = new HubConnectionBuilder()
-                .WithUrl("http://localhost:5146/Lobby",HttpTransportType.WebSockets)
+                .WithUrl("http://localhost:5146/Lobby")
                 .Build();
+
         // connection.On<string, string>("ReceiveMessage", (user, message) =>
         // {
         //     OnMessageReceived?.Invoke(new Message
@@ -31,6 +32,7 @@ public class SignalRConnector
         {
             await connection.StartAsync();
             UnityEngine.Debug.Log("SignalRConnector connected");
+            await connection.InvokeAsync("ClientConnected");
         }
         catch (Exception ex)
         {

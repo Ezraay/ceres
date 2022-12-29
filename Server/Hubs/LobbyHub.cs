@@ -8,6 +8,7 @@ public class LobbyHub : Hub
 
     public async Task ClientConnected(){
         ClientsConnected++;
+        Console.WriteLine($"Clients connected = {ClientsConnected}");
         await Clients.All.SendAsync("ClientsOnServer",ClientsConnected);
     }
 }
