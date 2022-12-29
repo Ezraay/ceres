@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
 builder.Services.AddRazorPages();
-
 builder.Services.AddSignalR(hubOptions => {
     hubOptions.EnableDetailedErrors = true;
     hubOptions.KeepAliveInterval = TimeSpan.FromSeconds(10);
@@ -29,7 +29,6 @@ app.UseStaticFiles();
 app.UseRouting();
 
 // app.UseAuthorization();
-
 app.MapRazorPages();
 
 app.MapHub<LobbyHub>("/Lobby");

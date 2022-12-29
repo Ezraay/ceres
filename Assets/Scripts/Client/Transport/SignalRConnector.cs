@@ -32,7 +32,7 @@ public class SignalRConnector
         {
             await connection.StartAsync();
             UnityEngine.Debug.Log("SignalRConnector connected");
-            await connection.InvokeAsync("ClientConnected");
+            // await connection.InvokeAsync("ClientConnected");
         }
         catch (Exception ex)
         {
@@ -40,4 +40,6 @@ public class SignalRConnector
             Debug.Log("StackTrace: " +ex.StackTrace);
         }
     }
+
+
 }

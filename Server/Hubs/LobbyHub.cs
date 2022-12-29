@@ -4,11 +4,23 @@ using Microsoft.AspNetCore.SignalR;
 
 public class LobbyHub : Hub
 {
-    public int ClientsConnected { get; set;}
+    public static int ClientsConnected { get; set;}
 
-    public async Task ClientConnected(){
+    public override Task OnConnectedAsync()
+    {
         ClientsConnected++;
-        Console.WriteLine($"Clients connected = {ClientsConnected}");
-        await Clients.All.SendAsync("ClientsOnServer",ClientsConnected);
+        Clients.All.SendAsync("ClientsOnServer",ClientsConnected).GetAwaiter().GetResult();
+        return base.OnConnectedAsync();
     }
+
+    public override Task OnDisconnectedAsync(Exception? exception)
+    {
+        ClientsConnected--;
+        Clients.All.SendAsync("ClientsOnServer",ClientsConnected).GetAwaiter().GetResult();
+        return base.OnDisconnectedAsync(exception);
+    }
+
+    // public async Task FindGame(){
+    //     Console.WriteLine($"FindGame called. Clients connected = {ClientsConnected}");
+    // }
 }
