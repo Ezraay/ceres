@@ -7,7 +7,7 @@ using Entities;
 public class LobbyHub : Hub
 {
     public static int ClientsConnected { get; set;}
-    public static ConcurrentDictionary<string, HubGameClient> MyUsers = new ConcurrentDictionary<string, HubGameClient>();
+    public static ConcurrentDictionary<string, HubGameClient> LobbyUsers = new ConcurrentDictionary<string, HubGameClient>();
 
     public override Task OnConnectedAsync()
     {
@@ -17,8 +17,8 @@ public class LobbyHub : Hub
         var connectionId = Context.ConnectionId;
         Console.WriteLine($"User connected with ID: {connectionId}");
         // var userId = Context?.User?.Identity?.Name; // any desired user id
-        lock(MyUsers){
-            MyUsers.TryAdd(connectionId, new HubGameClient() { ConnectionId = connectionId });
+        lock(LobbyUsers){
+            LobbyUsers.TryAdd(connectionId, new HubGameClient() { ConnectionId = connectionId });
         }
         
         return base.OnConnectedAsync();
@@ -30,12 +30,29 @@ public class LobbyHub : Hub
         Clients.All.SendAsync("ClientsOnServer",ClientsConnected).GetAwaiter().GetResult();
 
         Console.WriteLine($"User disconnected with ID: {Context.ConnectionId}");
-        lock(MyUsers){
+        lock(LobbyUsers){
             HubGameClient? garbage;
-            MyUsers.TryRemove(Context.ConnectionId, out garbage);
+            LobbyUsers.TryRemove(Context.ConnectionId, out garbage);
         }
         
         return base.OnDisconnectedAsync(exception);
+    }
+
+    public async Task SendMessage(string user, string message)
+    {
+        ChangeUserName(user);
+        await Clients.All.SendAsync("ReceiveMessage", user, message);
+    }
+
+    public void ChangeUserName(string newName){
+        var connectionId = Context.ConnectionId;
+        lock(LobbyUsers){
+            HubGameClient? client;
+            LobbyUsers.TryGetValue(connectionId, out client);
+            if (client != null){
+                client.UserName = newName;
+            }
+        }
     }
 
     // public async Task FindGame(){

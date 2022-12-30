@@ -12,7 +12,7 @@ public class SignalRConnector
     {
 
         connection = new HubConnectionBuilder()
-                .WithUrl("http://localhost:5146/Lobby")
+                .WithUrl("http://localhost:5146/LobbyHub")
                 .Build();
 
         // connection.On<string, string>("ReceiveMessage", (user, message) =>

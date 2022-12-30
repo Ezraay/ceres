@@ -1,6 +1,6 @@
 "use strict";
 
-var connection = new signalR.HubConnectionBuilder().withUrl("/Lobby").build();
+var connection = new signalR.HubConnectionBuilder().withUrl("/LobbyHub").build();
 
 //Disable the button until connection is established.
 // document.getElementById("findGame").disabled = true;

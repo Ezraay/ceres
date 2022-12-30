@@ -31,6 +31,6 @@ app.UseRouting();
 // app.UseAuthorization();
 app.MapRazorPages();
 
-app.MapHub<LobbyHub>("/Lobby");
+app.MapHub<LobbyHub>("/LobbyHub");
 
 app.Run();
