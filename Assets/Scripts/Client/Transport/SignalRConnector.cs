@@ -2,12 +2,11 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using Microsoft.AspNetCore.SignalR.Client;
-using Microsoft.AspNetCore.Http.Connections;
 
 public class SignalRConnector
 {
 
-    private HubConnection connection;
+    public HubConnection connection;
     public async Task InitAsync()
     {
 

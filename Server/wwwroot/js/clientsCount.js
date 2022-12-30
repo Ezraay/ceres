@@ -18,6 +18,9 @@ connection.on("ClientsList",(value) => {
         if (hubUser && hubUser.userName){
             li.innerText += `   (${hubUser.userName})` 
         }
+        if (hubUser && hubUser.readyToPlay){
+            li.innerText += " == Ready To Play =="
+        }
     });
 })
 

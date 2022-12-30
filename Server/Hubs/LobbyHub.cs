@@ -59,7 +59,17 @@ public class LobbyHub : Hub
         await Clients.All.SendAsync("ClientsList",LobbyUsers);
     }
 
-    // public async Task FindGame(){
-    //     Console.WriteLine($"FindGame called. Clients connected = {ClientsConnected}");
-    // }
+    public async Task UserIsReadyToPlay(){
+        var connectionId = Context.ConnectionId;
+        lock(LobbyUsers){
+            HubGameClient? client;
+            LobbyUsers.TryGetValue(connectionId, out client);
+            if (client != null){
+                client.ReadyToPlay = true;
+            }
+        }
+        await Clients.All.SendAsync("ClientsList",LobbyUsers);
+    }
+
+
 }

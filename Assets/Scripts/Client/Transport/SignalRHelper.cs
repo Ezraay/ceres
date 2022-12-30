@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SignalRHelper : MonoBehaviour
 {
-    private SignalRConnector connector;
+    public SignalRConnector connector;
     public async Task Start()
     {
         connector = new SignalRConnector();
