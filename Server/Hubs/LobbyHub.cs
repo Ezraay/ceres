@@ -15,11 +15,13 @@ public class LobbyHub : Hub
         Clients.All.SendAsync("ClientsOnServer",ClientsConnected).GetAwaiter().GetResult();
         
         var connectionId = Context.ConnectionId;
-        Console.WriteLine($"User connected with ID: {connectionId}");
+        // Console.WriteLine($"User connected with ID: {connectionId}");
         // var userId = Context?.User?.Identity?.Name; // any desired user id
         lock(LobbyUsers){
-            LobbyUsers.TryAdd(connectionId, new HubGameClient() { ConnectionId = connectionId });
+            // LobbyUsers.TryAdd(connectionId, new HubGameClient() { ConnectionId = connectionId });
+            LobbyUsers.TryAdd(connectionId, new HubGameClient() {});
         }
+        Clients.All.SendAsync("ClientsList",LobbyUsers).GetAwaiter().GetResult();
         
         return base.OnConnectedAsync();
     }
@@ -29,22 +31,23 @@ public class LobbyHub : Hub
         ClientsConnected--;
         Clients.All.SendAsync("ClientsOnServer",ClientsConnected).GetAwaiter().GetResult();
 
-        Console.WriteLine($"User disconnected with ID: {Context.ConnectionId}");
+        // Console.WriteLine($"User disconnected with ID: {Context.ConnectionId}");
         lock(LobbyUsers){
             HubGameClient? garbage;
             LobbyUsers.TryRemove(Context.ConnectionId, out garbage);
         }
+        Clients.All.SendAsync("ClientsList",LobbyUsers).GetAwaiter().GetResult();
         
         return base.OnDisconnectedAsync(exception);
     }
 
     public async Task SendMessage(string user, string message)
     {
-        ChangeUserName(user);
+        await ChangeUserName(user);
         await Clients.All.SendAsync("ReceiveMessage", user, message);
     }
 
-    public void ChangeUserName(string newName){
+    public async Task ChangeUserName(string newName){
         var connectionId = Context.ConnectionId;
         lock(LobbyUsers){
             HubGameClient? client;
@@ -53,6 +56,7 @@ public class LobbyHub : Hub
                 client.UserName = newName;
             }
         }
+        await Clients.All.SendAsync("ClientsList",LobbyUsers);
     }
 
     // public async Task FindGame(){
