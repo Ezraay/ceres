@@ -1,6 +1,6 @@
 using System.Collections.Concurrent;
 using Microsoft.AspNetCore.SignalR;
-using Entities;
+using Domain.Entities;
 
 
 
