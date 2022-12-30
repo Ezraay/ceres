@@ -8,7 +8,7 @@ namespace CardGame
         [SerializeField] private MultiCardSlotDisplay hand;
         [SerializeField] private MultiCardSlotDisplay damage;
         
-        public void Setup(Player player)
+        public void Setup(IPlayer player)
         {
             hand.Setup(player.Hand, player);
             champion.Setup(player.Champion, player);

@@ -9,12 +9,12 @@
             this.phase = phase;
         }
         
-        public bool CanExecute(Battle battle, Player player)
+        public bool CanExecute(Battle battle, IPlayer player)
         {
             return true;
         }
 
-        public void Execute(Battle battle, Player player)
+        public void Execute(Battle battle, IPlayer player)
         {
             battle.BattlePhaseManager.Set(phase);
         }

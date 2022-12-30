@@ -18,7 +18,7 @@ namespace CardGame
         public void Set(BattlePhase phase)
         {
             OnPhaseExit?.Invoke(Phase);
-            if (phase < Phase) OnTurnEnd?.Invoke();
+            if (phase <= Phase) OnTurnEnd?.Invoke();
             Phase = phase;
 
             OnPhaseEnter?.Invoke(Phase);

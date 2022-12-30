@@ -9,12 +9,14 @@
             this.slot = slot;
         }
         
-        public bool CanExecute(Battle battle, Player player)
+        public bool CanExecute(Battle battle, IPlayer player)
         {
-            return battle.BattlePhaseManager.Phase == BattlePhase.Attack && player == battle.PriorityPlayer;
+            return slot != null && 
+                   battle.BattlePhaseManager.Phase == BattlePhase.Attack && 
+                   player == battle.PriorityPlayer;
         }
 
-        public void Execute(Battle battle, Player player)
+        public void Execute(Battle battle, IPlayer player)
         {
             battle.CombatManager.AddAttacker(slot);
         }

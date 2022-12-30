@@ -1,0 +1,119 @@
+﻿using CardGame;
+using NUnit.Framework;
+using Tests.Slots;
+
+namespace Tests.Actions.PlayerActions
+{
+    public class AscendFromHandTests
+    {
+        private TestCardData first;
+        private TestCardData second;
+        private TestCardData third;
+
+        [SetUp]
+        public void Setup()
+        {
+            first = new TestCardData();
+            second = new TestCardData
+            {
+                Tier = 3
+            };
+            third = new TestCardData();
+        }
+
+        [Test]
+        public void CanExecute()
+        {
+            ICardData data = new TestCardData();
+            Player player = new Player(null, new Card(data));
+            ICard card = player.Hand.AddCard(new Card(first));
+            Battle battle = TestBattle.CreateTestBattle(player);
+            battle.ExecuteImmediately(new SetPhase(BattlePhase.Ascend));
+
+            AscendFromHand command = new AscendFromHand(card);
+            command.Execute(battle, player);
+            Assert.AreEqual(card, player.Champion.Card);
+            Assert.IsFalse(player.Hand.Cards.Contains(card));
+        }
+
+        [Test]
+        public void CantAscendOutsideTurn()
+        {
+            ICardData data = new TestCardData();
+            Player player = new Player(null, new Card(data));
+            ICard card = player.Hand.AddCard(new Card(first));
+            Battle battle = TestBattle.CreateTestBattle(new NullPlayer(), player);
+            battle.ExecuteImmediately(new SetPhase(BattlePhase.Ascend));
+
+            AscendFromHand command = new AscendFromHand(card);
+            command.Execute(battle, player);
+            Assert.AreEqual(card, player.Champion.Card);
+            Assert.IsFalse(player.Hand.Cards.Contains(card));
+        }
+
+        [Test]
+        public void CantAscendOutsidePhase()
+        {
+            ICardData data = new TestCardData();
+            Player player = new Player(null, new Card(data));
+            ICard card = player.Hand.AddCard(new Card(first));
+            Battle battle = TestBattle.CreateTestBattle(player);
+
+            AscendFromHand command = new AscendFromHand(card);
+            command.Execute(battle, player);
+            Assert.AreEqual(card, player.Champion.Card);
+            Assert.IsFalse(player.Hand.Cards.Contains(card));
+        }
+
+        [Test]
+        public void CantAscendWithLowerTier()
+        {
+            ICardData data = new TestCardData();
+            ICardData champion = new TestCardData
+            {
+                Tier = 2
+            };
+            Player player = new Player(null, new Card(champion));
+            ICard card = player.Hand.AddCard(new Card(first));
+            Battle battle = TestBattle.CreateTestBattle(player);
+            battle.ExecuteImmediately(new SetPhase(BattlePhase.Ascend));
+
+            AscendFromHand command = new AscendFromHand(card);
+            command.Execute(battle, player);
+            Assert.AreEqual(card, player.Champion.Card);
+            Assert.IsFalse(player.Hand.Cards.Contains(card));
+        }
+
+        [Test]
+        public void CantAscendWithHigherTier()
+        {
+            ICardData data = new TestCardData
+            {
+                Tier = 3
+            };
+            ICardData champion = new TestCardData();
+            Player player = new Player(null, new Card(champion));
+            ICard card = player.Hand.AddCard(new Card(first));
+            Battle battle = TestBattle.CreateTestBattle(player);
+            battle.ExecuteImmediately(new SetPhase(BattlePhase.Ascend));
+
+            AscendFromHand command = new AscendFromHand(card);
+            command.Execute(battle, player);
+            Assert.AreEqual(card, player.Champion.Card);
+            Assert.IsFalse(player.Hand.Cards.Contains(card));
+        }
+
+        [Test]
+        public void Execute()
+        {
+            IPlayer player = new Player(null, new Card(first));
+            Battle battle = new Battle(player, new NullPlayer());
+            Card card = new Card(first);
+            player.Hand.AddCard(card);
+
+            battle.ExecuteImmediately(new SetPhase(BattlePhase.Ascend));
+            battle.ExecuteImmediately(new AscendFromHand(card));
+            Assert.AreEqual(card, player.Champion.Card);
+        }
+    }
+}

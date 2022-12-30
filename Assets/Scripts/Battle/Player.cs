@@ -2,7 +2,9 @@
 
 namespace CardGame
 {
-    public class Player
+    
+
+    public class Player : IPlayer
     {
         public CardSlot Champion { get; }
         public MultiCardSlot Pile { get; }
@@ -14,6 +16,18 @@ namespace CardGame
         {
             Pile = new MultiCardSlot(pile);
             Champion = new CardSlot(champion);
+        }
+
+        public Player()
+        {
+            Pile = new MultiCardSlot();
+            Champion = new CardSlot();
+        }
+
+        public void PreGameSetup()
+        {
+            for (int i = 0; i < 6; i++) 
+                Hand.AddCard(Pile.PopCard());
         }
     }
 }
