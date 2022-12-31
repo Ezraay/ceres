@@ -1,4 +1,8 @@
-﻿using CardGame;
+﻿using Ceres.Core.BattleSystem.Actions;
+using Ceres.Core.BattleSystem.Actions.PlayerActions;
+using Ceres.Core.BattleSystem.Battles;
+using Ceres.Core.BattleSystem.Cards;
+using Ceres.Core.BattleSystem.Players;
 using NUnit.Framework;
 using Tests.Slots;
 

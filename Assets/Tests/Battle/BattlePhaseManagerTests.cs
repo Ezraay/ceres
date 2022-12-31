@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using CardGame;
+using Ceres.Core.BattleSystem.Battles;
 using NUnit.Framework;
 
 namespace Tests

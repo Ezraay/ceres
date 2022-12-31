@@ -1,4 +1,5 @@
-﻿using CardGame;
+﻿using Ceres.Core.BattleSystem.Players;
+using Ceres.Core.BattleSystem.Slots;
 
 namespace Tests
 {

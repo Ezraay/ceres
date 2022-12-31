@@ -1,4 +1,5 @@
-﻿using CardGame;
+﻿using Ceres.Core.BattleSystem.Actions.PlayerActions;
+using Ceres.Core.BattleSystem.Battles;
 using NUnit.Framework;
 
 namespace Tests.Actions.PlayerActions

@@ -1,4 +1,4 @@
-﻿using CardGame;
+﻿using Ceres.Core.BattleSystem.Cards;
 
 namespace Tests.Slots
 {

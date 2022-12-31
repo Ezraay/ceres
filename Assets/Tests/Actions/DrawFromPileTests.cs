@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
-using CardGame;
+using Ceres.Core.BattleSystem.Actions;
+using Ceres.Core.BattleSystem.Cards;
+using Ceres.Core.BattleSystem.Players;
 using NUnit.Framework;
 using Tests.Slots;
 
