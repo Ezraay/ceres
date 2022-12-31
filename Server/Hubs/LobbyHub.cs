@@ -59,13 +59,13 @@ public class LobbyHub : Hub
         await Clients.All.SendAsync("ClientsList",LobbyUsers);
     }
 
-    public async Task UserIsReadyToPlay(){
+    public async Task UserIsReadyToPlay(bool ready){
         var connectionId = Context.ConnectionId;
         lock(LobbyUsers){
             HubGameClient? client;
             LobbyUsers.TryGetValue(connectionId, out client);
             if (client != null){
-                client.ReadyToPlay = true;
+                client.ReadyToPlay = ready;
             }
         }
         await Clients.All.SendAsync("ClientsList",LobbyUsers);

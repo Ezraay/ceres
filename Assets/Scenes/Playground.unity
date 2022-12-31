@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e67bb3a7dbd45d05b9c4646dfebdb8af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transport: {fileID: 0}
+  transport: {fileID: 1232446226}
   ReadyToPlaylabel: {fileID: 0}
 --- !u!1 &135775936
 GameObject:
@@ -560,7 +560,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 81914654}
         m_TargetAssemblyTypeName: CardGame.ClientInLobby, Core
-        m_MethodName: ToggleValueChanged
+        m_MethodName: ReadyToPlay
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

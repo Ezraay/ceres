@@ -12,20 +12,15 @@ namespace CardGame
         public SignalRHelper transport;
         public Text ReadyToPlaylabel;
 
-        public void ToggleValueChanged(bool value)
-        {
+        public void ReadyToPlay(bool value){
             if (value) {
                 Debug.Log("Ready To Play");
                 // ReadyToPlaylabel.text = "Ready To Play";
-                transport.connector.connection.SendAsync("UserIsReadyToPlay").GetAwaiter().GetResult();
             } else {
                 Debug.Log("Not Ready To Play");
                 // ReadyToPlaylabel.text = "Not Ready To Play";
             }
-        }
-
-        public void ReadyToPlay(bool value){
-            
+            transport.connector.connection.SendAsync("UserIsReadyToPlay",value).GetAwaiter().GetResult();
         }
     }
 }
