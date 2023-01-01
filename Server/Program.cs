@@ -13,6 +13,8 @@ builder.Services.AddSignalR(hubOptions => {
     hubOptions.HandshakeTimeout = TimeSpan.FromSeconds(5);
 });
 
+builder.Services.AddSingleton<GameManagerFactory>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

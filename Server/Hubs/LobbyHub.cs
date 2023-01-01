@@ -9,6 +9,11 @@ public class LobbyHub : Hub
     public static int ClientsConnected { get; set;}
     public static ConcurrentDictionary<string, HubGameClient> LobbyUsers = new ConcurrentDictionary<string, HubGameClient>();
 
+    private readonly GameManagerFactory _gameManagerFactory;
+    public LobbyHub(GameManagerFactory gameManagerFactory){
+        _gameManagerFactory = gameManagerFactory;
+    }
+
     public override Task OnConnectedAsync()
     {
         ClientsConnected++;
@@ -68,8 +73,29 @@ public class LobbyHub : Hub
                 client.ReadyToPlay = ready;
             }
         }
+        TryAllocateGameManager();
         await Clients.All.SendAsync("ClientsList",LobbyUsers);
     }
 
+
+    private void TryAllocateGameManager(){
+        HubGameClient? firstPlayer = null;
+        lock(LobbyUsers){
+            foreach (var keyValuePair in LobbyUsers)
+            {
+                var user = keyValuePair.Value;
+                if (user == null) continue;
+                if (user.GameId == Guid.Empty  && user.ReadyToPlay){
+                    if (firstPlayer == null){
+                        firstPlayer = user;
+                    } else {
+                        var manager = _gameManagerFactory.GetGameManager();
+                        user.GameId = manager.GameId;
+                        firstPlayer.GameId = manager.GameId;
+                    }
+                }
+            }
+        }
+    }
 
 }

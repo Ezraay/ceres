@@ -4,6 +4,9 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/LobbyHub").build()
 
 //Disable the send button until connection is established.
 document.getElementById("sendButton").disabled = true;
+document.getElementById("readytToPlayButton").disabled = true;
+
+var readyToPlay = false;
 
 connection.on("ReceiveMessage", function (user, message) {
     var li = document.createElement("li");
@@ -14,8 +17,34 @@ connection.on("ReceiveMessage", function (user, message) {
     li.textContent = `${user} says ${message}`;
 });
 
+function GuidIsValid(guid) {
+    const pattern = /^([0-9a-f]{8}-?[0-9a-f]{4}-?[1-5][0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12})$/i;
+    let result = guid.match(pattern);
+    return result;
+}
+
+connection.on("ClientsList",(value) => {
+    var clientList = document.getElementById("clientsList");
+    clientList.innerHTML = "";
+    Object.entries(value).forEach(([connectionId,hubUser]) => {
+        var li = document.createElement("li");
+        clientList.appendChild(li);
+        li.innerText = `ID: ${connectionId}`;
+        if (hubUser && hubUser.userName){
+            li.innerText += `   (${hubUser.userName})` 
+        }
+        if (hubUser && hubUser.readyToPlay){
+            li.innerText += " == Ready To Play =="
+        }
+        if (hubUser && GuidIsValid(hubUser.gameId)){
+            li.innerText += ` GameId: ${hubUser.gameId}`
+        }
+    });
+})
+
 connection.start().then(function () {
     document.getElementById("sendButton").disabled = false;
+    document.getElementById("readytToPlayButton").disabled = false;
 }).catch(function (err) {
     return console.error(err.toString());
 });
@@ -24,6 +53,14 @@ document.getElementById("sendButton").addEventListener("click", function (event)
     var user = document.getElementById("userInput").value;
     var message = document.getElementById("messageInput").value;
     connection.invoke("SendMessage", user, message).catch(function (err) {
+        return console.error(err.toString());
+    });
+    event.preventDefault();
+});
+
+document.getElementById("readytToPlayButton").addEventListener("click", function (event) {
+    readyToPlay = !readyToPlay;
+    connection.send("UserIsReadyToPlay", readyToPlay).catch(function (err) {
         return console.error(err.toString());
     });
     event.preventDefault();
