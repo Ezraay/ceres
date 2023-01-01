@@ -14,10 +14,11 @@ namespace CardGame
             Cards = cards ?? new List<ICard>();
         }
 
-        public void AddCard(ICard card)
+        public ICard AddCard(ICard card)
         {
             Cards.Add(card);
             OnAdd?.Invoke(card);
+            return card;
         }
 
         public void RemoveCard(ICard card)

@@ -1,15 +1,17 @@
-﻿namespace CardGame
+﻿using UnityEngine;
+
+namespace CardGame
 {
     public class AdvancePhase : IAction
     {
-        public bool CanExecute(Battle battle, Player player)
+        public bool CanExecute(Battle battle, IPlayer player)
         {
             return player == battle.PriorityPlayer;
         }
 
-        public void Execute(Battle battle, Player player)
+        public void Execute(Battle battle, IPlayer player)
         {
-            battle.Phase.Advance();
+            battle.BattlePhaseManager.Advance();
         }
     }
 }

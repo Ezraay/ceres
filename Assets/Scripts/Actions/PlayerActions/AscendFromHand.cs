@@ -9,19 +9,21 @@
             this.card = card;
         }
 
-        public bool CanExecute(Battle battle, Player player)
+        public bool CanExecute(Battle battle, IPlayer player)
         {
-            return battle.Phase == BattlePhase.Ascend && (
+            return battle.BattlePhaseManager.Phase == BattlePhase.Ascend && 
+                   player.Hand.Cards.Contains(card) && 
+                   player == battle.AttackingPlayer && (
                 card.Data.Tier == player.Champion.Card.Data.Tier || 
                 card.Data.Tier == player.Champion.Card.Data.Tier + 1
                 ); 
         }
 
-        public void Execute(Battle battle, Player player)
+        public void Execute(Battle battle, IPlayer player)
         {
             player.Champion.SetCard(card);
             player.Hand.RemoveCard(card);
-            battle.Phase.Advance();
+            battle.BattlePhaseManager.Advance();
         }
     }
 }

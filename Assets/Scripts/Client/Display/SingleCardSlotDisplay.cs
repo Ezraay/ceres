@@ -10,14 +10,14 @@ namespace CardGame
         private BoxCollider boxCollider;
         private CardDisplay cardDisplay;
         public ISlot Slot { get; private set; }
-        public Player Owner { get; private set; }
+        public IPlayer Owner { get; private set; }
 
         private void Awake()
         {
             boxCollider = GetComponent<BoxCollider>();
         }
 
-        public void Setup(CardSlot slot, Player player)
+        public void Setup(CardSlot slot, IPlayer player)
         {
             Owner = player;
             Slot = slot;

@@ -3,6 +3,6 @@
     public interface ICardSlotDisplay
     {
         public ISlot Slot { get; }
-        public Player Owner { get; }
+        public IPlayer Owner { get; }
     }
 }
