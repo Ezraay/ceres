@@ -9,6 +9,7 @@ namespace Ceres.Core.BattleSystem.Slots
         public event Action<ICard> OnRemove;
         public int Count { get; }
         void AddCard(ICard card);
+        ICard GetCard(Guid id);
         void RemoveCard(ICard card);
         void Clear();
         bool Contains(ICard card);

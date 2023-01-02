@@ -4,8 +4,6 @@ using Ceres.Core.BattleSystem.Slots;
 
 namespace Ceres.Core.BattleSystem.Players
 {
-    
-
     public class Player : IPlayer
     {
         public CardSlot Champion { get; }
@@ -17,18 +15,33 @@ namespace Ceres.Core.BattleSystem.Players
         public Player(List<ICard> pile, ICard champion)
         {
             Pile = new MultiCardSlot(pile);
-            Champion = new CardSlot(champion);
+            Champion = new CardSlot(0, 0, champion);
         }
 
-        public Player()
+        public Player() : this(null, null) { }
+
+        public CardSlot GetCardSlot(int x, int y)
         {
-            Pile = new MultiCardSlot();
-            Champion = new CardSlot();
+            foreach (CardSlot slot in GetAllCardSlots())
+            {
+                if (slot.x == x && slot.y == y)
+                    return slot;
+            }
+
+            return null;
         }
 
+        public List<CardSlot> GetAllCardSlots()
+        {
+            return new List<CardSlot>()
+            {
+                Champion
+            };
+        }
+        
         public void PreGameSetup()
         {
-            for (int i = 0; i < 6; i++) 
+            for (int i = 0; i < 6; i++)
                 Hand.AddCard(Pile.PopCard());
         }
     }

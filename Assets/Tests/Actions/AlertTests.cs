@@ -1,5 +1,7 @@
-﻿using Ceres.Core.BattleSystem.Actions;
+﻿using System.Collections.Generic;
+using Ceres.Core.BattleSystem.Actions;
 using Ceres.Core.BattleSystem.Cards;
+using Ceres.Core.BattleSystem.Players;
 using Ceres.Core.BattleSystem.Slots;
 using NUnit.Framework;
 using Tests.Slots;
@@ -11,28 +13,31 @@ namespace Tests.Actions
         [Test]
         public void CantAlertNull()
         {
-            Alert command = new Alert(null);
-            Assert.IsFalse(command.CanExecute(null, null));
+            IPlayer player = new Player();
+            Alert command = new Alert(-1, -1);
+            Assert.IsFalse(command.CanExecute(null, player));
         }
 
         [Test]
         public void CantAlertEmptySlot()
         {
-            Alert command = new Alert(new CardSlot());
-            Assert.IsFalse(command.CanExecute(null, null));
+            IPlayer player = new Player();
+            Alert command = new Alert(player.Champion.x, player.Champion.y);
+            Assert.IsNull(player.Champion.Card);
+            Assert.IsFalse(command.CanExecute(null, player));
         }
         
         [Test]
         public void AlertShouldAffectSlot()
         {
-            CardSlot slot = new CardSlot();
-            slot.SetCard(new Card(new TestCardData()));
-            slot.Exhaust();
+            ICard card = new Card(new TestCardData());
+            IPlayer player = new Player(new List<ICard>(), card);
+            player.Champion.Exhaust();
 
-            Alert command = new Alert(slot);
-            command.Execute(null, null);
+            Alert command = new Alert(player.Champion.x, player.Champion.y);
+            command.Execute(null, player);
             
-            Assert.IsFalse(slot.Exhausted);
+            Assert.IsFalse(player.Champion.Exhausted);
         }
     }
 }

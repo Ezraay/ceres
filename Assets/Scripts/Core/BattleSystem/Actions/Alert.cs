@@ -6,21 +6,25 @@ namespace Ceres.Core.BattleSystem.Actions
 {
     public class Alert : IAction
     {
-        private readonly CardSlot slot;
+        private readonly int x;
+        private readonly int y;
 
-        public Alert(CardSlot slot)
+        public Alert(int x, int y)
         {
-            this.slot = slot;
+            this.x = x;
+            this.y = y;
         }
         
         public bool CanExecute(Battle battle, IPlayer player)
         {
+            CardSlot slot = player.GetCardSlot(x, y);
             return slot != null && 
                    slot.Card != null;
         }
 
         public void Execute(Battle battle, IPlayer player)
         {
+            CardSlot slot = player.GetCardSlot(x, y);
             slot.Alert();
         }
     }

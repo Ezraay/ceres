@@ -30,11 +30,11 @@ namespace Ceres.Client.BattleSystem.Display
                     battleManager.Battle.Execute(new DeclareAttack(cardSlot), display.Owner);
                 } else if (multiCardSlot == battleManager.Battle.DefendingPlayer.Hand && battleManager.Battle.BattlePhaseManager.Phase == BattlePhase.Defend)
                 {
-                    battleManager.Battle.Execute(new DefendFromHand(card.Card));
+                    battleManager.Battle.Execute(new DefendFromHand(card.Card.ID));
                 } else if (multiCardSlot == battleManager.Battle.AttackingPlayer.Hand &&
                            battleManager.Battle.BattlePhaseManager.Phase == BattlePhase.Ascend)
                 {
-                    battleManager.Battle.Execute(new AscendFromHand(card.Card));
+                    battleManager.Battle.Execute(new AscendFromHand(card.Card.ID));
                 }
             }
         }

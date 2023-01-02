@@ -16,6 +16,11 @@ namespace Ceres.Core.BattleSystem.Slots
             OnAdd?.Invoke(card);
         }
 
+        public ICard GetCard(Guid id)
+        {
+            return new NullCard();
+        }
+
         public void RemoveCard(ICard card)
         {
             Count--;
@@ -35,7 +40,7 @@ namespace Ceres.Core.BattleSystem.Slots
         public ICard PopCard()
         {
             Count--;
-            return null;
+            return new NullCard();
         }
     }
 }

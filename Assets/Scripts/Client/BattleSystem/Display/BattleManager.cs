@@ -25,6 +25,8 @@ namespace Ceres.Client.BattleSystem.Display
 
             //displayManager.ShowCard(new Card(testCard));
             displayManager.Setup(Battle);
+            
+            Battle.StartBattle();
         }
 
         private void Update()

@@ -1,4 +1,5 @@
-﻿using Ceres.Core.BattleSystem.Battles;
+﻿using System;
+using Ceres.Core.BattleSystem.Battles;
 using Ceres.Core.BattleSystem.Cards;
 using Ceres.Core.BattleSystem.Players;
 
@@ -6,24 +7,26 @@ namespace Ceres.Core.BattleSystem.Actions.PlayerActions
 {
     public class DefendFromHand : IAction
     {
-        private readonly ICard card;
+        private readonly Guid cardID;
 
-        public DefendFromHand(ICard card)
+        public DefendFromHand(Guid cardID)
         {
-            this.card = card;
+            this.cardID = cardID;
         }
-        
+
         public bool CanExecute(Battle battle, IPlayer player)
         {
-            return card != null && 
+            ICard card = player.Hand.GetCard(cardID);
+            return card != null &&
                    player.Hand.Contains(card) &&
-                   battle.BattlePhaseManager.Phase == BattlePhase.Defend && 
-                   player == battle.DefendingPlayer && 
+                   battle.BattlePhaseManager.Phase == BattlePhase.Defend &&
+                   player == battle.DefendingPlayer &&
                    card.Data.Tier <= player.Champion.Card.Data.Tier;
         }
 
         public void Execute(Battle battle, IPlayer player)
         {
+            ICard card = player.Hand.GetCard(cardID);
             player.Hand.RemoveCard(card);
             battle.CombatManager.AddDefender(card);
         }

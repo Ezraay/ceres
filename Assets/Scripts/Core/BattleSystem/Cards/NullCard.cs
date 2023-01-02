@@ -2,9 +2,9 @@
 
 namespace Ceres.Core.BattleSystem.Cards
 {
-    public interface ICard
+    public class NullCard : ICard
     {
         public ICardData Data { get; }
-        public Guid ID { get; }
+        public Guid ID { get; } = Guid.Empty;
     }
 }

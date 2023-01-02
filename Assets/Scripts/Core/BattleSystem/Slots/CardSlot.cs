@@ -7,14 +7,20 @@ namespace Ceres.Core.BattleSystem.Slots
     {
         public ICard Card { get; private set; }
         public bool Exhausted { get; private set; }
+        public readonly int x;
+        public readonly int y;
         public event Action<ICard> OnChange;
         public event Action OnExhaust;
         public event Action OnAlert;
 
-        public CardSlot(ICard card = null)
+        public CardSlot(int x, int y, ICard card = null)
         {
+            this.x = x;
+            this.y = y;
             Card = card;
         }
+
+        public CardSlot(ICard card = null) : this(-1, -1, card) { }
 
         public void Exhaust()
         {

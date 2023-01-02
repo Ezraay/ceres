@@ -14,5 +14,10 @@ namespace Tests
         {
             
         }
+
+        public CardSlot GetCardSlot(int x, int y)
+        {
+            return null;
+        }
     }
 }

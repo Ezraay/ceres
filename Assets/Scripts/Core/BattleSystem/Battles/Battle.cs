@@ -22,9 +22,6 @@ namespace Ceres.Core.BattleSystem.Battles
         {
             Player1 = player1;
             Player2 = player2;
-            
-            player1.PreGameSetup();
-            player2.PreGameSetup();
 
             CombatManager = new CombatManager();
 
@@ -51,7 +48,7 @@ namespace Ceres.Core.BattleSystem.Battles
                 switch (phase)
                 {
                     case BattlePhase.Stand:
-                        Execute(new Alert(AttackingPlayer.Champion));
+                        Execute(new Alert(0, 0)); // TODO: Alert all slots
                         break;
                     case BattlePhase.Draw:
                         Execute(new DrawFromPile());
@@ -65,17 +62,24 @@ namespace Ceres.Core.BattleSystem.Battles
                         Player1Priority = player1Turn;
                         CombatManager.AddTarget(DefendingPlayer.Champion); // TODO: Let player choose target
                         for (int i = 0; i < CombatManager.DamageCount(); i++)
+                        {
                             ExecuteImmediately(new DamageFromPile(), DefendingPlayer);
+                        }
                         break;
                 }
             };
+        }
+
+        public void StartBattle()
+        {
+            Player1.PreGameSetup();
+            Player2.PreGameSetup();
         }
 
         public void Execute(IAction action, IPlayer author)
         {
             if (action.CanExecute(this, author))
                 actionQueue.Add((action, author));
-                //action.Execute(this, author);
         }
         
         public void Execute(IAction action)
@@ -99,8 +103,8 @@ namespace Ceres.Core.BattleSystem.Battles
             if (actionQueue.Count > 0)
             {
                 (IAction action, IPlayer player) = actionQueue[0];
-                action.Execute(this, player);
                 actionQueue.RemoveAt(0);
+                action.Execute(this, player);
             }
         }
     }

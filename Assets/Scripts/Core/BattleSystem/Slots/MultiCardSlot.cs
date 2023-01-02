@@ -23,6 +23,15 @@ namespace Ceres.Core.BattleSystem.Slots
             OnAdd?.Invoke(card);
         }
 
+        public ICard GetCard(Guid id)
+        {
+            foreach (ICard card in Cards)
+                if (card.ID == id)
+                    return card;
+
+            return null;
+        }
+
         public void RemoveCard(ICard card)
         {
             Cards.Remove(card);

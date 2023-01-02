@@ -39,6 +39,7 @@ namespace Ceres.Core.BattleSystem.Battles
 
         public int DamageCount()
         {
+            if (!ValidAttack) return 0;
             int attack = Attacker.Card.Data.Attack;
             int defense = Defenders.Cards.Sum(card => card.Data.Defense);
             return defense + Target.Card.Data.Attack > attack ? 0 : damage;

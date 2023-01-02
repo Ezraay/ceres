@@ -35,7 +35,7 @@ namespace Tests.Actions.PlayerActions
             Battle battle = TestBattle.CreateTestBattle(player);
             battle.ExecuteImmediately(new SetPhase(BattlePhase.Ascend));
 
-            AscendFromHand command = new AscendFromHand(card);
+            AscendFromHand command = new AscendFromHand(card.ID);
             command.Execute(battle, player);
             Assert.AreEqual(card, player.Champion.Card);
             Assert.IsFalse(player.Hand.Contains(card));
@@ -51,7 +51,7 @@ namespace Tests.Actions.PlayerActions
             Battle battle = TestBattle.CreateTestBattle(new NullPlayer(), player);
             battle.ExecuteImmediately(new SetPhase(BattlePhase.Ascend));
 
-            AscendFromHand command = new AscendFromHand(card);
+            AscendFromHand command = new AscendFromHand(card.ID);
             command.Execute(battle, player);
             Assert.AreEqual(card, player.Champion.Card);
             Assert.IsFalse(player.Hand.Contains(card));
@@ -66,7 +66,7 @@ namespace Tests.Actions.PlayerActions
             player.Hand.AddCard(card);
             Battle battle = TestBattle.CreateTestBattle(player);
 
-            AscendFromHand command = new AscendFromHand(card);
+            AscendFromHand command = new AscendFromHand(card.ID);
             command.Execute(battle, player);
             Assert.AreEqual(card, player.Champion.Card);
             Assert.IsFalse(player.Hand.Contains(card));
@@ -86,7 +86,7 @@ namespace Tests.Actions.PlayerActions
             Battle battle = TestBattle.CreateTestBattle(player);
             battle.ExecuteImmediately(new SetPhase(BattlePhase.Ascend));
 
-            AscendFromHand command = new AscendFromHand(card);
+            AscendFromHand command = new AscendFromHand(card.ID);
             command.Execute(battle, player);
             Assert.AreEqual(card, player.Champion.Card);
             Assert.IsFalse(player.Hand.Contains(card));
@@ -106,7 +106,7 @@ namespace Tests.Actions.PlayerActions
             Battle battle = TestBattle.CreateTestBattle(player);
             battle.ExecuteImmediately(new SetPhase(BattlePhase.Ascend));
 
-            AscendFromHand command = new AscendFromHand(card);
+            AscendFromHand command = new AscendFromHand(card.ID);
             command.Execute(battle, player);
             Assert.AreEqual(card, player.Champion.Card);
             Assert.IsFalse(player.Hand.Contains(card));
@@ -121,7 +121,7 @@ namespace Tests.Actions.PlayerActions
             player.Hand.AddCard(card);
 
             battle.ExecuteImmediately(new SetPhase(BattlePhase.Ascend));
-            battle.ExecuteImmediately(new AscendFromHand(card));
+            battle.ExecuteImmediately(new AscendFromHand(card.ID));
             Assert.AreEqual(card, player.Champion.Card);
         }
     }

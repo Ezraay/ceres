@@ -10,5 +10,6 @@ namespace Ceres.Core.BattleSystem.Players
         IMultiCardSlot Graveyard { get; }
         IMultiCardSlot Damage { get; }
         void PreGameSetup();
+        CardSlot GetCardSlot(int x, int y);
     }
 }
