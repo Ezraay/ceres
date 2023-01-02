@@ -23,10 +23,23 @@ function GuidIsValid(guid) {
     return result;
 }
 
+connection.on("GamesList",(value) => {
+    var gamesList = document.getElementById("gamesList");
+    gamesList.innerText = "";
+    Object.entries(value).forEach(([gameId]) => {
+        var li = document.createElement("li");
+        gamesList.appendChild(li);
+        li.innerText = gameId;
+    })
+})
+
 connection.on("ClientsList",(value) => {
     var clientList = document.getElementById("clientsList");
     clientList.innerHTML = "";
-    Object.entries(value).forEach(([connectionId,hubUser]) => {
+    for (const [connectionId,hubUser] of Object.entries(value)) {
+        if (GuidIsValid(hubUser.gameId)){
+            continue;
+        }
         var li = document.createElement("li");
         clientList.appendChild(li);
         li.innerText = `ID: ${connectionId}`;
@@ -39,7 +52,11 @@ connection.on("ClientsList",(value) => {
         if (hubUser && GuidIsValid(hubUser.gameId)){
             li.innerText += ` GameId: ${hubUser.gameId}`
         }
-    });
+        
+    }
+
+    // Object.entries(value).forEach(([connectionId,hubUser]) => {
+    // });
 })
 
 connection.start().then(function () {
@@ -60,7 +77,8 @@ document.getElementById("sendButton").addEventListener("click", function (event)
 
 document.getElementById("readytToPlayButton").addEventListener("click", function (event) {
     readyToPlay = !readyToPlay;
-    connection.send("UserIsReadyToPlay", readyToPlay).catch(function (err) {
+    var user = document.getElementById("userInput").value;
+    connection.send("UserIsReadyToPlay", user, readyToPlay).catch(function (err) {
         return console.error(err.toString());
     });
     event.preventDefault();

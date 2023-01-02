@@ -7,6 +7,8 @@ public class GameManager
         GameId = Guid.NewGuid();
     }
 
-
+    public void EndGame(EndGameManagerReasons reason){
+        // Console.WriteLine("");
+    }  
 
 }

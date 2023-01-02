@@ -27,6 +27,7 @@ public class LobbyHub : Hub
             LobbyUsers.TryAdd(connectionId, new HubGameClient() {});
         }
         Clients.All.SendAsync("ClientsList",LobbyUsers).GetAwaiter().GetResult();
+        Clients.All.SendAsync("GamesList",_gameManagerFactory.Games()).GetAwaiter().GetResult();
         
         return base.OnConnectedAsync();
     }
@@ -42,6 +43,7 @@ public class LobbyHub : Hub
             LobbyUsers.TryRemove(Context.ConnectionId, out garbage);
         }
         Clients.All.SendAsync("ClientsList",LobbyUsers).GetAwaiter().GetResult();
+        Clients.All.SendAsync("GamesList",_gameManagerFactory.Games()).GetAwaiter().GetResult();
         
         return base.OnDisconnectedAsync(exception);
     }
@@ -64,7 +66,8 @@ public class LobbyHub : Hub
         await Clients.All.SendAsync("ClientsList",LobbyUsers);
     }
 
-    public async Task UserIsReadyToPlay(bool ready){
+    public async Task UserIsReadyToPlay(string user, bool ready){
+        await ChangeUserName(user);
         var connectionId = Context.ConnectionId;
         lock(LobbyUsers){
             HubGameClient? client;
