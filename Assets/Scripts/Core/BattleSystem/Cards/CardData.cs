@@ -1,13 +1,20 @@
-﻿using UnityEngine;
-
-namespace Ceres.Core.BattleSystem.Cards
+﻿namespace Ceres.Core.BattleSystem.Cards
 {
-    [CreateAssetMenu(menuName = "Create Card", fileName = "New Card", order = 0)]
-    public class CardData : ScriptableObject, ICardData
+    public class CardData : ICardData
     {
-        [field: SerializeField] public string Name { get; private set; }
-        [field: SerializeField] public int Attack { get; private set; }
-        [field: SerializeField] public int Defense { get; private set; }
-        [field: SerializeField] public int Tier { get; private set; }
+        public string ID { get; }
+        public string Name { get; }
+        public int Tier { get; }
+        public int Attack { get; }
+        public int Defense { get; }
+
+        public CardData(string id, string name, int tier, int attack, int defense)
+        {
+            ID = id;
+            Name = name;
+            Tier = tier;
+            Attack = attack;
+            Defense = defense;
+        }
     }
 }

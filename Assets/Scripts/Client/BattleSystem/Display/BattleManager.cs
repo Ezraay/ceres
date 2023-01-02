@@ -10,20 +10,26 @@ namespace Ceres.Client.BattleSystem.Display
 {
     public class BattleManager : MonoBehaviour
     {
-        [SerializeField] private CardData testCard;
-        [SerializeField] private CardData testCard2;
+        private ICardData testCard;
+        private ICardData testCard2;
         [SerializeField] private DisplayManager displayManager;
+        private ICardDatabase cardDatabase;
         private IPlayer player1;
         private IPlayer player2;
         public Battle Battle;
         
         private void Awake()
         {
+            TextAsset cardDataCSV = (TextAsset)Resources.Load("Data/Cards");
+            cardDatabase = new CSVCardDatabase(cardDataCSV.text.Trim(), true);
+
+            testCard = cardDatabase.GetCardData("archer");
+            testCard2 = cardDatabase.GetCardData("spearman");
+            
             player1 = new Player(CreateTestPile(), new Card(testCard));
             player2 = new Player(CreateTestPile(), new Card(testCard));
             Battle = new Battle(player1, player2);
-
-            //displayManager.ShowCard(new Card(testCard));
+            
             displayManager.Setup(Battle);
             
             Battle.StartBattle();
