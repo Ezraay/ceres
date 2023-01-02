@@ -24,7 +24,7 @@ namespace Ceres.Client.BattleSystem.Display
                 //     battleManager.battle.Execute(new AscendFromHand(card.Card), battleManager.battle.PriorityPlayer);
 
                 CardSlot cardSlot = display.Slot as CardSlot;
-                MultiCardSlot multiCardSlot = display.Slot as MultiCardSlot;
+                IMultiCardSlot multiCardSlot = display.Slot as MultiCardSlot;
                 if (cardSlot != null && battleManager.Battle.BattlePhaseManager.Phase == BattlePhase.Attack && display.Owner == battleManager.Battle.AttackingPlayer)
                 {
                     battleManager.Battle.Execute(new DeclareAttack(cardSlot), display.Owner);

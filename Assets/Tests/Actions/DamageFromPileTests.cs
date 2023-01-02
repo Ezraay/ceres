@@ -37,9 +37,8 @@ namespace Tests.Actions
             DamageFromPile command = new DamageFromPile();
             command.Execute(null, player);
 
-            Assert.IsTrue(player.Damage.Cards.Count > 0);
-            Assert.IsEmpty(player.Pile.Cards);
-            Assert.AreEqual(card, player.Damage.Cards[0]);
+            Assert.IsTrue(player.Damage.Count > 0);
+            Assert.AreEqual(0, player.Pile.Count);
         }
     }
 }

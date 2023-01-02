@@ -4,9 +4,11 @@ using Ceres.Core.BattleSystem.Cards;
 
 namespace Ceres.Core.BattleSystem.Slots
 {
-    public class MultiCardSlot : ISlot
+    public class MultiCardSlot : IMultiCardSlot
     {
-        public List<ICard> Cards;
+        public List<ICard> Cards { get; }
+
+        public int Count => Cards.Count;
         public event Action<ICard> OnAdd;
         public event Action<ICard> OnRemove;
 
@@ -15,11 +17,10 @@ namespace Ceres.Core.BattleSystem.Slots
             Cards = cards ?? new List<ICard>();
         }
 
-        public ICard AddCard(ICard card)
+        public void AddCard(ICard card)
         {
             Cards.Add(card);
             OnAdd?.Invoke(card);
-            return card;
         }
 
         public void RemoveCard(ICard card)
@@ -31,6 +32,11 @@ namespace Ceres.Core.BattleSystem.Slots
         public void Clear()
         {
             for (int i = Cards.Count - 1; i >= 0; i--) RemoveCard(Cards[i]);
+        }
+
+        public bool Contains(ICard card)
+        {
+            return Cards.Contains(card);
         }
 
         public ICard PopCard()

@@ -56,7 +56,7 @@ namespace Tests
         {
             CombatManager manager = new CombatManager();
             CardSlot slot = new CardSlot();
-            MultiCardSlot graveyard = new MultiCardSlot();
+            IMultiCardSlot graveyard = new MultiCardSlot();
             manager.AddAttacker(slot);
             manager.Reset(graveyard);
             
@@ -68,7 +68,7 @@ namespace Tests
         {
             CombatManager manager = new CombatManager();
             CardSlot slot = new CardSlot();
-            MultiCardSlot graveyard = new MultiCardSlot();
+            IMultiCardSlot graveyard = new MultiCardSlot();
             manager.AddTarget(slot);
             manager.Reset(graveyard);
             

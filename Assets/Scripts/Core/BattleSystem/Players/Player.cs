@@ -9,10 +9,10 @@ namespace Ceres.Core.BattleSystem.Players
     public class Player : IPlayer
     {
         public CardSlot Champion { get; }
-        public MultiCardSlot Pile { get; }
-        public MultiCardSlot Hand { get; } = new MultiCardSlot();
-        public MultiCardSlot Graveyard { get; } = new MultiCardSlot();
-        public MultiCardSlot Damage { get; } = new MultiCardSlot();
+        public IMultiCardSlot Pile { get; }
+        public IMultiCardSlot Hand { get; } = new MultiCardSlot();
+        public IMultiCardSlot Graveyard { get; } = new MultiCardSlot();
+        public IMultiCardSlot Damage { get; } = new MultiCardSlot();
 
         public Player(List<ICard> pile, ICard champion)
         {

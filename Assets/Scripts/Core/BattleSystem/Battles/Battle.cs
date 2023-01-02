@@ -101,7 +101,6 @@ namespace Ceres.Core.BattleSystem.Battles
                 (IAction action, IPlayer player) = actionQueue[0];
                 action.Execute(this, player);
                 actionQueue.RemoveAt(0);
-                Debug.Log(action);
             }
         }
     }

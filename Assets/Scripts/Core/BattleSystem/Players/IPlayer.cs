@@ -5,10 +5,10 @@ namespace Ceres.Core.BattleSystem.Players
     public interface IPlayer
     {
         CardSlot Champion { get; }
-        MultiCardSlot Pile { get; }
-        MultiCardSlot Hand { get; }
-        MultiCardSlot Graveyard { get; }
-        MultiCardSlot Damage { get; }
+        IMultiCardSlot Pile { get; }
+        IMultiCardSlot Hand { get; }
+        IMultiCardSlot Graveyard { get; }
+        IMultiCardSlot Damage { get; }
         void PreGameSetup();
     }
 }

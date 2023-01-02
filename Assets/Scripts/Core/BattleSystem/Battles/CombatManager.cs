@@ -29,7 +29,7 @@ namespace Ceres.Core.BattleSystem.Battles
                 Defenders.AddCard(card);
         }
 
-        public void Reset(MultiCardSlot graveyard)
+        public void Reset(IMultiCardSlot graveyard)
         {
             Attacker = null;
             Target = null;

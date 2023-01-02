@@ -16,7 +16,7 @@ namespace Ceres.Core.BattleSystem.Actions.PlayerActions
         public bool CanExecute(Battle battle, IPlayer player)
         {
             return card != null && 
-                   player.Hand.Cards.Contains(card) &&
+                   player.Hand.Contains(card) &&
                    battle.BattlePhaseManager.Phase == BattlePhase.Defend && 
                    player == battle.DefendingPlayer && 
                    card.Data.Tier <= player.Champion.Card.Data.Tier;

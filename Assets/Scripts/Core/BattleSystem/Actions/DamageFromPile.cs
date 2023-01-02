@@ -7,7 +7,7 @@ namespace Ceres.Core.BattleSystem.Actions
     {
         public bool CanExecute(Battle battle, IPlayer player)
         {
-            return player.Pile.Cards.Count > 0;
+            return player.Pile.Count > 0;
         }
 
         public void Execute(Battle battle, IPlayer player)
