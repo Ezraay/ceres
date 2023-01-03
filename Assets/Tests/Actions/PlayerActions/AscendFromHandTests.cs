@@ -1,4 +1,8 @@
-﻿using CardGame;
+﻿using Ceres.Core.BattleSystem.Actions;
+using Ceres.Core.BattleSystem.Actions.PlayerActions;
+using Ceres.Core.BattleSystem.Battles;
+using Ceres.Core.BattleSystem.Cards;
+using Ceres.Core.BattleSystem.Players;
 using NUnit.Framework;
 using Tests.Slots;
 
@@ -26,14 +30,15 @@ namespace Tests.Actions.PlayerActions
         {
             ICardData data = new TestCardData();
             Player player = new Player(null, new Card(data));
-            ICard card = player.Hand.AddCard(new Card(first));
+            ICard card = new Card(first);
+            player.Hand.AddCard(card);
             Battle battle = TestBattle.CreateTestBattle(player);
             battle.ExecuteImmediately(new SetPhase(BattlePhase.Ascend));
 
-            AscendFromHand command = new AscendFromHand(card);
+            AscendFromHand command = new AscendFromHand(card.ID);
             command.Execute(battle, player);
             Assert.AreEqual(card, player.Champion.Card);
-            Assert.IsFalse(player.Hand.Cards.Contains(card));
+            Assert.IsFalse(player.Hand.Contains(card));
         }
 
         [Test]
@@ -41,14 +46,15 @@ namespace Tests.Actions.PlayerActions
         {
             ICardData data = new TestCardData();
             Player player = new Player(null, new Card(data));
-            ICard card = player.Hand.AddCard(new Card(first));
+            ICard card = new Card(first);
+            player.Hand.AddCard(card);
             Battle battle = TestBattle.CreateTestBattle(new NullPlayer(), player);
             battle.ExecuteImmediately(new SetPhase(BattlePhase.Ascend));
 
-            AscendFromHand command = new AscendFromHand(card);
+            AscendFromHand command = new AscendFromHand(card.ID);
             command.Execute(battle, player);
             Assert.AreEqual(card, player.Champion.Card);
-            Assert.IsFalse(player.Hand.Cards.Contains(card));
+            Assert.IsFalse(player.Hand.Contains(card));
         }
 
         [Test]
@@ -56,13 +62,14 @@ namespace Tests.Actions.PlayerActions
         {
             ICardData data = new TestCardData();
             Player player = new Player(null, new Card(data));
-            ICard card = player.Hand.AddCard(new Card(first));
+            ICard card = new Card(first);
+            player.Hand.AddCard(card);
             Battle battle = TestBattle.CreateTestBattle(player);
 
-            AscendFromHand command = new AscendFromHand(card);
+            AscendFromHand command = new AscendFromHand(card.ID);
             command.Execute(battle, player);
             Assert.AreEqual(card, player.Champion.Card);
-            Assert.IsFalse(player.Hand.Cards.Contains(card));
+            Assert.IsFalse(player.Hand.Contains(card));
         }
 
         [Test]
@@ -74,14 +81,15 @@ namespace Tests.Actions.PlayerActions
                 Tier = 2
             };
             Player player = new Player(null, new Card(champion));
-            ICard card = player.Hand.AddCard(new Card(first));
+            ICard card = new Card(first);
+            player.Hand.AddCard(card);
             Battle battle = TestBattle.CreateTestBattle(player);
             battle.ExecuteImmediately(new SetPhase(BattlePhase.Ascend));
 
-            AscendFromHand command = new AscendFromHand(card);
+            AscendFromHand command = new AscendFromHand(card.ID);
             command.Execute(battle, player);
             Assert.AreEqual(card, player.Champion.Card);
-            Assert.IsFalse(player.Hand.Cards.Contains(card));
+            Assert.IsFalse(player.Hand.Contains(card));
         }
 
         [Test]
@@ -93,14 +101,15 @@ namespace Tests.Actions.PlayerActions
             };
             ICardData champion = new TestCardData();
             Player player = new Player(null, new Card(champion));
-            ICard card = player.Hand.AddCard(new Card(first));
+            ICard card = new Card(first);
+            player.Hand.AddCard(card);
             Battle battle = TestBattle.CreateTestBattle(player);
             battle.ExecuteImmediately(new SetPhase(BattlePhase.Ascend));
 
-            AscendFromHand command = new AscendFromHand(card);
+            AscendFromHand command = new AscendFromHand(card.ID);
             command.Execute(battle, player);
             Assert.AreEqual(card, player.Champion.Card);
-            Assert.IsFalse(player.Hand.Cards.Contains(card));
+            Assert.IsFalse(player.Hand.Contains(card));
         }
 
         [Test]
@@ -112,7 +121,7 @@ namespace Tests.Actions.PlayerActions
             player.Hand.AddCard(card);
 
             battle.ExecuteImmediately(new SetPhase(BattlePhase.Ascend));
-            battle.ExecuteImmediately(new AscendFromHand(card));
+            battle.ExecuteImmediately(new AscendFromHand(card.ID));
             Assert.AreEqual(card, player.Champion.Card);
         }
     }

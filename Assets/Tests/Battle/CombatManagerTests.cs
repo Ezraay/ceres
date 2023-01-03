@@ -1,4 +1,6 @@
-using CardGame;
+using Ceres.Core.BattleSystem.Battles;
+using Ceres.Core.BattleSystem.Cards;
+using Ceres.Core.BattleSystem.Slots;
 using NUnit.Framework;
 using Tests.Slots;
 
@@ -54,7 +56,7 @@ namespace Tests
         {
             CombatManager manager = new CombatManager();
             CardSlot slot = new CardSlot();
-            MultiCardSlot graveyard = new MultiCardSlot();
+            IMultiCardSlot graveyard = new MultiCardSlot();
             manager.AddAttacker(slot);
             manager.Reset(graveyard);
             
@@ -66,7 +68,7 @@ namespace Tests
         {
             CombatManager manager = new CombatManager();
             CardSlot slot = new CardSlot();
-            MultiCardSlot graveyard = new MultiCardSlot();
+            IMultiCardSlot graveyard = new MultiCardSlot();
             manager.AddTarget(slot);
             manager.Reset(graveyard);
             

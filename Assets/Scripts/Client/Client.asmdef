@@ -1,0 +1,16 @@
+{
+    "name": "Client",
+    "rootNamespace": "Ceres.Client",
+    "references": [
+        "GUID:de083e028b382ac4c8a7887281047d07"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

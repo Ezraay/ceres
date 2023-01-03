@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
-using CardGame;
+using Ceres.Core.BattleSystem.Actions;
+using Ceres.Core.BattleSystem.Cards;
+using Ceres.Core.BattleSystem.Players;
 using NUnit.Framework;
 using Tests.Slots;
 
@@ -35,9 +37,8 @@ namespace Tests.Actions
             DrawFromPile command = new DrawFromPile();
             command.Execute(null, player);
 
-            Assert.IsTrue(player.Hand.Cards.Count > 0);
-            Assert.IsEmpty(player.Pile.Cards);
-            Assert.AreEqual(card, player.Hand.Cards[0]);
+            Assert.IsTrue(player.Hand.Count > 0);
+            Assert.AreEqual(0, player.Pile.Count);
         }
     }
 }

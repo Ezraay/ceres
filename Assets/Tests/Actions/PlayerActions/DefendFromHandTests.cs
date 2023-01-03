@@ -1,4 +1,8 @@
-﻿using CardGame;
+﻿using Ceres.Core.BattleSystem.Actions;
+using Ceres.Core.BattleSystem.Actions.PlayerActions;
+using Ceres.Core.BattleSystem.Battles;
+using Ceres.Core.BattleSystem.Cards;
+using Ceres.Core.BattleSystem.Players;
 using NUnit.Framework;
 using Tests.Slots;
 using UnityEngine;
@@ -14,9 +18,10 @@ namespace Tests.Actions.PlayerActions
         public void CantDefendWhenAttacking()
         {
             IPlayer player = new Player();
-            ICard card = player.Hand.AddCard(new Card(testCard));
+            ICard card = new Card(testCard);
+            player.Hand.AddCard(card);
             Battle battle = TestBattle.CreateTestBattle(player);
-            IAction command = new DefendFromHand(card);
+            IAction command = new DefendFromHand(card.ID);
             Assert.IsFalse(command.CanExecute(battle, player));
         }
 
@@ -24,9 +29,10 @@ namespace Tests.Actions.PlayerActions
         public void CantDefendOutsidePhase()
         {
             IPlayer player = new Player();
-            ICard card = player.Hand.AddCard(new Card(testCard));
+            ICard card = new Card(testCard);
+            player.Hand.AddCard(card);
             Battle battle = TestBattle.CreateTestBattle(new NullPlayer(), player);
-            IAction command = new DefendFromHand(card);
+            IAction command = new DefendFromHand(card.ID);
             Assert.IsFalse(command.CanExecute(battle, player));
         }
 
@@ -38,19 +44,10 @@ namespace Tests.Actions.PlayerActions
             {
                 Tier = 3
             };
-            ICard card = player.Hand.AddCard(new Card(cardData));
+            ICard card = new Card(cardData);
+            player.Hand.AddCard(card);
             Battle battle = TestBattle.CreateTestBattle(new NullPlayer(), player);
-            IAction command = new DefendFromHand(card);
-            battle.ExecuteImmediately(new SetPhase(BattlePhase.Defend));
-            Assert.IsFalse(command.CanExecute(battle, player));
-        }
-
-        [Test]
-        public void CantDefendWithNull()
-        {
-            IPlayer player = new Player();
-            Battle battle = TestBattle.CreateTestBattle(new NullPlayer(), player);
-            IAction command = new DefendFromHand(null);
+            IAction command = new DefendFromHand(card.ID);
             battle.ExecuteImmediately(new SetPhase(BattlePhase.Defend));
             Assert.IsFalse(command.CanExecute(battle, player));
         }
@@ -61,7 +58,7 @@ namespace Tests.Actions.PlayerActions
             IPlayer player = new Player();
             ICard card = new Card(testCard);
             Battle battle = TestBattle.CreateTestBattle(new NullPlayer(), player);
-            IAction command = new DefendFromHand(card);
+            IAction command = new DefendFromHand(card.ID);
             battle.ExecuteImmediately(new SetPhase(BattlePhase.Defend));
             Assert.IsFalse(command.CanExecute(battle, player));
         }
@@ -70,9 +67,10 @@ namespace Tests.Actions.PlayerActions
         public void CanDefend()
         {
             IPlayer player = new Player(null, new Card(testCard));
-            ICard card = player.Hand.AddCard(new Card(testCard));
+            ICard card = new Card(testCard);
+            player.Hand.AddCard(card);
             Battle battle = TestBattle.CreateTestBattle(new NullPlayer(), player);
-            DefendFromHand command = new DefendFromHand(card);
+            DefendFromHand command = new DefendFromHand(card.ID);
             battle.ExecuteImmediately(new SetPhase(BattlePhase.Defend));
             Assert.IsTrue(command.CanExecute(battle, player));
         }
@@ -81,11 +79,12 @@ namespace Tests.Actions.PlayerActions
         public void Execute()
         {
             IPlayer player = new Player(null, new Card(testCard));
-            ICard card = player.Hand.AddCard(new Card(testCard));
+            ICard card = new Card(testCard);
+            player.Hand.AddCard(card);
             Battle battle = TestBattle.CreateTestBattle(new Player(), player);
             
             battle.ExecuteImmediately(new SetPhase(BattlePhase.Defend));
-            battle.ExecuteImmediately(new DefendFromHand(card), player);
+            battle.ExecuteImmediately(new DefendFromHand(card.ID), player);
 
             Assert.Contains(card, battle.CombatManager.Defenders.Cards);
         }
