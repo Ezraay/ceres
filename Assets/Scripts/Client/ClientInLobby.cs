@@ -20,7 +20,7 @@ namespace CardGame
                 Debug.Log("Not Ready To Play");
                 // ReadyToPlaylabel.text = "Not Ready To Play";
             }
-            transport.connector.connection.SendAsync("UserIsReadyToPlay",value).GetAwaiter().GetResult();
+            transport.connector.connection.SendAsync("UserIsReadyToPlay","Ar",value).GetAwaiter().GetResult();
         }
     }
 }
