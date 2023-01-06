@@ -33,16 +33,21 @@ connection.on("GamesList",(value) => {
     })
 })
 
+connection.on("GoToGame",(gameId) => {
+    console.log("/games?gameid="+gameId.toString())
+    window.location = "/games?gameid="+gameId.toString();
+})
+
 connection.on("ClientsList",(value) => {
     var clientList = document.getElementById("clientsList");
     clientList.innerHTML = "";
-    for (const [connectionId,hubUser] of Object.entries(value)) {
-        if (GuidIsValid(hubUser.gameId)){
-            continue;
-        }
+    for (const [,hubUser] of Object.entries(value)) {
+        // if (GuidIsValid(hubUser.gameId)){
+        //     continue;
+        // }
         var li = document.createElement("li");
         clientList.appendChild(li);
-        li.innerText = `ID: ${connectionId}`;
+        li.innerText = `ID: ${hubUser.lobbyConnectionId}`;
         if (hubUser && hubUser.userName){
             li.innerText += `   (${hubUser.userName})` 
         }

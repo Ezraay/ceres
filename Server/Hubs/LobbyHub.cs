@@ -23,8 +23,7 @@ public class LobbyHub : Hub
         // Console.WriteLine($"User connected with ID: {connectionId}");
         // var userId = Context?.User?.Identity?.Name; // any desired user id
         lock(LobbyUsers){
-            // LobbyUsers.TryAdd(connectionId, new HubGameClient() { ConnectionId = connectionId });
-            LobbyUsers.TryAdd(connectionId, new HubGameClient() {});
+            LobbyUsers.TryAdd(connectionId, new HubGameClient() {LobbyConnectionId = connectionId});
         }
         Clients.All.SendAsync("ClientsList",LobbyUsers).GetAwaiter().GetResult();
         Clients.All.SendAsync("GamesList",_gameManagerFactory.Games()).GetAwaiter().GetResult();
@@ -95,6 +94,10 @@ public class LobbyHub : Hub
                         var manager = _gameManagerFactory.GetGameManager();
                         user.GameId = manager.GameId;
                         firstPlayer.GameId = manager.GameId;
+                        if (user.LobbyConnectionId != null)
+                            Clients.Client(user.LobbyConnectionId).SendAsync("GoToGame",manager.GameId).GetAwaiter().GetResult();
+                        if (firstPlayer.LobbyConnectionId != null)
+                            Clients.Client(firstPlayer.LobbyConnectionId).SendAsync("GoToGame",manager.GameId).GetAwaiter().GetResult();
                     }
                 }
             }
