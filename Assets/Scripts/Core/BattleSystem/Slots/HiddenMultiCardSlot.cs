@@ -1,46 +1,19 @@
-﻿using System;
-using Ceres.Core.BattleSystem.Cards;
-
+﻿
 namespace Ceres.Core.BattleSystem.Slots
 {
-    public class HiddenMultiCardSlot : IMultiCardSlot
+    public class HiddenMultiCardSlot
     {
-        public event Action<ICard> OnAdd;
-        public event Action<ICard> OnRemove;
         public int Count { get; private set; }
 
 
-        public void AddCard(ICard card)
+        public void AddCard()
         {
             Count++;
-            OnAdd?.Invoke(card);
         }
 
-        public ICard GetCard(Guid id)
-        {
-            return new NullCard();
-        }
-
-        public void RemoveCard(ICard card)
+        public void RemoveCard()
         {
             Count--;
-            OnRemove?.Invoke(card);
-        }
-
-        public void Clear()
-        {
-            for (int i = Count - 1; i >= 0; i--) RemoveCard(null);
-        }
-
-        public bool Contains(ICard card)
-        {
-            return false;
-        }
-
-        public ICard PopCard()
-        {
-            Count--;
-            return new NullCard();
         }
     }
 }

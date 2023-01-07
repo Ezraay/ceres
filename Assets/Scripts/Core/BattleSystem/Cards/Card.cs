@@ -2,7 +2,7 @@ using System;
 
 namespace Ceres.Core.BattleSystem.Cards
 {
-    public class Card : ICard
+    public class Card
     {
         public ICardData Data { get; }
         public Guid ID { get; }

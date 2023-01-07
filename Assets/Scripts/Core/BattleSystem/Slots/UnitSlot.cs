@@ -1,4 +1,6 @@
-﻿namespace Ceres.Core.BattleSystem
+﻿using Ceres.Core.BattleSystem.Cards;
+
+namespace Ceres.Core.BattleSystem
 {
     public class UnitSlot
     {
