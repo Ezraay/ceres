@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Linq;
 
-namespace Ceres.Core.BattleSystem.Battles
+namespace Ceres.Core.BattleSystem
 {
-    
-
     public class BattlePhaseManager
     {
+        public BattlePhase Phase { get; private set; }
         public readonly BattlePhase FirstPhase = Enum.GetValues(typeof(BattlePhase)).Cast<BattlePhase>().Min();
         public readonly BattlePhase LastPhase = Enum.GetValues(typeof(BattlePhase)).Cast<BattlePhase>().Max();
-        public BattlePhase Phase { get; private set; }
         public event Action OnTurnEnd;
         public event Action<BattlePhase> OnPhaseExit;
         public event Action<BattlePhase> OnPhaseEnter;

@@ -1,6 +1,4 @@
-﻿using System;
-using Ceres.Core.BattleSystem;
-using Ceres.Core.BattleSystem.Battles;
+﻿using Ceres.Core.BattleSystem;
 using UnityEngine;
 using UnityEngine.UI;
 

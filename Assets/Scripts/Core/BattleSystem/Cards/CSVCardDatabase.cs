@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Ceres.Core.BattleSystem.Cards
+namespace Ceres.Core.BattleSystem
 {
     public class CSVCardDatabase : ICardDatabase
     {
-        private Dictionary<string, ICardData> data = new Dictionary<string, ICardData>();
+        private readonly Dictionary<string, ICardData> data = new Dictionary<string, ICardData>();
 
         public CSVCardDatabase(string csvData, bool skipHeader)
         {
@@ -15,15 +15,15 @@ namespace Ceres.Core.BattleSystem.Cards
                 string[] values = lines[i].Split(',');
                 Debug.Log(lines[i]);
                 ICardData cardData = new CardData(
-                    values[0], 
-                    values[1], 
-                    int.Parse(values[2]), 
-                    int.Parse(values[3]), 
+                    values[0],
+                    values[1],
+                    int.Parse(values[2]),
+                    int.Parse(values[3]),
                     int.Parse(values[4]));
                 data.Add(cardData.ID, cardData);
             }
         }
-        
+
         public ICardData GetCardData(string id)
         {
             data.TryGetValue(id, out var result);

@@ -1,5 +1,4 @@
-﻿
-namespace Ceres.Core.BattleSystem.Slots
+﻿namespace Ceres.Core.BattleSystem
 {
     public class HiddenMultiCardSlot
     {

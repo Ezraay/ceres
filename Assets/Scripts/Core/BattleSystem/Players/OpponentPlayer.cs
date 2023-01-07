@@ -1,7 +1,4 @@
 ﻿namespace Ceres.Core.BattleSystem
 {
-    public class OpponentPlayer
-    {
-        
-    }
+    public class OpponentPlayer { }
 }

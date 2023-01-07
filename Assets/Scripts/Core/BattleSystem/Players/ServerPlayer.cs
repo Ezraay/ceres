@@ -1,7 +1,4 @@
 ﻿namespace Ceres.Core.BattleSystem
 {
-    public class ServerPlayer
-    {
-        
-    }
+    public class ServerPlayer { }
 }

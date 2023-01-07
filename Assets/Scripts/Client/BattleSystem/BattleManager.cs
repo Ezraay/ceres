@@ -1,6 +1,4 @@
-﻿using System;
-using Ceres.Core.BattleSystem;
-using Ceres.Core.BattleSystem.Cards;
+﻿using Ceres.Core.BattleSystem;
 using UnityEngine;
 
 namespace Ceres.Client.BattleSystem
@@ -10,13 +8,13 @@ namespace Ceres.Client.BattleSystem
     {
         public ClientBattle Battle { get; private set; }
         public ICardDatabase CardDatabase { get; private set; }
-        
+
         private void OnEnable()
         {
             string cardDataPath = "Data/Cards";
             TextAsset text = Resources.Load<TextAsset>(cardDataPath);
             CardDatabase = new CSVCardDatabase(text.text.Trim(), true);
-            
+
             CreateBattle();
         }
 
@@ -36,10 +34,8 @@ namespace Ceres.Client.BattleSystem
         public void Execute(IClientCommand command)
         {
             if (command.CanExecute(Battle))
-            {
                 // TODO: Send to server
                 Debug.Log("Sending command to server: " + command);
-            }
         }
     }
 }

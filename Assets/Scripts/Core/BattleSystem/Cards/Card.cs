@@ -1,6 +1,6 @@
 using System;
 
-namespace Ceres.Core.BattleSystem.Cards
+namespace Ceres.Core.BattleSystem
 {
     public class Card
     {

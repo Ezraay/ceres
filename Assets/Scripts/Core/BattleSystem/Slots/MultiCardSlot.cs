@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Ceres.Core.BattleSystem.Cards;
 
-namespace Ceres.Core.BattleSystem.Slots
+namespace Ceres.Core.BattleSystem
 {
     public class MultiCardSlot
     {
