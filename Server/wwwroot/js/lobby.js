@@ -29,7 +29,10 @@ connection.on("GamesList",(value) => {
     Object.entries(value).forEach(([gameId]) => {
         var li = document.createElement("li");
         gamesList.appendChild(li);
-        li.innerText = gameId;
+        var a = document.createElement("a");
+        a.textContent = gameId;
+        a.setAttribute('href', "/games?gameid="+gameId);
+        li.appendChild(a);
     })
 })
 
@@ -47,7 +50,7 @@ connection.on("ClientsList",(value) => {
         // }
         var li = document.createElement("li");
         clientList.appendChild(li);
-        li.innerText = `ID: ${hubUser.lobbyConnectionId}`;
+        li.innerText = `ID: ${hubUser.userId}`;
         if (hubUser && hubUser.userName){
             li.innerText += `   (${hubUser.userName})` 
         }

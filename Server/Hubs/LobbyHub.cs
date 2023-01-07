@@ -10,6 +10,7 @@ public class LobbyHub : Hub
     public static ConcurrentDictionary<string, HubGameClient> LobbyUsers = new ConcurrentDictionary<string, HubGameClient>();
 
     private readonly GameManagerFactory _gameManagerFactory;
+    private static int _userNumber;
     public LobbyHub(GameManagerFactory gameManagerFactory){
         _gameManagerFactory = gameManagerFactory;
     }
@@ -23,8 +24,10 @@ public class LobbyHub : Hub
         // Console.WriteLine($"User connected with ID: {connectionId}");
         // var userId = Context?.User?.Identity?.Name; // any desired user id
         lock(LobbyUsers){
-            LobbyUsers.TryAdd(connectionId, new HubGameClient() {LobbyConnectionId = connectionId});
+            LobbyUsers.TryAdd(connectionId, new HubGameClient() {LobbyConnectionId = connectionId, 
+                UserName = $"Player{_userNumber}", UserId = Guid.NewGuid()});
         }
+        _userNumber++;
         Clients.All.SendAsync("ClientsList",LobbyUsers).GetAwaiter().GetResult();
         Clients.All.SendAsync("GamesList",_gameManagerFactory.Games()).GetAwaiter().GetResult();
         
