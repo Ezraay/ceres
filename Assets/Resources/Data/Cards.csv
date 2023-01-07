@@ -1,3 +1,11 @@
-﻿ID,Name,Tier,Attack,Defense
-archer,Archer,1,5,15
-spearman,Spearman,2,9,10
+ID|Name|Tier|Attack|Defense
+archer|Archer|1|5|15
+spearman|Spearman|2|10|10
+king_of_straight_swords|King of Straight Swords|3|14|12
+queen_of_curved_bows|Queen of Curved Bows|3|16|8
+infant_angel|Infant Angel|4|20|5
+giddy_recruit_theodore|Giddy Recruit, Theodore|1|5|20
+indifferent_squire_theodore|Indifferent Squire, Theodore|2|10|15
+somber_prince_theodore|Somber Prince, Theodore|3|15|10
+melancholic_king_theodore|Melancholic King, Theodore|4|20|5
+suicidal_emperor_theodore|Suicidal Emperor, Theodore|5|25|0
