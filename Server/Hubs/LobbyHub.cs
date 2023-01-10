@@ -7,7 +7,7 @@ using Domain.Entities;
 public class LobbyHub : Hub
 {
     public static int ClientsConnected { get; set;}
-    public static ConcurrentDictionary<string, HubGameClient> LobbyUsers = new ConcurrentDictionary<string, HubGameClient>();
+    public static ConcurrentDictionary<string, GameUser> LobbyUsers = new ConcurrentDictionary<string, GameUser>();
 
     private readonly GameManagerFactory _gameManagerFactory;
     private static int _userNumber;
@@ -24,7 +24,7 @@ public class LobbyHub : Hub
         // Console.WriteLine($"User connected with ID: {connectionId}");
         // var userId = Context?.User?.Identity?.Name; // any desired user id
         lock(LobbyUsers){
-            LobbyUsers.TryAdd(connectionId, new HubGameClient() {LobbyConnectionId = connectionId, 
+            LobbyUsers.TryAdd(connectionId, new GameUser() {LobbyConnectionId = connectionId, 
                 UserName = $"Player{_userNumber}", UserId = Guid.NewGuid()});
         }
         _userNumber++;
@@ -41,7 +41,7 @@ public class LobbyHub : Hub
 
         // Console.WriteLine($"User disconnected with ID: {Context.ConnectionId}");
         lock(LobbyUsers){
-            HubGameClient? garbage;
+            GameUser? garbage;
             LobbyUsers.TryRemove(Context.ConnectionId, out garbage);
         }
         Clients.All.SendAsync("ClientsList",LobbyUsers).GetAwaiter().GetResult();
@@ -57,9 +57,11 @@ public class LobbyHub : Hub
     }
 
     public async Task ChangeUserName(string newName){
+        if (string.IsNullOrEmpty(newName))
+            return;
         var connectionId = Context.ConnectionId;
         lock(LobbyUsers){
-            HubGameClient? client;
+            GameUser? client;
             LobbyUsers.TryGetValue(connectionId, out client);
             if (client != null){
                 client.UserName = newName;
@@ -72,7 +74,7 @@ public class LobbyHub : Hub
         await ChangeUserName(user);
         var connectionId = Context.ConnectionId;
         lock(LobbyUsers){
-            HubGameClient? client;
+            GameUser? client;
             LobbyUsers.TryGetValue(connectionId, out client);
             if (client != null){
                 client.ReadyToPlay = ready;
@@ -84,7 +86,7 @@ public class LobbyHub : Hub
 
 
     private void TryAllocateGameManager(){
-        HubGameClient? firstPlayer = null;
+        GameUser? firstPlayer = null;
         lock(LobbyUsers){
             foreach (var keyValuePair in LobbyUsers)
             {
@@ -96,7 +98,9 @@ public class LobbyHub : Hub
                     } else {
                         var manager = _gameManagerFactory.GetGameManager();
                         user.GameId = manager.GameId;
+                        manager.Player2 = user;
                         firstPlayer.GameId = manager.GameId;
+                        manager.Player1 = firstPlayer;
                         if (user.LobbyConnectionId != null)
                             Clients.Client(user.LobbyConnectionId).SendAsync("GoToGame",manager.GameId).GetAwaiter().GetResult();
                         if (firstPlayer.LobbyConnectionId != null)

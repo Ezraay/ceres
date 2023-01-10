@@ -1,6 +1,6 @@
 namespace Domain.Entities
 {
-    public class HubGameClient
+    public class GameUser
     {
         public string? LobbyConnectionId { get; set; }
         public string? UserName { get; set; }

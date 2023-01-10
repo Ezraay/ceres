@@ -85,8 +85,8 @@ document.getElementById("sendButton").addEventListener("click", function (event)
 
 document.getElementById("readytToPlayButton").addEventListener("click", function (event) {
     readyToPlay = !readyToPlay;
-    var user = document.getElementById("userInput").value;
-    connection.send("UserIsReadyToPlay", user, readyToPlay).catch(function (err) {
+    var userName = document.getElementById("userInput").value;
+    connection.send("UserIsReadyToPlay", userName, readyToPlay).catch(function (err) {
         return console.error(err.toString());
     });
     event.preventDefault();

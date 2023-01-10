@@ -39,4 +39,11 @@ public class GameManagerFactory{
         }
     } 
 
+    public GameManager? GetGameManagerById(Guid gameId){
+        GameManager? result;
+        _games.TryGetValue(gameId, out result);
+        return result;
+
+    }
+
 }
