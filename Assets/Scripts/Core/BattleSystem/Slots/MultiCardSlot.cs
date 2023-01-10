@@ -1,38 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using Ceres.Core.BattleSystem.Cards;
 
-namespace Ceres.Core.BattleSystem.Slots
+namespace Ceres.Core.BattleSystem
 {
-    public class MultiCardSlot : IMultiCardSlot
+    public class MultiCardSlot
     {
-        public List<ICard> Cards { get; }
+        public List<Card> Cards { get; }
 
         public int Count => Cards.Count;
-        public event Action<ICard> OnAdd;
-        public event Action<ICard> OnRemove;
+        public event Action<Card> OnAdd;
+        public event Action<Card> OnRemove;
 
-        public MultiCardSlot(List<ICard> cards = null)
+        public MultiCardSlot(List<Card> cards = null)
         {
-            Cards = cards ?? new List<ICard>();
+            Cards = cards ?? new List<Card>();
         }
 
-        public void AddCard(ICard card)
+        public void AddCard(Card card)
         {
             Cards.Add(card);
             OnAdd?.Invoke(card);
         }
 
-        public ICard GetCard(Guid id)
+        public Card GetCard(Guid id)
         {
-            foreach (ICard card in Cards)
+            foreach (Card card in Cards)
                 if (card.ID == id)
                     return card;
 
             return null;
         }
 
-        public void RemoveCard(ICard card)
+        public void RemoveCard(Card card)
         {
             Cards.Remove(card);
             OnRemove?.Invoke(card);
@@ -43,16 +42,16 @@ namespace Ceres.Core.BattleSystem.Slots
             for (int i = Cards.Count - 1; i >= 0; i--) RemoveCard(Cards[i]);
         }
 
-        public bool Contains(ICard card)
+        public bool Contains(Card card)
         {
             return Cards.Contains(card);
         }
 
-        public ICard PopCard()
+        public Card PopCard()
         {
             if (Cards.Count == 0) return null;
 
-            ICard card = Cards[0];
+            Card card = Cards[0];
             Cards.RemoveAt(0);
             OnRemove?.Invoke(card);
             return card;

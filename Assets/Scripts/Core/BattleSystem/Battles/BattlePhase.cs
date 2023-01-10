@@ -1,4 +1,4 @@
-﻿namespace Ceres.Core.BattleSystem.Battles
+﻿namespace Ceres.Core.BattleSystem
 {
     public enum BattlePhase
     {
