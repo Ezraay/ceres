@@ -1,7 +1,9 @@
 {
     "name": "Core",
     "rootNamespace": "Ceres.Core",
-    "references": [],
+    "references": [
+        "GUID:549089bd3ad17fb41973cac84764312d"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
