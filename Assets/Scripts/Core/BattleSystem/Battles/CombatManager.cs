@@ -1,35 +1,33 @@
 ﻿using System.Linq;
-using Ceres.Core.BattleSystem.Cards;
-using Ceres.Core.BattleSystem.Slots;
 
-namespace Ceres.Core.BattleSystem.Battles
+namespace Ceres.Core.BattleSystem
 {
     public class CombatManager
     {
         public bool ValidAttack => Attacker != null;
-        public readonly MultiCardSlot Defenders = new MultiCardSlot();
-        public CardSlot Target { get; private set; }
-        public CardSlot Attacker { get; private set; }
+        public UnitSlot Target { get; private set; }
+        public UnitSlot Attacker { get; private set; }
         private readonly int damage = 1;
+        public readonly MultiCardSlot Defenders = new MultiCardSlot();
 
-        public void AddAttacker(CardSlot slot)
+        public void AddAttacker(UnitSlot slot)
         {
             Attacker = slot;
             slot.Exhaust();
         }
 
-        public void AddTarget(CardSlot slot)
+        public void AddTarget(UnitSlot slot)
         {
             Target = slot;
         }
 
-        public void AddDefender(ICard card)
+        public void AddDefender(Card card)
         {
             if (card != null)
                 Defenders.AddCard(card);
         }
 
-        public void Reset(IMultiCardSlot graveyard)
+        public void Reset(MultiCardSlot graveyard)
         {
             Attacker = null;
             Target = null;
