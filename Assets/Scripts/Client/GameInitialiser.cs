@@ -5,14 +5,14 @@ namespace Ceres.Client
 {
     public class GameInitialiser : MonoBehaviour
     {
-        [SerializeField] private NetworkManager networkManager;
+        // [SerializeField] private NetworkManager networkManager;
         [SerializeField, Scene] private string nextScene;
         
         
         private void Start()
         {
-            networkManager.OnConnected += LoadNextScene;
-            networkManager.Connect();
+            NetworkManager.OnConnected += LoadNextScene;
+            NetworkManager.Connect();
         }
 
         private void LoadNextScene()

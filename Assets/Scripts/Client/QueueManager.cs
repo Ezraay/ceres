@@ -7,18 +7,20 @@ namespace Ceres.Client
 {
     public class QueueManager : MonoBehaviour
     {
-        [SerializeField] private NetworkManager networkManager;
-        [SerializeField, Scene] private string gameScene;
+        // [SerializeField] private NetworkManager networkManager;
+        [SerializeField] [Scene] private string gameScene;
 
         void Start()
         {
-            networkManager.OnJoinQueue += OnJoinQueue;
-            networkManager.JoinQueue();
+            NetworkManager.OnJoinGame += OnJoinGame;
+            NetworkManager.JoinQueue();
         }
 
-        private void OnJoinQueue()
+        private void OnJoinGame()
         {
-            SceneManager.LoadScene(gameScene);
+            Debug.Log("Queue manager - OnJoinGame called");
+            // SceneManager.LoadScene(gameScene);
+            UnityEngine.SceneManagement.SceneManager.LoadScene(3);
         }
     }
 }

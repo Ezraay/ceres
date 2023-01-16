@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311926, g: 0.38073993, b: 0.35872683, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -224,6 +224,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 321135385}
+  - component: {fileID: 321135386}
   m_Layer: 0
   m_Name: Main Thread Manager
   m_TagString: Untagged
@@ -246,6 +247,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &321135386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321135384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19944e92c8f146f4b036939758db9fba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1114099427
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,7 +288,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea7009ea265c0814699a11fb650dbfbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkManager: {fileID: 11400000, guid: 00874f75c26654c4faf4f39d345dcf29, type: 2}
   nextScene: Main Menu
 --- !u!4 &1114099429
 Transform:
