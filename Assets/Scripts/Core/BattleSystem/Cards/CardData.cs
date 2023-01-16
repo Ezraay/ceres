@@ -16,5 +16,10 @@
             Attack = attack;
             Defense = defense;
         }
+
+        public override string ToString()
+        {
+            return ID;
+        }
     }
 }
