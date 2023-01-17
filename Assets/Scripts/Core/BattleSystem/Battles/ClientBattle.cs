@@ -5,12 +5,13 @@
         public AllyPlayer AllyPlayer { get; }
         public OpponentPlayer OpponentPlayer { get; }
         public BattlePhaseManager PhaseManager { get; } = new BattlePhaseManager();
-        private bool player1Turn;
+        private bool myTurn;
 
-        public ClientBattle(AllyPlayer ally, OpponentPlayer opponent)
+        public ClientBattle(AllyPlayer ally, OpponentPlayer opponent, bool myTurn)
         {
             AllyPlayer = ally;
             OpponentPlayer = opponent;
+            this.myTurn = myTurn;
         }
 
         public bool IsPriorityPlayer()
@@ -18,7 +19,7 @@
             switch (PhaseManager.Phase)
             {
                 default:
-                    return player1Turn;
+                    return myTurn;
             }
         }
 

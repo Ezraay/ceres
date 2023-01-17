@@ -6,12 +6,11 @@ namespace Ceres.Client.BattleSystem
 {
     public class BattlePhaseDisplay : MonoBehaviour
     {
-        [SerializeField] private BattleManager battleManager;
         [SerializeField] private Text phaseText;
 
         private void Start()
         {
-            battleManager.Battle.PhaseManager.OnPhaseEnter += OnPhaseEnter;
+            BattleManager.Battle.PhaseManager.OnPhaseEnter += OnPhaseEnter;
         }
 
         private void OnPhaseEnter(BattlePhase phase)
@@ -21,7 +20,7 @@ namespace Ceres.Client.BattleSystem
 
         public void NextPhaseButton()
         {
-            battleManager.Execute(new AdvancePhaseCommand());
+            BattleManager.Execute(new AdvancePhaseCommand());
         }
     }
 }
