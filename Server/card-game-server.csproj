@@ -1,11 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
-    <ProjectReference Include="..\Domain\card-game-domain.csproj" />
+  <!-- <ItemGroup Condition=" '$(TargetFramework)' == 'net471' "> -->
+    <ProjectReference Include="../Domain/card-game-core.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <TargetFrameworks>net7.0</TargetFrameworks>
+    <!-- <TargetFrameworks>net7.0;netstandard2.0;net471</TargetFrameworks> -->
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>card_game_server</RootNamespace>

@@ -1,3 +1,5 @@
+using System;
+
 namespace Ceres.Core.Entities
 {
     public class GameUser
