@@ -1,4 +1,4 @@
-namespace Domain.Entities
+namespace Ceres.Core.Entities
 {
     public class GameUser
     {

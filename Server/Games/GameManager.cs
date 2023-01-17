@@ -1,4 +1,4 @@
-using Domain.Entities;
+using Ceres.Core.Entities;
 
 public class GameManager
 {

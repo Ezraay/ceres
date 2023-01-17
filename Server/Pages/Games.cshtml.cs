@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Domain.Entities;
+using Ceres.Core.Entities;
 using System.ComponentModel;
 
 public class GamesModel : PageModel
