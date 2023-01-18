@@ -21,7 +21,6 @@ namespace Ceres.Client
         public static async Task Connect()
         {
             // TODO: Connect
-            // var client = new NetworkClient() i dunno smth like this
             await transport.InitAsync();
 
             transport.connection.On<string>("GoToGame", (gameId) =>
