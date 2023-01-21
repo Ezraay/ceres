@@ -1,11 +1,10 @@
 {
-    "name": "Client",
-    "rootNamespace": "Ceres.Client",
-    "references": [
-        "GUID:de083e028b382ac4c8a7887281047d07",
-        "GUID:549089bd3ad17fb41973cac84764312d"
+    "name": "Editor",
+    "rootNamespace": "Ceres.Editor",
+    "references": [],
+    "includePlatforms": [
+        "Editor"
     ],
-    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

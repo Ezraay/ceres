@@ -14,7 +14,7 @@ namespace Ceres.Client
 
         public void Quit()
         {
-            Application.Quit();
+            Application.Quit(); 
         }
     }
 }

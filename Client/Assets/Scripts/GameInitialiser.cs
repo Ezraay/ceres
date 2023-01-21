@@ -16,7 +16,7 @@ namespace Ceres.Client
         }
 
         private void LoadNextScene()
-        {
+        { 
             SceneManager.LoadScene(nextScene);
         }
     }

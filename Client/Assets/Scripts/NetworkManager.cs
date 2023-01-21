@@ -15,7 +15,7 @@ namespace Ceres.Client
 
         static NetworkManager(){
             transport = new SignalRConnector();
-            Debug.Log("OnEnable called");
+            Debug.Log("OnEnable called");                
         }
         
         public static async Task Connect()

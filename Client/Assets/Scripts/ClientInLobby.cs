@@ -10,7 +10,7 @@ namespace CardGame
     {
 
         public SignalRHelper transport;
-        public Text ReadyToPlaylabel;
+        public Text ReadyToPlaylabel; 
 
         public void ReadyToPlay(bool value){
             if (value) {
