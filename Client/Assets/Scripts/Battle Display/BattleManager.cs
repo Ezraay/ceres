@@ -18,7 +18,6 @@ namespace Ceres.Client.BattleSystem
 
         public static void StartBattle(bool myTurn)
         {
-            Debug.Log("Starting battle");
             AllyPlayer ally = new AllyPlayer();
             OpponentPlayer opponent = new OpponentPlayer();
             Battle = new ClientBattle(ally, opponent, myTurn);
@@ -27,16 +26,15 @@ namespace Ceres.Client.BattleSystem
         // TODO: Send to client
         public static void Apply(IServerAction action)
         {
-            Debug.Log("Got action from server: " + action);
             Battle.Apply(action);
         }
 
         public static void Execute(IClientCommand command)
         {
             if (command.CanExecute(Battle))
+            {
                 // TODO: Send to server
-                // NetworkManager.DoSomething();
-                Debug.Log("Sending command to server: " + command);
+            }
         }
     }
 }

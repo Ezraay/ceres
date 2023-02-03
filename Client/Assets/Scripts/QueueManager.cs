@@ -19,8 +19,7 @@ namespace Ceres.Client
         private void OnJoinGame()
         {
             Debug.Log("Queue manager - OnJoinGame called");
-            // SceneManager.LoadScene(gameScene);
-            UnityEngine.SceneManagement.SceneManager.LoadScene(3);
+            SceneManager.LoadScene(gameScene);
         }
     }
 }

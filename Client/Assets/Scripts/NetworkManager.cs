@@ -1,50 +1,48 @@
 ﻿using System;
-using UnityEngine;
-using Microsoft.AspNetCore.SignalR.Client;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR.Client;
+using UnityEngine;
 
 namespace Ceres.Client
 {
-    // [CreateAssetMenu(menuName = "Create NetworkManager", fileName = "NetworkManager", order = 0)]
     public static class NetworkManager
     {
+        public static HubConnection Connection;
         public static event Action OnConnected; // TODO: Call this when connected
         public static event Action OnJoinGame;
-        private static SignalRConnector transport;
 
 
-        static NetworkManager(){
-            transport = new SignalRConnector();
-            Debug.Log("OnEnable called");                
-        }
-        
-        public static async Task Connect()
+        public static async void Connect()
         {
-            // TODO: Connect
-            await transport.InitAsync();
+            Connection = new HubConnectionBuilder()
+                .WithUrl("http://localhost:5146/LobbyHub")
+                .Build();
 
-            transport.connection.On<string>("GoToGame", (gameId) =>
+            try
             {
-                MainThreadManager.Execute(OnGoToGame);
-            });
-
-            if (transport.connection.State == HubConnectionState.Connected){
-               OnConnected.Invoke();
+                await Connection.StartAsync();
+                Debug.Log("SignalRConnector connected");
             }
+            catch (Exception ex)
+            {
+                Debug.Log("Error connecting to the SignalR server: " + ex.Message);
+                Debug.Log("StackTrace: " + ex.StackTrace);
+            }
+
+            Connection.On<string>("GoToGame", gameId => { MainThreadManager.Execute(OnGoToGame); });
+
+            if (Connection.State == HubConnectionState.Connected) OnConnected?.Invoke();
         }
 
         public static async Task JoinQueue()
         {
-            // TODO: Join queue
-            Debug.Log("JoinQueue called");
-            string userName = "Aaron";
-            await transport.connection.SendAsync("UserIsReadyToPlay",userName,true);
-            Debug.Log("UserIsReadyToPlay passed");
+            string userName = "Unity";
+            await Connection.SendAsync("UserIsReadyToPlay", userName, true);
         }
-        private static void OnGoToGame(){
-            Debug.Log("OnGotToGame called");
-            OnJoinGame.Invoke();
-            Debug.Log("OnJoinGame.Invoke() passed");
+
+        private static void OnGoToGame()
+        {
+            OnJoinGame?.Invoke();
         }
     }
 }
