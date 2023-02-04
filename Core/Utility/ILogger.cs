@@ -1,4 +1,4 @@
-﻿namespace Ceres.Core.Core.Utility
+﻿namespace Ceres.Core.Utility
 {
     public interface ILogger
     {
