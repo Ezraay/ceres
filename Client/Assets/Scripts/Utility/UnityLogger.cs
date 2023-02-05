@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using ILogger = Ceres.Core.Core.Utility.ILogger;
+using ILogger = Ceres.Core.Utility.ILogger;
 
 namespace Ceres.Client.Utility
 {

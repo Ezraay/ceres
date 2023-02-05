@@ -2,16 +2,16 @@
 {
     public class DrawCardAction : IServerAction
     {
-        private readonly Card card;
+        public readonly Card Card;
 
         public DrawCardAction(Card card)
         {
-            this.card = card;
+            Card = card;
         }
-        
+
         public void Apply(ClientBattle battle)
         {
-            battle.AllyPlayer.Hand.AddCard(card);
+            battle.AllyPlayer.Hand.AddCard(Card);
             battle.AllyPlayer.Pile.RemoveCard();
         }
     }
