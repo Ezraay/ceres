@@ -2,17 +2,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Ceres.Core.Entities;
 using System.ComponentModel;
+using Ceres.Core.BattleSystem;
 
 public class GamesModel : PageModel
 {
     [BindProperty(SupportsGet = true)]
     public string? GameId {get; set;}
-    private readonly GameManagerFactory _gameManagerFactory;
+    private readonly ServerBattleFactory _serverBattleFactory;
+    public ServerBattle? serverBattle;
     public GameUser? Player1;
     public GameUser? Player2;
 
-    public GamesModel(GameManagerFactory gameManagerFactory){
-        _gameManagerFactory = gameManagerFactory;
+    public GamesModel(ServerBattleFactory gameManagerFactory){
+        _serverBattleFactory = gameManagerFactory;
     }
 
     public void OnGet()
@@ -20,8 +22,10 @@ public class GamesModel : PageModel
         try
         {
             if (Guid.TryParse(GameId, out var GameIdGuid)){
-                Player1 = _gameManagerFactory.GetGameManagerById(GameIdGuid)?.Player1;
-                Player2 = _gameManagerFactory.GetGameManagerById(GameIdGuid)?.Player2;
+                serverBattle = _serverBattleFactory.GetServerBattleById(GameIdGuid);
+
+                Player1 = (GameUser?)serverBattle?.Player1;
+                Player2 = (GameUser?)serverBattle?.Player2;
             }
         }
         catch (System.Exception)

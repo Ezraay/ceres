@@ -36,8 +36,10 @@ connection.on("GamesList",(value) => {
     })
 })
 
-connection.on("GoToGame",(gameId) => {
+connection.on("GoToGame",(gameId, userId) => {
     console.log("/games?gameid="+gameId.toString())
+    sessionStorage.setItem("gameId", gameId);
+    sessionStorage.setItem("userId", userId);
     window.location = "/games?gameid="+gameId.toString();
 })
 

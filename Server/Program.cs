@@ -13,7 +13,7 @@ builder.Services.AddSignalR(hubOptions => {
     hubOptions.HandshakeTimeout = TimeSpan.FromSeconds(5);
 });
 
-builder.Services.AddSingleton<GameManagerFactory>();
+builder.Services.AddSingleton<ServerBattleFactory>();
 
 var app = builder.Build();
 
@@ -34,5 +34,6 @@ app.UseRouting();
 app.MapRazorPages();
 
 app.MapHub<LobbyHub>("/LobbyHub");
+app.MapHub<GameHub>("/GameHub");
 
 app.Run();

@@ -9,10 +9,10 @@ public class LobbyHub : Hub
     public static int ClientsConnected { get; set;}
     public static ConcurrentDictionary<string, GameUser> LobbyUsers = new ConcurrentDictionary<string, GameUser>();
 
-    private readonly GameManagerFactory _gameManagerFactory;
+    private readonly ServerBattleFactory _serverBattleFactory;
     private static int _userNumber;
-    public LobbyHub(GameManagerFactory gameManagerFactory){
-        _gameManagerFactory = gameManagerFactory;
+    public LobbyHub(ServerBattleFactory gameManagerFactory){
+        _serverBattleFactory = gameManagerFactory;
     }
 
     public override Task OnConnectedAsync()
@@ -24,12 +24,12 @@ public class LobbyHub : Hub
         // Console.WriteLine($"User connected with ID: {connectionId}");
         // var userId = Context?.User?.Identity?.Name; // any desired user id
         lock(LobbyUsers){
-            LobbyUsers.TryAdd(connectionId, new GameUser() {LobbyConnectionId = connectionId, 
+            LobbyUsers.TryAdd(connectionId, new GameUser() {ConnectionId = connectionId, 
                 UserName = $"Player{_userNumber}", UserId = Guid.NewGuid()});
         }
         _userNumber++;
         Clients.All.SendAsync("ClientsList",LobbyUsers).GetAwaiter().GetResult();
-        Clients.All.SendAsync("GamesList",_gameManagerFactory.Games()).GetAwaiter().GetResult();
+        Clients.All.SendAsync("GamesList",_serverBattleFactory.Games()).GetAwaiter().GetResult();
         
         return base.OnConnectedAsync();
     }
@@ -45,7 +45,7 @@ public class LobbyHub : Hub
             LobbyUsers.TryRemove(Context.ConnectionId, out garbage);
         }
         Clients.All.SendAsync("ClientsList",LobbyUsers).GetAwaiter().GetResult();
-        Clients.All.SendAsync("GamesList",_gameManagerFactory.Games()).GetAwaiter().GetResult();
+        Clients.All.SendAsync("GamesList",_serverBattleFactory.Games()).GetAwaiter().GetResult();
         
         return base.OnDisconnectedAsync(exception);
     }
@@ -96,15 +96,15 @@ public class LobbyHub : Hub
                     if (firstPlayer == null){
                         firstPlayer = user;
                     } else {
-                        var manager = _gameManagerFactory.GetGameManager();
-                        user.GameId = manager.GameId;
-                        manager.Player2 = user;
-                        firstPlayer.GameId = manager.GameId;
-                        manager.Player1 = firstPlayer;
-                        if (user.LobbyConnectionId != null)
-                            Clients.Client(user.LobbyConnectionId).SendAsync("GoToGame",manager.GameId).GetAwaiter().GetResult();
-                        if (firstPlayer.LobbyConnectionId != null)
-                            Clients.Client(firstPlayer.LobbyConnectionId).SendAsync("GoToGame",manager.GameId).GetAwaiter().GetResult();
+                        var battle = _serverBattleFactory.GetServerBattle();
+                        user.GameId = battle.GameId;
+                        battle.Player2 = user;
+                        firstPlayer.GameId = battle.GameId;
+                        battle.Player1 = firstPlayer;
+                        if (user.ConnectionId != null)
+                            Clients.Client(user.ConnectionId).SendAsync("GoToGame",battle.GameId, user.UserId).GetAwaiter().GetResult();
+                        if (firstPlayer.ConnectionId != null)
+                            Clients.Client(firstPlayer.ConnectionId).SendAsync("GoToGame",battle.GameId, firstPlayer.UserId).GetAwaiter().GetResult();
                     }
                 }
             }

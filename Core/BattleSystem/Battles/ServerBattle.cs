@@ -1,9 +1,12 @@
 ﻿using System;
+using Ceres.Core.Enums;
 
 namespace Ceres.Core.BattleSystem
 {
     public class ServerBattle
     {
+
+        public Guid GameId {get;}
         public BattlePhaseManager PhaseManager { get; } = new BattlePhaseManager();
         public ServerPlayer Player1;
         private bool player1Turn;
@@ -16,6 +19,7 @@ namespace Ceres.Core.BattleSystem
 
         public ServerBattle(ServerPlayer player1, ServerPlayer player2)
         {
+            GameId = Guid.NewGuid();
             Player1 = player1;
             Player2 = player2;
         }
@@ -58,5 +62,9 @@ namespace Ceres.Core.BattleSystem
                 else
                     OnPlayer1Action?.Invoke(serverAction);
         }
+
+        public void EndGame(EndServerBattleReasons reason){
+            // Console.WriteLine("");
+        } 
     }
 }

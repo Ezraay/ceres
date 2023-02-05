@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace card_game_server.Pages;
+namespace ceres_server.Pages;
 
 public class IndexModel : PageModel
 {
