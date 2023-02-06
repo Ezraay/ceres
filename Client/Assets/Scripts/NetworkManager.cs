@@ -63,7 +63,10 @@ namespace Ceres.Client
                 Debug.Log("SignalRConnector - connected to GameHub");
 
                 string res = await GameConnection.InvokeAsync<string>("JoinGame", GameId, UserId);
-                Logger.Log(res);
+                if (res == JoinGameResults.JoinedAsPlayer1)
+                    Logger.Log("I am Player1");
+                if (res == JoinGameResults.JoinedAsPlayer2)
+                    Logger.Log("I am Player2");
 
                 OnJoinGame?.Invoke();
             }

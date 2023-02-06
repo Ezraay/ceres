@@ -1,5 +1,9 @@
-﻿namespace Ceres.Core.BattleSystem
+﻿using System;
+
+namespace Ceres.Core.BattleSystem
 {
+
+    [Serializable]
     public class TestDrawCommand : IClientCommand
     {
         private Card drawnCard;

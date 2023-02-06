@@ -3,11 +3,11 @@
 var GameHubConnection = new signalR.HubConnectionBuilder().withUrl("/GameHub").build();
 var Player1Turn = true;
 
+let userId = sessionStorage.getItem("userId");
+let gameId = sessionStorage.getItem("gameId");
 
 
 function fulfilled() {
-    let userId = sessionStorage.getItem("userId");
-    let gameId = sessionStorage.getItem("gameId");
     if (gameId == null){                            // joining as a spectator - getting gameid from the url
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
@@ -50,12 +50,15 @@ GameHubConnection.start().then(fulfilled, rejected)
 
 
 
-document.getElementById("P1Action").addEventListener("click", PlayerActon);
-document.getElementById("P2Action").addEventListener("click", PlayerActon);
+document.getElementById("P1Action").addEventListener("click", PlayerCommand);
+document.getElementById("P2Action").addEventListener("click", PlayerCommand);
 
-function PlayerActon(){
+function PlayerCommand(){
     console.log("playerAction");
-
+    var playerCommand = new Object();
+    GameHubConnection.send("PlayerSentCommand", gameId, userId, playerCommand).catch(function (err) {
+        return console.error(err.toString());
+    });
     // document.getElementById("P1Action").disabled = !Player1Turn;
     // document.getElementById("P2Action").disabled = Player1Turn;
 
