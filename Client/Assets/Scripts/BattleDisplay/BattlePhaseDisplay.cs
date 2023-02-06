@@ -20,7 +20,7 @@ namespace Ceres.Client.BattleSystem
 
         public void NextPhaseButton()
         {
-            BattleManager.Execute(new AdvancePhaseCommand());
+            BattleManager.Execute(new TestDrawCommand());
         }
     }
 }

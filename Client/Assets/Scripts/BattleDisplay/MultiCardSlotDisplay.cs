@@ -35,23 +35,11 @@ namespace CardGame.BattleDisplay
             for (int i = 0; i < displays.Count; i++)
             {
                 CardDisplay display = displays[i];
-                // Vector3 position = new Vector3((i - halfCount) * positionOffset.x,
-                //     Mathf.Sqrt(Mathf.Abs(i - halfCount)) * positionOffset.y);
-                // Vector3 position = new Vector3((i - halfCount) * positionOffset.x,
-                //     Mathf.Sqrt(Mathf.Abs(i - halfCount)) * positionOffset.y);
-                // float angle = Mathf.Atan2(-position.x, cardLookOffset);
                 float angle = Mathf.Atan2((halfCount - i) * positionOffset.x, cardLookOffset);
                 Vector3 position = new Vector3((i - halfCount) * positionOffset.x, -Mathf.Pow(positionOffset.y * (i - halfCount), 2));
 
-                // Debug.Log(angle);
-                // position.y = Mathf.Cos(angle);
-                // float rotation = i * rotationOffset;
-
-                // float rotationAngle = displays.Count > 1 ? (float) i / (displays.Count - 1) : 0.5f;
-
                 display.transform.localRotation = Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg);
-                //     Mathf.Lerp(-cardLookOffset, cardLookOffset, rotationAngle));
-                // display.transform.localRotation = Quaternion.Euler(0, 0, (rotation - halfRotation) * (i) / displays.Count);
+                display.SetSortingOrder(i);
                 StartCoroutine(display.MoveTo(position));
             }
 

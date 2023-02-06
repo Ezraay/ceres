@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Ceres.Client.BattleSystem;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -16,9 +17,10 @@ namespace Ceres.Client
             NetworkManager.JoinQueue();
         }
 
-        private void OnJoinGame()
+        private void OnJoinGame(bool myTurn)
         {
             Debug.Log("Queue manager - OnJoinGame called");
+            BattleManager.StartBattle(myTurn);
             SceneManager.LoadScene(gameScene);
         }
     }

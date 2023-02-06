@@ -12,7 +12,7 @@ namespace Ceres.Client
         private static HubConnection LobbyConnection;
         private static HubConnection GameConnection;
         public static event Action OnConnected; // TODO: Call this when connected
-        public static event Action OnJoinGame;
+        public static event Action<bool> OnJoinGame;
 
         private static Guid UserId;
         private static Guid GameId;
@@ -68,7 +68,7 @@ namespace Ceres.Client
                 if (res == JoinGameResults.JoinedAsPlayer2)
                     Logger.Log("I am Player2");
 
-                OnJoinGame?.Invoke();
+                OnJoinGame?.Invoke(res == JoinGameResults.JoinedAsPlayer1);
             }
             catch (Exception ex)
             {

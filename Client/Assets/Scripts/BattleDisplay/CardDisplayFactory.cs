@@ -16,7 +16,6 @@ namespace CardGame.BattleDisplay
 
         public static CardDisplay Create(Card card)
         {
-            Debug.Log("Hello");
             return Create(card, instance.defaultCardLocation.position);
         }
 
