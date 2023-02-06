@@ -57,13 +57,11 @@ public class GameHub : Hub
         await Clients.Group(serverBattle.GameId.ToString()).SendAsync("UpdatePlayersName", serverBattle.Player1?.UserName, serverBattle.Player2?.UserName );
     }
 
-    public async Task PlayerSentCommand(string gameId, string userId, IClientCommand command){
-        if (Guid.TryParse(gameId, out var GameIdGuid)){
+    public void PlayerSentCommand(string gameId, string userId, IClientCommand command){
+        if (Guid.TryParse(gameId, out var GameIdGuid) && Guid.TryParse(userId, out var UserIdGuid)){
                 ServerBattle? serverBattle = _serverBattleFactory.GetServerBattleById(GameIdGuid);
                 if (serverBattle != null){
-                    // TODO: find the Author
-
-                    // serverBattle.Execute(command, )
+                    serverBattle.Execute(command, serverBattle.GetGameUserById(UserIdGuid));
                 }
         }
     }
