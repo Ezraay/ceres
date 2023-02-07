@@ -1,17 +1,25 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Ceres.Client;
 using Ceres.Core.BattleSystem;
 using UnityEngine;
+using Logger = Ceres.Client.Utility.Logger;
 
 namespace CardGame.BattleDisplay
 {
     public class BattleDisplayManager : MonoBehaviour
     {
-        public AllyPlayerDisplay AllyPlayer;
-        public OpponentPlayerDisplay OpponentPlayer;
+        public PlayerDisplay player;
+        public PlayerDisplay opponentPlayer;
 
         private readonly Queue<IServerAction> actions = new();
         private IActionAnimation currentAnimation;
+
+        private void Start()
+        {
+            NetworkManager.OnBattleAction += QueueAction;
+        }
 
         private void Update()
         {
@@ -23,7 +31,10 @@ namespace CardGame.BattleDisplay
             }
 
             if (Input.GetKeyDown(KeyCode.F1))
+            {
                 QueueAction(new DrawCardAction(new Card(CardFactory.CreateCardData("archer"))));
+                QueueAction(new OpponentDrawCardAction());
+            }
         }
 
         public void QueueAction(IServerAction action)
@@ -37,6 +48,12 @@ namespace CardGame.BattleDisplay
             {
                 case DrawCardAction:
                     currentAnimation = new DrawCardAnimation();
+                    break;
+                case OpponentDrawCardAction:
+                    currentAnimation = new OpponentDrawCardAnimation();
+                    break;
+                default:
+                    Logger.LogError("No action animation found for ServerAction: " + action);
                     break;
             }
 

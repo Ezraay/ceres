@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Ceres.Core.BattleSystem;
 using TMPro;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace CardGame.BattleDisplay
         [SerializeField] private float movementSpeed = 5;
         [SerializeField] private Canvas canvas;
 
+        [SerializeField] private GameObject content;
         [SerializeField] private CardSpriteManager cardSpriteManager;
         [SerializeField] private Image sprite;
         [SerializeField] private TMP_Text attack;
@@ -22,8 +24,20 @@ namespace CardGame.BattleDisplay
         public bool IsMoving { get; private set; }
         public Card Card { get; private set; }
 
-        public void SetCard(Card card)
+        private void Start()
         {
+            if (Card == null)
+                ShowBack();
+        }
+
+        public void ShowBack()
+        {
+            content.SetActive(false);
+        }
+        
+        public void ShowFront(Card card)
+        {
+            content.SetActive(true);
             Card = card;
             name.text = card.Data.Name;
             attack.text = card.Data.Attack.ToString();

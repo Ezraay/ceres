@@ -15,13 +15,15 @@ namespace CardGame.BattleDisplay
             if (hit.collider != null)
             {
                 CardDisplay card = hit.collider.GetComponent<CardDisplay>();
-                display.SetCard(card.Card);
-                display.gameObject.SetActive(true);
+                if (card.Card != null)
+                {
+                    display.ShowFront(card.Card);
+                    display.gameObject.SetActive(true);
+                    return;
+                }
             }
-            else
-            {
-                display.gameObject.SetActive(false);
-            }
+
+            display.gameObject.SetActive(false);
         }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.SignalR.Client;
+using Ceres.Core.BattleSystem;
 using Ceres.Core.Enums;
-using Logger = Ceres.Client.Utility.Logger;
+using Microsoft.AspNetCore.SignalR.Client;
 using UnityEngine;
+using Logger = Ceres.Client.Utility.Logger;
 
 namespace Ceres.Client
 {
@@ -11,13 +12,12 @@ namespace Ceres.Client
     {
         private static HubConnection LobbyConnection;
         private static HubConnection GameConnection;
-        public static event Action OnConnected; // TODO: Call this when connected
-        public static event Action<bool> OnJoinGame;
 
         private static Guid UserId;
         private static Guid GameId;
-
-
+        public static event Action OnConnected; // TODO: Call this when connected
+        public static event Action<bool> OnJoinGame;
+        public static event Action<IServerAction> OnBattleAction;
 
 
         public static async void Connect()
@@ -37,9 +37,19 @@ namespace Ceres.Client
                 Debug.Log("StackTrace: " + ex.StackTrace);
             }
 
-            LobbyConnection.On<string, string>("GoToGame", (gameId, userId) => { MainThreadManager.Execute(OnGoToGame);
+            LobbyConnection.On<string, string>("GoToGame", (gameId, userId) =>
+            {
+                MainThreadManager.Execute(OnGoToGame);
                 Guid.TryParse(userId, out UserId);
                 Guid.TryParse(gameId, out GameId);
+            });
+
+            GameConnection.On<IServerAction>("ServerAction", action =>
+            {
+                MainThreadManager.Execute(() =>
+                {
+                    OnBattleAction?.Invoke(action);
+                });
             });
 
             if (LobbyConnection.State == HubConnectionState.Connected) OnConnected?.Invoke();
@@ -49,6 +59,11 @@ namespace Ceres.Client
         {
             string userName = "Unity";
             await LobbyConnection.SendAsync("UserIsReadyToPlay", userName, true);
+        }
+
+        public static void SendCommand(IClientCommand command)
+        {
+            GameConnection.SendAsync("PlayerSentCommand", GameId, UserId, command);
         }
 
         private static async void OnGoToGame()
@@ -75,7 +90,6 @@ namespace Ceres.Client
                 Debug.Log("Error connecting to GameHub : " + ex.Message);
                 Debug.Log("StackTrace: " + ex.StackTrace);
             }
-            
         }
     }
 }

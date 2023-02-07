@@ -8,6 +8,6 @@ namespace CardGame.BattleDisplay
     {
         public bool Finished { get; }
 
-        public IEnumerator GetEnumerator(IServerAction action, BattleDisplayManager battleDisplayManager);
+        public IEnumerator GetEnumerator(IServerAction baseAction, BattleDisplayManager battleDisplayManager);
     }
 }

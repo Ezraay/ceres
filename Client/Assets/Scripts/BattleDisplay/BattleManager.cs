@@ -14,6 +14,7 @@ namespace Ceres.Client.BattleSystem
             string cardDataPath = "Data/Cards";
             TextAsset text = Resources.Load<TextAsset>(cardDataPath);
             CardDatabase = new CSVCardDatabase(text.text.Trim(), true);
+            NetworkManager.OnBattleAction += Apply;
         }
 
         public static void StartBattle(bool myTurn)
@@ -23,9 +24,9 @@ namespace Ceres.Client.BattleSystem
             Battle = new ClientBattle(ally, opponent, myTurn);
         }
 
-        // TODO: Send to client
         public static void Apply(IServerAction action)
         {
+            
             Battle.Apply(action);
         }
 
@@ -33,7 +34,7 @@ namespace Ceres.Client.BattleSystem
         {
             if (command.CanExecute(Battle))
             {
-                // TODO: Send to server
+                NetworkManager.SendCommand(command);
             }
         }
     }

@@ -14,15 +14,9 @@ namespace CardGame.BattleDisplay
             instance = this;
         }
 
-        public static CardDisplay Create(Card card)
+        public static CardDisplay Create()
         {
-            return Create(card, instance.defaultCardLocation.position);
-        }
-
-        public static CardDisplay Create(Card card, Vector3 position)
-        {
-            CardDisplay display = Instantiate(instance.cardDisplay, position, Quaternion.identity);
-            display.SetCard(card);
+            CardDisplay display = Instantiate(instance.cardDisplay, instance.defaultCardLocation.position, Quaternion.identity);
             return display;
         }
     }
