@@ -18,11 +18,13 @@ function fulfilled() {
     GameHubConnection.invoke("JoinGame", gameId, userId).then((res) => {
         console.log(res)
         if (res == "JoinedAsPlayer1") {
-            document.getElementById("P2Action").hidden = true;
-            document.getElementById("P1Action").disabled = !Player1Turn;
+            document.getElementById("P2Action").hidden = false;
+            document.getElementById("P1Action").disabled =false;
+            // document.getElementById("P1Action").disabled = !Player1Turn;
         }
         if (res == "JoinedAsPlayer2") {
-            document.getElementById("P1Action").hidden = true;
+            document.getElementById("P1Action").hidden = false;
+            document.getElementById("P2Action").disabled =false;
         }
         
     });
@@ -40,6 +42,11 @@ GameHubConnection.on("UpdatePlayersName", (p1Name, p2Name) => {
     document.getElementById("player2Name").innerText = p2Name;
     // document.getElementById("P1Action").disabled = false;
 })
+
+GameHubConnection.on("ServerAction", action => {
+    console.log("ServerAction");
+    console.log(action);
+});
 
 
 GameHubConnection.start().then(fulfilled, rejected)

@@ -1,6 +1,4 @@
 using Ceres.Server.Services;
-using Microsoft.AspNetCore.Builder;
-
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +10,7 @@ builder.Services.AddSignalR(hubOptions => {
     hubOptions.EnableDetailedErrors = true;
     hubOptions.KeepAliveInterval = TimeSpan.FromSeconds(10);
     hubOptions.HandshakeTimeout = TimeSpan.FromSeconds(5);
-});
+}).AddNewtonsoftJsonProtocol();
 
 builder.Services.AddSingleton<ServerBattleFactory>();
 builder.Services.AddSingleton<CardDeckLoader>();

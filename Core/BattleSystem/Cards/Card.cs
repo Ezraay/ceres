@@ -2,6 +2,7 @@ using System;
 
 namespace Ceres.Core.BattleSystem
 {
+    [Serializable]
     public class Card
     {
         public ICardData Data { get; }

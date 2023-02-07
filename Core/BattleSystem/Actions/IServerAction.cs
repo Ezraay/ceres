@@ -1,4 +1,6 @@
-﻿namespace Ceres.Core.BattleSystem
+﻿using System.Runtime.Serialization;
+
+namespace Ceres.Core.BattleSystem
 {
     public interface IServerAction
     {

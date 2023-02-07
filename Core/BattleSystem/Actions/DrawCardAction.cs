@@ -1,6 +1,11 @@
-﻿namespace Ceres.Core.BattleSystem
+﻿using System;
+using System.Runtime.Serialization;
+
+
+namespace Ceres.Core.BattleSystem
 {
-    public class DrawCardAction : IServerAction
+    [Serializable]
+    public class DrawCardAction : IServerAction, ISerializable
     {
         public readonly Card Card;
 
@@ -13,6 +18,11 @@
         {
             battle.AllyPlayer.Hand.AddCard(Card);
             battle.AllyPlayer.Pile.RemoveCard();
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("Card", Card);
         }
     }
 }

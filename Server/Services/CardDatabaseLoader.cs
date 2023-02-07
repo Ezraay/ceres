@@ -5,7 +5,7 @@ namespace Ceres.Server.Services;
 public class CardDatabaseLoader
 {
     public static ICardDatabase Database { get; private set; }
-    private string csvPathFile = Path.Combine("Resources\\Cards.csv");
+    private string csvPathFile = Path.Combine(@"Resources/Cards.csv");
 
     public CardDatabaseLoader()
     {

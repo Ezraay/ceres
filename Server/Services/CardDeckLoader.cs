@@ -6,7 +6,7 @@ namespace Ceres.Server.Services;
 public class CardDeckLoader
 {
     public IDeck Deck { get; private set; }
-    private string csvPathFile = Path.Combine("Resources\\Testing Deck.csv");
+    private string csvPathFile = Path.Combine(@"Resources/Testing Deck.csv");
 
     public CardDeckLoader()
     {

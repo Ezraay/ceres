@@ -10,7 +10,9 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
-
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="7.0.2" />
+    </ItemGroup>
     <PropertyGroup>
         <LangVersion>latest</LangVersion>
         <!-- <TargetFrameworks>net7.0;netstandard2.0;net471</TargetFrameworks> -->
