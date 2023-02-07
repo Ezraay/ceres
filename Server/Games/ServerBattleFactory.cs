@@ -6,8 +6,7 @@ using Ceres.Core.Entities;
 
 public class ServerBattleFactory{
     
-    private static readonly ConcurrentDictionary<Guid, ServerBattle> _battles =
-                new ConcurrentDictionary<Guid, ServerBattle>();
+    private static readonly ConcurrentDictionary<Guid, ServerBattle> _battles = new ();
     private readonly IHubContext<LobbyHub> _loobyHub;
 
     public ServerBattleFactory(IHubContext<LobbyHub>  loobyHub){

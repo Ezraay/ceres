@@ -1,3 +1,4 @@
+using Ceres.Server.Services;
 using Microsoft.AspNetCore.Builder;
 
 
@@ -14,6 +15,8 @@ builder.Services.AddSignalR(hubOptions => {
 });
 
 builder.Services.AddSingleton<ServerBattleFactory>();
+builder.Services.AddSingleton<CardDeckLoader>();
+builder.Services.AddSingleton<CardDatabaseLoader>();
 
 var app = builder.Build();
 

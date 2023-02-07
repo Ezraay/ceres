@@ -14,12 +14,5 @@ namespace CardGame.BattleDisplay
             sprites.TryGetValue(cardID, out var result);
             return result;
         }
-        
-        [System.Serializable]
-        private struct CardSprite
-        {
-            public string cardID;
-            public Sprite sprite;
-        }
     }
 }

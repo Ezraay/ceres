@@ -5,8 +5,8 @@ namespace CardGame.BattleDisplay
 {
     public class CardFactory : MonoBehaviour
     {
-        private static CSVCardDatabase csvCardDatabase;
         [SerializeField] private TextAsset csvData;
+        private static CSVCardDatabase csvCardDatabase;
 
         private void Start()
         {
