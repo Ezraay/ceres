@@ -6,6 +6,7 @@ namespace Ceres.Core.BattleSystem
     [Serializable]
     public class OpponentDrawCardAction : IServerAction
     {
+        public readonly int ActionType = 2;
         public void Apply(ClientBattle battle)
         {
             battle.OpponentPlayer.Hand.AddCard();

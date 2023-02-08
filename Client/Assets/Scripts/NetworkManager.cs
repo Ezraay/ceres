@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Reflection;
 using System.Threading.Tasks;
 using Ceres.Core.BattleSystem;
 using Ceres.Core.Enums;
 using Microsoft.AspNetCore.SignalR.Client;
-using Microsoft.AspNetCore.SignalR.Protocol;
 using UnityEngine;
 using Logger = Ceres.Client.Utility.Logger;
 
@@ -86,7 +86,18 @@ namespace Ceres.Client
 
                 OnJoinGame?.Invoke(res == JoinGameResults.JoinedAsPlayer1);
 
-
+                GameConnection.On<string, string>("ServerAction", (action, actionType) =>
+                {
+                    MainThreadManager.Execute(() =>
+                    {
+                        Assembly asm = typeof(IServerAction).Assembly;
+                        Type type = asm.GetType(actionType);
+                        Logger.Log("Action = " + action);
+                        Logger.Log("ActionType = " + type);
+                        // JsonConvert.DeserializeObject<type.typeof()>(action); 
+                        // OnBattleAction?.Invoke(action);
+                    });
+                });
 
                 
             }
@@ -96,14 +107,6 @@ namespace Ceres.Client
                 Debug.Log("StackTrace: " + ex.StackTrace);
             }
 
-            GameConnection.On<string>("ServerAction", action =>
-            {
-                MainThreadManager.Execute(() =>
-                {
-                    Logger.Log(action);
-                    // OnBattleAction?.Invoke(action);
-                });
-            });
         }
     }
 }
