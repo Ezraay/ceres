@@ -14,8 +14,9 @@ namespace Ceres.Core.BattleSystem
         public ServerPlayer Player2;
 
         // TODO: Listen to these to run Action on client
-        public event Action<IServerAction> OnPlayer1Action;
-        public event Action<IServerAction> OnPlayer2Action;
+        public event Action<ServerPlayer, IServerAction> OnPlayerAction;
+        // public event Action<IServerAction> OnPlayer1Action;
+        // public event Action<IServerAction> OnPlayer2Action;
 
         public ServerBattle(ServerPlayer player1, ServerPlayer player2)
         {
@@ -52,15 +53,15 @@ namespace Ceres.Core.BattleSystem
 
             foreach (var serverAction in command.GetActionsForAlly())
                 if (author == Player1)
-                    OnPlayer1Action?.Invoke(serverAction);
+                    OnPlayerAction?.Invoke(Player1, serverAction);
                 else
-                    OnPlayer2Action?.Invoke(serverAction);
+                    OnPlayerAction?.Invoke(Player2, serverAction);
 
             foreach (var serverAction in command.GetActionsForOpponent())
                 if (author == Player1)
-                    OnPlayer2Action?.Invoke(serverAction);
+                    OnPlayerAction?.Invoke(Player2, serverAction);
                 else
-                    OnPlayer1Action?.Invoke(serverAction);
+                    OnPlayerAction?.Invoke(Player1, serverAction);
         }
 
         public void EndGame(EndServerBattleReasons reason){

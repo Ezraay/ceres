@@ -78,6 +78,9 @@ public class GameHub : Hub
         {
             ServerBattle? serverBattle = _serverBattleFactory.GetServerBattleById(GameIdGuid);
             if (serverBattle != null) serverBattle.Execute(command, serverBattle.GetGameUserById(UserIdGuid));
+
         }
     }
+
+
 }

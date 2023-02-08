@@ -3,8 +3,10 @@ using System.Threading.Tasks;
 using Ceres.Core.BattleSystem;
 using Ceres.Core.Enums;
 using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.AspNetCore.SignalR.Protocol;
 using UnityEngine;
 using Logger = Ceres.Client.Utility.Logger;
+
 
 namespace Ceres.Client
 {
@@ -44,13 +46,7 @@ namespace Ceres.Client
                 Guid.TryParse(gameId, out GameId);
             });
 
-            GameConnection.On<IServerAction>("ServerAction", action =>
-            {
-                MainThreadManager.Execute(() =>
-                {
-                    OnBattleAction?.Invoke(action);
-                });
-            });
+
 
             if (LobbyConnection.State == HubConnectionState.Connected) OnConnected?.Invoke();
         }
@@ -66,11 +62,16 @@ namespace Ceres.Client
             GameConnection.SendAsync("PlayerSentCommand", GameId, UserId, command);
         }
 
+
+
+
         private static async void OnGoToGame()
         {
             GameConnection = new HubConnectionBuilder()
                 .WithUrl("http://localhost:5146/GameHub")
                 .Build();
+
+
 
             try
             {
@@ -84,12 +85,25 @@ namespace Ceres.Client
                     Logger.Log("I am Player2");
 
                 OnJoinGame?.Invoke(res == JoinGameResults.JoinedAsPlayer1);
+
+
+
+                
             }
             catch (Exception ex)
             {
                 Debug.Log("Error connecting to GameHub : " + ex.Message);
                 Debug.Log("StackTrace: " + ex.StackTrace);
             }
+
+            GameConnection.On<string>("ServerAction", action =>
+            {
+                MainThreadManager.Execute(() =>
+                {
+                    Logger.Log(action);
+                    // OnBattleAction?.Invoke(action);
+                });
+            });
         }
     }
 }
