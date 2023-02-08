@@ -23,6 +23,7 @@ namespace CardGame.BattleDisplay
         [SerializeField] private TMP_Text tier;
         public bool IsMoving { get; private set; }
         public Card Card { get; private set; }
+        public int SortingOrder => canvas.sortingOrder;
 
         private void Start()
         {
