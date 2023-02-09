@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Ceres.Client;
+using Ceres.Client.BattleSystem;
 using Ceres.Core.BattleSystem;
 using UnityEngine;
 using Logger = Ceres.Client.Utility.Logger;
@@ -16,9 +17,12 @@ namespace CardGame.BattleDisplay
         private readonly Queue<IServerAction> actions = new();
         private IActionAnimation currentAnimation;
 
-        private void Start()
+        private void Awake()
         {
-            NetworkManager.OnBattleAction += QueueAction;
+            BattleSystemManager.OnAction += action =>
+            {
+                QueueAction(action);
+            };
         }
 
         private void Update()
@@ -26,6 +30,7 @@ namespace CardGame.BattleDisplay
             if (actions.Count > 0 && currentAnimation == null)
             {
                 IServerAction action = actions.Dequeue();
+                Logger.Log("Performing animation: " + action);
                 StartCoroutine(ShowAction(action));
                 return;
             }

@@ -8,7 +8,7 @@ namespace Ceres.Client.BattleSystem
     {
         public void TestDrawCommand()
         {
-            BattleManager.Execute(new TestDrawCommand());
+            BattleSystemManager.Execute(new TestDrawCommand());
         }
     }
 }

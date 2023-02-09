@@ -7,7 +7,8 @@ namespace Ceres.Client
     {
         private void Awake()
         {
-            // BattleManager.StartBattle(true); // TODO: Get this from server
+            if (!BattleSystemManager.Started)
+                BattleSystemManager.StartSinglePlayer();
         }
     }
 }

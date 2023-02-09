@@ -9,26 +9,19 @@ namespace Ceres.Core.BattleSystem
         public Guid GameId {get;}
         public BattlePhaseManager PhaseManager { get; } = new BattlePhaseManager();
         public ServerPlayer Player1;
-        private bool player1Turn;
+        public bool Player1Turn { get; private set; }
 
         public ServerPlayer Player2;
-
-        // TODO: Listen to these to run Action on client
+        
         public event Action<ServerPlayer, IServerAction> OnPlayerAction;
-        // public event Action<IServerAction> OnPlayer1Action;
-        // public event Action<IServerAction> OnPlayer2Action;
 
-        public ServerBattle(ServerPlayer player1, ServerPlayer player2)
+        public ServerBattle(ServerPlayer player1, ServerPlayer player2, bool player1Turn)
         {
             GameId = Guid.NewGuid();
             Player1 = player1;
             Player2 = player2;
-        }
-
-        public void Start()
-        {
-            player1Turn = true;
-            PhaseManager.OnTurnEnd += () => player1Turn = !player1Turn;
+            Player1Turn = player1Turn;
+            PhaseManager.OnTurnEnd += () => Player1Turn = !Player1Turn;
         }
 
         public bool IsPriorityPlayer(ServerPlayer player)
@@ -36,7 +29,7 @@ namespace Ceres.Core.BattleSystem
             switch (PhaseManager.Phase)
             {
                 default:
-                    return player == Player1 ? player1Turn : !player1Turn;
+                    return player == Player1 ? Player1Turn : !Player1Turn;
             }
         }
 

@@ -4,7 +4,7 @@
     {
         public Card Card { get; private set; }
         public bool Exhausted { get; private set; }
-
+        
         public void Exhaust()
         {
             Exhausted = true;

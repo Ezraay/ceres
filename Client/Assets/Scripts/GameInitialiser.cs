@@ -1,3 +1,4 @@
+using Ceres.Client.BattleSystem;
 using UnityEngine;
 using NaughtyAttributes;
 
@@ -13,6 +14,7 @@ namespace Ceres.Client
         {
             NetworkManager.OnConnected += LoadNextScene;
             NetworkManager.Connect();
+            BattleSystemManager.StartMultiplayer();
         }
 
         private void LoadNextScene()

@@ -21,7 +21,7 @@ public class ServerBattleFactory{
     public ServerBattle GetServerBattle(){
         lock (_battles){
             // var battle = new Lazy<ServerBattle>().Value;
-            var battle = new ServerBattle(new GameUser(), new GameUser());
+            var battle = new ServerBattle(new GameUser(), new GameUser(), true);
             battle.OnPlayerAction += SendPlayerAction;
             var gameAdded = _battles.TryAdd(battle.GameId, battle);
             if (gameAdded){

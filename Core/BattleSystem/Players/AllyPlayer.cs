@@ -13,5 +13,11 @@
         public UnitSlot LeftSupport { get; } = new UnitSlot();
         public UnitSlot RightSupport { get; } = new UnitSlot();
         public UnitSlot ChampionSupport { get; } = new UnitSlot();
+
+        public AllyPlayer(Card champion, int pileCount)
+        {
+            Champion.SetCard(champion);
+            Pile = new HiddenMultiCardSlot(pileCount);
+        }
     }
 }
