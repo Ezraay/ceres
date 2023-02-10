@@ -21,15 +21,15 @@ namespace Ceres.Client.BattleSystem
             string cardDataPath = "Data/Cards";
             TextAsset text = Resources.Load<TextAsset>(cardDataPath);
             CardDatabase = new CSVCardDatabase(text.text.Trim(), true);
-            NetworkManager.OnBattleAction += Apply;
-            OnAction += action => Logger.Log("On action called");
+            // NetworkManager.OnBattleAction += Apply;
+            // OnAction += action => Logger.Log("On action called");
         }
 
         public static void StartMultiplayer()
         {
             Logger.Log("Starting multiplayer battle");
             battleManager = new NetworkedBattleManager();
-            battleManager.OnServerAction += OnAction;
+            battleManager.OnServerAction += action => OnAction?.Invoke(action);
         }
 
         public static void StartSinglePlayer()
@@ -41,7 +41,7 @@ namespace Ceres.Client.BattleSystem
             bool myTurn = Random.Range(0f, 1f) < 0.5f; // In this case, local player is player 1
             ServerBattleStartConfig config = new ServerBattleStartConfig(baseDeck, baseDeck, myTurn);
             battleManager = new LocalBattleManager(config);
-            battleManager.OnServerAction += OnAction;
+            battleManager.OnServerAction += action => OnAction?.Invoke(action);
         }
 
         public static void StartBattle(bool myTurn)

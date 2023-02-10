@@ -1,6 +1,7 @@
 ﻿using System;
 using Ceres.Core.BattleSystem;
 using UnityEngine;
+using Logger = Ceres.Client.Utility.Logger;
 
 namespace CardGame.BattleDisplay.Networking
 {
