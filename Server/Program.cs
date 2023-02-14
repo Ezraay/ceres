@@ -10,7 +10,9 @@ builder.Services.AddSignalR(hubOptions => {
     hubOptions.EnableDetailedErrors = true;
     hubOptions.KeepAliveInterval = TimeSpan.FromSeconds(10);
     hubOptions.HandshakeTimeout = TimeSpan.FromSeconds(5);
-}).AddNewtonsoftJsonProtocol();
+}).AddNewtonsoftJsonProtocol(options => {
+    options.PayloadSerializerSettings.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.All;
+});
 
 builder.Services.AddSingleton<ServerBattleFactory>();
 builder.Services.AddSingleton<CardDeckLoader>();

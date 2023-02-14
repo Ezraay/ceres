@@ -49,10 +49,8 @@ public class ServerBattleFactory{
     }
 
     public async void SendPlayerAction(ServerPlayer player, IServerAction action){
-        var actionType = action.GetType();
         var gameId = ((GameUser)player).GameId;
-        var actionStr = JsonConvert.SerializeObject(action);
-        await _gameHub.Clients.Group(gameId.ToString()).SendAsync("ServerAction",actionStr, actionType);
+        await _gameHub.Clients.Group(gameId.ToString()).SendAsync("ServerAction",action);
     }
 
 }
