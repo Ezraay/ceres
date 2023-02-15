@@ -15,11 +15,17 @@ var readyToPlay = false;
 
 connection.on("ReceiveMessage", function (user, message) {
     var li = document.createElement("li");
-    document.getElementById("messagesList").appendChild(li);
+    var message_list_ul = document.getElementById("messagesList")
+    message_list_ul.appendChild(li).classList.add("list-group-item");
     // We can assign user-supplied strings to an element's textContent because it
     // is not interpreted as markup. If you're assigning in any other way, you 
     // should be aware of possible script injection concerns.
-    li.textContent = `${user} says ${message}`;
+    li.textContent = `${user}: ${message}`;
+
+    $('#messagesList').animate({
+        scrollTop: $("#messagesList li").last().offset().top
+      }, 'slow');
+
 });
 
 function GuidIsValid(guid) {
@@ -29,6 +35,9 @@ function GuidIsValid(guid) {
 }
 
 connection.on("GamesList",(value) => {
+    var GamesCount = Object.entries(value).length-1;
+    document.getElementById("gamesListHeader").innerHTML = `Games (${GamesCount})`;
+
     var gamesList = document.getElementById("gamesList");
     gamesList.innerText = "";
     Object.entries(value).slice(1).forEach(([gameId]) => {
@@ -39,6 +48,10 @@ connection.on("GamesList",(value) => {
         a.setAttribute('href', "/games?gameid="+gameId);
         li.appendChild(a);
     })
+
+    $('#gamesList').animate({
+        scrollTop: $("#gamesList li").last().offset().top
+      }, 'slow');
 })
 
 connection.on("GoToGame",(gameId, userId) => {
@@ -49,6 +62,9 @@ connection.on("GoToGame",(gameId, userId) => {
 })
 
 connection.on("ClientsList",(value) => {
+    var lobbyClientsCount = Object.entries(value).length-1;
+    document.getElementById("clientsListHeader").innerHTML = `Players In Lobby (${lobbyClientsCount})`;
+
     var clientList = document.getElementById("clientsList");
     clientList.innerHTML = "";
     for (const [,hubUser] of Object.entries(value).slice(1)) {
@@ -57,9 +73,9 @@ connection.on("ClientsList",(value) => {
         // }
         var li = document.createElement("li");
         clientList.appendChild(li);
-        li.innerText = `ID: ${hubUser.userId}`;
+        // li.innerText = `ID: ${hubUser.userId}`;
         if (hubUser && hubUser.userName){
-            li.innerText += `   (${hubUser.userName})` 
+            li.innerText += `  ${hubUser.userName}` 
         }
         if (hubUser && hubUser.readyToPlay){
             li.innerText += " == Ready To Play =="
@@ -67,14 +83,14 @@ connection.on("ClientsList",(value) => {
         if (hubUser && GuidIsValid(hubUser.gameId)){
             li.innerText += ` GameId: ${hubUser.gameId}`
         }
-        
     }
 
-
+    $('#clientsList').animate({
+        scrollTop: $("#clientsList li").last().offset().top
+      }, 'slow');
 })
 
 connection.start().then(function () {
-    document.getElementById("sendButton").disabled = false;
     document.getElementById("readytToPlayButton").disabled = false;
 }).catch(function (err) {
     return console.error(err.toString());
@@ -96,4 +112,27 @@ document.getElementById("readytToPlayButton").addEventListener("click", function
         return console.error(err.toString());
     });
     event.preventDefault();
+});
+
+
+function DisableSendButton(disable) {
+    document.getElementById("sendButton").disabled = disable;    
+}
+
+document.getElementById("userInput").addEventListener('input', function (evt) {
+    
+    if(this.value && connection._connectionState === "Connected" && document.getElementById("messageInput").value){
+        DisableSendButton(false);
+    } else {
+        DisableSendButton(true);
+    }
+});
+
+document.getElementById("messageInput").addEventListener('input', function (evt) {
+    
+    if(this.value && connection._connectionState === "Connected" && document.getElementById("userInput").value){
+        DisableSendButton(false);
+    } else {
+        DisableSendButton(true);
+    }
 });

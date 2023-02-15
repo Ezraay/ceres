@@ -18,7 +18,7 @@ public class LobbyHub : Hub
     public override Task OnConnectedAsync()
     {
         ClientsConnected++;
-        Clients.All.SendAsync("ClientsOnServer",ClientsConnected).GetAwaiter().GetResult();
+        Clients.All.SendAsync("ClientsCountInLobby",ClientsConnected).GetAwaiter().GetResult();
         
         var connectionId = Context.ConnectionId;
         // Console.WriteLine($"User connected with ID: {connectionId}");
@@ -37,7 +37,7 @@ public class LobbyHub : Hub
     public override Task OnDisconnectedAsync(Exception? exception)
     {
         ClientsConnected--;
-        Clients.All.SendAsync("ClientsOnServer",ClientsConnected).GetAwaiter().GetResult();
+        Clients.All.SendAsync("ClientsCountInLobby",ClientsConnected).GetAwaiter().GetResult();
 
         // Console.WriteLine($"User disconnected with ID: {Context.ConnectionId}");
         lock(LobbyUsers){

@@ -2,12 +2,12 @@
     <div class="container">
         <div class="row p-1">
             <div class="col-10">
-                <h2>Games</h2>
+                <h2 id="gamesListHeader">Games</h2>
             </div>
         </div>        
         <div class="row p-1">
             <div class="col-10">
-                <ul id="gamesList"></ul>
+                <ul id="gamesList" class="scrollable-box list-group"></ul>
             </div>
         </div>
         <div class="row p-1">
@@ -17,12 +17,12 @@
         </div>
         <div class="row p-1">
             <div class="col-10">
-                <h2>Clients</h2>
+                <h2 id="clientsListHeader">Players In Lobby</h2>
             </div>
         </div>        
         <div class="row p-1">
             <div class="col-10">
-                <ul id="clientsList"></ul>
+                <ul id="clientsList" class="scrollable-box list-group"></ul>
             </div>
         </div>
         <div class="row p-1">
@@ -40,20 +40,14 @@
         <div class="row p-1">
             <div class="col-1">Message</div>
             <div class="col-5"><input type="text" class="w-100" id="messageInput" /></div>
-        </div>
-        <div class="row p-1">
-            <div class="col-6 text-end">
+            <div class="col-1 text-end">
                 <input type="button" id="sendButton" value="Send Message" />
             </div>
         </div>
+
         <div class="row p-1">
             <div class="col-6">
-                <hr />
-            </div>
-        </div>
-        <div class="row p-1">
-            <div class="col-6">
-                <ul id="messagesList"></ul>
+                <ul id="messagesList" class="scrollable-box list-group list-group-flush" style="height: 200px;"></ul>
             </div>
         </div>
 

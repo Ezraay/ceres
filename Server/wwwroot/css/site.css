@@ -20,3 +20,9 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.scrollable-box{
+  width: auto; 
+  height: 100px; 
+  overflow: auto; 
+}
