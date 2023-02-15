@@ -24,6 +24,7 @@ namespace CardGame.BattleDisplay
         public bool IsMoving { get; private set; }
         public Card Card { get; private set; }
         public int SortingOrder => canvas.sortingOrder;
+        private IEnumerator currentMove;
 
         private void Start()
         {
