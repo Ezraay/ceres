@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Ceres.Core.BattleSystem;
 using Ceres.Core.Enums;
 using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using UnityEngine;
 using Logger = Ceres.Client.Utility.Logger;
 
@@ -69,6 +71,9 @@ namespace Ceres.Client
         {
             GameConnection = new HubConnectionBuilder()
                 .WithUrl("http://localhost:5146/GameHub")
+                .AddNewtonsoftJsonProtocol(options => {
+                    options.PayloadSerializerSettings.TypeNameHandling = TypeNameHandling.Auto;
+                })
                 .Build();
 
 
@@ -86,14 +91,11 @@ namespace Ceres.Client
 
                 OnJoinGame?.Invoke(res == JoinGameResults.JoinedAsPlayer1);
 
-                GameConnection.On<string, string>("ServerAction", (action, actionType) =>
+                GameConnection.On<IServerAction>("ServerAction", (action) =>
                 {
                     MainThreadManager.Execute(() =>
                     {
-                        Assembly asm = typeof(IServerAction).Assembly;
-                        Type type = asm.GetType(actionType);
-                        Logger.Log("Action = " + action);
-                        Logger.Log("ActionType = " + type);
+                        Logger.Log($"Action = {action} of a type = {action.GetType().FullName}");
                         // JsonConvert.DeserializeObject<type.typeof()>(action); 
                         // OnBattleAction?.Invoke(action);
                     });

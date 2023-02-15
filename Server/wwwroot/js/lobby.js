@@ -1,6 +1,11 @@
 "use strict";
 
-var connection = new signalR.HubConnectionBuilder().withUrl("/LobbyHub").build();
+var connection = new signalR.HubConnectionBuilder().withUrl("/LobbyHub")
+    // .withHubProtocol(new signalR.JsonHubProtocol({
+    //     transferFormat: signalR.TransferFormat.Text,
+    //     typeNameHandling: 2  // Equivalent to TypeNameHandling.All
+    // }))
+    .build();
 
 //Disable the send button until connection is established.
 document.getElementById("sendButton").disabled = true;
@@ -26,7 +31,7 @@ function GuidIsValid(guid) {
 connection.on("GamesList",(value) => {
     var gamesList = document.getElementById("gamesList");
     gamesList.innerText = "";
-    Object.entries(value).forEach(([gameId]) => {
+    Object.entries(value).slice(1).forEach(([gameId]) => {
         var li = document.createElement("li");
         gamesList.appendChild(li);
         var a = document.createElement("a");
@@ -46,7 +51,7 @@ connection.on("GoToGame",(gameId, userId) => {
 connection.on("ClientsList",(value) => {
     var clientList = document.getElementById("clientsList");
     clientList.innerHTML = "";
-    for (const [,hubUser] of Object.entries(value)) {
+    for (const [,hubUser] of Object.entries(value).slice(1)) {
         // if (GuidIsValid(hubUser.gameId)){
         //     continue;
         // }
@@ -65,8 +70,7 @@ connection.on("ClientsList",(value) => {
         
     }
 
-    // Object.entries(value).forEach(([connectionId,hubUser]) => {
-    // });
+
 })
 
 connection.start().then(function () {
