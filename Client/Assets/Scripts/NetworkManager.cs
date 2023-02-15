@@ -7,12 +7,13 @@ using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using UnityEngine;
+using Zenject;
 using Logger = Ceres.Client.Utility.Logger;
 
 
 namespace Ceres.Client
 {
-    public static class NetworkManager
+    public class NetworkManager
     {
         private static HubConnection LobbyConnection;
         private static HubConnection GameConnection;
@@ -22,6 +23,14 @@ namespace Ceres.Client
         public static event Action OnConnected; // TODO: Call this when connected
         public static event Action<bool> OnJoinGame;
         public static event Action<IServerAction> OnBattleAction;
+
+        private static MainThreadManager mainThreadManager;
+        
+        [Inject]
+        public void Constructor(MainThreadManager mainThreadManager)
+        {
+            NetworkManager.mainThreadManager = mainThreadManager;
+        }
 
 
         public static async void Connect()
@@ -43,7 +52,7 @@ namespace Ceres.Client
 
             LobbyConnection.On<string, string>("GoToGame", (gameId, userId) =>
             {
-                MainThreadManager.Execute(OnGoToGame);
+                mainThreadManager.Execute(OnGoToGame);
                 Guid.TryParse(userId, out UserId);
                 Guid.TryParse(gameId, out GameId);
             });
@@ -93,7 +102,7 @@ namespace Ceres.Client
 
                 GameConnection.On<IServerAction>("ServerAction", (action) =>
                 {
-                    MainThreadManager.Execute(() =>
+                    mainThreadManager.Execute(() =>
                     {
                         Logger.Log($"Action = {action} of a type = {action.GetType().FullName}");
                         // JsonConvert.DeserializeObject<type.typeof()>(action); 

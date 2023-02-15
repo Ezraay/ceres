@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Ceres.Client
 {
-    public class MainThreadManager : MonoBehaviour
+    public class MainThreadManager : IFixedTickable
     {
         private static readonly List<Action> ExecuteOnMainThread = new();
         private static readonly List<Action> ExecuteCopiedOnMainThread = new();
         private static bool actionToExecuteOnMainThread;
-
-        private void Awake()
-        {
-            DontDestroyOnLoad(gameObject);
-        }
-
-        public void FixedUpdate()
+        
+        public void FixedTick()
         {
             if (!actionToExecuteOnMainThread) return;
 
@@ -30,7 +26,7 @@ namespace Ceres.Client
             for (int i = 0; i < ExecuteCopiedOnMainThread.Count; i++) ExecuteCopiedOnMainThread[i]();
         }
 
-        public static void Execute(Action action)
+        public void Execute(Action action)
         {
             if (action == null)
             {

@@ -4,7 +4,7 @@ using Zenject;
 
 namespace CardGame.BattleDisplay.Installers
 {
-    public class CardDatabaseInstaller : MonoInstaller
+    public class BattleInstaller : MonoInstaller
     {
         [SerializeField] private TextAsset textAsset;
 
