@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using Ceres.Core.BattleSystem;
+using UnityEngine;
+using Zenject;
 
 namespace CardGame.BattleDisplay
 {
@@ -7,6 +9,11 @@ namespace CardGame.BattleDisplay
     {
         public bool Finished { get; private set; }
         
+        [Inject]
+        public void Constructor(ICardDatabase cardDatabase)
+        {
+            Debug.Log(cardDatabase);
+        }
         
         public IEnumerator GetEnumerator(IServerAction baseAction, BattleDisplayManager battleDisplayManager)
         {

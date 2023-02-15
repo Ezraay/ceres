@@ -13,35 +13,7 @@ namespace CardGame.BattleDisplay
         {
             cardColliderSize = display.GetComponent<BoxCollider2D>().size;
         }
-
-        private void Update()
-        {
-            // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            // RaycastHit2D[] hits = Physics2D.GetRayIntersectionAll(ray, 1000, cardMask);
-            // CardDisplay card = null;
-            //
-            // foreach (var hit in hits)
-            // {
-            //     CardDisplay other = hit.collider.GetComponent<CardDisplay>();
-            //     if (card == null || other.SortingOrder > card.SortingOrder)
-            //         card = other;
-            // }
-            //
-            //
-            // if (card != null && card.Card != null)
-            // {
-            //     // CardDisplay card = hit.collider.GetComponent<CardDisplay>();
-            //     // if (card.Card != null)
-            //     // {
-            //         display.ShowFront(card.Card);
-            //         display.gameObject.SetActive(true);
-            //         display.transform.position = GetSafePosition(card.transform.position);
-            //         return;
-            //     // }
-            // }
-            //
-            // display.gameObject.SetActive(false);
-        }
+        
 
         private Vector2 GetSafePosition(Vector2 input)
         {
@@ -60,8 +32,6 @@ namespace CardGame.BattleDisplay
 
         public void Show(CardDisplay cardDisplay)
         {
-            Logger.Log("Show");
-
             display.ShowFront(cardDisplay.Card);
             display.transform.position = GetSafePosition(cardDisplay.transform.position);
             display.gameObject.SetActive(true);
@@ -69,7 +39,6 @@ namespace CardGame.BattleDisplay
 
         public void Hide()
         {
-            Logger.Log("Hide");
             display.gameObject.SetActive(false);
         }
     }

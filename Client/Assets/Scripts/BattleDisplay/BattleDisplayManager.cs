@@ -5,6 +5,7 @@ using Ceres.Client;
 using Ceres.Client.BattleSystem;
 using Ceres.Core.BattleSystem;
 using UnityEngine;
+using Zenject;
 using Logger = Ceres.Client.Utility.Logger;
 
 namespace CardGame.BattleDisplay
@@ -16,6 +17,7 @@ namespace CardGame.BattleDisplay
 
         private readonly Queue<IServerAction> actions = new();
         private IActionAnimation currentAnimation;
+        private ICardDatabase cardDatabase;
 
         private void Awake()
         {
@@ -23,6 +25,13 @@ namespace CardGame.BattleDisplay
             {
                 QueueAction(action);
             };
+        }
+
+        
+        [Inject]
+        public void Construct(ICardDatabase cardDatabase)
+        {
+            this.cardDatabase = cardDatabase;
         }
 
         private void Update()
@@ -37,7 +46,7 @@ namespace CardGame.BattleDisplay
 
             if (Input.GetKeyDown(KeyCode.F1))
             {
-                QueueAction(new DrawCardAction(new Card(CardFactory.CreateCardData("archer"))));
+                QueueAction(new DrawCardAction(new Card(cardDatabase.GetCardData("archer"))));
                 QueueAction(new OpponentDrawCardAction());
             }
         }
