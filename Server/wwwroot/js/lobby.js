@@ -85,9 +85,9 @@ connection.on("ClientsList",(value) => {
         }
     }
 
-    $('#clientsList').animate({
-        scrollTop: $("#clientsList li").last().offset().top
-      }, 'slow');
+    // $('#clientsList').animate({
+    //     scrollTop: $("#clientsList li").last().offset().top
+    //   }, 'slow');
 })
 
 connection.start().then(function () {

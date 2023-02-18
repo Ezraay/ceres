@@ -1,6 +1,11 @@
 "use strict";
 
-var GameHubConnection = new signalR.HubConnectionBuilder().withUrl("/GameHub").build();
+var GameHubConnection = new signalR.HubConnectionBuilder()
+    // .withHubProtocol(new signalR.JsonHubProtocol({
+    //     transferFormat: signalR.TransferFormat.Text,
+    //     typeNameHandling: 2  // Equivalent to TypeNameHandling.All
+    // }))
+    .withUrl("/GameHub").build();
 var Player1Turn = true;
 
 let userId = sessionStorage.getItem("userId");
@@ -61,7 +66,7 @@ document.getElementById("P1Action").addEventListener("click", PlayerCommand);
 document.getElementById("P2Action").addEventListener("click", PlayerCommand);
 
 function PlayerCommand(){
-    console.log("playerAction");
+    console.log("sending command");
     var playerCommand = new Object();
     GameHubConnection.send("PlayerSentCommand", gameId, userId, playerCommand).catch(function (err) {
         return console.error(err.toString());

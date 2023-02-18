@@ -50,7 +50,9 @@ public class ServerBattleFactory{
 
     public async void SendPlayerAction(ServerPlayer player, IServerAction action){
         var gameId = ((GameUser)player).GameId;
-        await _gameHub.Clients.Group(gameId.ToString()).SendAsync("ServerAction",action);
+        var connectionId = ((GameUser)player).ConnectionId;
+        await _gameHub.Clients.Client(connectionId).SendAsync("ServerAction",action);
+        // await _gameHub.Clients.Group(gameId.ToString()).SendAsync("ServerAction",action);
     }
 
 }
