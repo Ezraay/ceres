@@ -15,7 +15,6 @@
     </ItemGroup>
     <PropertyGroup>
         <LangVersion>latest</LangVersion>
-        <!-- <TargetFrameworks>net7.0;netstandard2.0;net471</TargetFrameworks> -->
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>Ceres.Server</RootNamespace>
