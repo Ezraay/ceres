@@ -20,14 +20,16 @@
             <div class="col-5">
                 <h5 id="player1Name"></h5>
                 <input type="button" id="P1Action" value="P1Action" disabled/>
+                <ul class="nav nav-tabs" id="P1Cards"></ul>
             </div>
             <div class="col-5">
                 <h5 id="player2Name"></h5>
                 <input type="button" id="P2Action" value="P2Action" disabled />
+                <ul class="nav nav-tabs" id="P2Cards"></ul>
             </div>
         </div>
 
         <script src="~/js/signalr.js"></script>
-        <script src="~/js/game.js"></script>
+        <script type="module" src="~/js/game.js"></script>
     }
 }
