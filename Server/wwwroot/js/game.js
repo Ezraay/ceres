@@ -1,3 +1,5 @@
+import * as ui from "./uifunctions.js";
+
 "use strict";
 
 
@@ -7,7 +9,6 @@ var GameHubConnection = new signalR.HubConnectionBuilder()
     //     typeNameHandling: 2  // Equivalent to TypeNameHandling.All
     // }))
     .withUrl("/GameHub").build();
-var Player1Turn = true;
 
 let userId = sessionStorage.getItem("userId");
 let gameId = sessionStorage.getItem("gameId");
@@ -119,7 +120,23 @@ GameHubConnection.start().then(fulfilled, rejected)
     return console.error(err.toString());
 });
 
+GameHubConnection.onreconnecting(error => {
+    console.assert(GameHubConnection.state === signalR.HubConnectionState.Reconnecting);
+    ui.notifyUserOfTryingToReconnect(); // Your function to notify user.
+});
 
+GameHubConnection.onreconnected(() => {
+    ui.hideOverlay();
+});
+
+
+// // Test the function by stopping and restarting the connection after 5 seconds
+// setTimeout(function () {
+//     ui.notifyUserOfTryingToReconnect();
+//     setTimeout(function () {
+//         ui.hideOverlay();
+//     }, 5000);
+// }, 5000);
 
 
 document.getElementById("P1Action").addEventListener("click", PlayerCommand);
@@ -135,3 +152,4 @@ function PlayerCommand(){
     // document.getElementById("P2Action").disabled = Player1Turn;
 
 }
+
