@@ -22,12 +22,33 @@ public class GameHub : Hub
 
     // }
 
+        public override Task OnDisconnectedAsync(Exception? exception)
+    {
+        var userId = Context.ConnectionId;
+        (GameUser? user, bool isplayer1) res = _serverBattleFactory.FindGameUserByConnectionId(userId);
+        if (res.user != null){
+            
+            Guid game = res.user.GameId;
+            Console.WriteLine($"User {res.user.UserName} disconnected form the game {game}");
+            if (res.isplayer1){
+                _serverBattleFactory.EndServerBattle(game, EndServerBattleReasons.Player1Left);
+            } else {
+                _serverBattleFactory.EndServerBattle(game, EndServerBattleReasons.Player2Left);
+            }
+        }
+
+        // Clients.All.SendAsync("ClientsList",LobbyUsers).GetAwaiter().GetResult();
+        // Clients.All.SendAsync("GamesList",_serverBattleFactory.Games()).GetAwaiter().GetResult();
+        
+        return base.OnDisconnectedAsync(exception);
+    }
+
 
     public async Task<string> JoinGame(string gameId, string userId)
     {
         if (Guid.TryParse(gameId, out var GameIdGuid))
         {
-            ServerBattle? serverBattle = _serverBattleFactory.GetServerBattleById(GameIdGuid);
+            ServerBattle? serverBattle = _serverBattleFactory.FindServerBattleById(GameIdGuid);
             if (serverBattle == null)
                 return JoinGameResults.NoGameFound;
 
@@ -76,7 +97,7 @@ public class GameHub : Hub
     {
         if (Guid.TryParse(gameId, out var GameIdGuid) && Guid.TryParse(userId, out var UserIdGuid))
         {
-            ServerBattle? serverBattle = _serverBattleFactory.GetServerBattleById(GameIdGuid);
+            ServerBattle? serverBattle = _serverBattleFactory.FindServerBattleById(GameIdGuid);
             if (serverBattle != null) serverBattle.Execute(command, serverBattle.GetGameUserById(UserIdGuid));
 
         }

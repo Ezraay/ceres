@@ -15,7 +15,7 @@ public class ServerBattleFactory{
         _lobbyHub = lobbyHub;
         _gameHub = gameHub;
     }
-    public ConcurrentDictionary<Guid,ServerBattle> Games(){
+    public ConcurrentDictionary<Guid,ServerBattle> ServerBattles(){
         return _battles;
     }
     public ServerBattle GetServerBattle(){
@@ -31,21 +31,40 @@ public class ServerBattleFactory{
         }
     }
 
-    public void EndGameManager(Guid gameId, EndServerBattleReasons reason){
+    public void EndServerBattle(Guid gameId, string reason){
         lock (_battles){
             _battles.TryRemove(gameId, out var battle);
             if (battle != null){
-                battle?.EndGame(reason);
+                battle.EndGame(reason);
+                _gameHub.Clients.Group(battle.GameId.ToString()).SendAsync("GameEnded", reason).GetAwaiter().GetResult();
                 _lobbyHub.Clients.All.SendAsync("GamesList",_battles).GetAwaiter().GetResult();
             }
         }
     } 
 
-    public ServerBattle? GetServerBattleById(Guid gameId){
+    public ServerBattle? FindServerBattleById(Guid gameId){
         ServerBattle? result;
         _battles.TryGetValue(gameId, out result);
         return result;
 
+    }
+
+    public (GameUser?, bool) FindGameUserByConnectionId(string userConnectionId) {
+         lock (_battles){
+            
+            var gameUsers = _battles.Values
+                .SelectMany(battle => new[] { (battle.Player1, true), (battle.Player2, false) })
+                .Where(pair => pair.Item1 is GameUser && (pair.Item1 as GameUser)?.ConnectionId == userConnectionId)
+                .ToList();
+
+        if (gameUsers.Count == 0)
+        {
+            return (null, false);
+        }
+
+        return ((GameUser?, bool))gameUsers[0];  
+
+         }
     }
 
     public async void SendPlayerAction(ServerPlayer player, IServerAction action){

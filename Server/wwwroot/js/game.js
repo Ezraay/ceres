@@ -115,6 +115,22 @@ GameHubConnection.on("ServerAction", action => {
 });
 
 
+GameHubConnection.on("GameEnded", reason => {
+    console.log("Game's ended with " + reason);
+    if (ImPlayer1 && ["Player2Left", "Player1Win"].includes(reason)){
+        ui.notifyUserOfGameEnd("win");
+    }
+    if (ImPlayer1 && ["Player2Win"].includes(reason)){
+        ui.notifyUserOfGameEnd("loss");
+    }
+    if (ImPlayer2 && ["Player1Left", "Player2Win"].includes(reason)){
+        ui.notifyUserOfGameEnd("win");
+    }
+    if (ImPlayer2 && ["Player1Win"].includes(reason)){
+        ui.notifyUserOfGameEnd("loss");
+    }
+})
+
 GameHubConnection.start().then(fulfilled, rejected)
 .catch(function (err) {
     return console.error(err.toString());

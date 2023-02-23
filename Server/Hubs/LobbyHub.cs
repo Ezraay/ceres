@@ -29,7 +29,7 @@ public class LobbyHub : Hub
         }
         _userNumber++;
         Clients.All.SendAsync("ClientsList",LobbyUsers).GetAwaiter().GetResult();
-        Clients.All.SendAsync("GamesList",_serverBattleFactory.Games()).GetAwaiter().GetResult();
+        Clients.All.SendAsync("GamesList",_serverBattleFactory.ServerBattles()).GetAwaiter().GetResult();
         
         return base.OnConnectedAsync();
     }
@@ -45,7 +45,7 @@ public class LobbyHub : Hub
             LobbyUsers.TryRemove(Context.ConnectionId, out garbage);
         }
         Clients.All.SendAsync("ClientsList",LobbyUsers).GetAwaiter().GetResult();
-        Clients.All.SendAsync("GamesList",_serverBattleFactory.Games()).GetAwaiter().GetResult();
+        Clients.All.SendAsync("GamesList",_serverBattleFactory.ServerBattles()).GetAwaiter().GetResult();
         
         return base.OnDisconnectedAsync(exception);
     }

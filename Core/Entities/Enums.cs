@@ -2,9 +2,12 @@
 
 namespace Ceres.Core.Enums
 {
-    public enum EndServerBattleReasons{
-        Player1Left,
-        Player2Left
+    public class EndServerBattleReasons{
+        public const string
+            Player1Left = "Player1Left",
+            Player2Left = "Player2Left",
+            Player1Win = "Player1Win",
+            Player2Win = "Player1Win";
     }
 
     public class JoinGameResults{

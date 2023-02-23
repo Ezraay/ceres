@@ -22,7 +22,7 @@ public class GamesModel : PageModel
         try
         {
             if (Guid.TryParse(GameId, out var GameIdGuid)){
-                serverBattle = _serverBattleFactory.GetServerBattleById(GameIdGuid);
+                serverBattle = _serverBattleFactory.FindServerBattleById(GameIdGuid);
 
                 Player1 = (GameUser?)serverBattle?.Player1;
                 Player2 = (GameUser?)serverBattle?.Player2;

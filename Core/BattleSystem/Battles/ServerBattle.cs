@@ -57,7 +57,7 @@ namespace Ceres.Core.BattleSystem
                     OnPlayerAction?.Invoke(Player1, serverAction);
         }
 
-        public void EndGame(EndServerBattleReasons reason){
+        public void EndGame(string reason){
             // Console.WriteLine("");
         } 
     }
