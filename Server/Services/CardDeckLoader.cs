@@ -5,7 +5,7 @@ namespace Ceres.Server.Services;
 // For testing purposes only, loads a testing deck from CSV
 public class CardDeckLoader
 {
-    public IDeck Deck { get; private set; }
+    public IDeck? Deck { get; private set; }
     private string csvPathFile = Path.Combine(@"Resources/Testing Deck.csv");
 
     public CardDeckLoader()
