@@ -21,7 +21,8 @@ public class ServerBattleFactory{
     public ServerBattle GetServerBattle(){
         lock (_battles){
             // var battle = new Lazy<ServerBattle>().Value;
-            var battle = new ServerBattle(new GameUser(), new GameUser(), true);
+            // var battle = new ServerBattle(new GameUser(), new GameUser(), true);
+            var battle = new ServerBattle(null, null, true);
             battle.OnPlayerAction += SendPlayerAction;
             var gameAdded = _battles.TryAdd(battle.GameId, battle);
             if (gameAdded){
@@ -39,6 +40,7 @@ public class ServerBattleFactory{
                 _gameHub.Clients.Group(battle.GameId.ToString()).SendAsync("GameEnded", reason).GetAwaiter().GetResult();
                 _lobbyHub.Clients.All.SendAsync("GamesList",_battles).GetAwaiter().GetResult();
             }
+            battle = null;
         }
     } 
 

@@ -1,3 +1,5 @@
+import * as ui from "./uifunctions.js";
+
 "use strict";
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/LobbyHub")
@@ -94,6 +96,15 @@ connection.start().then(function () {
     document.getElementById("readytToPlayButton").disabled = false;
 }).catch(function (err) {
     return console.error(err.toString());
+});
+
+connection.onreconnecting(error => {
+    console.assert(connection.state === signalR.HubConnectionState.Reconnecting);
+    ui.notifyUserOfTryingToReconnect(); // Your function to notify user.
+});
+
+connection.onreconnected(() => {
+    ui.hideOverlay();
 });
 
 document.getElementById("sendButton").addEventListener("click", function (event) {

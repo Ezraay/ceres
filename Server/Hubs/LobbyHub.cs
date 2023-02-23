@@ -43,6 +43,7 @@ public class LobbyHub : Hub
         lock(LobbyUsers){
             GameUser? garbage;
             LobbyUsers.TryRemove(Context.ConnectionId, out garbage);
+            garbage = null;
         }
         Clients.All.SendAsync("ClientsList",LobbyUsers).GetAwaiter().GetResult();
         Clients.All.SendAsync("GamesList",_serverBattleFactory.ServerBattles()).GetAwaiter().GetResult();

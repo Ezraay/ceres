@@ -76,17 +76,7 @@ body {
 /*  ===  */
 /* overlay for win/loss */
 
-#overlay .win-overlay-msg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 36px;
-  font-weight: bold;
-  text-align: center;
-  color: rgb(255, 86, 1);
-}
-
+#overlay .win-overlay-msg,
 #overlay .loss-overlay-msg {
   position: absolute;
   top: 50%;
@@ -95,5 +85,35 @@ body {
   font-size: 36px;
   font-weight: bold;
   text-align: center;
+}
+
+#overlay .win-overlay-msg {
+  color: rgb(251, 255, 1);
+}
+
+#overlay .loss-overlay-msg {
   color: rgb(1, 90, 243);
+}
+
+#overlay .button-wrapper {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 20px;
+}
+
+#overlay button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #0077ff;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+}
+
+#overlay button:hover {
+  background-color: #0055cc;
 }
