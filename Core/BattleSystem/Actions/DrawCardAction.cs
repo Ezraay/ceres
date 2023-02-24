@@ -4,14 +4,19 @@ using System.Runtime.Serialization;
 
 namespace Ceres.Core.BattleSystem
 {
-    [Serializable]
     public class DrawCardAction : IServerAction
     {
-        public readonly Card Card;
+        public Card Card;
 
+        // public string test = "dsadsa";
+        // public CardData data;
+        // public Card card;
+        
         public DrawCardAction(Card card)
         {
+            // data = new CardData("a", "b", 2, 3, 4);
             Card = card;
+            // this.card = new Card(new CardData("a", "b", 2, 3, 4));
         }
 
         public void Apply(ClientBattle battle)

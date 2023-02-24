@@ -19,7 +19,6 @@ namespace Ceres.Client
 
         private void OnJoinGame(bool myTurn)
         {
-            Debug.Log("Queue manager - OnJoinGame called");
             BattleSystemManager.StartBattle(myTurn);
             SceneManager.LoadScene(gameScene);
         }

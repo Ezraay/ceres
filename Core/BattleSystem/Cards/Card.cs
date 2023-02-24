@@ -1,8 +1,8 @@
 using System;
+using Newtonsoft.Json;
 
 namespace Ceres.Core.BattleSystem
 {
-    [Serializable]
     public class Card
     {
         public ICardData Data { get; }
@@ -10,6 +10,7 @@ namespace Ceres.Core.BattleSystem
 
         public Card(ICardData data) : this(data, Guid.NewGuid()) { }
 
+        [JsonConstructor]
         public Card(ICardData data, Guid id)
         {
             Data = data;

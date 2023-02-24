@@ -87,6 +87,13 @@ public class GameHub : Hub
         return JoinGameResults.NoGameFound;
     }
 
+    class UpdatePlayersNameDTO
+    {
+        public string msgName;
+        public string Player1UserName;
+        public string Player2UserName;
+
+    }
     public async Task UpdatePlayersName(ServerBattle serverBattle)
     {
         await Clients.Group(serverBattle.GameId.ToString()).SendAsync("UpdatePlayersName",
@@ -97,7 +104,6 @@ public class GameHub : Hub
     {
         if (Guid.TryParse(gameId, out var GameIdGuid) && Guid.TryParse(userId, out var UserIdGuid))
         {
-            Console.WriteLine("Got command: " + command);
             ServerBattle? serverBattle = _serverBattleFactory.FindServerBattleById(GameIdGuid);
             if (serverBattle != null) serverBattle.Execute(command, serverBattle.GetGameUserById(UserIdGuid));
 

@@ -1,4 +1,6 @@
-﻿namespace Ceres.Core.BattleSystem
+﻿using System;
+
+namespace Ceres.Core.BattleSystem
 {
     public class CardData : ICardData
     {

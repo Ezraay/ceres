@@ -39,11 +39,11 @@ namespace CardGame.BattleDisplay
             if (actions.Count > 0 && currentAnimation == null)
             {
                 IServerAction action = actions.Dequeue();
-                Logger.Log("Performing animation: " + action);
                 StartCoroutine(ShowAction(action));
                 return;
             }
 
+            // Testing
             if (Input.GetKeyDown(KeyCode.F1))
             {
                 QueueAction(new DrawCardAction(new Card(cardDatabase.GetCardData("archer"))));

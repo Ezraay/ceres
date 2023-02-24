@@ -82,7 +82,7 @@ namespace Ceres.Client
             GameConnection = new HubConnectionBuilder()
                 .WithUrl("http://localhost:5146/GameHub")
                 .AddNewtonsoftJsonProtocol(options => {
-                    options.PayloadSerializerSettings.TypeNameHandling = TypeNameHandling.Auto;
+                    options.PayloadSerializerSettings.TypeNameHandling = TypeNameHandling.All;
                 })
                 .Build();
 
@@ -94,10 +94,15 @@ namespace Ceres.Client
                 Debug.Log("SignalRConnector - connected to GameHub");
 
                 string res = await GameConnection.InvokeAsync<string>("JoinGame", GameId, UserId);
-                if (res == JoinGameResults.JoinedAsPlayer1)
-                    Logger.Log("I am Player1");
-                if (res == JoinGameResults.JoinedAsPlayer2)
-                    Logger.Log("I am Player2");
+                switch (res)
+                {
+                    case JoinGameResults.JoinedAsPlayer1:
+                        Logger.Log("I am Player1");
+                        break;
+                    case JoinGameResults.JoinedAsPlayer2:
+                        Logger.Log("I am Player2");
+                        break;
+                }
 
                 OnJoinGame?.Invoke(res == JoinGameResults.JoinedAsPlayer1);
 
@@ -105,9 +110,10 @@ namespace Ceres.Client
                 {
                     mainThreadManager.Execute(() =>
                     {
-                        Logger.Log($"Action = {action} of a type = {action.GetType().FullName}");
+                        Logger.Log("Got action: " + action);
+                        // Logger.Log($"Action = {action} of a type = {action.GetType().FullName}");
                         // JsonConvert.DeserializeObject<type.typeof()>(action); 
-                        // OnBattleAction?.Invoke(action);
+                        OnBattleAction?.Invoke(action);
                     });
                 });
 

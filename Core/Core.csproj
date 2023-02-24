@@ -8,6 +8,10 @@
     <AssemblyName>Core</AssemblyName>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
   
   <Target Name="DeleteDebugSymbolFile" AfterTargets="Build">
     <Message Text="Deleting $(OutDir)$(ProjectName).pdb" />
