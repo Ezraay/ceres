@@ -6,7 +6,7 @@ namespace Ceres.Client
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<MainThreadManager>().AsSingle();
+            Container.BindInterfacesAndSelfTo<MainThreadManager>().AsSingle().NonLazy();
             Container.Bind<NetworkManager>().AsSingle().NonLazy();
         }
     }

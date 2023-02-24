@@ -30,6 +30,7 @@ namespace Ceres.Client
         public void Constructor(MainThreadManager mainThreadManager)
         {
             NetworkManager.mainThreadManager = mainThreadManager;
+            Debug.Log(mainThreadManager);
         }
 
 
