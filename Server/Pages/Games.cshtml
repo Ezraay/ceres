@@ -1,0 +1,44 @@
+@page
+@model GamesModel
+@{
+    ViewData["Title"] = "Game";
+}
+
+@{
+    if (Model.serverBattle == null){
+        <div class="text-center">
+            <h1>No game found</h1>
+        </div>
+    } else {
+        <div class="text-center">
+            <h1>Welcome to game</h1>
+            <h3>@Model.GameId</h3>
+            <h4>@Model.Player1?.UserName vs @Model.Player2?.UserName</h4>
+        </div>
+        
+        <div class="row p-1">
+            <div class="col">
+                <h5 id="player1Name"></h5>
+                <input type="button" id="P1Action" value="P1Action" disabled/>
+            </div>
+            <div class="col">
+                <h5 id="player2Name"></h5>
+                <input type="button" id="P2Action" value="P2Action" disabled />
+            </div>
+        </div>
+
+        <div class="row p-1">
+            <div class="col">
+                <ul class="nav nav-tabs" id="P1Cards"></ul>
+                
+            </div>
+            <div class="col">
+                <ul class="nav nav-tabs" id="P2Cards"></ul>
+
+            </div>
+        </div>
+
+        <script src="~/js/signalr.js"></script>
+        <script type="module" src="~/js/game.js"></script>
+    }
+}
