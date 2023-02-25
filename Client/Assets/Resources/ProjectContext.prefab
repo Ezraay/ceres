@@ -74,3 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f69eee4a86df44bcb1047a37e700ed5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardCsv: {fileID: 4900000, guid: dd215cbea9155ed478c28ef3640d340d, type: 3}
+  deckCsv: {fileID: 4900000, guid: 70969cd04da5afc418492d34eb862633, type: 3}
+  mainThreadManager: {fileID: 1288036065422988179, guid: 4bc2f7639c3708643a6d92f438e96754, type: 3}
+  networkManager: {fileID: 8054277001043740959, guid: 468426787d3a6484eb498ceb815515d1, type: 3}

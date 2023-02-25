@@ -10,22 +10,20 @@ namespace CardGame.BattleDisplay.Networking
     {
         public event Action<IServerAction> OnServerAction;
         private ClientBattle clientBattle;
-
-        public NetworkedBattleManager()
+        private NetworkManager networkManager;
+        
+        public NetworkedBattleManager(NetworkManager networkManager)
         {
-            NetworkManager.OnJoinGame += myTurn =>
+            this.networkManager = networkManager;
+            
+            networkManager.OnStartGame += config =>
             {
-                string cardDataPath = "Data/Testing Deck";
-                TextAsset text = Resources.Load<TextAsset>(cardDataPath);
-                IDeck baseDeck = new CSVDeck(BattleSystemManager.CardDatabase, text.text.Trim());
-
-                // TODO: Load this from server: ClientBattleStartConfig
-                AllyPlayer myPlayer = new AllyPlayer(new Card(baseDeck.GetChampion()), baseDeck.GetPile().Length);
-                OpponentPlayer opponentPlayer = new OpponentPlayer(baseDeck.GetPile().Length);
-                clientBattle = new ClientBattle(myPlayer, opponentPlayer, myTurn);
+                AllyPlayer myPlayer = new AllyPlayer(new Card(config.Champion), config.PileCount);
+                OpponentPlayer opponentPlayer = new OpponentPlayer(config.OpponentPileCount);
+                clientBattle = new ClientBattle(myPlayer, opponentPlayer, config.MyTurn);
             };
 
-            NetworkManager.OnBattleAction += action =>
+            networkManager.OnBattleAction += action =>
             {
                 clientBattle.Apply(action);
                 OnServerAction?.Invoke(action);
@@ -34,7 +32,7 @@ namespace CardGame.BattleDisplay.Networking
         
         public void ProcessCommand(IClientCommand command)
         {
-            NetworkManager.SendCommand(command);
+            networkManager.SendCommand(command);
         }
     }
 }

@@ -5,13 +5,13 @@ using Zenject;
 
 namespace Ceres.Client
 {
-    public class MainThreadManager : IFixedTickable
+    public class MainThreadManager : MonoBehaviour
     {
         private static readonly List<Action> ExecuteOnMainThread = new();
         private static readonly List<Action> ExecuteCopiedOnMainThread = new();
         private static bool actionToExecuteOnMainThread;
         
-        public void FixedTick()
+        public void FixedUpdate()
         {
             if (!actionToExecuteOnMainThread) return;
 

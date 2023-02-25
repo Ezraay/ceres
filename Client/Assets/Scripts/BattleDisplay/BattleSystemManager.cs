@@ -2,69 +2,52 @@
 using CardGame.BattleDisplay.Networking;
 using Ceres.Core.BattleSystem;
 using UnityEngine;
+using Zenject;
 using Logger = Ceres.Client.Utility.Logger;
 using Random = UnityEngine.Random;
 
 namespace Ceres.Client.BattleSystem
 {
     // [CreateAssetMenu(menuName = "Create BattleManager", fileName = "BattleManager", order = 0)]
-    public static class BattleSystemManager
+    public class BattleSystemManager : MonoBehaviour
     {
         // public static ClientBattle Battle { get; private set; }
-        private static IBattleManager battleManager;
-        public static ICardDatabase CardDatabase { get; }
-        public static bool Started => battleManager != null;
+        private IBattleManager battleManager;
+        public ICardDatabase CardDatabase { get; private set; }
+        public IDeck Deck { get; private set; }
+        public bool Started = false;
         public static event Action<IServerAction> OnAction;
 
-        static BattleSystemManager()
+
+        [Inject]
+        public void Construct(ICardDatabase cardDatabase, IDeck testingDeck)
         {
-            string cardDataPath = "Data/Cards";
-            TextAsset text = Resources.Load<TextAsset>(cardDataPath);
-            CardDatabase = new CSVCardDatabase(text.text.Trim(), true);
-            // NetworkManager.OnBattleAction += Apply;
-            // OnAction += action => Logger.Log("On action called");
+            CardDatabase = cardDatabase;
+            Deck = testingDeck;
         }
 
-        public static void StartMultiplayer()
+        public void StartMultiplayer(NetworkManager networkManager)
         {
             Logger.Log("Starting multiplayer battle");
-            battleManager = new NetworkedBattleManager();
+            battleManager = new NetworkedBattleManager(networkManager);
             battleManager.OnServerAction += action => OnAction?.Invoke(action);
+            Started = true;
         }
 
-        public static void StartSinglePlayer()
+        public void StartSinglePlayer()
         {
             Logger.Log("Starting singleplayer battle");
-            string cardDataPath = "Data/Testing Deck";
-            TextAsset text = Resources.Load<TextAsset>(cardDataPath);
-            IDeck baseDeck = new CSVDeck(CardDatabase, text.text.Trim());
             bool myTurn = Random.Range(0f, 1f) < 0.5f; // In this case, local player is player 1
-            ServerBattleStartConfig config = new ServerBattleStartConfig(baseDeck, baseDeck, myTurn);
+            ServerBattleStartConfig config = new ServerBattleStartConfig(Deck, Deck, myTurn);
             battleManager = new LocalBattleManager(config);
             battleManager.OnServerAction += action => OnAction?.Invoke(action);
+            Started = true;
         }
 
-        public static void StartBattle(bool myTurn)
-        {
-            // AllyPlayer ally = new AllyPlayer();
-            // OpponentPlayer opponent = new OpponentPlayer();
-            // Battle = new ClientBattle(ally, opponent, myTurn);
-        }
-
-        public static void Apply(IServerAction action)
-        {
-            
-            // Battle.Apply(action);
-        }
-
-        public static void Execute(IClientCommand command)
+        public void Execute(IClientCommand command)
         {
             Logger.Log("Executing command: " + command);
             battleManager.ProcessCommand(command);
-            // if (command.CanExecute(Battle))
-            // {
-            //     NetworkManager.SendCommand(command);
-            // }
         }
     }
 }

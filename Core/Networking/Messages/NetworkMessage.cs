@@ -1,6 +1,5 @@
 using Ceres.Core.BattleSystem;
 
-namespace Ceres.Server.Services;
 public interface INetworkMessage 
 {
     string MessageName {get;}

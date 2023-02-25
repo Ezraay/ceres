@@ -1,6 +1,7 @@
 using Ceres.Core.BattleSystem;
 using Ceres.Core.Entities;
 using Ceres.Core.Enums;
+using Ceres.Core.Networking.Messages;
 using Ceres.Server.Services;
 using Microsoft.AspNetCore.SignalR;
 
@@ -71,6 +72,7 @@ public class GameHub : Hub
                     user1.ConnectionId = Context.ConnectionId;
                     user1.LoadDeck(_cardDeckLoader.Deck);
                     await UpdatePlayersName(serverBattle);
+                    
                     return JoinGameResults.JoinedAsPlayer1;
                 }
 
@@ -82,6 +84,11 @@ public class GameHub : Hub
                     await UpdatePlayersName(serverBattle);
                     return JoinGameResults.JoinedAsPlayer2;
                 }
+
+
+                // JoinGameResultMessage message1 =
+                //     new JoinGameResultMessage(new ClientBattleStartConfig(user1.Champion, true, user1.Pile.Count,
+                //         user2.Pile.Count), JoinGameResults.JoinedAsPlayer1);
 
                 // spectators
                 // await UpdatePlayersName(serverBattle);
