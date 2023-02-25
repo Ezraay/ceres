@@ -1,17 +1,16 @@
 using System.Collections.Concurrent;
 using Microsoft.AspNetCore.SignalR;
 using Ceres.Core.Entities;
-
-
+using Ceres.Server.Services;
 
 public class LobbyHub : Hub
 {
     public static int ClientsConnected { get; set;}
     public static ConcurrentDictionary<string, GameUser> LobbyUsers = new ConcurrentDictionary<string, GameUser>();
 
-    private readonly ServerBattleFactory _serverBattleFactory;
+    private readonly ServerBattleManager _serverBattleFactory;
     private static int _userNumber;
-    public LobbyHub(ServerBattleFactory gameManagerFactory){
+    public LobbyHub(ServerBattleManager gameManagerFactory){
         _serverBattleFactory = gameManagerFactory;
     }
 

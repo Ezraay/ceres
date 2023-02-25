@@ -14,7 +14,8 @@ builder.Services.AddSignalR(hubOptions => {
     options.PayloadSerializerSettings.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.All;
 });
 
-builder.Services.AddSingleton<ServerBattleFactory>();
+builder.Services.AddSingleton<NetworkService>();
+builder.Services.AddSingleton<ServerBattleManager>();
 builder.Services.AddSingleton<CardDeckLoader>();
 builder.Services.AddSingleton<CardDatabaseLoader>();
 

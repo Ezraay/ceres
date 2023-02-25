@@ -61,8 +61,9 @@ GameHubConnection.on("UpdatePlayersName", (p1Name, p2Name) => {
     }
 })
 
-GameHubConnection.on("ServerAction", action => {
-    // console.log(action);
+GameHubConnection.on("ServerAction", actionMsg => {
+    let action = actionMsg.action;
+    console.log(action);
      
     // let actionObj = Object.assign(Object.prototype, action);
     var li = document.createElement("li");
@@ -115,7 +116,8 @@ GameHubConnection.on("ServerAction", action => {
 });
 
 
-GameHubConnection.on("GameEnded", reason => {
+GameHubConnection.on("GameEnded", msg => {
+    let reason = msg.reason;
     console.log("Game's ended with " + reason);
     if (ImPlayer1 && ["Player2Left", "Player1Win"].includes(reason)){
         ui.notifyUserOfGameEnd("win");

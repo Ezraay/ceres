@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.SignalR;
 
 public class GameHub : Hub
 {
-    private readonly ServerBattleFactory _serverBattleFactory;
+    private readonly ServerBattleManager _serverBattleFactory;
     private readonly CardDatabaseLoader _cardDatabaseLoader;
     private readonly CardDeckLoader _cardDeckLoader;
 
-    public GameHub(ServerBattleFactory gameManagerFactory, CardDatabaseLoader cardDatabaseLoader, CardDeckLoader cardDeckLoader)
+    public GameHub(ServerBattleManager gameManagerFactory, CardDatabaseLoader cardDatabaseLoader, CardDeckLoader cardDeckLoader)
     {
         _serverBattleFactory = gameManagerFactory;
         _cardDatabaseLoader = cardDatabaseLoader;
@@ -42,6 +42,15 @@ public class GameHub : Hub
         
         return base.OnDisconnectedAsync(exception);
     }
+
+
+
+
+
+
+
+
+
 
 
     public async Task<string> JoinGame(string gameId, string userId)
@@ -87,13 +96,6 @@ public class GameHub : Hub
         return JoinGameResults.NoGameFound;
     }
 
-    class UpdatePlayersNameDTO
-    {
-        public string msgName;
-        public string Player1UserName;
-        public string Player2UserName;
-
-    }
     public async Task UpdatePlayersName(ServerBattle serverBattle)
     {
         await Clients.Group(serverBattle.GameId.ToString()).SendAsync("UpdatePlayersName",
