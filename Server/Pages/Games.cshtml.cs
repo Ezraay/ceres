@@ -8,13 +8,13 @@ public class GamesModel : PageModel
 {
     [BindProperty(SupportsGet = true)]
     public string? GameId {get; set;}
-    private readonly ServerBattleManager _serverBattleFactory;
+    private readonly ServerBattleManager _serverBattleManager;
     public ServerBattle? serverBattle;
-    public GameUser? Player1;
-    public GameUser? Player2;
+    // public GameUser? Player1;
+    // public GameUser? Player2;
 
-    public GamesModel(ServerBattleManager gameManagerFactory){
-        _serverBattleFactory = gameManagerFactory;
+    public GamesModel(ServerBattleManager serverBattleManager){
+        _serverBattleManager = serverBattleManager;
     }
 
     public void OnGet()
@@ -22,10 +22,10 @@ public class GamesModel : PageModel
         try
         {
             if (Guid.TryParse(GameId, out var GameIdGuid)){
-                serverBattle = _serverBattleFactory.FindServerBattleById(GameIdGuid);
+                serverBattle = _serverBattleManager.FindServerBattleById(GameIdGuid);
 
-                Player1 = (GameUser?)serverBattle?.Player1;
-                Player2 = (GameUser?)serverBattle?.Player2;
+                // Player1 =  serverBattle?.Player1;
+                // Player2 = serverBattle?.Player2;
             }
         }
         catch (System.Exception)

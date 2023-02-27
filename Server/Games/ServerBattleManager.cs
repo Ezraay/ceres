@@ -6,26 +6,31 @@ using Ceres.Core.Entities;
 using Newtonsoft.Json;
 using Ceres.Server.Services;
 
-public class ServerBattleManager{
+public class ServerBattleManager : IServerBattleManager
+{
     
-    private static readonly ConcurrentDictionary<Guid, ServerBattle> battles = new ();
-    private readonly NetworkService networkService;
+    private static readonly ConcurrentDictionary<Guid, ServerBattle> battles  = new ();
+    private readonly CardDeckLoader cardDeckLoader;
 
-    public ServerBattleManager(NetworkService networkService){
-        this.networkService = networkService;
+    // private readonly ISignalRService networkService;
+
+    // private readonly IBattleService battleService;
+
+    public ServerBattleManager(CardDeckLoader cardDeckLoader){
+        this.cardDeckLoader = cardDeckLoader;
+        // this.networkService = networkService;
+        // this.battleService = battleService;
     }
     public ConcurrentDictionary<Guid,ServerBattle> ServerBattles(){
         return battles;
     }
     public ServerBattle GetServerBattle(){
         lock (battles){
-            // var battle = new Lazy<ServerBattle>().Value;
-            // var battle = new ServerBattle(new GameUser(), new GameUser(), true);
             var battle = new ServerBattle(null, null, true);
-            battle.OnPlayerAction += networkService.SendPlayerAction;
+            // battle.OnPlayerAction += battleService.PlayerAction;
             var gameAdded = battles.TryAdd(battle.GameId, battle);
             if (gameAdded){
-                networkService.SendListOfGamesUpdated(battles);
+                // battleService.SendListOfGamesUpdated(battles);
             }
             return battle;
         }
@@ -36,12 +41,33 @@ public class ServerBattleManager{
             battles.TryRemove(gameId, out var battle);
             if (battle != null){
                 battle.EndGame(reason);
-                networkService.SendServerBattleEnded(gameId, reason);
-                networkService.SendListOfGamesUpdated(battles);
             }
             battle = null;
         }
     } 
+
+
+   public string JoinBattle(Guid battleId, ServerPlayer serverPlayer)
+    {
+        ServerBattle? serverBattle = FindServerBattleById(battleId);
+        if (serverBattle == null)
+            return JoinGameResults.NoGameFound;
+
+        if (serverPlayer.Equals(serverBattle.Player1)){
+            serverBattle.Player1.LoadDeck(cardDeckLoader.Deck);
+            // UpdatePlayersName(serverBattle);  
+            return JoinGameResults.JoinedAsPlayer1;
+        }
+        
+        if (serverPlayer.Equals(serverBattle.Player2)){
+            serverBattle.Player2.LoadDeck(cardDeckLoader.Deck);
+            // UpdatePlayersName(serverBattle);  
+            return JoinGameResults.JoinedAsPlayer2;
+        }
+
+        // UpdatePlayersName(serverBattle);  
+        return JoinGameResults.JoinedAsSpectator;
+    }
 
     public ServerBattle? FindServerBattleById(Guid gameId){
         ServerBattle? result;
@@ -50,23 +76,23 @@ public class ServerBattleManager{
 
     }
 
-    public (GameUser?, bool) FindGameUserByConnectionId(string userConnectionId) {
-         lock (battles){
+    // public (GameUser?, bool) FindGameUserByConnectionId(string userConnectionId) {
+    //      lock (battles){
             
-            var gameUsers = battles.Values
-                .SelectMany(battle => new[] { (battle.Player1, true), (battle.Player2, false) })
-                .Where(pair => pair.Item1 is GameUser && (pair.Item1 as GameUser)?.ConnectionId == userConnectionId)
-                .ToList();
+    //         var gameUsers = battles.Values
+    //             .SelectMany(battle => new[] { (battle.Player1, true), (battle.Player2, false) })
+    //             .Where(pair => pair.Item1 is GameUser && (pair.Item1 as GameUser)?.ConnectionId == userConnectionId)
+    //             .ToList();
 
-        if (gameUsers.Count == 0)
-        {
-            return (null, false);
-        }
+    //     if (gameUsers.Count == 0)
+    //     {
+    //         return (null, false);
+    //     }
 
-        return ((GameUser?, bool))gameUsers[0];  
+    //     return ((GameUser?, bool))gameUsers[0];  
 
-         }
-    }
+    //      }
+    // }
 
 
 

@@ -6,109 +6,49 @@ using Ceres.Server.Services;
 public class LobbyHub : Hub
 {
     public static int ClientsConnected { get; set;}
-    public static ConcurrentDictionary<string, GameUser> LobbyUsers = new ConcurrentDictionary<string, GameUser>();
+    
+    
+    private readonly SignalRService networkService;
 
-    private readonly ServerBattleManager _serverBattleFactory;
-    private static int _userNumber;
-    public LobbyHub(ServerBattleManager gameManagerFactory){
-        _serverBattleFactory = gameManagerFactory;
+    public LobbyHub(SignalRService networkService)
+    {
+        this.networkService = networkService;
     }
 
     public override Task OnConnectedAsync()
     {
-        ClientsConnected++;
-        Clients.All.SendAsync("ClientsCountInLobby",ClientsConnected).GetAwaiter().GetResult();
-        
-        var connectionId = Context.ConnectionId;
-        // Console.WriteLine($"User connected with ID: {connectionId}");
-        // var userId = Context?.User?.Identity?.Name; // any desired user id
-        lock(LobbyUsers){
-            LobbyUsers.TryAdd(connectionId, new GameUser() {ConnectionId = connectionId, 
-                UserName = $"Player{_userNumber}", UserId = Guid.NewGuid()});
-        }
-        _userNumber++;
-        Clients.All.SendAsync("ClientsList",LobbyUsers).GetAwaiter().GetResult();
-        Clients.All.SendAsync("GamesList",_serverBattleFactory.ServerBattles()).GetAwaiter().GetResult();
-        
+        networkService.ClientConnectedToLobby(Context.ConnectionId);
+
         return base.OnConnectedAsync();
     }
 
     public override Task OnDisconnectedAsync(Exception? exception)
     {
-        ClientsConnected--;
-        Clients.All.SendAsync("ClientsCountInLobby",ClientsConnected).GetAwaiter().GetResult();
-
-        // Console.WriteLine($"User disconnected with ID: {Context.ConnectionId}");
-        lock(LobbyUsers){
-            GameUser? garbage;
-            LobbyUsers.TryRemove(Context.ConnectionId, out garbage);
-            garbage = null;
-        }
-        Clients.All.SendAsync("ClientsList",LobbyUsers).GetAwaiter().GetResult();
-        Clients.All.SendAsync("GamesList",_serverBattleFactory.ServerBattles()).GetAwaiter().GetResult();
+        networkService.ClientDisconnectedFromLobby(Context.ConnectionId);
         
         return base.OnDisconnectedAsync(exception);
     }
 
-    public async Task SendMessage(string user, string message)
+    public void SendMessage(string userName, string message)
     {
-        await ChangeUserName(user);
-        await Clients.All.SendAsync("ReceiveMessage", user, message);
+        if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(message))
+            return;
+        networkService.UserSentMessage(Context.ConnectionId, userName, message);
     }
 
-    public async Task ChangeUserName(string newName){
+    public void ChangeUserName(string newName){
         if (string.IsNullOrEmpty(newName))
             return;
-        var connectionId = Context.ConnectionId;
-        lock(LobbyUsers){
-            GameUser? client;
-            LobbyUsers.TryGetValue(connectionId, out client);
-            if (client != null){
-                client.UserName = newName;
-            }
-        }
-        await Clients.All.SendAsync("ClientsList",LobbyUsers);
+        networkService.ChangeUserName(Context.ConnectionId, newName);
     }
 
-    public async Task UserIsReadyToPlay(string user, bool ready){
-        await ChangeUserName(user);
-        var connectionId = Context.ConnectionId;
-        lock(LobbyUsers){
-            GameUser? client;
-            LobbyUsers.TryGetValue(connectionId, out client);
-            if (client != null){
-                client.ReadyToPlay = ready;
-            }
-        }
-        TryAllocateGameManager();
-        await Clients.All.SendAsync("ClientsList",LobbyUsers);
+    public void UserIsReadyToPlay(string userName, bool ready){
+        if (string.IsNullOrEmpty(userName))
+            return;
+        networkService.UserIsReadyToPlay(Context.ConnectionId, userName, ready);
     }
 
 
-    private void TryAllocateGameManager(){
-        GameUser? firstPlayer = null;
-        lock(LobbyUsers){
-            foreach (var keyValuePair in LobbyUsers)
-            {
-                var user = keyValuePair.Value;
-                if (user == null) continue;
-                if (user.GameId == Guid.Empty  && user.ReadyToPlay){
-                    if (firstPlayer == null){
-                        firstPlayer = user;
-                    } else {
-                        var battle = _serverBattleFactory.GetServerBattle();
-                        user.GameId = battle.GameId;
-                        battle.Player2 = user;
-                        firstPlayer.GameId = battle.GameId;
-                        battle.Player1 = firstPlayer;
-                        if (user.ConnectionId != null)
-                            Clients.Client(user.ConnectionId).SendAsync("GoToGame",battle.GameId, user.UserId).GetAwaiter().GetResult();
-                        if (firstPlayer.ConnectionId != null)
-                            Clients.Client(firstPlayer.ConnectionId).SendAsync("GoToGame",battle.GameId, firstPlayer.UserId).GetAwaiter().GetResult();
-                    }
-                }
-            }
-        }
-    }
+    
 
 }

@@ -2,8 +2,8 @@
 
 namespace Ceres.Core.BattleSystem
 {
-    public class ServerPlayer {
-        public string UserName { get; set; } = "";
+    public class ServerPlayer 
+    {
         public MultiCardSlot Hand { get; } = new MultiCardSlot();
         public MultiCardSlot Pile { get; } = new MultiCardSlot();
         public MultiCardSlot Graveyard { get; } = new MultiCardSlot();

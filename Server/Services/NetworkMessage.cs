@@ -1,4 +1,6 @@
+using System.Collections.Concurrent;
 using Ceres.Core.BattleSystem;
+using Ceres.Core.Entities;
 
 namespace Ceres.Server.Services;
 public interface INetworkMessage 
@@ -15,12 +17,48 @@ public class ServerActionMessage : INetworkMessage
 public class UpdateGamesMessage : INetworkMessage
 {
     public string MessageName { get => "UpdateGames"; }
-    public string[]? GameNames { get; set;}
+    public string[] GameNames { get; set;} = new string[0];
 }
 
 public class GameEndedMessage : INetworkMessage
 {
     public string MessageName { get => "GameEnded"; }
-    public string? GameId { get; set;}
-    public string? Reason { get; set;}
+    public string GameId { get; set;} = "";
+    public string Reason { get; set;} = "";
+}
+
+public class PlayerSentCommandMessage : EventArgs, INetworkMessage
+{
+    public string MessageName { get => "PlayerSentCommand"; }
+    public string GameId { get; set;} = "";
+    public string UserId { get; set;} = "";
+    public IClientCommand? Command { get; set;}
+}
+
+public class ClientsListMessage : INetworkMessage
+{
+    public string MessageName {get => "ClientsList"; }
+    public  ConcurrentDictionary<string, GameUser>? LobbyUsers { get; set;}
+}
+
+public class ReceiveMessageMessage : INetworkMessage
+{
+    public string MessageName { get => "ReceiveMessage"; }
+    public string UserName { get; set;} = "Unknown User";
+    public string MessageText { get; set;} = "Empty Message";
+}
+
+public class GoToGameMessage : INetworkMessage
+{
+    public string MessageName { get => "GoToGame"; }
+    public Guid GameId { get; set;} 
+    public Guid UserId { get; set;} 
+}
+
+public class UpdatePlayersNameMessage : INetworkMessage
+{
+    public string MessageName { get => "UpdatePlayersName"; }
+    public string? Player1Name { get; set;} = "";
+    public string? Player2Name { get; set;} = "";
+
 }
