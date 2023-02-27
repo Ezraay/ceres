@@ -8,9 +8,9 @@ public class LobbyHub : Hub
     public static int ClientsConnected { get; set;}
     
     
-    private readonly SignalRService networkService;
+    private readonly ISignalRService networkService;
 
-    public LobbyHub(SignalRService networkService)
+    public LobbyHub(ISignalRService networkService)
     {
         this.networkService = networkService;
     }

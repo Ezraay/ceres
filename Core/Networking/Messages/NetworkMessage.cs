@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Concurrent;
 using Ceres.Core.BattleSystem;
 using Ceres.Core.Entities;
+using Newtonsoft.Json;
 
 public interface INetworkMessage 
 {
+    [JsonIgnore]
     string MessageName {get;}
 }
 
@@ -16,7 +19,7 @@ public class ServerActionMessage : INetworkMessage
 public class UpdateGamesMessage : INetworkMessage
 {
     public string MessageName { get => "UpdateGames"; }
-    public string[] GameNames { get; set;} = new string[0];
+    public string[] GameNames { get; set;} = Array.Empty<string>();
 }
 
 public class GameEndedMessage : INetworkMessage

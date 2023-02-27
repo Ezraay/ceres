@@ -1,10 +1,8 @@
 using Ceres.Core.BattleSystem;
-using Ceres.Core.Entities;
-using Ceres.Core.Enums;
 
 public interface IBattleService
 {
-    ServerBattle AllocateServerBattle();
+    // ServerBattle AllocateServerBattle();
     // string JoinBattle(Guid battleId, GameUser gameUser);
     void StartBattle(ServerBattle battle);
     void StopBattle(Guid battleId, string reason);

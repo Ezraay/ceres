@@ -3,15 +3,15 @@ using Ceres.Core.Enums;
 
 namespace Ceres.Core.Networking.Messages
 {
-    public class JoinGameResultMessage
+    public class JoinGameResultMessage : INetworkMessage
     {
-        public JoinGameResults JoinGameResults;
         public ClientBattleStartConfig Config;
         
-        public JoinGameResultMessage(ClientBattleStartConfig config, JoinGameResults joinGameResults)
+        public JoinGameResultMessage(ClientBattleStartConfig config)
         {
             Config = config;
-            JoinGameResults = joinGameResults;
         }
+
+        public string MessageName => "JoinGame";
     }
 }

@@ -16,18 +16,17 @@ public class BattleService : IBattleService
         // this.cardDeckLoader = cardDeckLoader;
     }
 
-    public ServerBattle AllocateServerBattle()
-    {
-        return _battleManager.GetServerBattle();
-    }
+    // public ServerBattle AllocateServerBattle()
+    // {
+    //     return _battleManager.GetServerBattle();
+    // }
     
     private GameUser? FindGameUser(ServerPlayer serverPlayer){
         var lobbyUsers = _networkService.LobbyUsers();
         lock (lobbyUsers)
         {
             var gameUser = lobbyUsers.Values
-                .Where(u => u.ServerPlayer == serverPlayer)
-                .FirstOrDefault();
+                .FirstOrDefault(u => u.ServerPlayer == serverPlayer);
 
             return gameUser;
         }
@@ -42,7 +41,7 @@ public class BattleService : IBattleService
                 .Where(pair => pair.Item1 is ServerPlayer && (pair.Item1 as ServerPlayer) == user.ServerPlayer)
                 .ToList();
 
-                if (serverPlayers.Count() == 0){
+                if (!serverPlayers.Any()){
                     return (null, false);
                 }
 

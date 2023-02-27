@@ -6,7 +6,7 @@ namespace Ceres.Core.BattleSystem
     {
         private readonly Dictionary<string, ICardData> data = new Dictionary<string, ICardData>();
 
-        public CSVCardDatabase(string csvData, bool skipHeader)
+        public CSVCardDatabase(string csvData, bool skipHeader = true)
         {
             string[] lines = csvData.Split('\n');
             for (int i = skipHeader ? 1 : 0; i < lines.Length; i++)

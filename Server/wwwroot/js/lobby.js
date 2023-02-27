@@ -56,14 +56,17 @@ connection.on("GamesList",(value) => {
       }, 'slow');
 })
 
-connection.on("GoToGame",(gameId, userId) => {
+connection.on("GoToGame",msg => {
+    let gameId = msg.gameId
+    let userId = msg.userId
     console.log("/games?gameid="+gameId.toString())
     sessionStorage.setItem("gameId", gameId);
     sessionStorage.setItem("userId", userId);
     window.location = "/games?gameid="+gameId.toString();
 })
 
-connection.on("ClientsList",(value) => {
+connection.on("ClientsList",(msg) => {
+    let value = msg.lobbyUsers;
     var lobbyClientsCount = Object.entries(value).length-1;
     document.getElementById("clientsListHeader").innerHTML = `Players In Lobby (${lobbyClientsCount})`;
 
@@ -118,7 +121,7 @@ document.getElementById("sendButton").addEventListener("click", function (event)
 
 document.getElementById("readytToPlayButton").addEventListener("click", function (event) {
     readyToPlay = !readyToPlay;
-    var userName = document.getElementById("userInput").value;
+    var userName = document.getElementById("userInput").value ==="" ?  "Player" : document.getElementById("userInput").value;
     connection.send("UserIsReadyToPlay", userName, readyToPlay).catch(function (err) {
         return console.error(err.toString());
     });

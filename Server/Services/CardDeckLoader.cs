@@ -8,12 +8,12 @@ public class CardDeckLoader
     public IDeck? Deck { get; private set; }
     private string csvPathFile = Path.Combine(@"Resources/Testing Deck.csv");
 
-    public CardDeckLoader()
+    public CardDeckLoader(CardDatabaseLoader cardDatabaseLoader)
     {
-        Load(csvPathFile);
+        Load(cardDatabaseLoader.Database, csvPathFile);
     }
 
-    private void Load(string path)
+    private void Load(ICardDatabase database, string path)
     {
         try
         {
@@ -21,7 +21,7 @@ public class CardDeckLoader
             using (var sr = new StreamReader(fs))
             {
                 string csvFile = sr.ReadToEnd();
-                Deck = new CSVDeck(CardDatabaseLoader.Database, csvFile.Trim(), true);
+                Deck = new CSVDeck(database, csvFile.Trim(), true);
             }
         }
         catch (IOException e)

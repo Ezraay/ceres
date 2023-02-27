@@ -159,6 +159,7 @@ public class SignalRService :ISignalRService
                 if (res != JoinGameResults.NoGameFound){
                     // Adding player or spectator to the Game group
                     gameHub.Groups.AddToGroupAsync(gameUser.ConnectionId, gameId.ToString()).GetAwaiter().GetResult();
+                    return res;
                 }
 
             }

@@ -14,11 +14,11 @@ builder.Services.AddSignalR(hubOptions => {
     options.PayloadSerializerSettings.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.All;
 });
 
+builder.Services.AddSingleton<CardDatabaseLoader>();
+builder.Services.AddSingleton<CardDeckLoader>();
 builder.Services.AddScoped<IBattleService, BattleService>();
 builder.Services.AddSingleton<IServerBattleManager, ServerBattleManager>();
 builder.Services.AddSingleton<ISignalRService, SignalRService>();
-builder.Services.AddSingleton<CardDeckLoader>();
-builder.Services.AddSingleton<CardDatabaseLoader>();
 
 
 var app = builder.Build();

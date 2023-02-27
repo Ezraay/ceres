@@ -7,17 +7,10 @@ using Microsoft.AspNetCore.SignalR;
 
 public class GameHub : Hub
 {
-    private readonly ServerBattleManager _serverBattleFactory;
-    private readonly CardDatabaseLoader _cardDatabaseLoader;
-    private readonly CardDeckLoader _cardDeckLoader;
-    private readonly SignalRService networkService;
+    private readonly ISignalRService networkService;
 
-    public GameHub(ServerBattleManager gameManagerFactory, CardDatabaseLoader cardDatabaseLoader, CardDeckLoader cardDeckLoader,
-                    SignalRService networkService)
+    public GameHub(ISignalRService networkService)
     {
-        _serverBattleFactory = gameManagerFactory;
-        _cardDatabaseLoader = cardDatabaseLoader;
-        _cardDeckLoader = cardDeckLoader;
         this.networkService = networkService;
     }
 
@@ -32,17 +25,7 @@ public class GameHub : Hub
         
         return base.OnDisconnectedAsync(exception);
     }
-
-
-
-
-
-
-
-
-
-
-
+    
     public string JoinGame(string gameId, string userId)
     {
         if (Guid.TryParse(gameId, out var GameIdGuid) && Guid.TryParse(userId, out var UserIdGuid))

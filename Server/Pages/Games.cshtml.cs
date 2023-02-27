@@ -8,12 +8,12 @@ public class GamesModel : PageModel
 {
     [BindProperty(SupportsGet = true)]
     public string? GameId {get; set;}
-    private readonly ServerBattleManager _serverBattleManager;
+    private readonly IServerBattleManager _serverBattleManager;
     public ServerBattle? serverBattle;
     // public GameUser? Player1;
     // public GameUser? Player2;
 
-    public GamesModel(ServerBattleManager serverBattleManager){
+    public GamesModel(IServerBattleManager serverBattleManager){
         _serverBattleManager = serverBattleManager;
     }
 

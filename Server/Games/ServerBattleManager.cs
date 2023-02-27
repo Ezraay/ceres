@@ -42,7 +42,6 @@ public class ServerBattleManager : IServerBattleManager
             if (battle != null){
                 battle.EndGame(reason);
             }
-            battle = null;
         }
     } 
 
@@ -70,10 +69,8 @@ public class ServerBattleManager : IServerBattleManager
     }
 
     public ServerBattle? FindServerBattleById(Guid gameId){
-        ServerBattle? result;
-        battles.TryGetValue(gameId, out result);
+        battles.TryGetValue(gameId, out var result);
         return result;
-
     }
 
     // public (GameUser?, bool) FindGameUserByConnectionId(string userConnectionId) {
