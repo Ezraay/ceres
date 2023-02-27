@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Reflection;
-using System.Threading.Tasks;
 using Ceres.Core.BattleSystem;
 using Ceres.Core.Enums;
 using Microsoft.AspNetCore.SignalR.Client;
@@ -10,31 +8,30 @@ using UnityEngine;
 using Zenject;
 using Logger = Ceres.Client.Utility.Logger;
 
-
 namespace Ceres.Client
 {
-    public class NetworkManager
+    public class NetworkManager : MonoBehaviour
     {
-        private static HubConnection LobbyConnection;
-        private static HubConnection GameConnection;
+        private HubConnection LobbyConnection;
+        private HubConnection GameConnection;
 
-        private static Guid UserId;
-        private static Guid GameId;
-        public static event Action OnConnected; // TODO: Call this when connected
-        public static event Action<bool> OnJoinGame;
-        public static event Action<IServerAction> OnBattleAction;
+        private Guid UserId;
+        private Guid GameId;
 
-        private static MainThreadManager mainThreadManager;
-        
+        private MainThreadManager mainThreadManager;
+        public bool Connected { get; private set; }
+        public event Action OnConnected; // TODO: Call this when connected
+        public event Action<ClientBattleStartConfig> OnStartGame;
+        public event Action<IServerAction> OnBattleAction;
+
         [Inject]
-        public void Constructor(MainThreadManager mainThreadManager)
+        public void Construct(MainThreadManager mainThreadManager)
         {
-            NetworkManager.mainThreadManager = mainThreadManager;
-            Debug.Log(mainThreadManager);
+            this.mainThreadManager = mainThreadManager;
         }
 
 
-        public static async void Connect()
+        public async void Connect()
         {
             LobbyConnection = new HubConnectionBuilder()
                 .WithUrl("http://localhost:5146/LobbyHub")
@@ -59,34 +56,33 @@ namespace Ceres.Client
             });
 
 
-
-            if (LobbyConnection.State == HubConnectionState.Connected) OnConnected?.Invoke();
+            if (LobbyConnection.State == HubConnectionState.Connected)
+            {
+                OnConnected?.Invoke();
+                Connected = true;
+            }
         }
 
-        public static async Task JoinQueue()
+        public void JoinQueue()
         {
             string userName = "Unity";
-            await LobbyConnection.SendAsync("UserIsReadyToPlay", userName, true);
+            LobbyConnection.SendAsync("UserIsReadyToPlay", userName, true);
         }
 
-        public static void SendCommand(IClientCommand command)
+        public void SendCommand(IClientCommand command)
         {
             GameConnection.SendAsync("PlayerSentCommand", GameId, UserId, command);
         }
 
-
-
-
-        private static async void OnGoToGame()
+        private async void OnGoToGame()
         {
             GameConnection = new HubConnectionBuilder()
                 .WithUrl("http://localhost:5146/GameHub")
-                .AddNewtonsoftJsonProtocol(options => {
+                .AddNewtonsoftJsonProtocol(options =>
+                {
                     options.PayloadSerializerSettings.TypeNameHandling = TypeNameHandling.All;
                 })
                 .Build();
-
-
 
             try
             {
@@ -104,27 +100,24 @@ namespace Ceres.Client
                         break;
                 }
 
-                OnJoinGame?.Invoke(res == JoinGameResults.JoinedAsPlayer1);
+                ClientBattleStartConfig config = new ClientBattleStartConfig(new CardData("archer", "Archer", 1, 5, 5),
+                    res == JoinGameResults.JoinedAsPlayer1, 50, 50); // TODO: Get this from server
+                OnStartGame?.Invoke(config);
 
-                GameConnection.On<IServerAction>("ServerAction", (action) =>
+                GameConnection.On<IServerAction>("ServerAction", action =>
                 {
                     mainThreadManager.Execute(() =>
                     {
                         Logger.Log("Got action: " + action);
-                        // Logger.Log($"Action = {action} of a type = {action.GetType().FullName}");
-                        // JsonConvert.DeserializeObject<type.typeof()>(action); 
                         OnBattleAction?.Invoke(action);
                     });
                 });
-
-                
             }
             catch (Exception ex)
             {
                 Debug.Log("Error connecting to GameHub : " + ex.Message);
                 Debug.Log("StackTrace: " + ex.StackTrace);
             }
-
         }
     }
 }

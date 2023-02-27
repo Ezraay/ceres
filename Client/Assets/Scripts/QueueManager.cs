@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Ceres.Client.BattleSystem;
+using Ceres.Core.BattleSystem;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -10,16 +11,21 @@ namespace Ceres.Client
     {
         // [SerializeField] private NetworkManager networkManager;
         [SerializeField] [Scene] private string gameScene;
+        private NetworkManager networkManager;
 
+        public void Construct(NetworkManager networkManager)
+        {
+            this.networkManager = networkManager;
+        }
+        
         void Start()
         {
-            NetworkManager.OnJoinGame += OnJoinGame;
-            NetworkManager.JoinQueue();
+            networkManager.OnStartGame += OnStartGame;
+            networkManager.JoinQueue();
         }
 
-        private void OnJoinGame(bool myTurn)
+        private void OnStartGame(ClientBattleStartConfig _)
         {
-            BattleSystemManager.StartBattle(myTurn);
             SceneManager.LoadScene(gameScene);
         }
     }

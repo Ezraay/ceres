@@ -2,7 +2,6 @@ using System.Collections.Concurrent;
 using Ceres.Core.BattleSystem;
 using Ceres.Core.Entities;
 
-namespace Ceres.Server.Services;
 public interface INetworkMessage 
 {
     string MessageName {get;}

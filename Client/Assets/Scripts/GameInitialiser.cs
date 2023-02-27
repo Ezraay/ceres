@@ -1,6 +1,7 @@
 using Ceres.Client.BattleSystem;
 using UnityEngine;
 using NaughtyAttributes;
+using Zenject;
 
 namespace Ceres.Client
 {
@@ -8,13 +9,13 @@ namespace Ceres.Client
     {
         // [SerializeField] private NetworkManager networkManager;
         [SerializeField, Scene] private string nextScene;
-        
-        
-        private void Start()
+
+
+        [Inject]
+        public void Construct(NetworkManager networkManager)
         {
-            NetworkManager.OnConnected += LoadNextScene;
-            NetworkManager.Connect();
-            BattleSystemManager.StartMultiplayer();
+            networkManager.OnConnected += LoadNextScene;
+            networkManager.Connect();
         }
 
         private void LoadNextScene()
