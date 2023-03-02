@@ -4,6 +4,7 @@ using Ceres.Client.BattleSystem;
 using Ceres.Core.BattleSystem;
 using NaughtyAttributes;
 using UnityEngine;
+using Zenject;
 
 namespace Ceres.Client
 {
@@ -13,6 +14,7 @@ namespace Ceres.Client
         [SerializeField] [Scene] private string gameScene;
         private NetworkManager networkManager;
 
+        [Inject]
         public void Construct(NetworkManager networkManager)
         {
             this.networkManager = networkManager;

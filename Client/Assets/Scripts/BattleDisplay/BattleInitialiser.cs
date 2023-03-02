@@ -9,7 +9,7 @@ namespace Ceres.Client
         [Inject]
         public void Construct(BattleSystemManager battleSystemManager, NetworkManager networkManager)
         {
-            if (networkManager.Connected)
+            if (networkManager.IsConnected)
                 battleSystemManager.StartMultiplayer(networkManager);
             else
                 battleSystemManager.StartSinglePlayer();

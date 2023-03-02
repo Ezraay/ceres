@@ -1,4 +1,5 @@
-﻿using Ceres.Core.BattleSystem;
+﻿using Ceres.Client.Networking;
+using Ceres.Core.BattleSystem;
 using UnityEngine;
 using Zenject;
 
@@ -9,6 +10,7 @@ namespace Ceres.Client
         [SerializeField] private TextAsset cardCsv;
         [SerializeField] private TextAsset deckCsv;
         [SerializeField] private MainThreadManager mainThreadManager;
+        [SerializeField] private SignalRManager signalRManager;
         [SerializeField] private NetworkManager networkManager;
         
         public override void InstallBindings()
@@ -19,8 +21,13 @@ namespace Ceres.Client
             Container.Bind<ICardDatabase>().FromInstance(database);
             Container.Bind<IDeck>().FromInstance(deck);
             
-            Container.BindInterfacesAndSelfTo<MainThreadManager>().FromComponentInNewPrefab(mainThreadManager).AsSingle().NonLazy();
-            Container.Bind<NetworkManager>().FromComponentInNewPrefab(networkManager).AsSingle().NonLazy();
+            Container.Bind<MainThreadManager>().FromComponentInNewPrefab(mainThreadManager).AsSingle().NonLazy();
+
+            if (SceneManager.CurrentScene != GameScene.Battle)
+            {
+                Container.Bind<SignalRManager>().FromComponentInNewPrefab(signalRManager).AsSingle().NonLazy();
+                Container.Bind<NetworkManager>().FromComponentInNewPrefab(networkManager).AsSingle().NonLazy();
+            }
         }
     }
 }
