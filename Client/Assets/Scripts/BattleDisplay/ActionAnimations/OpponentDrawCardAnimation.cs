@@ -10,11 +10,11 @@ namespace CardGame.BattleDisplay
 
         
         
-        public IEnumerator GetEnumerator(IServerAction baseAction, BattleDisplayManager battleDisplayManager)
+        public IEnumerator GetEnumerator(IServerAction baseAction, AnimationData data)
         {
-            CardDisplay display = CardDisplayFactory.Create();
+            CardDisplay display = data.CardDisplayFactory.Create();
 
-            yield return battleDisplayManager.opponentPlayer.Hand.AddCard(display);
+            yield return data.OpponentDisplay.Hand.AddCard(display);
 
             Finished = true;
         }

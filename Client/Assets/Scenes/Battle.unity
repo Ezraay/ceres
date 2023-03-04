@@ -304,6 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f31e88653caa4065bed2d1d8a9ee3147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Started: 0
 --- !u!4 &238298245
 Transform:
   m_ObjectHideFlags: 0
@@ -1351,6 +1352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3945404a52ec4369af8b8f84cbf26afd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardDisplayFactory: {fileID: 1161714572}
   battleSystemManager: {fileID: 238298244}
 --- !u!1 &1690449650
 GameObject:

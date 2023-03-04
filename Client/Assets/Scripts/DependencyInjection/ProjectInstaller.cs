@@ -25,9 +25,10 @@ namespace Ceres.Client
 
             if (SceneManager.CurrentScene != GameScene.Battle)
             {
-                Container.Bind<SignalRManager>().FromComponentInNewPrefab(signalRManager).AsSingle().NonLazy();
-                Container.Bind<NetworkManager>().FromComponentInNewPrefab(networkManager).AsSingle().NonLazy();
+            Container.Bind<SignalRManager>().FromComponentInNewPrefab(signalRManager).AsSingle().NonLazy();
+            Container.Bind<NetworkManager>().FromComponentInNewPrefab(networkManager).AsSingle().NonLazy();
             }
+            
         }
     }
 }

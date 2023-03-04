@@ -7,11 +7,9 @@ namespace Ceres.Client
     public class BattleInitialiser : MonoBehaviour
     {
         [Inject]
-        public void Construct(BattleSystemManager battleSystemManager, NetworkManager networkManager)
+        public void Construct(BattleSystemManager battleSystemManager)
         {
-            if (networkManager.IsConnected)
-                battleSystemManager.StartMultiplayer(networkManager);
-            else
+            if (!battleSystemManager.IsStarted)
                 battleSystemManager.StartSinglePlayer();
         }
     }

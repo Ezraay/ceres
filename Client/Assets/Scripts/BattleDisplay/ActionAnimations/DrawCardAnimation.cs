@@ -15,13 +15,13 @@ namespace CardGame.BattleDisplay
             Debug.Log(cardDatabase);
         }
         
-        public IEnumerator GetEnumerator(IServerAction baseAction, BattleDisplayManager battleDisplayManager)
+        public IEnumerator GetEnumerator(IServerAction baseAction, AnimationData data)
         {
             DrawCardAction action = (DrawCardAction)baseAction;
-            CardDisplay display = CardDisplayFactory.Create();
+            CardDisplay display = data.CardDisplayFactory.Create();
             display.ShowFront(action.Card);
 
-            yield return battleDisplayManager.player.Hand.AddCard(display);
+            yield return data.PlayerDisplay.Hand.AddCard(display);
 
             Finished = true;
         }

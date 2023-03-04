@@ -2,6 +2,7 @@
 using CardGame.BattleDisplay.Networking;
 using Ceres.Core.BattleSystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 using Logger = Ceres.Client.Utility.Logger;
 using Random = UnityEngine.Random;
@@ -15,7 +16,7 @@ namespace Ceres.Client.BattleSystem
         private IBattleManager battleManager;
         public ICardDatabase CardDatabase { get; private set; }
         public IDeck Deck { get; private set; }
-        public bool Started = false;
+        [FormerlySerializedAs("Started")] public bool IsStarted = false;
         public static event Action<IServerAction> OnAction;
 
 
@@ -31,7 +32,7 @@ namespace Ceres.Client.BattleSystem
             Logger.Log("Starting multiplayer battle");
             battleManager = new NetworkedBattleManager(networkManager);
             battleManager.OnServerAction += action => OnAction?.Invoke(action);
-            Started = true;
+            IsStarted = true;
         }
 
         public void StartSinglePlayer()
@@ -41,7 +42,7 @@ namespace Ceres.Client.BattleSystem
             ServerBattleStartConfig config = new ServerBattleStartConfig(Deck, Deck, myTurn);
             battleManager = new LocalBattleManager(config);
             battleManager.OnServerAction += action => OnAction?.Invoke(action);
-            Started = true;
+            IsStarted = true;
         }
 
         public void Execute(IClientCommand command)

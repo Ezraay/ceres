@@ -17,7 +17,7 @@ namespace CardGame.BattleDisplay
 
         private readonly Queue<IServerAction> actions = new();
         private IActionAnimation currentAnimation;
-        private ICardDatabase cardDatabase;
+        private CardDisplayFactory cardDisplayFactory;
 
         private void Awake()
         {
@@ -29,9 +29,9 @@ namespace CardGame.BattleDisplay
 
         
         [Inject]
-        public void Construct(ICardDatabase cardDatabase)
+        public void Construct(CardDisplayFactory cardDisplayFactory)
         {
-            this.cardDatabase = cardDatabase;
+            this.cardDisplayFactory = cardDisplayFactory;
         }
 
         private void Update()
@@ -41,13 +41,6 @@ namespace CardGame.BattleDisplay
                 IServerAction action = actions.Dequeue();
                 StartCoroutine(ShowAction(action));
                 return;
-            }
-
-            // Testing
-            if (Input.GetKeyDown(KeyCode.F1))
-            {
-                QueueAction(new DrawCardAction(new Card(cardDatabase.GetCardData("archer"))));
-                QueueAction(new OpponentDrawCardAction());
             }
         }
 
@@ -71,7 +64,8 @@ namespace CardGame.BattleDisplay
                     break;
             }
 
-            yield return currentAnimation.GetEnumerator(action, this);
+            AnimationData data = new AnimationData(player, opponentPlayer, cardDisplayFactory);
+            yield return currentAnimation.GetEnumerator(action, data);
 
             currentAnimation = null;
         }
