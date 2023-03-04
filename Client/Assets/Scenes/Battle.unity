@@ -304,7 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f31e88653caa4065bed2d1d8a9ee3147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Started: 0
+  IsStarted: 0
 --- !u!4 &238298245
 Transform:
   m_ObjectHideFlags: 0
@@ -1109,6 +1109,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c934afb76e8b4f86a46f05f11a336fe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: displays
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.Guid, mscorlib],[CardGame.BattleDisplay.CardDisplay,
+        Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.Guid,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   cardDisplay: {fileID: 6662901252720333334, guid: ca7f65a0df4d2264fbf39ac4bc64e915, type: 3}
   defaultCardLocation: {fileID: 709775762}
 --- !u!4 &1161714573

@@ -18,8 +18,7 @@ namespace CardGame.BattleDisplay
         public IEnumerator GetEnumerator(IServerAction baseAction, AnimationData data)
         {
             DrawCardAction action = (DrawCardAction)baseAction;
-            CardDisplay display = data.CardDisplayFactory.Create();
-            display.ShowFront(action.Card);
+            CardDisplay display = data.CardDisplayFactory.Create(action.Card);
 
             yield return data.PlayerDisplay.Hand.AddCard(display);
 

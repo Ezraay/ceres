@@ -12,7 +12,7 @@ namespace CardGame.BattleDisplay
         
         public IEnumerator GetEnumerator(IServerAction baseAction, AnimationData data)
         {
-            CardDisplay display = data.CardDisplayFactory.Create();
+            CardDisplay display = data.CardDisplayFactory.CreateHidden();
 
             yield return data.OpponentDisplay.Hand.AddCard(display);
 
