@@ -23,7 +23,7 @@ namespace Ceres.Client.Networking
             DontDestroyOnLoad(gameObject);
         }
 
-        private async void Start()
+        public async void Connect()
         {
             LobbyHub = CreateHubConnection(connectionString, lobbyHubPath);
             GameHub = CreateHubConnection(connectionString, gameHubPath);

@@ -17,7 +17,6 @@ namespace Ceres.Client
         private MainThreadManager mainThreadManager;
 
         private SignalRManager signalRManager;
-        private BattleSystemManager battleSystemManager;
 
         private Guid userId;
         public bool IsConnected { get; private set; }
@@ -31,18 +30,16 @@ namespace Ceres.Client
         public event Action<IServerAction> OnBattleAction;
 
         [Inject]
-        public void Construct(MainThreadManager mainThread, SignalRManager signalR, BattleSystemManager battleSystem)
+        public void Construct(MainThreadManager mainThread, SignalRManager signalR)
         {
             mainThreadManager = mainThread;
             signalRManager = signalR;
-            battleSystemManager = battleSystem;
             
             signalRManager.OnConnected += Connected;
         }
 
         private void Connected()
         {
-            battleSystemManager.StartMultiplayer(this);
             signalRManager.On<GoToGameMessage>(signalRManager.LobbyHub, async message =>
             {
                 userId = message.UserId;
