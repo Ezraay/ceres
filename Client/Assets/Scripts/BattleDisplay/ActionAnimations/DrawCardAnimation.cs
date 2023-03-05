@@ -5,24 +5,22 @@ using Zenject;
 
 namespace CardGame.BattleDisplay
 {
-    public class DrawCardAnimation : IActionAnimation
+    public class DrawCardAnimation : ActionAnimation
     {
-        public bool Finished { get; private set; }
-        
         [Inject]
         public void Constructor(ICardDatabase cardDatabase)
         {
             Debug.Log(cardDatabase);
         }
         
-        public IEnumerator GetEnumerator(IServerAction baseAction, AnimationData data)
+        public override IEnumerator GetEnumerator(IServerAction baseAction, AnimationData data)
         {
             DrawCardAction action = (DrawCardAction)baseAction;
             CardDisplay display = data.CardDisplayFactory.Create(action.Card);
 
-            yield return data.PlayerDisplay.Hand.AddCard(display);
+            StartCoroutine(data, data.ActionAnimator.ShakeCamera(0.4f, 1f));
 
-            Finished = true;
+            yield return data.PlayerDisplay.Hand.AddCard(display);
         }
     }
 }

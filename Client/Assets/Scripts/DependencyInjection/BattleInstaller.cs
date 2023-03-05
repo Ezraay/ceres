@@ -9,14 +9,14 @@ namespace CardGame.BattleDisplay.Installers
     {
         // [SerializeField] private TextAsset textAsset;
         [SerializeField] private CardDisplayFactory cardDisplayFactory;
-        [SerializeField] private BattleSystemManager battleSystemManager;
+        [SerializeField] private BattleManager battleManager;
+        [SerializeField] private ActionAnimator actionAnimator;
 
         public override void InstallBindings()
         {
             Container.BindInstance(cardDisplayFactory).AsSingle();
-            Container.BindInstance(battleSystemManager).AsSingle();
-            // CSVCardDatabase database = new CSVCardDatabase(textAsset.text.Trim(), true);
-            // Container.Bind<ICardDatabase>().FromInstance(database).AsSingle();
+            Container.BindInstance(battleManager).AsSingle();
+            Container.BindInstance(actionAnimator).AsSingle();
         }
     }
 }

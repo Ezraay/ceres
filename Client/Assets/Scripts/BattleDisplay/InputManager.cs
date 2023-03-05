@@ -11,6 +11,8 @@ namespace CardGame
         [SerializeField] [ReadOnly] private CardDisplay draggedCard;
         private Vector2 draggedCardStartPosition;
 
+        
+        
         private void Update()
         {
             CardDisplay display = RaycastCard();

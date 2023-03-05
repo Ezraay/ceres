@@ -10,13 +10,13 @@ using Random = UnityEngine.Random;
 namespace Ceres.Client.BattleSystem
 {
     // [CreateAssetMenu(menuName = "Create BattleManager", fileName = "BattleManager", order = 0)]
-    public class BattleSystemManager : MonoBehaviour
+    public class BattleManager : MonoBehaviour
     {
-        // public static ClientBattle Battle { get; private set; }
-        private IBattleManager battleManager;
+        public ClientBattle Battle => commandProcessor?.ClientBattle; 
+        private ICommandProcessor commandProcessor;
         public ICardDatabase CardDatabase { get; private set; }
         public IDeck Deck { get; private set; }
-        [FormerlySerializedAs("Started")] public bool IsStarted = false;
+        [HideInInspector] public bool IsStarted = false;
         public static event Action<IServerAction> OnAction;
 
 
@@ -30,25 +30,25 @@ namespace Ceres.Client.BattleSystem
         public void StartMultiplayer(NetworkManager networkManager)
         {
             Logger.Log("Starting multiplayer battle");
-            battleManager = new NetworkedBattleManager(networkManager);
-            battleManager.OnServerAction += action => OnAction?.Invoke(action);
+            commandProcessor = new NetworkedProcessor(networkManager);
+            commandProcessor.OnServerAction += action => OnAction?.Invoke(action);
             IsStarted = true;
         }
 
         public void StartSinglePlayer()
         {
-            Logger.Log("Starting singleplayer battle");
+            Logger.Log("Starting single-player battle");
             bool myTurn = Random.Range(0f, 1f) < 0.5f; // In this case, local player is player 1
             ServerBattleStartConfig config = new ServerBattleStartConfig(Deck, Deck, myTurn);
-            battleManager = new LocalBattleManager(config);
-            battleManager.OnServerAction += action => OnAction?.Invoke(action);
+            commandProcessor = new SingleplayerProcessor(config);
+            commandProcessor.OnServerAction += action => OnAction?.Invoke(action);
             IsStarted = true;
         }
 
         public void Execute(IClientCommand command)
         {
             Logger.Log("Executing command: " + command);
-            battleManager.ProcessCommand(command);
+            commandProcessor.ProcessCommand(command);
         }
     }
 }

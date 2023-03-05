@@ -133,7 +133,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5282463284891499626, guid: e6a823e6db01901409870c1877dc525c, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5282463284891499626, guid: e6a823e6db01901409870c1877dc525c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 238298245}
   - component: {fileID: 238298244}
   m_Layer: 0
-  m_Name: Battle System Manager
+  m_Name: Battle Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -501,6 +501,51 @@ Transform:
   m_Father: {fileID: 1161714573}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &796950039
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 796950041}
+  - component: {fileID: 796950040}
+  m_Layer: 0
+  m_Name: Action Animator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &796950040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 796950039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41981dc6379c4405a26d8d13edd1c764, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraController: {fileID: 922181862}
+--- !u!4 &796950041
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 796950039}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &867659839
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,7 +576,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &867659841
 MonoBehaviour:
@@ -556,6 +601,7 @@ GameObject:
   - component: {fileID: 922181861}
   - component: {fileID: 922181860}
   - component: {fileID: 922181859}
+  - component: {fileID: 922181862}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -635,8 +681,20 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &922181862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922181858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f2e3ac64bf94272b106488e6eb3cb3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &959183018
 GameObject:
   m_ObjectHideFlags: 0
@@ -867,7 +925,7 @@ RectTransform:
   - {fileID: 959183019}
   - {fileID: 1618359448}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -884,7 +942,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5282463284891499626, guid: e6a823e6db01901409870c1877dc525c, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 5282463284891499626, guid: e6a823e6db01901409870c1877dc525c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1154,7 +1212,7 @@ Transform:
   m_Children:
   - {fileID: 709775762}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1363634252
 GameObject:
@@ -1185,7 +1243,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1594820038
 GameObject:
@@ -1234,7 +1292,7 @@ Transform:
   m_Children:
   - {fileID: 255599842}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1618359445
 GameObject:
@@ -1382,7 +1440,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardDisplayFactory: {fileID: 1161714572}
-  battleSystemManager: {fileID: 238298244}
+  battleManager: {fileID: 238298244}
+  actionAnimator: {fileID: 796950040}
 --- !u!1 &1690449650
 GameObject:
   m_ObjectHideFlags: 0
@@ -1430,7 +1489,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2131314726
 GameObject:

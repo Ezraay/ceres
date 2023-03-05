@@ -5,14 +5,13 @@ using Logger = Ceres.Client.Utility.Logger;
 
 namespace CardGame.BattleDisplay.Networking
 {
-    public class LocalBattleManager : IBattleManager
+    public class SingleplayerProcessor : ICommandProcessor
     {
         public event Action<IServerAction> OnServerAction;
-        private ClientBattle clientBattle;
         private ServerBattle serverBattle;
+        public ClientBattle ClientBattle { get; }
         
-        
-        public LocalBattleManager(ServerBattleStartConfig conditions)
+        public SingleplayerProcessor(ServerBattleStartConfig conditions)
         {
             ServerPlayer player1 = new ServerPlayer();
             ServerPlayer player2 = new ServerPlayer();
@@ -22,13 +21,13 @@ namespace CardGame.BattleDisplay.Networking
 
             AllyPlayer myPlayer = new AllyPlayer(new Card(player1.Champion.Card.Data), player1.Pile.Count);
             OpponentPlayer opponentPlayer = new OpponentPlayer(player2.Pile.Count);
-            clientBattle = new ClientBattle(myPlayer, opponentPlayer, serverBattle.Player1Turn);
+            ClientBattle = new ClientBattle(myPlayer, opponentPlayer, serverBattle.Player1Turn);
 
             serverBattle.OnPlayerAction += (player, action) =>
             {
                 if (player == player1) // Accept actions sent to us 
                 {
-                    clientBattle.Apply(action);
+                    ClientBattle.Apply(action);
                     OnServerAction?.Invoke(action);
                 }
             };

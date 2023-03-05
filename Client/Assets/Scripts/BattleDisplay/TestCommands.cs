@@ -6,17 +6,17 @@ namespace Ceres.Client.BattleSystem
 {
     public class TestCommands : MonoBehaviour
     {
-        private BattleSystemManager battleSystemManager;
+        private BattleManager battleManager;
 
         [Inject]
-        public void Construct(BattleSystemManager battleSystemManager)
+        public void Construct(BattleManager battleManager)
         {
-            this.battleSystemManager = battleSystemManager;
+            this.battleManager = battleManager;
         }
 
         public void TestDrawCommand()
         {
-            battleSystemManager.Execute(new TestDrawCommand());
+            battleManager.Execute(new TestDrawCommand());
         }
     }
 }

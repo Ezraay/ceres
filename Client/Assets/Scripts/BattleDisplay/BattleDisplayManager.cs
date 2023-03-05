@@ -16,22 +16,21 @@ namespace CardGame.BattleDisplay
         public PlayerDisplay opponentPlayer;
 
         private readonly Queue<IServerAction> actions = new();
-        private IActionAnimation currentAnimation;
+        private ActionAnimation currentAnimation;
         private CardDisplayFactory cardDisplayFactory;
+        private ActionAnimator actionAnimator;
 
         private void Awake()
         {
-            BattleSystemManager.OnAction += action =>
-            {
-                QueueAction(action);
-            };
+            BattleManager.OnAction += QueueAction;
         }
 
         
         [Inject]
-        public void Construct(CardDisplayFactory cardDisplayFactory)
+        public void Construct(CardDisplayFactory cardDisplay, ActionAnimator action)
         {
-            this.cardDisplayFactory = cardDisplayFactory;
+            cardDisplayFactory = cardDisplay;
+            actionAnimator = action;
         }
 
         private void Update()
@@ -40,7 +39,6 @@ namespace CardGame.BattleDisplay
             {
                 IServerAction action = actions.Dequeue();
                 StartCoroutine(ShowAction(action));
-                return;
             }
         }
 
@@ -51,20 +49,9 @@ namespace CardGame.BattleDisplay
 
         private IEnumerator ShowAction(IServerAction action)
         {
-            switch (action)
-            {
-                case DrawCardAction:
-                    currentAnimation = new DrawCardAnimation();
-                    break;
-                case OpponentDrawCardAction:
-                    currentAnimation = new OpponentDrawCardAnimation();
-                    break;
-                default:
-                    Logger.LogError("No action animation found for ServerAction: " + action);
-                    break;
-            }
+            currentAnimation = actionAnimator.GetAnimation(action);
 
-            AnimationData data = new AnimationData(player, opponentPlayer, cardDisplayFactory);
+            AnimationData data = new AnimationData(player, opponentPlayer, cardDisplayFactory, actionAnimator);
             yield return currentAnimation.GetEnumerator(action, data);
 
             currentAnimation = null;

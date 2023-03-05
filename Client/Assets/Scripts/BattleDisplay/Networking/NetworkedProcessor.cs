@@ -6,13 +6,13 @@ using UnityEngine;
 
 namespace CardGame.BattleDisplay.Networking
 {
-    public class NetworkedBattleManager : IBattleManager
+    public class NetworkedProcessor : ICommandProcessor
     {
         public event Action<IServerAction> OnServerAction;
-        private ClientBattle clientBattle;
+        public ClientBattle ClientBattle { get; private set; }
         private NetworkManager networkManager;
         
-        public NetworkedBattleManager(NetworkManager networkManager)
+        public NetworkedProcessor(NetworkManager networkManager)
         {
             this.networkManager = networkManager;
             
@@ -20,12 +20,12 @@ namespace CardGame.BattleDisplay.Networking
             {
                 AllyPlayer myPlayer = new AllyPlayer(new Card(config.Champion), config.PileCount);
                 OpponentPlayer opponentPlayer = new OpponentPlayer(config.OpponentPileCount);
-                clientBattle = new ClientBattle(myPlayer, opponentPlayer, config.MyTurn);
+                ClientBattle = new ClientBattle(myPlayer, opponentPlayer, config.MyTurn);
             };
 
             networkManager.OnBattleAction += action =>
             {
-                clientBattle.Apply(action);
+                ClientBattle.Apply(action);
                 OnServerAction?.Invoke(action);
             };
         }
