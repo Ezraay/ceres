@@ -10,11 +10,5 @@ namespace Ceres.Core.BattleSystem
             battle.OpponentPlayer.Hand.AddCard();
             battle.OpponentPlayer.Pile.RemoveCard();
         }
-
-        // public void GetObjectData(SerializationInfo info, StreamingContext context)
-        // {
-        //     // throw new NotImplementedException();
-        //     info.AddValue("OpponentDrawCardAction", 1);
-        // }
     }
 }

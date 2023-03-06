@@ -143,6 +143,7 @@ MonoBehaviour:
   <Hand>k__BackingField: {fileID: 5282463285884560115}
   <Damage>k__BackingField: {fileID: 4020202690552033094}
   <Defense>k__BackingField: {fileID: 4020202690472893073}
+  <Pile>k__BackingField: {fileID: 4020202692068417014}
   <Champion>k__BackingField: {fileID: 4912292142273940343}
   <LeftUnit>k__BackingField: {fileID: 4912292142162491678}
   <RightUnit>k__BackingField: {fileID: 4912292142722325058}

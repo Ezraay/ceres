@@ -16,11 +16,10 @@ namespace CardGame.BattleDisplay
         public override IEnumerator GetEnumerator(IServerAction baseAction, AnimationData data)
         {
             DrawCardAction action = (DrawCardAction)baseAction;
-            CardDisplay display = data.CardDisplayFactory.Create(action.Card);
+            CardDisplay display = data.CardDisplayFactory.Create(action.Card, data.PlayerDisplay.Pile.position);
 
-            StartCoroutine(data, data.ActionAnimator.ShakeCamera(0.4f, 1f));
-
-            yield return data.PlayerDisplay.Hand.AddCard(display);
+            data.PlayerDisplay.Hand.AddCard(display);
+            yield return data.PlayerDisplay.Hand.UpdatePositions();
         }
     }
 }

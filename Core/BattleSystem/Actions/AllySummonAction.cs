@@ -5,11 +5,13 @@ namespace Ceres.Core.BattleSystem
     public class AllySummonAction : IServerAction
     {
         public Guid CardId;
+        public MultiCardSlotType SlotType;
         public int X;
         public int Y;
 
-        public AllySummonAction(int x, int y, Guid cardId)
+        public AllySummonAction(MultiCardSlotType slotType, int x, int y, Guid cardId)
         {
+            SlotType = slotType;
             Y = y;
             X = x;
             CardId = cardId;
@@ -17,11 +19,12 @@ namespace Ceres.Core.BattleSystem
 
         public void Apply(ClientBattle battle)
         {
-            UnitSlot slot = battle.AllyPlayer.GetSlotByPosition(X, Y);
-            Card card = battle.AllyPlayer.Hand.GetCard(CardId);
+            UnitSlot unitSlot = battle.AllyPlayer.GetSlotByPosition(X, Y);
+            MultiCardSlot multiSlot = battle.AllyPlayer.GetMultiCardSlot(SlotType) as MultiCardSlot;
+            Card card = multiSlot.GetCard(CardId);
 
-            slot.SetCard(card);
-            battle.AllyPlayer.Hand.RemoveCard(card);
+            unitSlot.SetCard(card);
+            multiSlot.RemoveCard(card);
         }
     }
 }

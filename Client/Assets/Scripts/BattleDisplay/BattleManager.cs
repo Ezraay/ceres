@@ -17,7 +17,7 @@ namespace Ceres.Client.BattleSystem
         public ICardDatabase CardDatabase { get; private set; }
         public IDeck Deck { get; private set; }
         [HideInInspector] public bool IsStarted = false;
-        public static event Action<IServerAction> OnAction;
+        public event Action<IServerAction> OnAction;
 
 
         [Inject]
@@ -49,6 +49,11 @@ namespace Ceres.Client.BattleSystem
         {
             Logger.Log("Executing command: " + command);
             commandProcessor.ProcessCommand(command);
+        }
+
+        public void FakeAction(IServerAction action)
+        {
+            OnAction?.Invoke(action);
         }
     }
 }

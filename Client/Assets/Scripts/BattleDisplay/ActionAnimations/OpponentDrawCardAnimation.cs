@@ -8,9 +8,10 @@ namespace CardGame.BattleDisplay
     {
         public override IEnumerator GetEnumerator(IServerAction baseAction, AnimationData data)
         {
-            CardDisplay display = data.CardDisplayFactory.CreateHidden();
+            CardDisplay display = data.CardDisplayFactory.CreateHidden(data.OpponentDisplay.Pile.position);
 
-            yield return data.OpponentDisplay.Hand.AddCard(display);
+            data.OpponentDisplay.Hand.AddCard(display);
+            yield return data.OpponentDisplay.Hand.UpdatePositions();
         }
     }
 }

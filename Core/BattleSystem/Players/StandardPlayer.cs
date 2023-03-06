@@ -1,6 +1,6 @@
 ﻿namespace Ceres.Core.BattleSystem
 {
-    public class StandardPlayer
+    public abstract class StandardPlayer
     {
         public MultiCardSlot Graveyard { get; } = new MultiCardSlot();
         public MultiCardSlot Damage { get; } = new MultiCardSlot();
@@ -16,9 +16,20 @@
         {
             return x switch
             {
-                1 => y == 0 ? Champion : ChampionSupport,
                 0 => y == 0 ? LeftUnit : LeftSupport,
+                1 => y == 0 ? Champion : ChampionSupport,
                 2 => y == 0 ? RightUnit : RightSupport,
+                _ => null
+            };
+        }
+
+        public virtual IMultiCardSlot GetMultiCardSlot(MultiCardSlotType type)
+        {
+            return type switch
+            {
+                MultiCardSlotType.Damage => Damage,
+                MultiCardSlotType.Defense => Defense,
+                MultiCardSlotType.Graveyard => Graveyard,
                 _ => null
             };
         }

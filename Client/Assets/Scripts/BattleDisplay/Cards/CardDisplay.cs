@@ -22,6 +22,7 @@ namespace CardGame.BattleDisplay
         [SerializeField] private TMP_Text name;
         [SerializeField] private TMP_Text tier;
         public bool IsMoving { get; private set; }
+        public bool IsHidden { get; private set; }
         public Card Card { get; private set; }
         public int SortingOrder => canvas.sortingOrder;
         private IEnumerator currentMove;
@@ -35,6 +36,7 @@ namespace CardGame.BattleDisplay
         public void ShowBack()
         {
             content.SetActive(false);
+            IsHidden = true;
         }
         
         public void ShowFront(Card card)
@@ -46,6 +48,7 @@ namespace CardGame.BattleDisplay
             defense.text = card.Data.Defense.ToString();
             tier.text = card.Data.Tier.ToString();
             sprite.sprite = cardSpriteManager.GetSprite(card.Data.ID);
+            IsHidden = false;
         }
 
         public void SetSortingOrder(int order)
@@ -55,20 +58,26 @@ namespace CardGame.BattleDisplay
         
         public IEnumerator MoveTo(Vector3 position)
         {
-            if (IsMoving)
-            {
-                Logger.LogWarning("Tried to move card when already moving.");   
-                yield break;
-            }
+            if (currentMove != null)
+                StopCoroutine(currentMove);
             
+            currentMove = StartMove(position);
+            yield return currentMove;
+        }
+
+        private IEnumerator StartMove(Vector3 position)
+        {
             IsMoving = true;
+            
             float distance;
             do
             {
                 distance = Vector3.Distance(transform.localPosition, position);
                 Vector3 direction = position - transform.localPosition;
                 Vector3 velocity = direction.normalized * movementSpeed;
-                transform.localPosition += velocity * Time.deltaTime * Mathf.Min(distance, 1f);
+                Vector3 delta = velocity * Time.deltaTime * Mathf.Min(distance, 1f);
+                
+                transform.localPosition += delta;
                 yield return null;
             } while (distance > StoppingDistance);
 

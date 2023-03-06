@@ -1,27 +1,39 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Zenject;
 
 namespace CardGame.BattleDisplay
 {
-    public class UnitSlotDisplay : MonoBehaviour
+    public class UnitSlotDisplay : SlotDisplay
     {
         private CardDisplay currentDisplay;
+        private CardDisplayFactory cardDisplayFactory;
+        
+        [Inject]
+        public void Construct(CardDisplayFactory factory)
+        {
+            cardDisplayFactory = factory;
+        }
         
         public IEnumerator SetCard(CardDisplay display)
         {
             display.transform.parent = transform;
-            yield return display.MoveTo(transform.position);
-
             
             if (currentDisplay != null)
-                RemoveCard();
+                display.SetSortingOrder(currentDisplay.SortingOrder + 1);
+            
+            display.transform.localRotation = Quaternion.identity;
+            yield return display.MoveTo(Vector3.zero);
 
+            if (currentDisplay != null)
+                RemoveCard();
+            
             currentDisplay = display;
         }
 
         public void RemoveCard()
         {
-            Destroy(currentDisplay);
+            cardDisplayFactory.DestroyDisplay(currentDisplay.Card.ID);
         }
     }
 }

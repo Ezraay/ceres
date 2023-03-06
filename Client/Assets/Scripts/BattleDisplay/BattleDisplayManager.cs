@@ -15,22 +15,19 @@ namespace CardGame.BattleDisplay
         public PlayerDisplay player;
         public PlayerDisplay opponentPlayer;
 
+        public bool CanInteract => currentAnimation != null;
+        
         private readonly Queue<IServerAction> actions = new();
         private ActionAnimation currentAnimation;
         private CardDisplayFactory cardDisplayFactory;
         private ActionAnimator actionAnimator;
-
-        private void Awake()
-        {
-            BattleManager.OnAction += QueueAction;
-        }
-
         
         [Inject]
-        public void Construct(CardDisplayFactory cardDisplay, ActionAnimator action)
+        public void Construct(CardDisplayFactory cardDisplay, ActionAnimator action, BattleManager battleManager)
         {
             cardDisplayFactory = cardDisplay;
             actionAnimator = action;
+            battleManager.OnAction += QueueAction;
         }
 
         private void Update()

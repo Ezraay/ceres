@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Ceres.Core.BattleSystem
 {
-    public class MultiCardSlot : Slot
+    public class MultiCardSlot : Slot, IMultiCardSlot
     {
         public List<Card> Cards { get; }
 

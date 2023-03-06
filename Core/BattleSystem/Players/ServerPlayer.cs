@@ -7,6 +7,16 @@ namespace Ceres.Core.BattleSystem
         public MultiCardSlot Pile { get; } = new MultiCardSlot();
 
 
+        public override IMultiCardSlot GetMultiCardSlot(MultiCardSlotType type)
+        {
+            return type switch
+            {
+                MultiCardSlotType.Hand => Hand,
+                MultiCardSlotType.Pile => Pile,
+                _ => base.GetMultiCardSlot(type)
+            };
+        }
+        
         public void LoadDeck(IDeck deck)
         {
             foreach (ICardData cardData in deck.GetPile())

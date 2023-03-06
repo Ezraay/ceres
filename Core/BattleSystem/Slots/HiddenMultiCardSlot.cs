@@ -1,6 +1,6 @@
 ﻿namespace Ceres.Core.BattleSystem
 {
-    public class HiddenMultiCardSlot : Slot
+    public class HiddenMultiCardSlot : Slot, IMultiCardSlot
     {
         public int Count { get; private set; }
 
@@ -10,12 +10,12 @@
             Count = count;
         }
 
-        public void AddCard()
+        public void AddCard(Card card = null)
         {
             Count++;
         }
 
-        public void RemoveCard()
+        public void RemoveCard(Card card = null)
         {
             Count--;
         }

@@ -16,5 +16,10 @@ namespace Ceres.Core.BattleSystem
             Data = data;
             ID = id;
         }
+
+        public static Card TestCard()
+        {
+            return new Card(new CardData("archer", "Archer", 1, 5, 5));
+        }
     }
 }

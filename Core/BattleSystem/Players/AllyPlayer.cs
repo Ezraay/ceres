@@ -10,5 +10,15 @@
             Champion.SetCard(champion);
             Pile = new HiddenMultiCardSlot(pileCount);
         }
+
+        public override IMultiCardSlot GetMultiCardSlot(MultiCardSlotType type)
+        {
+            return type switch
+            {
+                MultiCardSlotType.Hand => Hand,
+                MultiCardSlotType.Pile => Pile,
+                _ => base.GetMultiCardSlot(type)
+            };
+        }
     }
 }

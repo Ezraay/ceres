@@ -6,41 +6,48 @@ using UnityEngine;
 
 namespace CardGame.BattleDisplay
 {
-    public class MultiCardSlotDisplay : MonoBehaviour
+    public class MultiCardSlotDisplay : SlotDisplay
     {
         [SerializeField] private Transform content;
         [SerializeField] private Vector3 positionOffset;
         [SerializeField] private float cardLookOffset;
-        private List<CardDisplay> displays = new();
+        public List<CardDisplay> Displays { get; private set; } = new();
 
-        public IEnumerator AddCard(CardDisplay display)
+        public void AddCard(CardDisplay display)
         {
-            displays.Add(display);
+            Displays.Add(display);
             display.transform.parent = content;
-            yield return UpdatePositions();
+        }
+
+        public void RemoveCard(CardDisplay display)
+        {
+            Displays.Remove(display);
+            display.transform.parent = null;
         }
 
         [Button]
         private void ForceUpdatePositions()
         {
-            displays = GetComponentsInChildren<CardDisplay>().ToList();
+            Displays = GetComponentsInChildren<CardDisplay>().ToList();
             StartCoroutine(UpdatePositions());
         }
-        
-        private IEnumerator UpdatePositions()
+
+        public IEnumerator UpdatePositions()
         {
             // float leftRotation = cardLookOffset * (displays.Count - 1) / 2;
-            float halfCount = (displays.Count - 1) / 2f;
+            float halfCount = (Displays.Count - 1) / 2f;
 
-            for (int i = 0; i < displays.Count; i++)
+            for (int i = 0; i < Displays.Count; i++)
             {
-                CardDisplay display = displays[i];
+                CardDisplay display = Displays[i];
                 float angle = Mathf.Atan2((halfCount - i) * positionOffset.x, cardLookOffset);
-                Vector3 position = new Vector3((i - halfCount) * positionOffset.x, -Mathf.Pow(positionOffset.y * (i - halfCount), 2));
+                Vector3 position = new Vector3((i - halfCount) * positionOffset.x,
+                    -Mathf.Pow(positionOffset.y * (i - halfCount), 2));
 
-                display.transform.localRotation = Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg);
-                display.SetSortingOrder(i);
+                Quaternion rotation = Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg);
                 StartCoroutine(display.MoveTo(position));
+                display.transform.localRotation = rotation;
+                display.SetSortingOrder(i);
             }
 
             yield return new WaitUntil(CardFinishedMoving);
@@ -50,7 +57,7 @@ namespace CardGame.BattleDisplay
         {
             bool moving = true;
 
-            foreach (CardDisplay display in displays)
+            foreach (CardDisplay display in Displays)
                 if (display.IsMoving)
                     moving = false;
 
