@@ -21,11 +21,6 @@ namespace Ceres.Client
         private Guid userId;
         public bool IsConnected { get; private set; }
 
-        private void Awake()
-        {
-            DontDestroyOnLoad(gameObject);
-        }
-
         public event Action<ClientBattleStartConfig> OnStartGame;
         public event Action<IServerAction> OnBattleAction;
 

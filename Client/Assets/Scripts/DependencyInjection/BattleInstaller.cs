@@ -10,13 +10,15 @@ namespace CardGame.BattleDisplay.Installers
         // [SerializeField] private TextAsset textAsset;
         [SerializeField] private CardDisplayFactory cardDisplayFactory;
         [SerializeField] private BattleManager battleManager;
+        [SerializeField] private BattleDisplayManager battleDisplayManager;
         [SerializeField] private ActionAnimator actionAnimator;
 
         public override void InstallBindings()
         {
-            Container.BindInstance(cardDisplayFactory).AsSingle();
-            Container.BindInstance(battleManager).AsSingle();
-            Container.BindInstance(actionAnimator).AsSingle();
+            Container.BindInstance(cardDisplayFactory);
+            Container.BindInstance(battleManager);
+            Container.BindInstance(battleDisplayManager);
+            Container.BindInstance(actionAnimator);
         }
     }
 }

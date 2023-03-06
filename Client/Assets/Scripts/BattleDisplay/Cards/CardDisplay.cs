@@ -26,6 +26,7 @@ namespace CardGame.BattleDisplay
         public Card Card { get; private set; }
         public int SortingOrder => canvas.sortingOrder;
         private IEnumerator currentMove;
+        public SlotDisplay Parent { get; private set; }
 
         private void Start()
         {
@@ -82,6 +83,11 @@ namespace CardGame.BattleDisplay
             } while (distance > StoppingDistance);
 
             IsMoving = false;
+        }
+
+        public void SetParent(SlotDisplay slotDisplay)
+        {
+            Parent = slotDisplay;
         }
     }
 }

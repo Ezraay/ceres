@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
@@ -11,17 +12,25 @@ namespace CardGame.BattleDisplay
         [SerializeField] private Transform content;
         [SerializeField] private Vector3 positionOffset;
         [SerializeField] private float cardLookOffset;
+        private BoxCollider2D boxCollider2D;
         public List<CardDisplay> Displays { get; private set; } = new();
+
+        private void Awake()
+        {
+            boxCollider2D = GetComponent<BoxCollider2D>();
+        }
 
         public void AddCard(CardDisplay display)
         {
             Displays.Add(display);
+            display.SetParent(this);
             display.transform.parent = content;
         }
 
         public void RemoveCard(CardDisplay display)
         {
             Displays.Remove(display);
+            display.SetParent(null);
             display.transform.parent = null;
         }
 

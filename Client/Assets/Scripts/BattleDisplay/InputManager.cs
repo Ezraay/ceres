@@ -1,18 +1,41 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using CardGame.BattleDisplay;
+using CardGame.BattleDisplay.Commands;
+using Ceres.Client.BattleSystem;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Zenject;
+using Logger = Ceres.Client.Utility.Logger;
 
 namespace CardGame
 {
     public class InputManager : MonoBehaviour
     {
         [SerializeField] private LayerMask cardMask;
+        [SerializeField] private LayerMask slotMask;
         [SerializeField] private CardPreviewDisplay cardPreviewDisplay;
         [SerializeField] [ReadOnly] private CardDisplay draggedCard;
+        [SerializeField] [ReadOnly] private SlotDisplay draggedSlot;
+        private BattleDisplayManager battleDisplayManager;
+        private BattleManager battleManager;
+        private readonly List<IInputCommand> commands = new();
         private Vector2 draggedCardStartPosition;
 
-        
-        
+
+        private void Awake()
+        {
+            IEnumerable<Type> types = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(s => s.GetTypes())
+                .Where(p => typeof(IInputCommand).IsAssignableFrom(p) && !p.IsInterface);
+            foreach (Type type in types)
+            {
+                IInputCommand command = (IInputCommand) Activator.CreateInstance(type);
+                commands.Add(command);
+            }
+        }
+
         private void Update()
         {
             CardDisplay display = RaycastCard();
@@ -26,13 +49,24 @@ namespace CardGame
             {
                 // Start dragging
                 draggedCard = display;
+                draggedSlot = display.Parent;
+                draggedCard.transform.localRotation = Quaternion.identity;
                 draggedCardStartPosition = display.transform.position;
+                draggedCard.SetSortingOrder(10);
             }
 
             if (Input.GetMouseButtonUp(0) && draggedCard != null)
             {
-                draggedCard.transform.position = draggedCardStartPosition;
+                InputCommandData data = new InputCommandData(draggedSlot, RaycastSlot(), draggedCard,
+                    battleManager.Battle, battleDisplayManager.player);
+                IInputCommand command = GetInputCommand(data);
+                if (command != null)
+                    battleManager.Execute(command.GetCommand(data));
+                else
+                    draggedCard.transform.position = draggedCardStartPosition;
+
                 cardPreviewDisplay.Hide();
+                draggedSlot = null;
                 draggedCard = null;
                 return;
             }
@@ -44,6 +78,13 @@ namespace CardGame
             }
         }
 
+
+        [Inject]
+        public void Construct(BattleManager battle, BattleDisplayManager battleDisplay)
+        {
+            battleManager = battle;
+            battleDisplayManager = battleDisplay;
+        }
 
         private CardDisplay RaycastCard()
         {
@@ -59,6 +100,34 @@ namespace CardGame
             }
 
             return card;
+        }
+
+        private SlotDisplay RaycastSlot()
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.GetRayIntersection(ray, 1000, slotMask);
+            SlotDisplay other = hit.collider?.GetComponent<SlotDisplay>();
+
+            return other;
+        }
+
+        private IInputCommand GetInputCommand(InputCommandData data)
+        {
+            IInputCommand result = null;
+            // IEnumerable<Type> types = AppDomain.CurrentDomain.GetAssemblies()
+            //     .SelectMany(s => s.GetTypes())
+            //     .Where(p => typeof(IInputCommand).IsAssignableFrom(p) && !p.IsInterface);
+
+            foreach (IInputCommand command in commands)
+                // IInputCommand command = (IInputCommand)Activator.CreateInstance(type);
+                if (command.CanExecute(data))
+                {
+                    if (result != null)
+                        Logger.LogError($"Commands {result} and {command} executed at the same time");
+                    result = command;
+                }
+
+            return result;
         }
     }
 }

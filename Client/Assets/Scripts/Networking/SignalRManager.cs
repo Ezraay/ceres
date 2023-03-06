@@ -17,12 +17,6 @@ namespace Ceres.Client.Networking
         public HubConnection LobbyHub { get; private set; }
         public HubConnection GameHub { get; private set; }
 
-
-        private void Awake()
-        {
-            DontDestroyOnLoad(gameObject);
-        }
-
         public async void Connect()
         {
             LobbyHub = CreateHubConnection(connectionString, lobbyHubPath);

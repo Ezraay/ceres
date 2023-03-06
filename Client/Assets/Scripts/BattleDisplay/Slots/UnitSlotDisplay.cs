@@ -6,7 +6,7 @@ namespace CardGame.BattleDisplay
 {
     public class UnitSlotDisplay : SlotDisplay
     {
-        private CardDisplay currentDisplay;
+        public CardDisplay Card { get; private set; }
         private CardDisplayFactory cardDisplayFactory;
         
         [Inject]
@@ -18,22 +18,32 @@ namespace CardGame.BattleDisplay
         public IEnumerator SetCard(CardDisplay display)
         {
             display.transform.parent = transform;
+            display.SetParent(this);
             
-            if (currentDisplay != null)
-                display.SetSortingOrder(currentDisplay.SortingOrder + 1);
+            // if (Card != null)
+            display.SetSortingOrder(1);
             
             display.transform.localRotation = Quaternion.identity;
             yield return display.MoveTo(Vector3.zero);
 
-            if (currentDisplay != null)
-                RemoveCard();
             
-            currentDisplay = display;
+            if (Card != null)
+                DestroyCard();
+            
+            Card = display;
         }
 
         public void RemoveCard()
         {
-            cardDisplayFactory.DestroyDisplay(currentDisplay.Card.ID);
+            Card.transform.parent = null;
+            Card.SetParent(null);
+            Card = null;
+        }
+        
+        public void DestroyCard()
+        {
+            cardDisplayFactory.DestroyDisplay(Card.Card.ID);
+            Card = null;
         }
     }
 }
