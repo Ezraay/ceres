@@ -1,3 +1,4 @@
+using Ceres.Core.BattleSystem;
 using Ceres.Server.Services;
 
 
@@ -16,12 +17,15 @@ builder.Services.AddSignalR(hubOptions => {
 
 builder.Services.AddSingleton<CardDatabaseLoader>();
 builder.Services.AddSingleton<CardDeckLoader>();
-builder.Services.AddScoped<IBattleService, BattleService>();
-builder.Services.AddSingleton<IServerBattleManager, ServerBattleManager>();
 builder.Services.AddSingleton<ISignalRService, SignalRService>();
+builder.Services.AddSingleton<IBattleService, BattleService>();
+builder.Services.AddSingleton<IServerBattleManager, ServerBattleManager>();
+
 
 
 var app = builder.Build();
+
+app.Services.GetRequiredService<IBattleService>();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -41,5 +45,8 @@ app.MapRazorPages();
 
 app.MapHub<LobbyHub>("/LobbyHub");
 app.MapHub<GameHub>("/GameHub");
+
+// Console.WriteLine(typeof(TestDrawCommand).FullName);
+// Console.WriteLine(typeof(TestDrawCommand).Assembly.GetName().Name);
 
 app.Run();

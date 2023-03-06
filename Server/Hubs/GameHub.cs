@@ -16,23 +16,26 @@ public class GameHub : Hub
 
     // public override Task OnConnectedAsync()
     // {
-
+    //     networkService.ClientConnectedToGame(Context.ConnectionId);
+    //
+    //     return base.OnConnectedAsync();
     // }
 
     public override Task OnDisconnectedAsync(Exception? exception)
     {
-        networkService.OnPlayerLeftGame(Context.ConnectionId);
+        networkService.PlayerLeftGame(Context.ConnectionId);
+        // networkService.OnPlayerLeftGame.Invoke(Context.ConnectionId);
         
         return base.OnDisconnectedAsync(exception);
     }
     
-    public string JoinGame(string gameId, string userId)
+    public void JoinGame(string gameId, string userId)
     {
-        if (Guid.TryParse(gameId, out var GameIdGuid) && Guid.TryParse(userId, out var UserIdGuid))
+        if (Guid.TryParse(gameId, out var gameIdGuid) && Guid.TryParse(userId, out var userIdGuid))
         {
-            return networkService.JoinGame(GameIdGuid, UserIdGuid);
+             networkService.TryToJoinGame(gameIdGuid, userIdGuid, Context.ConnectionId);
         }
-        return JoinGameResults.NoGameFound;
+        // return JoinGameResults.NoGameFound;
     }
 
 
@@ -41,7 +44,7 @@ public class GameHub : Hub
     {
         if (Guid.TryParse(gameId, out var GameIdGuid) && Guid.TryParse(userId, out var UserIdGuid))
         {
-            networkService.OnPlayerSentCommand(GameIdGuid, UserIdGuid, command);
+            networkService.PlayerSentCommand(GameIdGuid, UserIdGuid, command);
         }
     }
 
