@@ -1,4 +1,5 @@
-﻿using Ceres.Core.BattleSystem;
+﻿using System;
+using Ceres.Core.BattleSystem;
 using UnityEngine;
 
 namespace CardGame.BattleDisplay
@@ -16,9 +17,19 @@ namespace CardGame.BattleDisplay
         [field: SerializeField] public UnitSlotDisplay RightSupport{ get; private set; }
         [field: SerializeField] public UnitSlotDisplay ChampionSupport{ get; private set; }
 
-        public void Setup(AllyPlayer player)
+        private SlotDisplay[] allSlots;
+        
+        private void Start()
         {
-            
+            allSlots = new SlotDisplay[]
+            {
+                Hand, Damage, Defense, Champion, LeftUnit, RightUnit, LeftSupport, RightSupport, ChampionSupport
+            };
+
+            foreach (SlotDisplay slot in allSlots)
+            {
+                slot.SetOwner(this);
+            }
         }
 
         public MultiCardSlotDisplay GetMultiCardSlot(MultiCardSlotType type)

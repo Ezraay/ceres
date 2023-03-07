@@ -1290,6 +1290,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4912292141599513087, guid: e6a823e6db01901409870c1877dc525c, type: 3}
+      propertyPath: <Position>k__BackingField.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912292141639557343, guid: e6a823e6db01901409870c1877dc525c, type: 3}
+      propertyPath: <Position>k__BackingField.x
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5282463284891499626, guid: e6a823e6db01901409870c1877dc525c, type: 3}
       propertyPath: m_RootOrder
       value: 11

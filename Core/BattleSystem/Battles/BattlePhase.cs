@@ -5,6 +5,7 @@
         Stand,
         Draw,
         Ascend,
+        Main,
         Attack,
         Defend,
         Damage,

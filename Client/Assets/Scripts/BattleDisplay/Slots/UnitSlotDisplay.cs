@@ -8,6 +8,7 @@ namespace CardGame.BattleDisplay
     {
         public CardDisplay Card { get; private set; }
         private CardDisplayFactory cardDisplayFactory;
+        [field: SerializeField] public Vector2Int Position { get; private set; } 
         
         [Inject]
         public void Construct(CardDisplayFactory factory)
