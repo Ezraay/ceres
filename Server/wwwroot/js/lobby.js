@@ -36,13 +36,14 @@ function GuidIsValid(guid) {
     return result;
 }
 
-connection.on("GamesList",(value) => {
-    var GamesCount = Object.entries(value).length-1;
+connection.on("UpdateGames",(msg) => {
+    let values = msg.gameNames.$values;
+    var GamesCount = Object.entries(values).length;
     document.getElementById("gamesListHeader").innerHTML = `Games (${GamesCount})`;
 
     var gamesList = document.getElementById("gamesList");
     gamesList.innerText = "";
-    Object.entries(value).slice(1).forEach(([gameId]) => {
+    values.forEach(gameId => {
         var li = document.createElement("li");
         gamesList.appendChild(li);
         var a = document.createElement("a");
@@ -81,6 +82,9 @@ connection.on("ClientsList",(msg) => {
         // li.innerText = `ID: ${hubUser.userId}`;
         if (hubUser && hubUser.userName){
             li.innerText += `  ${hubUser.userName}` 
+            if (connection.connectionId == hubUser.lobbyConnectionId){
+                document.getElementById("userNameInput").value = hubUser.userName;
+            }
         }
         if (hubUser && hubUser.readyToPlay){
             li.innerText += " == Ready To Play =="
@@ -111,7 +115,7 @@ connection.onreconnected(() => {
 });
 
 document.getElementById("sendButton").addEventListener("click", function (event) {
-    var user = document.getElementById("userInput").value;
+    var user = document.getElementById("userNameInput").value;
     var message = document.getElementById("messageInput").value;
     connection.invoke("SendMessage", user, message).catch(function (err) {
         return console.error(err.toString());
@@ -121,7 +125,7 @@ document.getElementById("sendButton").addEventListener("click", function (event)
 
 document.getElementById("readytToPlayButton").addEventListener("click", function (event) {
     readyToPlay = !readyToPlay;
-    var userName = document.getElementById("userInput").value ==="" ?  "Player" : document.getElementById("userInput").value;
+    var userName = document.getElementById("userNameInput").value;
     connection.send("UserIsReadyToPlay", userName, readyToPlay).catch(function (err) {
         return console.error(err.toString());
     });
@@ -133,7 +137,7 @@ function DisableSendButton(disable) {
     document.getElementById("sendButton").disabled = disable;    
 }
 
-document.getElementById("userInput").addEventListener('input', function (evt) {
+document.getElementById("userNameInput").addEventListener('input', function (evt) {
     
     if(this.value && connection._connectionState === "Connected" && document.getElementById("messageInput").value){
         DisableSendButton(false);
@@ -144,7 +148,7 @@ document.getElementById("userInput").addEventListener('input', function (evt) {
 
 document.getElementById("messageInput").addEventListener('input', function (evt) {
     
-    if(this.value && connection._connectionState === "Connected" && document.getElementById("userInput").value){
+    if(this.value && connection._connectionState === "Connected" && document.getElementById("userNameInput").value){
         DisableSendButton(false);
     } else {
         DisableSendButton(true);

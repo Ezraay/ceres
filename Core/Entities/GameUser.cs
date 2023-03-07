@@ -5,7 +5,8 @@ namespace Ceres.Core.Entities
 {
     public class GameUser
     {
-        public string ConnectionId { get; set; } = "";
+        public string LobbyConnectionId { get; set; } = "";
+        public string GameConnectionId { get; set; } = "";
         public string UserName { get; set; } = "";
         public Guid UserId { get; set; }
         public bool ReadyToPlay { get; set; } = false;

@@ -7,8 +7,9 @@ var GameHubConnection = new signalR.HubConnectionBuilder()
     // .withHubProtocol(new signalR.JsonHubProtocol({
     //     transferFormat: signalR.TransferFormat.Text,
     //     typeNameHandling: 2  // Equivalent to TypeNameHandling.All
-    // }))
-    .withUrl("/GameHub").build();
+    // })
+    .withUrl("/GameHub")
+    .build();
 
 let userId = sessionStorage.getItem("userId");
 let gameId = sessionStorage.getItem("gameId");
@@ -25,21 +26,8 @@ function fulfilled() {
     }
     
     
-    GameHubConnection.invoke("JoinGame", gameId, userId).then((res) => {
-        console.log(res)
-        if (res == "JoinedAsPlayer1") {
-            ImPlayer1 = true;
-            document.getElementById("P2Action").hidden = true;
-            document.getElementById("P1Action").disabled =false;
-            document.getElementById("player1Name").innerText += " (You)"
-        }
-        if (res == "JoinedAsPlayer2") {
-            ImPlayer2 = true;
-            document.getElementById("P1Action").hidden = true;
-            document.getElementById("P2Action").disabled =false;
-            document.getElementById("player2Name").innerText += " (You)"
-        }
-        
+    GameHubConnection.send("JoinGame", gameId, userId).catch(function (err) {
+        return console.error(err.toString());
     });
     
 }
@@ -48,8 +36,26 @@ function rejected() {
     
 }
 
+GameHubConnection.on("JoinedGame", msg =>{
+    let res = msg.gameJoiningResult;
+    console.log(res)
+    if (res === "JoinedAsPlayer1") {
+        ImPlayer1 = true;
+        document.getElementById("P2Action").hidden = true;
+        document.getElementById("P1Action").disabled =false;
+        document.getElementById("player1Name").innerText += " (You)"
+    }
+    if (res === "JoinedAsPlayer2") {
+        ImPlayer2 = true;
+        document.getElementById("P1Action").hidden = true;
+        document.getElementById("P2Action").disabled =false;
+        document.getElementById("player2Name").innerText += " (You)"
+    }
+})
 
-GameHubConnection.on("UpdatePlayersName", (p1Name, p2Name) => {
+GameHubConnection.on("UpdatePlayersName", msg => {
+    let p1Name = msg.player1Name;
+    let p2Name = msg.player2Name;
     console.log("UpdatePlayersName")
     document.getElementById("player1Name").innerText = p1Name;
     document.getElementById("player2Name").innerText = p2Name;
@@ -162,7 +168,7 @@ document.getElementById("P2Action").addEventListener("click", PlayerCommand);
 
 function PlayerCommand(){
     console.log("sending command");
-    var playerCommand = new Object();
+    var playerCommand = {$type: "Ceres.Core.BattleSystem.TestDrawCommand, Core"};
     GameHubConnection.send("PlayerSentCommand", gameId, userId, playerCommand).catch(function (err) {
         return console.error(err.toString());
     });

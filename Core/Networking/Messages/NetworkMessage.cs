@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using Ceres.Core.BattleSystem;
 using Ceres.Core.Entities;
 using Newtonsoft.Json;
@@ -40,7 +42,7 @@ public class PlayerSentCommandMessage : EventArgs, INetworkMessage
 public class ClientsListMessage : INetworkMessage
 {
     public string MessageName {get => "ClientsList"; }
-    public  ConcurrentDictionary<string, GameUser>? LobbyUsers { get; set;}
+    public  IEnumerable<KeyValuePair<Guid, GameUser>> LobbyUsers { get; set;}
 }
 
 public class ReceiveMessageMessage : INetworkMessage
@@ -55,6 +57,12 @@ public class GoToGameMessage : INetworkMessage
     public string MessageName { get => "GoToGame"; }
     public Guid GameId { get; set;} 
     public Guid UserId { get; set;} 
+}
+
+public class JoinedGame : INetworkMessage
+{
+    public string MessageName { get => "JoinedGame"; }
+    public string GameJoiningResult;
 }
 
 public class UpdatePlayersNameMessage : INetworkMessage

@@ -1,113 +1,131 @@
 using Ceres.Core.BattleSystem;
 using Ceres.Core.Entities;
 using Ceres.Core.Enums;
-using Ceres.Server.Services;
+
+namespace Ceres.Server.Services;
 
 public class BattleService : IBattleService
 {
-    private readonly IServerBattleManager _battleManager;
-    private readonly ISignalRService _networkService;
-    // private readonly CardDeckLoader cardDeckLoader;
+    private readonly IServerBattleManager battleManager;
+    private readonly ISignalRService networkService;
+    private readonly CardDeckLoader cardDeckLoader;
 
-    public BattleService(IServerBattleManager battleManager, ISignalRService networkService) 
+
+    public BattleService(ISignalRService networkService, IServerBattleManager battleManager, CardDeckLoader cardDeckLoader) 
     {
-        _battleManager = battleManager;
-        _networkService = networkService;
-        // this.cardDeckLoader = cardDeckLoader;
-    }
+        this.battleManager = battleManager;
+        this.networkService = networkService;
+        this.cardDeckLoader = cardDeckLoader;
 
-    // public ServerBattle AllocateServerBattle()
-    // {
-    //     return _battleManager.GetServerBattle();
-    // }
-    
-    private GameUser? FindGameUser(ServerPlayer serverPlayer){
-        var lobbyUsers = _networkService.LobbyUsers();
-        lock (lobbyUsers)
-        {
-            var gameUser = lobbyUsers.Values
-                .FirstOrDefault(u => u.ServerPlayer == serverPlayer);
-
-            return gameUser;
-        }
-    }
-
-    private (ServerPlayer? player, bool isPlayer1) FindServerPlayer(GameUser user){
-        var battles = _battleManager.ServerBattles();
-        lock (battles)
-        {
-            var serverPlayers = battles.Values
-                .SelectMany( battle => new[] {(battle.Player1, true), (battle.Player2, false)})
-                .Where(pair => pair.Item1 is ServerPlayer && (pair.Item1 as ServerPlayer) == user.ServerPlayer)
-                .ToList();
-
-                if (!serverPlayers.Any()){
-                    return (null, false);
-                }
-
-                return serverPlayers[0];
-        }   
+        this.networkService.OnTryToJoinGame += JoinBattle;
+        this.networkService.OnUsersReadyToPlay += StartBattle;
+        this.networkService.OnPlayerSentCommand += PlayerCommandHandler;
+        this.networkService.OnUserConnectedToLobby += UserConnectedToLobby;
     }
 
 
 
-    
-    public void StartBattle(ServerBattle battle)
+    public void PlayerLeftGame(string connectionId)
     {
         throw new NotImplementedException();
     }
 
+    private void SendListOfGamesUpdated()
+    {
+        var games = battleManager.ServerBattles().Values.Select(v=> v.GameId.ToString()).ToArray();
+        networkService.SendListOfGamesUpdated(games);
+    }
+
+    public void SendServerBattleEnded(Guid gameId, string reason)
+    {
+        networkService.SendServerBattleEnded(gameId, reason);
+    }
+
+
+    public void StartBattle(GameUser user1, GameUser user2)
+    {
+        var battle = battleManager.AllocateServerBattle();
+                        
+        user2.GameId = battle.GameId;
+        battle.Player2 = new ServerPlayer();
+        user2.ServerPlayer = battle.Player2;
+
+        user1.GameId = battle.GameId;
+        battle.Player1 = new ServerPlayer();
+        user1.ServerPlayer = battle.Player1;
+
+        battle.OnPlayerAction += OnPlayerAction;
+
+        networkService.SendUserGoToGame(user1);
+        networkService.SendUserGoToGame(user2);
+
+        SendListOfGamesUpdated();
+    }
+
+    private void OnPlayerAction(ServerPlayer player, IServerAction action)
+    {
+        var gameUser = FindGameUser(player);
+        if (gameUser != null)
+        {
+            networkService.SendPlayerAction(gameUser, action);
+        }
+        
+    }
+
+    private void UserConnectedToLobby(GameUser user)
+    {
+        SendListOfGamesUpdated();
+    }
+    
     public void StopBattle(Guid battleId, string reason)
     {
-        _battleManager.EndServerBattle(battleId, reason);
-        _networkService.SendServerBattleEnded(battleId, reason);
-        var games = _battleManager.ServerBattles().Keys.Select(key => key.ToString()).ToArray();
-        _networkService.SendListOfGamesUpdated(games);
-    }
-
-     public void UpdatePlayersName(ServerBattle serverBattle){
-        _networkService.UpdatePlayersName(serverBattle.GameId.ToString(), FindGameUser(serverBattle.Player1)?.UserName,
-                                            FindGameUser(serverBattle.Player2)?.UserName);  
-    }
-
-    // public string JoinBattle(Guid battleId, GameUser gameUser)
-    // {
-    //     ServerBattle? serverBattle = _battleManager.FindServerBattleById(battleId);
-    //     if (serverBattle == null)
-    //         return JoinGameResults.NoGameFound;
-
-    //     if (gameUser.ServerPlayer.Equals(serverBattle.Player1)){
-    //         serverBattle.Player1.LoadDeck(cardDeckLoader.Deck);
-    //         UpdatePlayersName(serverBattle);  
-    //         return JoinGameResults.JoinedAsPlayer1;
-    //     }
         
-    //     if (gameUser.ServerPlayer.Equals(serverBattle.Player2)){
-    //         serverBattle.Player2.LoadDeck(cardDeckLoader.Deck);
-    //         UpdatePlayersName(serverBattle);  
-    //         return JoinGameResults.JoinedAsPlayer2;
-    //     }
+    }
 
-    //     UpdatePlayersName(serverBattle);  
-    //     return JoinGameResults.JoinedAsSpectator;
-    // }
+    private void UpdatePlayersName(ServerBattle serverBattle){
+        networkService.UpdatePlayersName(serverBattle.GameId.ToString(), FindGameUser(serverBattle.Player1)?.UserName,
+            FindGameUser(serverBattle.Player2)?.UserName);  
+    }
 
-    public void PlayerLeftGame(string connectionId)
+    private GameUser? FindGameUser(ServerPlayer serverPlayer)
     {
-        GameUser? user = _networkService.FindGameUserByConnectionId(connectionId);
-        if (user != null){
-            Guid game = user.GameId;
-            Console.WriteLine($"User {user.UserName} disconnected form the game {game}");
-            var res = FindServerPlayer(user);
-            if (res.player != null && res.isPlayer1){
-                StopBattle(game, EndServerBattleReasons.Player1Left);
-            }
-            if (res.player != null && !res.isPlayer1){
-                StopBattle(game, EndServerBattleReasons.Player2Left);
-            }
+        return networkService.GetUserByServerPlayer(serverPlayer);
+    }
+    
+
+    private void JoinBattle(Guid battleId, GameUser gameUser)
+    {
+        var serverBattle = battleManager.FindServerBattleById(battleId);
+        if (serverBattle == null)
+            return;
+
+        if (gameUser.ServerPlayer.Equals(serverBattle.Player1)){
+            serverBattle.Player1.LoadDeck(cardDeckLoader.Deck);
+            UpdatePlayersName(serverBattle);  
+            networkService.UserJoinedGame(gameUser,battleId, JoinGameResults.JoinedAsPlayer1);
+            return;
+        }
+        
+        if (gameUser.ServerPlayer.Equals(serverBattle.Player2)){
+            serverBattle.Player2.LoadDeck(cardDeckLoader.Deck);
+            UpdatePlayersName(serverBattle);  
+            networkService.UserJoinedGame(gameUser,battleId, JoinGameResults.JoinedAsPlayer2);
+            return;
+        }
+
+        UpdatePlayersName(serverBattle);  
+        networkService.UserJoinedGame(gameUser, battleId, JoinGameResults.JoinedAsSpectator);
+    }
+
+
+    private void PlayerCommandHandler(Guid gameId, GameUser user, IClientCommand command)
+    {
+        var serverBattle = battleManager.FindServerBattleById(gameId);
+        if (serverBattle?.GameId == user.GameId && user.ServerPlayer != null)
+        {
+            serverBattle?.Execute(command, user.ServerPlayer);
         }
     }
-
 
 
 }
