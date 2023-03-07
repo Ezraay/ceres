@@ -7,23 +7,23 @@ namespace Ceres.Client
 {
     public class MainThreadManager : MonoBehaviour
     {
-        private static readonly List<Action> ExecuteOnMainThread = new();
-        private static readonly List<Action> ExecuteCopiedOnMainThread = new();
-        private static bool actionToExecuteOnMainThread;
+        private readonly List<Action> executeOnMainThread = new();
+        private readonly List<Action> executeBuffer = new();
+        private bool actionToExecuteOnMainThread;
         
         public void FixedUpdate()
         {
             if (!actionToExecuteOnMainThread) return;
 
-            ExecuteCopiedOnMainThread.Clear();
-            lock (ExecuteOnMainThread)
+            executeBuffer.Clear();
+            lock (executeOnMainThread)
             {
-                ExecuteCopiedOnMainThread.AddRange(ExecuteOnMainThread);
-                ExecuteOnMainThread.Clear();
+                executeBuffer.AddRange(executeOnMainThread);
+                executeOnMainThread.Clear();
                 actionToExecuteOnMainThread = false;
             }
 
-            for (int i = 0; i < ExecuteCopiedOnMainThread.Count; i++) ExecuteCopiedOnMainThread[i]();
+            for (int i = 0; i < executeBuffer.Count; i++) executeBuffer[i]();
         }
 
         public void Execute(Action action)
@@ -34,9 +34,9 @@ namespace Ceres.Client
                 return;
             }
 
-            lock (ExecuteOnMainThread)
+            lock (executeOnMainThread)
             {
-                ExecuteOnMainThread.Add(action);
+                executeOnMainThread.Add(action);
                 actionToExecuteOnMainThread = true;
             }
         }

@@ -28,7 +28,7 @@ namespace Ceres.Client
 
         private void OnStartGame(ClientBattleStartConfig _)
         {
-            SceneManager.LoadScene(gameScene);
+            // SceneManager.LoadScene(gameScene);
         }
     }
 }
