@@ -42,7 +42,8 @@ public class PlayerSentCommandMessage : EventArgs, INetworkMessage
 public class ClientsListMessage : INetworkMessage
 {
     public string MessageName {get => "ClientsList"; }
-    public  IEnumerable<KeyValuePair<Guid, GameUser>> LobbyUsers { get; set;}
+    // public  IEnumerable<KeyValuePair<Guid, GameUser>> LobbyUsers { get; set;}
+    public  GameUser[] LobbyUsers { get; set;}
 }
 
 public class ReceiveMessageMessage : INetworkMessage

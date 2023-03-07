@@ -60,30 +60,34 @@ connection.on("UpdateGames",(msg) => {
 connection.on("GoToGame",msg => {
     let gameId = msg.gameId
     let userId = msg.userId
+    let myUserId = sessionStorage.getItem("userId");
+    if (myUserId !== userId) { return }
     console.log("/games?gameid="+gameId.toString())
     sessionStorage.setItem("gameId", gameId);
-    sessionStorage.setItem("userId", userId);
+    
     window.location = "/games?gameid="+gameId.toString();
 })
 
 connection.on("ClientsList",(msg) => {
-    let value = msg.lobbyUsers;
-    var lobbyClientsCount = Object.entries(value).length-1;
-    document.getElementById("clientsListHeader").innerHTML = `Players In Lobby (${lobbyClientsCount})`;
+    let users = msg.lobbyUsers.$values;
+    // var lobbyClientsCount = Object.entries(value).length-1;
 
     var clientList = document.getElementById("clientsList");
     clientList.innerHTML = "";
-    for (const [,hubUser] of Object.entries(value).slice(1)) {
-        // if (GuidIsValid(hubUser.gameId)){
+    var lobbyClientsCount = 0;
+    for (const hubUser of (users)) {
+        // if (GuidIsValid(hubUser.gameId) || hubUser.lobbyConnectionId === ""){
         //     continue;
         // }
+        lobbyClientsCount ++;
         var li = document.createElement("li");
         clientList.appendChild(li);
         // li.innerText = `ID: ${hubUser.userId}`;
         if (hubUser && hubUser.userName){
             li.innerText += `  ${hubUser.userName}` 
-            if (connection.connectionId == hubUser.lobbyConnectionId){
+            if (connection.connectionId === hubUser.lobbyConnectionId){
                 document.getElementById("userNameInput").value = hubUser.userName;
+                sessionStorage.setItem("userId", hubUser.userId);
             }
         }
         if (hubUser && hubUser.readyToPlay){
@@ -94,6 +98,7 @@ connection.on("ClientsList",(msg) => {
         }
     }
 
+    document.getElementById("clientsListHeader").innerHTML = `Players In Lobby (${lobbyClientsCount})`;
     // $('#clientsList').animate({
     //     scrollTop: $("#clientsList li").last().offset().top
     //   }, 'slow');

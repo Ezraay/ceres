@@ -59,6 +59,16 @@ public class SignalRService :ISignalRService
 
 
 #region Lobby
+
+    private void SendLobbyClientListMessage()
+    {
+        var inLobbyOnlyGameUsers = gameUsers.GetUsers()
+            .Where(pair => !string.IsNullOrEmpty(pair.Value.LobbyConnectionId) && pair.Value.GameId.Equals(Guid.Empty))
+            .Select(p => p.Value ).ToArray();
+        var msg = new ClientsListMessage(){LobbyUsers = inLobbyOnlyGameUsers};
+        SendHubAllMessage(lobbyHub,msg);
+    }
+
     public void ClientConnectedToLobby(string connectionId){
         // Console.WriteLine($"User connected with ID: {connectionId}");
         var userGuid = Guid.NewGuid();
@@ -70,8 +80,8 @@ public class SignalRService :ISignalRService
         gameUsers.AddUser(user);
 
         userNumber++;
-        var msg = new ClientsListMessage(){LobbyUsers = gameUsers.GetUsers()};
-        SendHubAllMessage(lobbyHub,msg);
+        
+        SendLobbyClientListMessage();
         
         OnUserConnectedToLobby?.Invoke(user);
     }
@@ -83,10 +93,7 @@ public class SignalRService :ISignalRService
             if (user == null) { return; }
 
             gameUsers.UpdateUserLobbyConnectionId(user.UserId, "");
-            var filteredGameUsers = gameUsers.GetUsers().Where(pair => string.IsNullOrEmpty(pair.Value.LobbyConnectionId));
-
-            var msg = new ClientsListMessage(){ LobbyUsers = filteredGameUsers };
-            SendHubAllMessage(lobbyHub,msg);
+            SendLobbyClientListMessage();
     }
 
     public void UserSentMessage(string connectionId, string userName, string message){
@@ -105,8 +112,7 @@ public class SignalRService :ISignalRService
             if (client == null || client.UserName == newName) return;
             client.UserName = newName;
 
-            var msg = new ClientsListMessage(){LobbyUsers = gameUsers.GetUsers()};
-            SendHubAllMessage(lobbyHub,msg);
+            SendLobbyClientListMessage();
         }
     }
 
@@ -117,12 +123,10 @@ public class SignalRService :ISignalRService
         {
             client.ReadyToPlay = ready;
         }
-        var msg = new ClientsListMessage(){LobbyUsers = gameUsers.GetUsers()};
-        SendHubAllMessage(lobbyHub,msg);
+        SendLobbyClientListMessage();
         
         if (ready){
             TryAllocateServerBattle();
-            
         }
 
     }

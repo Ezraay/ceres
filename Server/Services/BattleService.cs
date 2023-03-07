@@ -42,7 +42,7 @@ public class BattleService : IBattleService
     }
 
 
-    public void StartBattle(GameUser user1, GameUser user2)
+    private void StartBattle(GameUser user1, GameUser user2)
     {
         var battle = battleManager.AllocateServerBattle();
                         
@@ -98,23 +98,30 @@ public class BattleService : IBattleService
         var serverBattle = battleManager.FindServerBattleById(battleId);
         if (serverBattle == null)
             return;
-
-        if (gameUser.ServerPlayer.Equals(serverBattle.Player1)){
-            serverBattle.Player1.LoadDeck(cardDeckLoader.Deck);
+        if (gameUser.ServerPlayer == null)
+        {
+            networkService.UserJoinedGame(gameUser, battleId, JoinGameResults.JoinedAsSpectator);
             UpdatePlayersName(serverBattle);  
-            networkService.UserJoinedGame(gameUser,battleId, JoinGameResults.JoinedAsPlayer1);
-            return;
         }
-        
-        if (gameUser.ServerPlayer.Equals(serverBattle.Player2)){
-            serverBattle.Player2.LoadDeck(cardDeckLoader.Deck);
-            UpdatePlayersName(serverBattle);  
-            networkService.UserJoinedGame(gameUser,battleId, JoinGameResults.JoinedAsPlayer2);
-            return;
+        else
+        {
+            if (gameUser.ServerPlayer.Equals(serverBattle.Player1))
+            {
+                serverBattle.Player1.LoadDeck(cardDeckLoader.Deck);
+                networkService.UserJoinedGame(gameUser, battleId, JoinGameResults.JoinedAsPlayer1);
+                UpdatePlayersName(serverBattle);
+                return;
+            }
+
+            if (gameUser.ServerPlayer.Equals(serverBattle.Player2))
+            {
+                serverBattle.Player2.LoadDeck(cardDeckLoader.Deck);
+                networkService.UserJoinedGame(gameUser, battleId, JoinGameResults.JoinedAsPlayer2);
+                UpdatePlayersName(serverBattle);
+                return;
+            }
         }
 
-        UpdatePlayersName(serverBattle);  
-        networkService.UserJoinedGame(gameUser, battleId, JoinGameResults.JoinedAsSpectator);
     }
 
 
