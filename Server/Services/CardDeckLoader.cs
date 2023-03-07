@@ -1,4 +1,5 @@
-﻿using Ceres.Core.BattleSystem;
+﻿using System.Reflection;
+using Ceres.Core.BattleSystem;
 
 namespace Ceres.Server.Services;
 
@@ -6,7 +7,7 @@ namespace Ceres.Server.Services;
 public class CardDeckLoader
 {
     public IDeck? Deck { get; private set; }
-    private string csvPathFile = Path.Combine(@"Resources/Testing Deck.csv");
+    private string csvPathFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Data/Testing Deck.csv");
 
     public CardDeckLoader(CardDatabaseLoader cardDatabaseLoader)
     {

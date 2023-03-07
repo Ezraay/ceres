@@ -52,8 +52,18 @@ namespace Ceres.Core.BattleSystem
             if (Cards.Count == 0) return null;
 
             Card card = Cards[0];
-            Cards.RemoveAt(0);
-            OnRemove?.Invoke(card);
+            RemoveCard(card);
+            return card;
+        }
+
+        public Card PopRandomCard()
+        {
+            if (Cards.Count == 0) return null;
+            
+            Random random = new Random();
+            int index = random.Next(0, Cards.Count);
+            Card card = Cards[index];
+            RemoveCard(card);
             return card;
         }
     }

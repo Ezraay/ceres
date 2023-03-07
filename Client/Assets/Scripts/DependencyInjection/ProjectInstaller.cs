@@ -15,8 +15,8 @@ namespace Ceres.Client
         
         public override void InstallBindings()
         {
-            CSVCardDatabase database = new CSVCardDatabase(cardCsv.text.Trim(), true);
-            CSVDeck deck = new CSVDeck(database, deckCsv.text.Trim(), true);
+            CSVCardDatabase database = new CSVCardDatabase(cardCsv.text.Trim());
+            CSVDeck deck = new CSVDeck(database, deckCsv.text.Trim());
 
             Container.Bind<ICardDatabase>().FromInstance(database);
             Container.Bind<IDeck>().FromInstance(deck);

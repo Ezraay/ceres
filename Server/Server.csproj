@@ -6,7 +6,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="Resources\**">
+        <Content Include="..\Client\Assets\Resources\**">
+<!--            <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>-->
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
@@ -22,4 +23,15 @@
         <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
 
+
+<!--    <ItemGroup>-->
+<!--        <SomeAppStuff Include="$(SolutionDir)\ProjectXXX\bins\**\*.*" />-->
+<!--    <Copy-->
+<!--            SourceFiles="@(SomeAppStaff)"-->
+<!--            DestinationFolder="$(OutputPath)\%(RecursiveDir)"-->
+<!--            SkipUnchangedFiles="true"-->
+<!--            OverwriteReadOnlyFiles="true"-->
+<!--            Retries="3"-->
+<!--            RetryDelayMilliseconds="300"/>-->
+<!--    </ItemGroup>-->
 </Project>

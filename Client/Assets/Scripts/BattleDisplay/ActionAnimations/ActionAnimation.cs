@@ -9,9 +9,14 @@ namespace CardGame.BattleDisplay
     {
         public abstract IEnumerator GetEnumerator(IServerAction baseAction, AnimationData data);
 
-        protected IEnumerator StartCoroutine(AnimationData data, IEnumerator enumerator)
+        protected Coroutine StartCoroutine(AnimationData data, IEnumerator enumerator)
         {
-            yield return data.ActionAnimator.StartCoroutine(enumerator);
+            return data.ActionAnimator.StartCoroutine(enumerator);
+        }
+
+        protected void RunCoroutine(AnimationData data, IEnumerator enumerator)
+        {
+            data.ActionAnimator.StartCoroutine(enumerator);
         }
     }
 }

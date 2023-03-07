@@ -20,7 +20,7 @@ namespace Ceres.Core.BattleSystem
 
         public void Apply(ServerBattle battle, ServerPlayer author)
         {
-            drawnCard = author.Pile.PopCard();
+            drawnCard = author.Pile.PopRandomCard();
             author.Hand.AddCard(drawnCard);
         }
 

@@ -19,6 +19,7 @@ namespace CardGame.BattleDisplay
         [SerializeField] private Image sprite;
         [SerializeField] private TMP_Text attack;
         [SerializeField] private TMP_Text defense;
+        [SerializeField] private GameObject defenseParent;
         [SerializeField] private TMP_Text name;
         [SerializeField] private TMP_Text tier;
         public bool IsMoving { get; private set; }
@@ -47,8 +48,14 @@ namespace CardGame.BattleDisplay
             name.text = card.Data.Name;
             attack.text = card.Data.Attack.ToString();
             defense.text = card.Data.Defense.ToString();
+            defenseParent.gameObject.SetActive(card.Data.Defense != 0);
+            
             tier.text = card.Data.Tier.ToString();
-            sprite.sprite = cardSpriteManager.GetSprite(card.Data.ID);
+            Sprite image = cardSpriteManager.GetSprite(card.Data.ID);
+            
+            if (sprite != null)
+                sprite.sprite = image;
+            sprite.gameObject.SetActive(image != null);
             IsHidden = false;
         }
 

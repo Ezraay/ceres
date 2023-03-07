@@ -1,11 +1,14 @@
-﻿using Ceres.Core.BattleSystem;
+﻿using System.Reflection;
+using Ceres.Core.BattleSystem;
 
 namespace Ceres.Server.Services;
 
 public class CardDatabaseLoader
 {
     public ICardDatabase? Database { get; private set; }
-    private string csvPathFile = Path.Combine(@"Resources/Cards.csv");
+
+    private readonly string csvPathFile =
+        Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Data/Cards.csv");
 
     public CardDatabaseLoader()
     {
@@ -20,7 +23,7 @@ public class CardDatabaseLoader
             using (var sr = new StreamReader(fs))
             {
                 string csvFile = sr.ReadToEnd();
-                Database = new CSVCardDatabase(csvFile.Trim(), true);
+                Database = new CSVCardDatabase(csvFile.Trim());
             }
         }
         catch (IOException e)
