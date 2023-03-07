@@ -386,6 +386,10 @@ PrefabInstance:
       propertyPath: positionOffset.y
       value: 0.35
       objectReference: {fileID: 0}
+    - target: {fileID: 9116892387265391749, guid: 7444e9720b40cb8489e08e7c82be2a9f, type: 3}
+      propertyPath: sortingOrderOffset
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9116892387265391750, guid: 7444e9720b40cb8489e08e7c82be2a9f, type: 3}
       propertyPath: m_Name
       value: Hand

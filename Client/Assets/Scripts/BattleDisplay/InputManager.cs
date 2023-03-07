@@ -45,7 +45,7 @@ namespace CardGame
             else
                 cardPreviewDisplay.Hide();
 
-            if (Input.GetMouseButtonDown(0) && display != null)
+            if (Input.GetMouseButtonDown(0) && display != null && battleDisplayManager.CanInteract)
             {
                 // Start dragging
                 draggedCard = display;
@@ -113,6 +113,9 @@ namespace CardGame
 
         private IInputCommand GetInputCommand(InputCommandData data)
         {
+            if (!battleDisplayManager.CanInteract)
+                return null;
+            
             IInputCommand result = null;
             // IEnumerable<Type> types = AppDomain.CurrentDomain.GetAssemblies()
             //     .SelectMany(s => s.GetTypes())

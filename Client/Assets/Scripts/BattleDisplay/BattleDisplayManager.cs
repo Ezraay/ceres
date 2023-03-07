@@ -15,7 +15,7 @@ namespace CardGame.BattleDisplay
         public PlayerDisplay player;
         public PlayerDisplay opponentPlayer;
 
-        public bool CanInteract => currentAnimation != null;
+        public bool CanInteract => actions.Count == 0 && currentAnimation == null;
         
         private readonly Queue<IServerAction> actions = new();
         private ActionAnimation currentAnimation;

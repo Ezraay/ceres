@@ -56,7 +56,7 @@ namespace CardGame.BattleDisplay
                 Quaternion rotation = Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg);
                 StartCoroutine(display.MoveTo(position));
                 display.transform.localRotation = rotation;
-                display.SetSortingOrder(i);
+                display.SetSortingOrder(i + sortingOrderOffset);
             }
 
             yield return new WaitUntil(CardFinishedMoving);

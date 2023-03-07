@@ -21,10 +21,10 @@ namespace CardGame.BattleDisplay
             display.SetParent(this);
             
             // if (Card != null)
-            display.SetSortingOrder(1);
             
             display.transform.localRotation = Quaternion.identity;
             yield return display.MoveTo(Vector3.zero);
+            display.SetSortingOrder(sortingOrderOffset);
 
             
             if (Card != null)

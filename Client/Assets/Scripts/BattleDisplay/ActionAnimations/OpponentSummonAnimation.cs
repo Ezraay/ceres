@@ -17,8 +17,10 @@ namespace CardGame.BattleDisplay
             
             multiCard.RemoveCard(card);
             
-            StartCoroutine(data, multiCard.UpdatePositions());
-            yield return slot.SetCard(card);
+            var first = StartCoroutine(data, multiCard.UpdatePositions());
+            var second = StartCoroutine(data,slot.SetCard(card));
+            yield return first;
+            yield return second;
         }
     }
 }
