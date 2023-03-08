@@ -11,17 +11,11 @@ namespace CardGame.BattleDisplay
     public class CardDisplay : MonoBehaviour
     {
         private const float StoppingDistance = 0.05f;
-        [SerializeField] private float movementSpeed = 5;
+        [SerializeField] private float movementSpeed = 20;
         [SerializeField] private Canvas canvas;
 
         [SerializeField] private GameObject content;
-        [SerializeField] private CardSpriteManager cardSpriteManager;
-        [SerializeField] private Image sprite;
-        [SerializeField] private TMP_Text attack;
-        [SerializeField] private TMP_Text defense;
-        [SerializeField] private GameObject defenseParent;
-        [SerializeField] private TMP_Text name;
-        [SerializeField] private TMP_Text tier;
+
         public bool IsMoving { get; private set; }
         public bool IsHidden { get; private set; }
         public Card Card { get; private set; }
@@ -41,21 +35,11 @@ namespace CardGame.BattleDisplay
             IsHidden = true;
         }
         
-        public void ShowFront(Card card)
+        public virtual void ShowFront(Card card)
         {
             content.SetActive(true);
             Card = card;
-            name.text = card.Data.Name;
-            attack.text = card.Data.Attack.ToString();
-            defense.text = card.Data.Defense.ToString();
-            defenseParent.gameObject.SetActive(card.Data.Defense != 0);
-            
-            tier.text = card.Data.Tier.ToString();
-            Sprite image = cardSpriteManager.GetSprite(card.Data.ID);
-            
-            if (sprite != null)
-                sprite.sprite = image;
-            sprite.gameObject.SetActive(image != null);
+
             IsHidden = false;
         }
 

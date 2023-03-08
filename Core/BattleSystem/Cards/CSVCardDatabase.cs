@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Ceres.Core.BattleSystem
 {
@@ -24,7 +25,8 @@ namespace Ceres.Core.BattleSystem
 
         public ICardData GetCardData(string id)
         {
-            data.TryGetValue(id, out var result);
+            if (!data.TryGetValue(id, out var result))
+                throw new ArgumentException("No such card id: " + id);
             return result;
         }
     }
