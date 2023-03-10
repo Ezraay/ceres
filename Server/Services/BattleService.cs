@@ -47,11 +47,11 @@ public class BattleService : IBattleService
         var battle = battleManager.AllocateServerBattle();
                         
         user2.GameId = battle.GameId;
-        battle.Player2 = new ServerPlayer();
+        battle.Player2 = new StandardPlayer(new MultiCardSlot(), new MultiCardSlot());
         user2.ServerPlayer = battle.Player2;
 
         user1.GameId = battle.GameId;
-        battle.Player1 = new ServerPlayer();
+        battle.Player1 = new StandardPlayer(new MultiCardSlot(), new MultiCardSlot());
         user1.ServerPlayer = battle.Player1;
 
         battle.OnPlayerAction += OnPlayerAction;
@@ -62,7 +62,7 @@ public class BattleService : IBattleService
         SendListOfGamesUpdated();
     }
 
-    private void OnPlayerAction(ServerPlayer player, IServerAction action)
+    private void OnPlayerAction(IPlayer player, IServerAction action)
     {
         var gameUser = FindGameUser(player);
         if (gameUser != null)
@@ -87,7 +87,7 @@ public class BattleService : IBattleService
             FindGameUser(serverBattle.Player2)?.UserName);  
     }
 
-    private GameUser? FindGameUser(ServerPlayer serverPlayer)
+    private GameUser? FindGameUser(IPlayer serverPlayer)
     {
         return networkService.GetUserByServerPlayer(serverPlayer);
     }

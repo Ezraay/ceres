@@ -11,7 +11,7 @@ namespace Ceres.Core.Entities
         public Guid UserId { get; set; }
         public bool ReadyToPlay { get; set; } = false;
         public Guid GameId { get; set; }
-        public ServerPlayer ServerPlayer { get; set; }
+        public IPlayer ServerPlayer { get; set; }
         
     }
     

@@ -12,14 +12,14 @@ namespace CardGame.BattleDisplay
         [SerializeField] private Transform defaultCardLocation;
         [SerializeField, ReadOnly] private Dictionary<Guid, CardDisplay> displays;
 
-        public CardDisplay CreateHidden(Vector3 position)
+        public CardDisplay CreateHidden(Vector3 position = new Vector3())
         {
             CardDisplay display = Instantiate(cardDisplay, position, Quaternion.identity);
             display.ShowBack();
             return display;
         }
 
-        public CardDisplay Create(Card card, Vector3 position)
+        public CardDisplay Create(Card card, Vector3 position = new Vector3())
         {
             CardDisplay display = CreateHidden(position);
             display.ShowFront(card);

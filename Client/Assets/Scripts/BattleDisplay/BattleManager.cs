@@ -18,6 +18,7 @@ namespace Ceres.Client.BattleSystem
         public IDeck Deck { get; private set; }
         [HideInInspector] public bool IsStarted = false;
         public event Action<IServerAction> OnAction;
+        public event Action<ClientBattle> OnStartBattle;
 
 
         [Inject]
@@ -32,6 +33,7 @@ namespace Ceres.Client.BattleSystem
             Logger.Log("Starting multiplayer battle");
             commandProcessor = new NetworkedProcessor(networkManager);
             commandProcessor.OnServerAction += action => OnAction?.Invoke(action);
+            commandProcessor.OnStartBattle += battle => OnStartBattle?.Invoke(battle);
             IsStarted = true;
         }
 
@@ -42,6 +44,7 @@ namespace Ceres.Client.BattleSystem
             ServerBattleStartConfig config = new ServerBattleStartConfig(Deck, Deck, myTurn);
             commandProcessor = new SingleplayerProcessor(config);
             commandProcessor.OnServerAction += action => OnAction?.Invoke(action);
+            OnStartBattle?.Invoke(commandProcessor.ClientBattle);
             IsStarted = true;
         }
 

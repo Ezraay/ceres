@@ -28,6 +28,12 @@ namespace CardGame.BattleDisplay
             cardDisplayFactory = cardDisplay;
             actionAnimator = action;
             battleManager.OnAction += QueueAction;
+            battleManager.OnStartBattle += StartBattle;
+        }
+
+        private void StartBattle(ClientBattle battle)
+        {
+            player.Champion.Setup(battle.AllyPlayer.Champion);
         }
 
         private void Update()

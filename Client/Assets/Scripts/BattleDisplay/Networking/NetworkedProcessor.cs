@@ -9,6 +9,7 @@ namespace CardGame.BattleDisplay.Networking
     public class NetworkedProcessor : ICommandProcessor
     {
         public event Action<IServerAction> OnServerAction;
+        public event Action<ClientBattle> OnStartBattle;
         public ClientBattle ClientBattle { get; private set; }
         private NetworkManager networkManager;
         
@@ -18,9 +19,10 @@ namespace CardGame.BattleDisplay.Networking
             
             networkManager.OnStartGame += config =>
             {
-                AllyPlayer myPlayer = new AllyPlayer(new Card(config.Champion), config.PileCount);
-                OpponentPlayer opponentPlayer = new OpponentPlayer(config.OpponentPileCount);
+                IPlayer myPlayer = new StandardPlayer(new MultiCardSlot(), new HiddenMultiCardSlot());
+                IPlayer opponentPlayer = new StandardPlayer(new HiddenMultiCardSlot(), new HiddenMultiCardSlot());
                 ClientBattle = new ClientBattle(myPlayer, opponentPlayer, config.MyTurn);
+                OnStartBattle?.Invoke(ClientBattle);
             };
 
             networkManager.OnBattleAction += action =>

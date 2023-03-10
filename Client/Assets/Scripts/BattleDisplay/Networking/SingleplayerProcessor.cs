@@ -8,19 +8,20 @@ namespace CardGame.BattleDisplay.Networking
     public class SingleplayerProcessor : ICommandProcessor
     {
         public event Action<IServerAction> OnServerAction;
+        public event Action<ClientBattle> OnStartBattle;
         private ServerBattle serverBattle;
         public ClientBattle ClientBattle { get; }
         
         public SingleplayerProcessor(ServerBattleStartConfig conditions)
         {
-            ServerPlayer player1 = new ServerPlayer();
-            ServerPlayer player2 = new ServerPlayer();
+            IPlayer player1 = new StandardPlayer(new MultiCardSlot(), new MultiCardSlot());
+            IPlayer player2 = new StandardPlayer(new MultiCardSlot(), new MultiCardSlot());
             player1.LoadDeck(conditions.Player1Deck);
             player2.LoadDeck(conditions.Player2Deck);
             serverBattle = new ServerBattle(player1, player2, conditions.Player1Turn);
 
-            AllyPlayer myPlayer = new AllyPlayer(new Card(player1.Champion.Card.Data), player1.Pile.Count);
-            OpponentPlayer opponentPlayer = new OpponentPlayer(player2.Pile.Count);
+            IPlayer myPlayer = new StandardPlayer(new MultiCardSlot(), new HiddenMultiCardSlot());
+            IPlayer opponentPlayer = new StandardPlayer(new HiddenMultiCardSlot(), new HiddenMultiCardSlot());
             ClientBattle = new ClientBattle(myPlayer, opponentPlayer, serverBattle.Player1Turn);
 
             serverBattle.OnPlayerAction += (player, action) =>

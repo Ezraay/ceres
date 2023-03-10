@@ -7,8 +7,11 @@ namespace Ceres.Core.BattleSystem
     {
         public void Apply(ClientBattle battle)
         {
-            battle.OpponentPlayer.Hand.AddCard();
-            battle.OpponentPlayer.Pile.RemoveCard();
+            IMultiCardSlot hand = battle.OpponentPlayer.GetMultiCardSlot(MultiCardSlotType.Hand);
+            IMultiCardSlot pile = battle.OpponentPlayer.GetMultiCardSlot(MultiCardSlotType.Pile);
+            
+            hand.AddCard(null);
+            pile.RemoveCard(null);
         }
     }
 }

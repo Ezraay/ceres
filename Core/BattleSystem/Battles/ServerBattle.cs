@@ -5,17 +5,15 @@ namespace Ceres.Core.BattleSystem
 {
     public class ServerBattle
     {
-
-        public Guid GameId {get;}
+        public Guid GameId { get; }
         public BattlePhaseManager PhaseManager { get; } = new BattlePhaseManager();
-        public ServerPlayer Player1;
+        public IPlayer Player1;
+        public IPlayer Player2;
         public bool Player1Turn { get; private set; }
-
-        public ServerPlayer Player2;
         
-        public event Action<ServerPlayer, IServerAction> OnPlayerAction;
+        public event Action<IPlayer, IServerAction> OnPlayerAction;
 
-        public ServerBattle(ServerPlayer player1, ServerPlayer player2, bool player1Turn)
+        public ServerBattle(IPlayer player1, IPlayer player2, bool player1Turn)
         {
             GameId = Guid.NewGuid();
             Player1 = player1;
@@ -24,7 +22,7 @@ namespace Ceres.Core.BattleSystem
             PhaseManager.OnTurnEnd += () => Player1Turn = !Player1Turn;
         }
 
-        public bool IsPriorityPlayer(ServerPlayer player)
+        public bool IsPriorityPlayer(IPlayer player)
         {
             switch (PhaseManager.Phase)
             {
@@ -34,7 +32,7 @@ namespace Ceres.Core.BattleSystem
         }
 
         // TODO: Run this from the client
-        public void Execute(IClientCommand command, ServerPlayer author)
+        public void Execute(IClientCommand command, IPlayer author)
         {
             if (command.CanExecute(this, author))
             {

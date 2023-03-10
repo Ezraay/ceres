@@ -2,12 +2,12 @@
 {
     public class ClientBattle
     {
-        public AllyPlayer AllyPlayer { get; }
-        public OpponentPlayer OpponentPlayer { get; }
+        public IPlayer AllyPlayer { get; }
+        public IPlayer OpponentPlayer { get; }
         public BattlePhaseManager PhaseManager { get; } = new BattlePhaseManager();
         private bool myTurn;
 
-        public ClientBattle(AllyPlayer ally, OpponentPlayer opponent, bool myTurn)
+        public ClientBattle(IPlayer ally, IPlayer opponent, bool myTurn)
         {
             AllyPlayer = ally;
             OpponentPlayer = opponent;

@@ -13,15 +13,18 @@ namespace Ceres.Core.BattleSystem
             return true;
         }
 
-        public bool CanExecute(ServerBattle battle, ServerPlayer author)
+        public bool CanExecute(ServerBattle battle, IPlayer author)
         {
             return true;
         }
 
-        public void Apply(ServerBattle battle, ServerPlayer author)
+        public void Apply(ServerBattle battle, IPlayer author)
         {
-            drawnCard = author.Pile.PopRandomCard();
-            author.Hand.AddCard(drawnCard);
+            MultiCardSlot hand = author.GetMultiCardSlot(MultiCardSlotType.Hand) as MultiCardSlot;
+            MultiCardSlot pile = author.GetMultiCardSlot(MultiCardSlotType.Pile) as MultiCardSlot;
+
+            drawnCard = pile.PopRandomCard();
+            hand.AddCard(drawnCard);
         }
 
         public IServerAction[] GetActionsForAlly()

@@ -2,8 +2,8 @@
 {
     public class UnitSlot : Slot
     {
-        public readonly int X;
-        public readonly int Y;
+        public int X { get; }
+        public int Y { get; }
         public Card Card { get; private set; }
         public bool Exhausted { get; private set; }
 

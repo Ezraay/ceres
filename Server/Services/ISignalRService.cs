@@ -7,7 +7,7 @@ namespace Ceres.Server.Services;
 public interface ISignalRService
 {
     // ConcurrentDictionary<Guid,GameUser> GameUsers();
-    GameUser? GetUserByServerPlayer(ServerPlayer serverPlayer);
+    GameUser? GetUserByServerPlayer(IPlayer serverPlayer);
     void SendServerBattleEnded(Guid gameId, string reason);
 
     void SendListOfGamesUpdated(string[] games);

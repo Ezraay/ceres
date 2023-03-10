@@ -7,12 +7,12 @@
             return battle.IsPriorityPlayer();
         }
 
-        public bool CanExecute(ServerBattle battle, ServerPlayer author)
+        public bool CanExecute(ServerBattle battle, IPlayer author)
         {
             return battle.IsPriorityPlayer(author);
         }
 
-        public void Apply(ServerBattle battle, ServerPlayer author)
+        public void Apply(ServerBattle battle, IPlayer author)
         {
             battle.PhaseManager.Advance();
         }

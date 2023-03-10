@@ -21,8 +21,11 @@ namespace Ceres.Core.BattleSystem
 
         public void Apply(ClientBattle battle)
         {
-            battle.AllyPlayer.Hand.AddCard(Card);
-            battle.AllyPlayer.Pile.RemoveCard();
+            IMultiCardSlot pile = battle.AllyPlayer.GetMultiCardSlot(MultiCardSlotType.Pile);
+            IMultiCardSlot hand = battle.AllyPlayer.GetMultiCardSlot(MultiCardSlotType.Hand);
+
+            hand.AddCard(Card);
+            pile.RemoveCard(Card);
         }
 
         // public void GetObjectData(SerializationInfo info, StreamingContext context)

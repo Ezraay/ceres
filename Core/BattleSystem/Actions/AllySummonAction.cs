@@ -19,8 +19,8 @@ namespace Ceres.Core.BattleSystem
 
         public void Apply(ClientBattle battle)
         {
-            UnitSlot unitSlot = battle.AllyPlayer.GetSlotByPosition(X, Y);
-            MultiCardSlot multiSlot = battle.AllyPlayer.GetMultiCardSlot(SlotType) as MultiCardSlot;
+            UnitSlot unitSlot = battle.AllyPlayer.GetUnitSlot(X, Y);
+            IMultiCardSlot multiSlot = battle.AllyPlayer.GetMultiCardSlot(SlotType);
             Card card = multiSlot.GetCard(CardId);
 
             unitSlot.SetCard(card);

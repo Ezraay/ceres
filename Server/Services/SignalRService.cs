@@ -51,7 +51,7 @@ public class SignalRService :ISignalRService
     }
 
 
-    public GameUser? GetUserByServerPlayer(ServerPlayer serverPlayer)
+    public GameUser? GetUserByServerPlayer(IPlayer serverPlayer)
     {
         return gameUsers.GetUsers().Values
             .FirstOrDefault(u => u.ServerPlayer == serverPlayer);

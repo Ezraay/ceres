@@ -19,12 +19,6 @@ namespace Ceres.Client.BattleSystem
             battleManager.Execute(new TestDrawCommand());
         }
 
-        public void TestAscendCommand()
-        {
-            Card card = battleManager.Battle.AllyPlayer.Hand.Cards[0];
-            battleManager.Execute(new AscendCommand(card.ID));
-        }
-
         public void TestOpponentDrawAndAscend()
         {
            battleManager.FakeAction(new OpponentDrawCardAction());

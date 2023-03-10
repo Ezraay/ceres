@@ -17,7 +17,7 @@
 
         public void Apply(ClientBattle battle)
         {
-            UnitSlot unitSlot = battle.AllyPlayer.GetSlotByPosition(X, Y);
+            UnitSlot unitSlot = battle.AllyPlayer.GetUnitSlot(X, Y);
             IMultiCardSlot multiSlot = battle.AllyPlayer.GetMultiCardSlot(SlotType);
 
             unitSlot.SetCard(Card);
