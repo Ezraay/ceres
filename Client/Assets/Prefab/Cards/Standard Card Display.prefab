@@ -1051,10 +1051,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6662901252720333333}
-  - component: {fileID: 6662901252720333334}
   - component: {fileID: 7084565081998244283}
+  - component: {fileID: 7545698568288003788}
   m_Layer: 6
-  m_Name: Card Display
+  m_Name: Standard Card Display
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1076,28 +1076,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6662901252720333334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6662901252720333335}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fa541ac21d349169ef2bcd15f47f7d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 20
-  canvas: {fileID: 6662901252228675936}
-  content: {fileID: 6662901252415484140}
-  cardSpriteManager: {fileID: 11400000, guid: aa58d465a84275f4c983d8be80ef7e4c, type: 2}
-  sprite: {fileID: 8071043180556325389}
-  attack: {fileID: 2760921012172534524}
-  defense: {fileID: 6186176425000629615}
-  defenseParent: {fileID: 2958838783316379674}
-  name: {fileID: 6662901251809715850}
-  tier: {fileID: 2049434735118712804}
 --- !u!61 &7084565081998244283
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1143,6 +1121,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4, y: 5}
   m_EdgeRadius: 0
+--- !u!114 &7545698568288003788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6662901252720333335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22c181d4e98c4abc807de46df58108f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 20
+  canvas: {fileID: 6662901252228675936}
+  content: {fileID: 6662901252415484140}
+  cardSpriteManager: {fileID: 11400000, guid: aa58d465a84275f4c983d8be80ef7e4c, type: 2}
+  sprite: {fileID: 8071043180556325389}
+  attack: {fileID: 2760921012172534524}
+  defense: {fileID: 6186176425000629615}
+  defenseParent: {fileID: 2958838783316379674}
+  name: {fileID: 6662901251809715850}
+  tier: {fileID: 2049434735118712804}
 --- !u!1 &6662901253121593805
 GameObject:
   m_ObjectHideFlags: 0
