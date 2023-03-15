@@ -1,4 +1,4 @@
-namespace Ceres.Server.Services;
+namespace Ceres.Server.Games;
 
 public interface IBattleService
 {

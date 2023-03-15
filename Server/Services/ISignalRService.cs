@@ -1,4 +1,3 @@
-using System.Collections.Concurrent;
 using Ceres.Core.BattleSystem;
 using Ceres.Core.Entities;
 
@@ -22,7 +21,7 @@ public interface ISignalRService
     event Action<GameUser, GameUser> OnUsersReadyToPlay;
     event Action<Guid, GameUser>? OnTryToJoinGame;
     event Action<Guid, GameUser, IClientCommand>? OnPlayerSentCommand;
-    event Action<GameUser?> OnPlayerLeftGame;
+    event Action<GameUser> OnPlayerLeftGame;
 
     void UserJoinedGame(GameUser user, Guid gameId, string result);
     void SendUserGoToGame(GameUser user);

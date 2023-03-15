@@ -1,8 +1,8 @@
 using Ceres.Core.BattleSystem;
 using Ceres.Core.Entities;
-using Ceres.Core.Enums;
+using Ceres.Server.Services;
 
-namespace Ceres.Server.Services;
+namespace Ceres.Server.Games;
 
 public class BattleService : IBattleService
 {
@@ -133,7 +133,6 @@ public class BattleService : IBattleService
                 serverBattle.Player2.LoadDeck(cardDeckLoader.Deck);
                 networkService.UserJoinedGame(gameUser, battleId, JoinGameResults.JoinedAsPlayer2);
                 UpdatePlayersName(serverBattle);
-                return;
             }
         }
 
@@ -145,7 +144,7 @@ public class BattleService : IBattleService
         var serverBattle = battleManager.FindServerBattleById(gameId);
         if (serverBattle?.GameId == user.GameId && user.ServerPlayer != null)
         {
-            serverBattle?.Execute(command, user.ServerPlayer);
+            serverBattle.Execute(command, user.ServerPlayer);
         }
     }
 

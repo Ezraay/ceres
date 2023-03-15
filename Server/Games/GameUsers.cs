@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
 using Ceres.Core.Entities;
 
-namespace Ceres.Server.Services;
+namespace Ceres.Server.Games;
 
 
 

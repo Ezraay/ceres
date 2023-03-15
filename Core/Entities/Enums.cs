@@ -1,6 +1,6 @@
 
 
-namespace Ceres.Core.Enums
+namespace Ceres.Core.Entities
 {
     public class EndServerBattleReasons{
         public const string

@@ -1,5 +1,4 @@
 ﻿using System;
-using Ceres.Core.Enums;
 
 namespace Ceres.Core.BattleSystem
 {

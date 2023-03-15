@@ -1,7 +1,7 @@
-using System.Collections.Concurrent;
-using Microsoft.AspNetCore.SignalR;
-using Ceres.Core.Entities;
 using Ceres.Server.Services;
+using Microsoft.AspNetCore.SignalR;
+
+namespace Ceres.Server.Hubs;
 
 public class LobbyHub : Hub
 {

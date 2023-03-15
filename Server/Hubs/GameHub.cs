@@ -1,9 +1,8 @@
 using Ceres.Core.BattleSystem;
-using Ceres.Core.Entities;
-using Ceres.Core.Enums;
-using Ceres.Core.Networking.Messages;
 using Ceres.Server.Services;
 using Microsoft.AspNetCore.SignalR;
+
+namespace Ceres.Server.Hubs;
 
 public class GameHub : Hub
 {
@@ -24,7 +23,6 @@ public class GameHub : Hub
     public override Task OnDisconnectedAsync(Exception? exception)
     {
         networkService.PlayerLeftGame(Context.ConnectionId);
-        // networkService.OnPlayerLeftGame.Invoke(Context.ConnectionId);
         
         return base.OnDisconnectedAsync(exception);
     }
@@ -33,18 +31,17 @@ public class GameHub : Hub
     {
         if (Guid.TryParse(gameId, out var gameIdGuid) && Guid.TryParse(userId, out var userIdGuid))
         {
-             networkService.TryToJoinGame(gameIdGuid, userIdGuid, Context.ConnectionId);
+            networkService.TryToJoinGame(gameIdGuid, userIdGuid, Context.ConnectionId);
         }
-        // return JoinGameResults.NoGameFound;
     }
 
 
 
     public void PlayerSentCommand(string gameId, string userId, IClientCommand command)
     {
-        if (Guid.TryParse(gameId, out var GameIdGuid) && Guid.TryParse(userId, out var UserIdGuid))
+        if (Guid.TryParse(gameId, out var gameIdGuid) && Guid.TryParse(userId, out var userIdGuid))
         {
-            networkService.PlayerSentCommand(GameIdGuid, UserIdGuid, command);
+            networkService.PlayerSentCommand(gameIdGuid, userIdGuid, command);
         }
     }
 

@@ -15,7 +15,7 @@ public interface INetworkMessage
 public class ServerActionMessage : INetworkMessage
 {
     public string MessageName { get => "ServerAction"; }
-    public IServerAction? Action { get; set;}
+    public IServerAction Action { get; set;}
 }
 
 public class UpdateGamesMessage : INetworkMessage
@@ -36,7 +36,7 @@ public class PlayerSentCommandMessage : EventArgs, INetworkMessage
     public string MessageName { get => "PlayerSentCommand"; }
     public string GameId { get; set;} = "";
     public string UserId { get; set;} = "";
-    public IClientCommand? Command { get; set;}
+    public IClientCommand Command { get; set;}
 }
 
 public class ClientsListMessage : INetworkMessage
@@ -69,7 +69,7 @@ public class JoinedGame : INetworkMessage
 public class UpdatePlayersNameMessage : INetworkMessage
 {
     public string MessageName { get => "UpdatePlayersName"; }
-    public string? Player1Name { get; set;} = "";
-    public string? Player2Name { get; set;} = "";
+    public string Player1Name { get; set;} = "";
+    public string Player2Name { get; set;} = "";
 
 }

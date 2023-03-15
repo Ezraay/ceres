@@ -1,11 +1,11 @@
 @page
-@model GamesModel
+@model Ceres.Server.Pages.GamesModel
 @{
     ViewData["Title"] = "Game";
 }
 
 @{
-    if (Model.serverBattle == null){
+    if (Model.ServerBattle == null){
         <div class="text-center">
             <h1>No game found</h1>
         </div>

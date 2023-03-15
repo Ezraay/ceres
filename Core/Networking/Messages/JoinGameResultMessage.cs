@@ -1,5 +1,4 @@
 ﻿using Ceres.Core.BattleSystem;
-using Ceres.Core.Enums;
 
 namespace Ceres.Core.Networking.Messages
 {
