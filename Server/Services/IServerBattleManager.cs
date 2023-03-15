@@ -9,7 +9,7 @@ public interface IServerBattleManager
     void EndServerBattle(Guid gameId, string reason);
     ServerBattle? FindServerBattleById(Guid gameId);
     ServerBattle AllocateServerBattle();
-    void StopBattle(Guid battleId, string reason);
+    // void StopBattle(Guid battleId, string reason);
     // void PlayerLeftGame(string connectionId);
     // ServerPlayer? FindServerPlayer(ServerBattle battle, Guid userId);
     // ServerPlayer? FindServerPlayer(Guid battleId, Guid userId);

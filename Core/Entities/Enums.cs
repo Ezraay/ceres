@@ -7,7 +7,8 @@ namespace Ceres.Core.Enums
             Player1Left = "Player1Left",
             Player2Left = "Player2Left",
             Player1Win = "Player1Win",
-            Player2Win = "Player1Win";
+            Player2Win = "Player1Win",
+            ReasonUnknown = "ReasonUnknown";
     }
 
     public class JoinGameResults{

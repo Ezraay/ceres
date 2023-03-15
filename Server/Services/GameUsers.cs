@@ -43,7 +43,7 @@ public class GameUsers
         lock (gameUsers)
         {
             var u =  gameUsers.Values
-                .FirstOrDefault(user => user.LobbyConnectionId == gameConnectionId);
+                .FirstOrDefault(user => user.GameConnectionId == gameConnectionId);
             user = u;
         }
     }

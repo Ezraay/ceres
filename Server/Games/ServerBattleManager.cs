@@ -82,9 +82,7 @@ public class ServerBattleManager : IServerBattleManager
     public void EndServerBattle(Guid gameId, string reason){
         lock (battles){
             battles.TryRemove(gameId, out var battle);
-            if (battle != null){
-                battle.EndGame(reason);
-            }
+            battle?.EndGame(reason);
         }
     } 
 
@@ -123,14 +121,14 @@ public class ServerBattleManager : IServerBattleManager
         }
     }
 
-    public void StopBattle(Guid battleId, string reason)
-    {
-        
-        EndServerBattle(battleId, reason);
-        // battleService.SendServerBattleEnded(battleId, reason);
-        // var games = ServerBattles().Keys.Select(key => key.ToString()).ToArray();
-        // battleService.SendListOfGamesUpdated(games);
-    }
+    // public void StopBattle(Guid battleId, string reason)
+    // {
+    //     
+    //     EndServerBattle(battleId, reason);
+    //     // battleService.SendServerBattleEnded(battleId, reason);
+    //     // var games = ServerBattles().Keys.Select(key => key.ToString()).ToArray();
+    //     // battleService.SendListOfGamesUpdated(games);
+    // }
 
     // public void PlayerLeftGame(string connectionId)
     // {

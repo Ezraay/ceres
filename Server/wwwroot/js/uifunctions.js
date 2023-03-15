@@ -30,7 +30,7 @@ export function hideOverlay() {
   
 
   export function notifyUserOfGameEnd(gameResult) {
-    console.log(gameResult + " overlay");
+    // console.log(gameResult + " overlay");
     // Get the overlay element
     var overlay = document.getElementById('overlay');
     if (overlay) {

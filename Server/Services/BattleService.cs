@@ -21,14 +21,11 @@ public class BattleService : IBattleService
         this.networkService.OnUsersReadyToPlay += StartBattle;
         this.networkService.OnPlayerSentCommand += PlayerCommandHandler;
         this.networkService.OnUserConnectedToLobby += UserConnectedToLobby;
+        this.networkService.OnPlayerLeftGame += PlayerLeftGame;
     }
 
 
 
-    public void PlayerLeftGame(string connectionId)
-    {
-        throw new NotImplementedException();
-    }
 
     private void SendListOfGamesUpdated()
     {
@@ -36,10 +33,7 @@ public class BattleService : IBattleService
         networkService.SendListOfGamesUpdated(games);
     }
 
-    public void SendServerBattleEnded(Guid gameId, string reason)
-    {
-        networkService.SendServerBattleEnded(gameId, reason);
-    }
+
 
 
     private void StartBattle(GameUser user1, GameUser user2)
@@ -77,8 +71,29 @@ public class BattleService : IBattleService
         SendListOfGamesUpdated();
     }
     
-    public void StopBattle(Guid battleId, string reason)
+    private void PlayerLeftGame(GameUser user)
     {
+        var battle = battleManager.FindServerBattleById(user.GameId);
+        if (battle == null) { return; }
+
+        if (battle.Player1 == user.ServerPlayer)
+        {
+            battleManager.EndServerBattle(battle.GameId, EndServerBattleReasons.Player1Left);
+            networkService.SendServerBattleEnded(battle.GameId,EndServerBattleReasons.Player1Left);
+        }
+        else
+        {
+            if (battle.Player2 == user.ServerPlayer)
+            {
+                battleManager.EndServerBattle(battle.GameId, EndServerBattleReasons.Player2Left);
+                networkService.SendServerBattleEnded(battle.GameId,EndServerBattleReasons.Player2Left);
+                return;
+            } 
+            
+            battleManager.EndServerBattle(battle.GameId, EndServerBattleReasons.ReasonUnknown);
+        }
+        
+        SendListOfGamesUpdated();
         
     }
 

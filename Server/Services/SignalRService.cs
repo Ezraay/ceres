@@ -9,11 +9,7 @@ public class SignalRService :ISignalRService
 {
     private readonly IHubContext<GameHub> gameHub;
     private readonly IHubContext<LobbyHub> lobbyHub;
-    // private readonly IBattleService battleService;
-    // private readonly IServerBattleManager serverBattleManager;
     private static int userNumber;
-
-    // public event EventHandler? EventPlayerSentCommand;
 
     private readonly GameUsers gameUsers;
 
@@ -22,7 +18,6 @@ public class SignalRService :ISignalRService
     public event Action<GameUser, GameUser>? OnUsersReadyToPlay;
     public event Action<Guid, GameUser>? OnTryToJoinGame;
     public event Action<Guid, GameUser, IClientCommand>? OnPlayerSentCommand;
-    // public event Func<Guid, GameUser>? OnTryToJoinGame;
 
 
     public SignalRService( IHubContext<GameHub> gameHub, IHubContext<LobbyHub> lobbyHub)
@@ -31,8 +26,6 @@ public class SignalRService :ISignalRService
         this.lobbyHub = lobbyHub;
 
         this.gameUsers = new GameUsers();
-        // this.battleService = battleService;
-        // this.serverBattleManager = serverBattleManager;
     }
 
 
@@ -154,11 +147,7 @@ public class SignalRService :ISignalRService
 
         if ( gameUser != null) {
             OnTryToJoinGame?.Invoke(gameId, gameUser);
-
-
         }
-    
-        // return JoinGameResults.NoGameFound;
     }
 
     public void UpdatePlayersName(string battleId, string? player1Name, string? player2Name)
@@ -187,7 +176,6 @@ public class SignalRService :ISignalRService
         if (user != null){
             OnPlayerLeftGame?.Invoke(user);
         }
-        // serverBattleManager.PlayerLeftGame(connectionId);
     }
 
     public void SendUserGoToGame(GameUser user)
@@ -216,12 +204,6 @@ public class SignalRService :ISignalRService
         SendHubMessage(gameHub, user.GameConnectionId, msg);
     }
     
-
-    // public void StartServerBattle()
-    // {
-
-    // }
-
     #endregion
 }
 
