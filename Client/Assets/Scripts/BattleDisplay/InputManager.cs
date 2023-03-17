@@ -18,10 +18,11 @@ namespace CardGame
         [SerializeField] private CardPreviewDisplay cardPreviewDisplay;
         [SerializeField] [ReadOnly] private CardDisplay draggedCard;
         [SerializeField] [ReadOnly] private SlotDisplay draggedSlot;
-        private readonly List<IInputCommand> commands = new();
+        private readonly List<IInputCommand> commands = new();        
         private BattleDisplayManager battleDisplayManager;
         private BattleManager battleManager;
         private Vector2 draggedCardStartPosition;
+        private Guid myPlayerId;
 
 
         private void Awake()
@@ -34,6 +35,14 @@ namespace CardGame
                 IInputCommand command = (IInputCommand) Activator.CreateInstance(type);
                 commands.Add(command);
             }
+            
+            battleManager.OnStartBattle += conditions =>
+            {
+                if (conditions.PlayerId != Guid.Empty)
+                    myPlayerId = conditions.PlayerId;
+                else
+                    Destroy(gameObject);
+            };
         }
 
         private void Update()
@@ -61,7 +70,7 @@ namespace CardGame
                 if (endSlot != null)
                 {
                     InputCommandData data = new InputCommandData(draggedSlot, endSlot, draggedCard,
-                        battleManager.Battle, battleDisplayManager.player);
+                        battleManager.Battle, battleDisplayManager.GetPlayerDisplay(myPlayerId));
                     IInputCommand command = GetInputCommand(data);
                     if (command != null)
                     {

@@ -8,7 +8,7 @@ public interface IServerBattleManager
     ConcurrentDictionary<Guid,ServerBattle> ServerBattles();
     void EndServerBattle(Guid gameId, string reason);
     ServerBattle? FindServerBattleById(Guid gameId);
-    ServerBattle AllocateServerBattle();
+    ServerBattle AllocateServerBattle(Guid gameId);
     void StopBattle(Guid battleId, string reason);
     // void PlayerLeftGame(string connectionId);
     // ServerPlayer? FindServerPlayer(ServerBattle battle, Guid userId);

@@ -1,4 +1,5 @@
 ﻿using System;
+using CardGame.Networking;
 using Ceres.Client.BattleSystem;
 using Ceres.Client.Networking;
 using Ceres.Core.BattleSystem;
@@ -21,7 +22,7 @@ namespace Ceres.Client
         private Guid userId;
         public bool IsConnected { get; private set; }
 
-        public event Action<ClientBattleStartConfig> OnStartGame;
+        public event Action<BattleStartConditions> OnStartGame;
         public event Action<IServerAction> OnBattleAction;
 
         [Inject]
@@ -41,7 +42,7 @@ namespace Ceres.Client
                 gameId = message.GameId;
                 await signalRManager.ConnectToGameHub();
 
-                mainThreadManager.Execute(OnGoToGame);
+                mainThreadManager.Execute(() => OnGoToGame(message.ClientBattle, message.PlayerId));
             });
 
             IsConnected = true;
@@ -59,24 +60,16 @@ namespace Ceres.Client
             signalRManager.GameHub.SendAsync("PlayerSentCommand", gameId, userId, command);
         }
 
-        private async void OnGoToGame()
+        private async void OnGoToGame(ClientBattle battle, Guid playerId)
         {
-            SceneManager.LoadScene(GameScene.Battle);
+            await SceneManager.LoadScene(GameScene.Battle);
 
-            string res = await signalRManager.GameHub.InvokeAsync<string>("JoinGame", gameId, userId);
-            switch (res)
+            BattleStartConditions conditions = new BattleStartConditions()
             {
-                case JoinGameResults.JoinedAsPlayer1:
-                    Logger.Log("I am Player1");
-                    break;
-                case JoinGameResults.JoinedAsPlayer2:
-                    Logger.Log("I am Player2");
-                    break;
-            }
-
-            ClientBattleStartConfig config = new ClientBattleStartConfig(new CardData("archer", "Archer", 1, 5, 5),
-                res == JoinGameResults.JoinedAsPlayer1, 50, 50); // TODO: Get this from server
-            OnStartGame?.Invoke(config);
+                ClientBattle = battle,
+                PlayerId = playerId
+            };
+            OnStartGame?.Invoke(conditions);
 
             signalRManager.On<ServerActionMessage>(signalRManager.GameHub, message =>
             {
@@ -86,6 +79,8 @@ namespace Ceres.Client
                     OnBattleAction?.Invoke(message.Action);
                 });
             });
+
+            signalRManager.GameHub.SendAsync("JoinGame",  gameId, userId);
         }
     }
 }

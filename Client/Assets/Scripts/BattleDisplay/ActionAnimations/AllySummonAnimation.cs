@@ -10,8 +10,9 @@ namespace CardGame.BattleDisplay
         {
             AllySummonAction action = baseAction as AllySummonAction;
 
-            MultiCardSlotDisplay multiCard = data.PlayerDisplay.GetMultiCardSlot(action.SlotType);
-            UnitSlotDisplay slot = data.PlayerDisplay.GetUnitSlot(action.X, action.Y);
+            PlayerDisplay playerDisplay = data.BattleDisplayManager.GetPlayerDisplay(action.PlayerId);
+            MultiCardSlotDisplay multiCard = playerDisplay.GetMultiCardSlot(action.SlotType);
+            UnitSlotDisplay slot = playerDisplay.GetUnitSlot(action.X, action.Y);
             CardDisplay card = data.CardDisplayFactory.GetDisplay(action.CardId);
             
             multiCard.RemoveCard(card);

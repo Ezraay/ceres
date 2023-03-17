@@ -1,13 +1,29 @@
-﻿namespace Ceres.Client
+﻿using System.Threading.Tasks;
+using UnityEngine;
+
+namespace Ceres.Client
 {
     public static class SceneManager
     {
         public static string CurrentScene => UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
 
-        public static void LoadScene(string scene)
+        public static async Task LoadScene(string scene)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(scene);
+            AsyncOperation task = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(scene);
+            while (!task.isDone)
+            {
+                await Task.Yield();
+            }
         }
+        
+    //     bool succeeded = false;
+    //         while (!succeeded)
+    //     {
+    //         // do work
+    //         succeeded = outcome; // if it worked, make as succeeded, else retry
+    //         await Task.Delay(1000); // arbitrary delay
+    //     }
+    // return succeeded;
     }
 
     public class GameScene

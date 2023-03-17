@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Ceres.Core.BattleSystem
 {
     public class MultiCardSlot : Slot, IMultiCardSlot
     {
-        public List<Card> Cards { get; }
+        public List<Card> Cards;
 
-        public int Count => Cards.Count;
+        [JsonIgnore] public int Count => Cards.Count;
         public event Action<Card> OnAdd;
         public event Action<Card> OnRemove;
 
-        public MultiCardSlot(List<Card> cards = null)
+        public MultiCardSlot()
         {
-            Cards = cards ?? new List<Card>();
+            Cards = new List<Card>();
         }
 
         public void AddCard(Card card)

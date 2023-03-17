@@ -10,8 +10,9 @@ namespace CardGame.BattleDisplay
         {
             OpponentSummonAction action = baseAction as OpponentSummonAction;
 
-            MultiCardSlotDisplay multiCard = data.OpponentDisplay.GetMultiCardSlot(action.SlotType);
-            UnitSlotDisplay slot = data.OpponentDisplay.GetUnitSlot(action.X, action.Y);
+            PlayerDisplay playerDisplay = data.BattleDisplayManager.GetPlayerDisplay(action.OpponentId);
+            MultiCardSlotDisplay multiCard = playerDisplay.GetMultiCardSlot(action.SlotType);
+            UnitSlotDisplay slot = playerDisplay.GetUnitSlot(action.X, action.Y);
             CardDisplay card = multiCard.Displays.First(x => x.IsHidden);
             data.CardDisplayFactory.AddManually(card, action.Card);
             

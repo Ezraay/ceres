@@ -10,7 +10,7 @@ public interface ISignalRService
     GameUser? GetUserByServerPlayer(IPlayer serverPlayer);
     void SendServerBattleEnded(Guid gameId, string reason);
 
-    void SendListOfGamesUpdated(string[] games);
+    void SendListOfGamesUpdated(Guid[] gameIds);
 
     // GameUser? FindGameUserByConnectionId(string connectionId);
     void UpdatePlayersName(string battleId, string? player1Name, string? player2Name);
@@ -29,6 +29,6 @@ public interface ISignalRService
     public event Action<Guid, GameUser, IClientCommand>? OnPlayerSentCommand;
 
     void UserJoinedGame(GameUser user, Guid gameId, string result);
-    void SendUserGoToGame(GameUser user);
+    void SendUserGoToGame(ClientBattle battle, GameUser user);
     void SendPlayerAction(GameUser user, IServerAction action);
 }

@@ -21,8 +21,8 @@ namespace Ceres.Client.BattleSystem
 
         public void TestOpponentDrawAndAscend()
         {
-           battleManager.FakeAction(new OpponentDrawCardAction());
-            battleManager.FakeAction(new OpponentSummonAction(MultiCardSlotType.Hand, 1, 0, Card.TestCard()));
+           // battleManager.FakeAction(new OpponentDrawCardAction());
+           //  battleManager.FakeAction(new OpponentSummonAction(MultiCardSlotType.Hand, 1, 0, Card.TestCard()));
         }
     }
 }

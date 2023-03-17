@@ -1,36 +1,27 @@
 ﻿using System;
-using System.Runtime.Serialization;
-
 
 namespace Ceres.Core.BattleSystem
 {
     public class DrawCardAction : IServerAction
     {
-        public Card Card;
+        public readonly Card Card;
+        public readonly Guid PlayerId;
 
-        // public string test = "dsadsa";
-        // public CardData data;
-        // public Card card;
-        
-        public DrawCardAction(Card card)
+        public DrawCardAction(Guid playerId, Card card)
         {
-            // data = new CardData("a", "b", 2, 3, 4);
+            PlayerId = playerId;
             Card = card;
-            // this.card = new Card(new CardData("a", "b", 2, 3, 4));
         }
 
         public void Apply(ClientBattle battle)
         {
-            IMultiCardSlot pile = battle.AllyPlayer.GetMultiCardSlot(MultiCardSlotType.Pile);
-            IMultiCardSlot hand = battle.AllyPlayer.GetMultiCardSlot(MultiCardSlotType.Hand);
+            IPlayer player = battle.TeamManager.GetPlayer(PlayerId);
+
+            IMultiCardSlot pile = player.GetMultiCardSlot(MultiCardSlotType.Pile);
+            IMultiCardSlot hand = player.GetMultiCardSlot(MultiCardSlotType.Hand);
 
             hand.AddCard(Card);
             pile.RemoveCard(Card);
         }
-
-        // public void GetObjectData(SerializationInfo info, StreamingContext context)
-        // {
-        //     info.AddValue("Card", Card);
-        // }
     }
 }

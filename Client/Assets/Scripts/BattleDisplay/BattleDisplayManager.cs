@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using CardGame.Networking;
 using Ceres.Client;
 using Ceres.Client.BattleSystem;
 using Ceres.Core.BattleSystem;
@@ -12,8 +14,11 @@ namespace CardGame.BattleDisplay
 {
     public class BattleDisplayManager : MonoBehaviour
     {
-        public PlayerDisplay player;
-        public PlayerDisplay opponentPlayer;
+        [SerializeField] private PlayerDisplay playerDisplayPrefab;
+
+        private Dictionary<Guid, PlayerDisplay> playerDisplays = new Dictionary<Guid, PlayerDisplay>();
+        // public PlayerDisplay player;
+        // public PlayerDisplay opponentPlayer;
 
         public bool CanInteract => actions.Count == 0 && currentAnimation == null;
         
@@ -21,6 +26,10 @@ namespace CardGame.BattleDisplay
         private ActionAnimation currentAnimation;
         private CardDisplayFactory cardDisplayFactory;
         private ActionAnimator actionAnimator;
+        [SerializeField] private Transform[] solo1Position;
+        [SerializeField] private Transform[] solo2Position;
+        [SerializeField] private Transform[] duo1Position;
+        [SerializeField] private Transform[] duo2Position;
         
         [Inject]
         public void Construct(CardDisplayFactory cardDisplay, ActionAnimator action, BattleManager battleManager)
@@ -31,9 +40,23 @@ namespace CardGame.BattleDisplay
             battleManager.OnStartBattle += StartBattle;
         }
 
-        private void StartBattle(ClientBattle battle)
+        private void StartBattle(BattleStartConditions conditions)
         {
-            player.Champion.Setup(battle.AllyPlayer.Champion);
+            for (var i = 0; i < conditions.ClientBattle.TeamManager.AllTeams.Count; i++)
+            {
+                BattleTeam team = conditions.ClientBattle.TeamManager.AllTeams[i];
+                Transform[] positions = team.Players.Any(x => x.Id == conditions.PlayerId) ? 
+                    team.Players.Count == 1 ? solo1Position : duo1Position :
+                    team.Players.Count == 1 ? solo2Position : duo2Position;
+                for (var j = 0; j < team.Players.Count; j++)
+                {
+                    IPlayer player = team.Players[j];
+                    Transform playerTransform = positions[j];
+                    PlayerDisplay newDisplay = Instantiate(playerDisplayPrefab, playerTransform.position, playerTransform.rotation, transform);
+                    newDisplay.Setup(player);
+                    playerDisplays.Add(player.Id, newDisplay);
+                }
+            }
         }
 
         private void Update()
@@ -54,10 +77,16 @@ namespace CardGame.BattleDisplay
         {
             currentAnimation = actionAnimator.GetAnimation(action);
 
-            AnimationData data = new AnimationData(player, opponentPlayer, cardDisplayFactory, actionAnimator);
+            AnimationData data = new AnimationData(cardDisplayFactory, actionAnimator, this);
             yield return currentAnimation.GetEnumerator(action, data);
 
             currentAnimation = null;
+        }
+
+        public PlayerDisplay GetPlayerDisplay(Guid playerId)
+        {
+            playerDisplays.TryGetValue(playerId, out var result);
+            return result;
         }
     }
 }

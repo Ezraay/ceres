@@ -1,29 +1,14 @@
-﻿namespace Ceres.Core.BattleSystem
+﻿using System;
+using Newtonsoft.Json;
+
+namespace Ceres.Core.BattleSystem
 {
-    public class ClientBattle
+    public class ClientBattle : Battle
     {
-        public IPlayer AllyPlayer { get; }
-        public IPlayer OpponentPlayer { get; }
-        public BattlePhaseManager PhaseManager { get; } = new BattlePhaseManager();
-        private bool myTurn;
+        [JsonConstructor]
+        public ClientBattle(TeamManager teamManager) : base(teamManager) { }
 
-        public ClientBattle(IPlayer ally, IPlayer opponent, bool myTurn)
-        {
-            AllyPlayer = ally;
-            OpponentPlayer = opponent;
-            this.myTurn = myTurn;
-        }
-
-        public bool IsPriorityPlayer()
-        {
-            switch (PhaseManager.Phase)
-            {
-                default:
-                    return myTurn;
-            }
-        }
-
-        public void Apply(IServerAction action)
+        public void Execute(IServerAction action)
         {
             action.Apply(this);
         }

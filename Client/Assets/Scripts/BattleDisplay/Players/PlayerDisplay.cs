@@ -18,19 +18,6 @@ namespace CardGame.BattleDisplay
         [field: SerializeField] public UnitSlotDisplay ChampionSupport{ get; private set; }
 
         private SlotDisplay[] allSlots;
-        
-        private void Start()
-        {
-            allSlots = new SlotDisplay[]
-            {
-                Hand, Damage, Defense, Champion, LeftUnit, RightUnit, LeftSupport, RightSupport, ChampionSupport
-            };
-
-            foreach (SlotDisplay slot in allSlots)
-            {
-                slot.SetOwner(this);
-            }
-        }
 
         public MultiCardSlotDisplay GetMultiCardSlot(MultiCardSlotType type)
         {
@@ -52,6 +39,25 @@ namespace CardGame.BattleDisplay
                 2 => y == 0 ? RightUnit : RightSupport,
                 _ => null
             };
+        }
+
+        public void Setup(IPlayer player)
+        {
+            IMultiCardSlot hand = player.GetMultiCardSlot(MultiCardSlotType.Hand);
+            if (hand is MultiCardSlot)
+            {
+                
+            }
+            
+            allSlots = new SlotDisplay[]
+            {
+                Hand, Damage, Defense, Champion, LeftUnit, RightUnit, LeftSupport, RightSupport, ChampionSupport
+            };
+
+            foreach (SlotDisplay slot in allSlots)
+            {
+                slot.SetOwner(this);
+            }
         }
     }
 }

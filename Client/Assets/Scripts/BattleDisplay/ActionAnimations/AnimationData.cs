@@ -3,17 +3,14 @@
     public class AnimationData
     {
         public readonly ActionAnimator ActionAnimator;
+        public readonly BattleDisplayManager BattleDisplayManager;
         public readonly CardDisplayFactory CardDisplayFactory;
-        public readonly PlayerDisplay OpponentDisplay;
-        public readonly PlayerDisplay PlayerDisplay;
 
-        public AnimationData(PlayerDisplay playerDisplay, PlayerDisplay opponentDisplay,
-            CardDisplayFactory cardDisplayFactory, ActionAnimator actionAnimator)
+        public AnimationData(CardDisplayFactory cardDisplayFactory, ActionAnimator actionAnimator, BattleDisplayManager battleDisplayManager)
         {
-            PlayerDisplay = playerDisplay;
-            OpponentDisplay = opponentDisplay;
             CardDisplayFactory = cardDisplayFactory;
             ActionAnimator = actionAnimator;
+            BattleDisplayManager = battleDisplayManager;
         }
     }
 }

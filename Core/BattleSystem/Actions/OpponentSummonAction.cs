@@ -1,14 +1,18 @@
-﻿namespace Ceres.Core.BattleSystem
+﻿using System;
+
+namespace Ceres.Core.BattleSystem
 {
     public class OpponentSummonAction : IServerAction
     {
-        public Card Card;
-        public MultiCardSlotType SlotType;
-        public int X;
-        public int Y;
+        public readonly Card Card;
+        public readonly Guid OpponentId;
+        public readonly MultiCardSlotType SlotType;
+        public readonly int X;
+        public readonly int Y;
 
-        public OpponentSummonAction(MultiCardSlotType slotType, int x, int y, Card card)
+        public OpponentSummonAction(Guid opponentId, MultiCardSlotType slotType, int x, int y, Card card)
         {
+            OpponentId = opponentId;
             SlotType = slotType;
             Y = y;
             X = x;
@@ -17,8 +21,10 @@
 
         public void Apply(ClientBattle battle)
         {
-            UnitSlot unitSlot = battle.AllyPlayer.GetUnitSlot(X, Y);
-            IMultiCardSlot multiSlot = battle.AllyPlayer.GetMultiCardSlot(SlotType);
+            IPlayer opponent = battle.TeamManager.GetPlayer(OpponentId);
+
+            UnitSlot unitSlot = opponent.GetUnitSlot(X, Y);
+            IMultiCardSlot multiSlot = opponent.GetMultiCardSlot(SlotType);
 
             unitSlot.SetCard(Card);
             multiSlot.RemoveCard(Card);

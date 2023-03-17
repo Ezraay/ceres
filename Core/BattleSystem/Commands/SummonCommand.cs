@@ -6,10 +6,10 @@ namespace Ceres.Core.BattleSystem
     public class SummonCommand : IClientCommand
     {
         [JsonIgnore] private Card card;
+        public Guid CardId;
 
         public int X;
         public int Y;
-        public Guid CardId;
 
         public SummonCommand(int x, int y, Guid cardId)
         {
@@ -18,10 +18,10 @@ namespace Ceres.Core.BattleSystem
             CardId = cardId;
         }
 
-        public bool CanExecute(ClientBattle battle)
+        public bool CanExecute(ClientBattle battle, IPlayer author)
         {
             return true;
-            
+
             // card = battle.AllyPlayer.Hand.GetCard(CardId);
             //
             // if (card == null) return false;
@@ -32,6 +32,8 @@ namespace Ceres.Core.BattleSystem
 
         public bool CanExecute(ServerBattle battle, IPlayer author)
         {
+            return true;
+            
             MultiCardSlot hand = author.GetMultiCardSlot(MultiCardSlotType.Hand) as MultiCardSlot;
             card = hand.GetCard(CardId);
 
@@ -49,16 +51,16 @@ namespace Ceres.Core.BattleSystem
             author.GetUnitSlot(X, Y).SetCard(card);
         }
 
-        public IServerAction[] GetActionsForAlly()
+        public IServerAction[] GetActionsForAlly(IPlayer author)
         {
-            return new IServerAction[] {new AllySummonAction(MultiCardSlotType.Hand, X, Y, CardId)};
+            return new IServerAction[] {new AllySummonAction(author.Id, MultiCardSlotType.Hand, X, Y, CardId)};
         }
 
-        public IServerAction[] GetActionsForOpponent()
+        public IServerAction[] GetActionsForOpponent(IPlayer author)
         {
             if (card == null)
                 throw new ArgumentNullException();
-            return new IServerAction[] {new OpponentSummonAction(MultiCardSlotType.Hand, X, Y, card)};
+            return new IServerAction[] {new OpponentSummonAction(author.Id, MultiCardSlotType.Hand, X, Y, card)};
         }
     }
 }

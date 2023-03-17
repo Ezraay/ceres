@@ -2,13 +2,12 @@
 
 namespace Ceres.Core.BattleSystem
 {
-
     [Serializable]
     public class TestDrawCommand : IClientCommand
     {
         private Card drawnCard;
 
-        public bool CanExecute(ClientBattle battle)
+        public bool CanExecute(ClientBattle battle, IPlayer author)
         {
             return true;
         }
@@ -27,14 +26,14 @@ namespace Ceres.Core.BattleSystem
             hand.AddCard(drawnCard);
         }
 
-        public IServerAction[] GetActionsForAlly()
+        public IServerAction[] GetActionsForAlly(IPlayer author)
         {
-            return new[] {new DrawCardAction(drawnCard)};
+            return new IServerAction[] {new DrawCardAction(author.Id, drawnCard)};
         }
 
-        public IServerAction[] GetActionsForOpponent()
+        public IServerAction[] GetActionsForOpponent(IPlayer author)
         {
-            return new[] {new OpponentDrawCardAction()};
+            return new IServerAction[] {new OpponentDrawCardAction(author.Id)};
         }
     }
 }
