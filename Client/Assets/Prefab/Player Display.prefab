@@ -143,6 +143,7 @@ MonoBehaviour:
   <Hand>k__BackingField: {fileID: 5282463285884560115}
   <Damage>k__BackingField: {fileID: 4020202690552033094}
   <Defense>k__BackingField: {fileID: 4020202690472893073}
+  <Graveyard>k__BackingField: {fileID: 4020202692151698973}
   <Pile>k__BackingField: {fileID: 4020202692068417014}
   <Champion>k__BackingField: {fileID: 4912292142273940343}
   <LeftUnit>k__BackingField: {fileID: 4912292142162491678}
@@ -1096,6 +1097,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9116892387265391748, guid: 7444e9720b40cb8489e08e7c82be2a9f, type: 3}
   m_PrefabInstance: {fileID: 5282463285255326360}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4020202692151698973 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9116892387265391749, guid: 7444e9720b40cb8489e08e7c82be2a9f, type: 3}
+  m_PrefabInstance: {fileID: 5282463285255326360}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5de521dcb99d45c781a02fedd8c35a7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5282463285267898599
 PrefabInstance:
   m_ObjectHideFlags: 0

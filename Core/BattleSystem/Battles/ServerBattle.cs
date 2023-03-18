@@ -32,5 +32,21 @@ namespace Ceres.Core.BattleSystem
         {
             
         }
+
+        public void StartGame()
+        {
+            foreach (BattleTeam team in TeamManager.AllTeams)
+            {
+                foreach (IPlayer player in team.Players)
+                {
+                    MultiCardSlot pile = player.GetMultiCardSlot(MultiCardSlotType.Pile) as MultiCardSlot;
+                    pile.Shuffle();
+
+                    for (int i = 0; i < 5; i++)
+                        player.GetMultiCardSlot(MultiCardSlotType.Hand).AddCard(pile.PopCard());
+                    
+                }
+            }
+        }
     }
 }

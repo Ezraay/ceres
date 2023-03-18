@@ -14,7 +14,8 @@ namespace CardGame.BattleDisplay
             MultiCardSlotDisplay multiCard = playerDisplay.GetMultiCardSlot(action.SlotType);
             UnitSlotDisplay slot = playerDisplay.GetUnitSlot(action.X, action.Y);
             CardDisplay card = multiCard.Displays.First(x => x.IsHidden);
-            data.CardDisplayFactory.AddManually(card, action.Card);
+            // data.CardDisplayFactory.AddManually(card, action.Card);
+            card.ShowFront(action.Card);
             
             multiCard.RemoveCard(card);
             

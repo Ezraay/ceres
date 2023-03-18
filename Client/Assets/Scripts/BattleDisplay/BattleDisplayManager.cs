@@ -14,7 +14,7 @@ namespace CardGame.BattleDisplay
 {
     public class BattleDisplayManager : MonoBehaviour
     {
-        [SerializeField] private PlayerDisplay playerDisplayPrefab;
+        // [SerializeField] private PlayerDisplay playerDisplayPrefab;
 
         private Dictionary<Guid, PlayerDisplay> playerDisplays = new Dictionary<Guid, PlayerDisplay>();
         // public PlayerDisplay player;
@@ -23,6 +23,7 @@ namespace CardGame.BattleDisplay
         public bool CanInteract => actions.Count == 0 && currentAnimation == null;
         
         private readonly Queue<IServerAction> actions = new();
+        private PlayerDisplay.PlayerDisplayFactory playerDisplayFactory;
         private ActionAnimation currentAnimation;
         private CardDisplayFactory cardDisplayFactory;
         private ActionAnimator actionAnimator;
@@ -32,10 +33,11 @@ namespace CardGame.BattleDisplay
         [SerializeField] private Transform[] duo2Position;
         
         [Inject]
-        public void Construct(CardDisplayFactory cardDisplay, ActionAnimator action, BattleManager battleManager)
+        public void Construct(CardDisplayFactory cardDisplay, ActionAnimator action, BattleManager battleManager, PlayerDisplay.PlayerDisplayFactory playerFactory)
         {
             cardDisplayFactory = cardDisplay;
             actionAnimator = action;
+            playerDisplayFactory = playerFactory;
             battleManager.OnAction += QueueAction;
             battleManager.OnStartBattle += StartBattle;
         }
@@ -52,7 +54,9 @@ namespace CardGame.BattleDisplay
                 {
                     IPlayer player = team.Players[j];
                     Transform playerTransform = positions[j];
-                    PlayerDisplay newDisplay = Instantiate(playerDisplayPrefab, playerTransform.position, playerTransform.rotation, transform);
+                    PlayerDisplay newDisplay = playerDisplayFactory.Create();
+                    newDisplay.transform.SetPositionAndRotation(playerTransform.position, playerTransform.rotation);
+                    newDisplay.transform.SetParent(transform);
                     newDisplay.Setup(player);
                     playerDisplays.Add(player.Id, newDisplay);
                 }

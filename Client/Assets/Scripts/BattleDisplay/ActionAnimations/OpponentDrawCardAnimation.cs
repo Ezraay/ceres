@@ -10,7 +10,8 @@ namespace CardGame.BattleDisplay
         {
             OpponentDrawCardAction action = baseAction as OpponentDrawCardAction;
             PlayerDisplay playerDisplay = data.BattleDisplayManager.GetPlayerDisplay(action.OpponentId);
-            CardDisplay display = data.CardDisplayFactory.CreateHidden(playerDisplay.Pile.position);
+            CardDisplay display = data.CardDisplayFactory.CreateHidden();
+            display.transform.position = playerDisplay.Pile.position;
             playerDisplay.Hand.AddCard(display);
             yield return playerDisplay.Hand.UpdatePositions();
         }

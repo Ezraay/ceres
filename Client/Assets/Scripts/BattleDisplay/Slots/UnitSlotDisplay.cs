@@ -61,7 +61,8 @@ namespace CardGame.BattleDisplay
         
         public void DestroyCard()
         {
-            cardDisplayFactory.DestroyDisplay(Card.Card.ID);
+            // cardDisplayFactory.DestroyDisplay(Card.Card.ID);
+            Destroy(Card.gameObject);
             Card = null;
         }
     }

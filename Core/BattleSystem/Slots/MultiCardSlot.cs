@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace Ceres.Core.BattleSystem
@@ -66,6 +67,20 @@ namespace Ceres.Core.BattleSystem
             Card card = Cards[index];
             RemoveCard(card);
             return card;
+        }
+
+        public void Shuffle()
+        {
+            List<Card> newCards = new List<Card>();
+            Random random = new Random();
+            for (int i = Cards.Count - 1; i >= 0; i--)
+            {
+                int index = random.Next(0, newCards.Count);
+                newCards.Insert(index, Cards[i]);
+                Cards.RemoveAt(i);
+            }
+
+            Cards = newCards;
         }
     }
 }

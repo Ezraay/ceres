@@ -1,27 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using Ceres.Core.BattleSystem;
-using Sirenix.OdinInspector;
-using UnityEngine;
+using Zenject;
 
 namespace CardGame.BattleDisplay
 {
-    public class CardDisplayFactory : SerializedMonoBehaviour
+    public class CardDisplayFactory : PlaceholderFactory<Card, CardDisplay>
     {
-        [SerializeField] private CardDisplay cardDisplay;
-        [SerializeField] private Transform defaultCardLocation;
-        [SerializeField, ReadOnly] private Dictionary<Guid, CardDisplay> displays;
+        private CardDisplay cardDisplay;
+        private DiContainer diContainer;
+        private readonly Dictionary<Guid, CardDisplay> displays = new();
 
-        public CardDisplay CreateHidden(Vector3 position = new Vector3())
+        [Inject]
+        private void Construct(DiContainer container, CardDisplay cardDisplayPrefab)
         {
-            CardDisplay display = Instantiate(cardDisplay, position, Quaternion.identity);
+            diContainer = container;
+            cardDisplay = cardDisplayPrefab;
+        }
+
+        public CardDisplay CreateHidden()
+        {
+            CardDisplay display = diContainer.InstantiatePrefab(cardDisplay).GetComponent<CardDisplay>();
             display.ShowBack();
+            display.OnShowFront += card => { display.OnDestroyed += () => DestroyDisplay(card.ID); };
             return display;
         }
 
-        public CardDisplay Create(Card card, Vector3 position = new Vector3())
+        public override CardDisplay Create(Card card)
         {
-            CardDisplay display = CreateHidden(position);
+            CardDisplay display = CreateHidden();
             display.ShowFront(card);
             displays.Add(card.ID, display);
             return display;
@@ -39,11 +46,11 @@ namespace CardGame.BattleDisplay
             return result;
         }
 
-        public void DestroyDisplay(Guid id)
+        private void DestroyDisplay(Guid id)
         {
-            CardDisplay display = GetDisplay(id);
             displays.Remove(id);
-            Destroy(display.gameObject);
+            // CardDisplay display = GetDisplay(id);
+            // Destroy(display.gameObject);
         }
     }
 }

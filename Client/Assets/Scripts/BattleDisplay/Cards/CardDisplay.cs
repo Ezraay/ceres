@@ -22,6 +22,13 @@ namespace CardGame.BattleDisplay
         public int SortingOrder => canvas.sortingOrder;
         private IEnumerator currentMove;
         public SlotDisplay Parent { get; private set; }
+        public event Action OnDestroyed;
+        public event Action<Card> OnShowFront;
+
+        private void OnDestroy()
+        {
+            OnDestroyed?.Invoke();
+        }
 
         private void Start()
         {
@@ -38,9 +45,11 @@ namespace CardGame.BattleDisplay
         public virtual void ShowFront(Card card)
         {
             content.SetActive(true);
+            content.SetActive(true);
             Card = card;
 
             IsHidden = false;
+            OnShowFront?.Invoke(card);
         }
 
         public void SetSortingOrder(int order)

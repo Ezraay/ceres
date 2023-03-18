@@ -1,31 +1,42 @@
-﻿using System;
-using Ceres.Core.BattleSystem;
+﻿using Ceres.Core.BattleSystem;
 using UnityEngine;
+using Zenject;
 
 namespace CardGame.BattleDisplay
 {
     public class PlayerDisplay : MonoBehaviour
     {
-        [field: SerializeField] public MultiCardSlotDisplay Hand { get; private set; }
-        [field: SerializeField] public MultiCardSlotDisplay Damage { get; private set; }
-        [field: SerializeField] public MultiCardSlotDisplay Defense{ get; private set; }
-        [field: SerializeField] public Transform Pile { get; private set; }
-        [field: SerializeField] public UnitSlotDisplay Champion{ get; private set; }
-        [field: SerializeField] public UnitSlotDisplay LeftUnit{ get; private set; }
-        [field: SerializeField] public UnitSlotDisplay RightUnit{ get; private set; }
-        [field: SerializeField] public UnitSlotDisplay LeftSupport{ get; private set; }
-        [field: SerializeField] public UnitSlotDisplay RightSupport{ get; private set; }
-        [field: SerializeField] public UnitSlotDisplay ChampionSupport{ get; private set; }
-
         private SlotDisplay[] allSlots;
 
+        private UnitSlotDisplay[] unitSlots;
+        private CardDisplayFactory
+            cardFactory;
+        [field: SerializeField] public MultiCardSlotDisplay Hand { get; private set; }
+        [field: SerializeField] public MultiCardSlotDisplay Damage { get; private set; }
+        [field: SerializeField] public MultiCardSlotDisplay Defense { get; private set; }
+        [field: SerializeField] public MultiCardSlotDisplay Graveyard { get; private set; }
+        [field: SerializeField] public Transform Pile { get; private set; }
+        [field: SerializeField] public UnitSlotDisplay Champion { get; private set; }
+        [field: SerializeField] public UnitSlotDisplay LeftUnit { get; private set; }
+        [field: SerializeField] public UnitSlotDisplay RightUnit { get; private set; }
+        [field: SerializeField] public UnitSlotDisplay LeftSupport { get; private set; }
+        [field: SerializeField] public UnitSlotDisplay RightSupport { get; private set; }
+        [field: SerializeField] public UnitSlotDisplay ChampionSupport { get; private set; }
+
+        [Inject]
+        public void Construct(CardDisplayFactory factory)
+        {
+            cardFactory = factory;
+        }
+        
         public MultiCardSlotDisplay GetMultiCardSlot(MultiCardSlotType type)
         {
             return type switch
             {
                 MultiCardSlotType.Damage => Damage,
                 MultiCardSlotType.Defense => Defense,
-                MultiCardSlotType.Hand => Hand, 
+                MultiCardSlotType.Hand => Hand,
+                MultiCardSlotType.Graveyard => Graveyard,
                 _ => null
             };
         }
@@ -43,21 +54,29 @@ namespace CardGame.BattleDisplay
 
         public void Setup(IPlayer player)
         {
-            IMultiCardSlot hand = player.GetMultiCardSlot(MultiCardSlotType.Hand);
-            if (hand is MultiCardSlot)
-            {
-                
-            }
-            
             allSlots = new SlotDisplay[]
             {
                 Hand, Damage, Defense, Champion, LeftUnit, RightUnit, LeftSupport, RightSupport, ChampionSupport
             };
-
-            foreach (SlotDisplay slot in allSlots)
+            unitSlots = new[]
             {
-                slot.SetOwner(this);
-            }
+                Champion, LeftUnit, RightUnit, ChampionSupport, LeftSupport, RightSupport
+            };
+
+            // IMultiCardSlot hand = player.GetMultiCardSlot(MultiCardSlotType.Hand);
+
+            Hand.Setup(player.GetMultiCardSlot(MultiCardSlotType.Hand), cardFactory);
+            Damage.Setup(player.GetMultiCardSlot(MultiCardSlotType.Damage), cardFactory);
+            Graveyard.Setup(player.GetMultiCardSlot(MultiCardSlotType.Graveyard), cardFactory);
+            Defense.Setup(player.GetMultiCardSlot(MultiCardSlotType.Defense), cardFactory);
+
+            foreach (UnitSlotDisplay slot in unitSlots)
+                slot.Setup(player.GetUnitSlot(slot.Position.x, slot.Position.y));
+
+
+            foreach (SlotDisplay slot in allSlots) slot.SetOwner(this);
         }
+
+        public class PlayerDisplayFactory : PlaceholderFactory<PlayerDisplay> { }
     }
 }

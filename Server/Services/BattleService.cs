@@ -64,6 +64,7 @@ public class BattleService : IBattleService
         user2.ServerPlayer = player2;
         player2.LoadDeck(cardDeckLoader.Deck);
 
+        battle.StartGame();
         battle.OnPlayerAction += OnPlayerAction;
 
         networkService.SendUserGoToGame(new ClientBattle(battle.TeamManager.SafeCopy(player1)), user1);

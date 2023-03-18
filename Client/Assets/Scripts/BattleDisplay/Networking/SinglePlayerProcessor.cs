@@ -38,6 +38,7 @@ namespace CardGame.BattleDisplay.Networking
             manager.MakeEnemies(team1, team2);
             
             serverBattle = new ServerBattle(manager);
+            serverBattle.StartGame();
             
             ClientBattle = new ClientBattle(manager.SafeCopy(player1));
 

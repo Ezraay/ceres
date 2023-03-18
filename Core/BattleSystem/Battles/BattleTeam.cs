@@ -71,6 +71,15 @@ namespace Ceres.Core.BattleSystem
                 IMultiCardSlot serverPile = otherPlayer.GetMultiCardSlot(MultiCardSlotType.Pile);
                 IMultiCardSlot pile = new HiddenMultiCardSlot(serverPile.Count);
                 IPlayer newPlayer = new StandardPlayer(otherPlayer.Id, hand, pile);
+
+                for (int x = 0; x < otherPlayer.Width; x++)
+                {
+                    for (int y = 0; y < otherPlayer.Height; y++)
+                    {
+                        newPlayer.GetUnitSlot(x, y).SetCard(otherPlayer.GetUnitSlot(x, y).Card);
+                    }
+                }
+                
                 team.AddPlayer(newPlayer);
             }
 

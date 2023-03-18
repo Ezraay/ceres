@@ -11,7 +11,8 @@ namespace CardGame.BattleDisplay
         {
             DrawCardAction action = (DrawCardAction)baseAction;
             PlayerDisplay playerDisplay = data.BattleDisplayManager.GetPlayerDisplay(action.PlayerId);
-            CardDisplay display = data.CardDisplayFactory.Create(action.Card, playerDisplay.Pile.position);
+            CardDisplay display = data.CardDisplayFactory.Create(action.Card);
+            display.transform.position = playerDisplay.Pile.position;
             playerDisplay.Hand.AddCard(display);
             yield return playerDisplay.Hand.UpdatePositions();
         }
