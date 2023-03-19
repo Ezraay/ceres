@@ -68,7 +68,8 @@ namespace Ceres.Client.Networking
                 .WithUrl(url)
                 .AddNewtonsoftJsonProtocol(options =>
                 {
-                    options.PayloadSerializerSettings.TypeNameHandling = TypeNameHandling.All;
+                    options.PayloadSerializerSettings.TypeNameHandling = TypeNameHandling.Objects;
+                    // options.PayloadSerializerSettings.
                 })
                 .Build();
 

@@ -10,8 +10,6 @@ namespace Ceres.Client
 {
     public class QueueManager : MonoBehaviour
     {
-        // [SerializeField] private NetworkManager networkManager;
-        [SerializeField] [Scene] private string gameScene;
         private NetworkManager networkManager;
 
         [Inject]
@@ -22,13 +20,7 @@ namespace Ceres.Client
         
         void Start()
         {
-            networkManager.OnStartGame += OnStartGame;
             networkManager.JoinQueue();
-        }
-
-        private void OnStartGame(ClientBattleStartConfig _)
-        {
-            // SceneManager.LoadScene(gameScene);
         }
     }
 }

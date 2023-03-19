@@ -8,10 +8,5 @@ namespace Ceres.Core.BattleSystem
         {
             battle.PhaseManager.Advance();
         }
-
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

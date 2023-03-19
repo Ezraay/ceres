@@ -1,36 +1,66 @@
-﻿namespace Ceres.Core.BattleSystem
-{
-    public abstract class StandardPlayer
-    {
-        public MultiCardSlot Graveyard { get; } = new MultiCardSlot();
-        public MultiCardSlot Damage { get; } = new MultiCardSlot();
-        public MultiCardSlot Defense { get; } = new MultiCardSlot();
-        public UnitSlot Champion { get; } = new UnitSlot(1, 0);
-        public UnitSlot LeftUnit { get; } = new UnitSlot(0, 0);
-        public UnitSlot RightUnit { get; } = new UnitSlot(2, 0);
-        public UnitSlot LeftSupport { get; } = new UnitSlot(0, 1);
-        public UnitSlot RightSupport { get; } = new UnitSlot(2, 1);
-        public UnitSlot ChampionSupport { get; } = new UnitSlot(1, 1);
+﻿using System;
+using Newtonsoft.Json;
 
-        public UnitSlot GetSlotByPosition(int x, int y)
+namespace Ceres.Core.BattleSystem
+{
+    public class StandardPlayer : IPlayer
+    {
+        [JsonProperty] private IMultiCardSlot Pile { get; }
+        [JsonProperty] private IMultiCardSlot Hand { get; }
+        [JsonProperty] private IMultiCardSlot Graveyard { get; } = new MultiCardSlot();
+        [JsonProperty] private IMultiCardSlot Damage { get; } = new MultiCardSlot();
+        [JsonProperty] private IMultiCardSlot Defense { get; } = new MultiCardSlot();
+        [JsonIgnore] public UnitSlot Champion => units[1, 0];
+
+        [JsonProperty] private readonly UnitSlot[,] units;
+
+        public StandardPlayer(Guid id, IMultiCardSlot hand, IMultiCardSlot pile)
         {
-            return x switch
-            {
-                0 => y == 0 ? LeftUnit : LeftSupport,
-                1 => y == 0 ? Champion : ChampionSupport,
-                2 => y == 0 ? RightUnit : RightSupport,
-                _ => null
-            };
+            units = new UnitSlot[Width, Height];
+            for (int x = 0; x < Width; x++)
+            for (int y = 0; y < Height; y++)
+                units[x, y] = new UnitSlot(x, y);
+
+            Id = id == Guid.Empty ? Guid.NewGuid() : id;
+            
+            Hand = hand;
+            Pile = pile;
         }
 
-        public virtual IMultiCardSlot GetMultiCardSlot(MultiCardSlotType type)
+        public Guid Id { get; }
+        [JsonIgnore] public int Width => 3;
+        [JsonIgnore] public int Height => 2;
+
+        public void LoadDeck(IDeck deck)
+        {
+            foreach (ICardData cardData in deck.GetPile())
+            {
+                Pile.AddCard(new Card(cardData));
+            }
+            
+            Champion.SetCard(new Card(deck.GetChampion()));
+        }
+
+        public UnitSlot GetUnitSlot(int x, int y)
+        {
+            return units[x, y];
+        }
+
+        public T GetMultiCardSlot<T>(MultiCardSlotType type) where T : IMultiCardSlot
+        {
+            return (T) GetMultiCardSlot(type);
+        }
+
+        public IMultiCardSlot GetMultiCardSlot(MultiCardSlotType type)
         {
             return type switch
             {
                 MultiCardSlotType.Damage => Damage,
                 MultiCardSlotType.Defense => Defense,
                 MultiCardSlotType.Graveyard => Graveyard,
-                _ => null
+                MultiCardSlotType.Hand => Hand,
+                MultiCardSlotType.Pile => Pile,
+                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
             };
         }
     }

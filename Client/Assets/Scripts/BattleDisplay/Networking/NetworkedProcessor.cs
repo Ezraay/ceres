@@ -1,4 +1,5 @@
 ﻿using System;
+using CardGame.Networking;
 using Ceres.Client;
 using Ceres.Client.BattleSystem;
 using Ceres.Core.BattleSystem;
@@ -9,27 +10,31 @@ namespace CardGame.BattleDisplay.Networking
     public class NetworkedProcessor : ICommandProcessor
     {
         public event Action<IServerAction> OnServerAction;
-        public ClientBattle ClientBattle { get; private set; }
-        private NetworkManager networkManager;
+        public event Action<BattleStartConditions> OnStartBattle;
+        private ClientBattle ClientBattle { get; set; }
+        private readonly NetworkManager networkManager;
         
         public NetworkedProcessor(NetworkManager networkManager)
         {
             this.networkManager = networkManager;
             
-            networkManager.OnStartGame += config =>
+        }
+
+        public void Start()
+        {
+            networkManager.OnStartGame += battleStartConditions =>
             {
-                AllyPlayer myPlayer = new AllyPlayer(new Card(config.Champion), config.PileCount);
-                OpponentPlayer opponentPlayer = new OpponentPlayer(config.OpponentPileCount);
-                ClientBattle = new ClientBattle(myPlayer, opponentPlayer, config.MyTurn);
+                ClientBattle = battleStartConditions.ClientBattle;
+                OnStartBattle?.Invoke(battleStartConditions);
             };
 
-            networkManager.OnBattleAction += action =>
+            networkManager.OnBattleAction += (action) =>
             {
-                ClientBattle.Apply(action);
+                ClientBattle.Execute(action);
                 OnServerAction?.Invoke(action);
             };
         }
-        
+
         public void ProcessCommand(IClientCommand command)
         {
             networkManager.SendCommand(command);

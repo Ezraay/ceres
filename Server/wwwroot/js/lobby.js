@@ -37,7 +37,7 @@ function GuidIsValid(guid) {
 }
 
 connection.on("UpdateGames",(msg) => {
-    let values = msg.gameNames.$values;
+    let values = msg.gameNames;
     var GamesCount = Object.entries(values).length;
     document.getElementById("gamesListHeader").innerHTML = `Games (${GamesCount})`;
 
@@ -62,14 +62,15 @@ connection.on("GoToGame",msg => {
     let userId = msg.userId
     let myUserId = sessionStorage.getItem("userId");
     if (myUserId !== userId) { return }
+    console.log(msg)
     console.log("/games?gameid="+gameId.toString())
     sessionStorage.setItem("gameId", gameId);
     
-    window.location = "/games?gameid="+gameId.toString();
+    //window.location = "/games?gameid="+gameId.toString();
 })
 
 connection.on("ClientsList",(msg) => {
-    let users = msg.lobbyUsers.$values;
+    let users = msg.lobbyUsers;
     // var lobbyClientsCount = Object.entries(value).length-1;
 
     var clientList = document.getElementById("clientsList");

@@ -44,7 +44,7 @@ public class SignalRService :ISignalRService
     }
 
 
-    public GameUser? GetUserByServerPlayer(ServerPlayer serverPlayer)
+    public GameUser? GetUserByServerPlayer(IPlayer serverPlayer)
     {
         return gameUsers.GetUsers().Values
             .FirstOrDefault(u => u.ServerPlayer == serverPlayer);
@@ -95,8 +95,8 @@ public class SignalRService :ISignalRService
         SendHubAllMessage(lobbyHub,msg);
     }
 
-    public void SendListOfGamesUpdated(string[] games){
-        var msg = new UpdateGamesMessage() {GameNames = games};
+    public void SendListOfGamesUpdated(Guid[] gameIds){
+        var msg = new UpdateGamesMessage() {GameIds = gameIds};
         SendHubAllMessage(lobbyHub, msg);
     }
     public void ChangeUserName(string connectionId, string newName){
@@ -158,10 +158,13 @@ public class SignalRService :ISignalRService
     }
 
 
-    public void SendPlayerAction(GameUser user, IServerAction action){
+    public void SendPlayerAction(GameUser user, IServerAction action) {
         // var gameId = user. GameId;
         // Console.WriteLine("Sending action: " + action + " to: " + connectionId);
-        var msg = new ServerActionMessage() {Action = action};
+        var msg = new ServerActionMessage()
+        {
+            Action = action
+        };
         SendHubMessage(gameHub, user.GameConnectionId, msg);
     }
 
@@ -178,10 +181,23 @@ public class SignalRService :ISignalRService
         }
     }
 
-    public void SendUserGoToGame(GameUser user)
+    public void SendUserGoToGame(ClientBattle battle, GameUser user)
     {
         if (user.LobbyConnectionId == null) return;
-        var msg = new GoToGameMessage() {GameId = user.GameId, UserId = user.UserId };
+
+        Guid playerId = user.ServerPlayer?.Id ?? Guid.Empty;
+        var msg = new GoToGameMessage() {
+            GameId = user.GameId, 
+            UserId = user.UserId, 
+            // slotTest = battle.TeamManager.GetPlayer(playerId).GetMultiCardSlot(MultiCardSlotType.Damage),
+            // cardsTest = new List<Card>() {Card.TestCard()},
+            // cardTest = Card.TestCard(),
+            // listTest = new List<int> {1, 3, 5},
+            // playerTest = battle.TeamManager.GetPlayer(playerId), 
+            ClientBattle = battle,
+            PlayerId = playerId};
+        // var msg = new GoToGameMessage() {GameId = user.GameId, UserId = user.UserId, ClientBattle = battle, PlayerId = playerId};
+
         SendHubMessage(lobbyHub, user.LobbyConnectionId, msg);
     }
 

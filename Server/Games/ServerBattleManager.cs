@@ -15,10 +15,16 @@ public class ServerBattleManager : IServerBattleManager
             return Battles;
         }
     }
-    public ServerBattle AllocateServerBattle(){
-        lock (Battles){
-            var battle = new ServerBattle(null, null, true);
-            Battles.TryAdd(battle.GameId, battle);
+    public ServerBattle AllocateServerBattle(Guid gameId){
+        lock (battles)
+        {
+            var teamManager = new TeamManager();
+            var battle = new ServerBattle(teamManager);
+            // battle.OnPlayerAction += battleService.PlayerAction;
+            var gameAdded = battles.TryAdd(gameId, battle);
+            if (gameAdded){
+                // battleService.SendListOfGamesUpdated(battles);
+            }
             return battle;
         }
     }

@@ -2,36 +2,38 @@
 
 namespace Ceres.Core.BattleSystem
 {
-
     [Serializable]
     public class TestDrawCommand : IClientCommand
     {
         private Card drawnCard;
 
-        public bool CanExecute(ClientBattle battle)
+        public bool CanExecute(ClientBattle battle, IPlayer author)
         {
             return true;
         }
 
-        public bool CanExecute(ServerBattle battle, ServerPlayer author)
+        public bool CanExecute(ServerBattle battle, IPlayer author)
         {
             return true;
         }
 
-        public void Apply(ServerBattle battle, ServerPlayer author)
+        public void Apply(ServerBattle battle, IPlayer author)
         {
-            drawnCard = author.Pile.PopRandomCard();
-            author.Hand.AddCard(drawnCard);
+            MultiCardSlot hand = author.GetMultiCardSlot(MultiCardSlotType.Hand) as MultiCardSlot;
+            MultiCardSlot pile = author.GetMultiCardSlot(MultiCardSlotType.Pile) as MultiCardSlot;
+
+            drawnCard = pile.PopRandomCard();
+            hand.AddCard(drawnCard);
         }
 
-        public IServerAction[] GetActionsForAlly()
+        public IServerAction[] GetActionsForAlly(IPlayer author)
         {
-            return new[] {new DrawCardAction(drawnCard)};
+            return new IServerAction[] {new DrawCardAction(author.Id, drawnCard)};
         }
 
-        public IServerAction[] GetActionsForOpponent()
+        public IServerAction[] GetActionsForOpponent(IPlayer author)
         {
-            return new[] {new OpponentDrawCardAction()};
+            return new IServerAction[] {new OpponentDrawCardAction(author.Id)};
         }
     }
 }

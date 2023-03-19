@@ -1,5 +1,6 @@
 ﻿using System;
 using CardGame.BattleDisplay.Networking;
+using CardGame.Networking;
 using Ceres.Core.BattleSystem;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -12,12 +13,13 @@ namespace Ceres.Client.BattleSystem
     // [CreateAssetMenu(menuName = "Create BattleManager", fileName = "BattleManager", order = 0)]
     public class BattleManager : MonoBehaviour
     {
-        public ClientBattle Battle => commandProcessor?.ClientBattle; 
+        public ClientBattle Battle { get; private set; }
         private ICommandProcessor commandProcessor;
         public ICardDatabase CardDatabase { get; private set; }
         public IDeck Deck { get; private set; }
         [HideInInspector] public bool IsStarted = false;
         public event Action<IServerAction> OnAction;
+        public event Action<BattleStartConditions> OnStartBattle;
 
 
         [Inject]
@@ -32,6 +34,12 @@ namespace Ceres.Client.BattleSystem
             Logger.Log("Starting multiplayer battle");
             commandProcessor = new NetworkedProcessor(networkManager);
             commandProcessor.OnServerAction += action => OnAction?.Invoke(action);
+            commandProcessor.OnStartBattle += battleStartConditions =>
+            {
+                Battle = battleStartConditions.ClientBattle;
+                OnStartBattle?.Invoke(battleStartConditions);
+            };
+            commandProcessor.Start();
             IsStarted = true;
         }
 
@@ -40,8 +48,15 @@ namespace Ceres.Client.BattleSystem
             Logger.Log("Starting single-player battle");
             bool myTurn = Random.Range(0f, 1f) < 0.5f; // In this case, local player is player 1
             ServerBattleStartConfig config = new ServerBattleStartConfig(Deck, Deck, myTurn);
-            commandProcessor = new SingleplayerProcessor(config);
+            SinglePlayerProcessor singlePlayerProcessor = new SinglePlayerProcessor(config);
+            commandProcessor = singlePlayerProcessor;
             commandProcessor.OnServerAction += action => OnAction?.Invoke(action);
+            commandProcessor.OnStartBattle += conditions =>
+            {
+                Battle = conditions.ClientBattle;
+                OnStartBattle?.Invoke(conditions);
+            };
+            commandProcessor.Start();
             IsStarted = true;
         }
 

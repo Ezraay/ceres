@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Newtonsoft.Json;
 
 namespace Ceres.Core.BattleSystem
 {
     public class MultiCardSlot : Slot, IMultiCardSlot
     {
-        public List<Card> Cards { get; }
+        public List<Card> Cards;
 
-        public int Count => Cards.Count;
+        [JsonIgnore] public int Count => Cards.Count;
         public event Action<Card> OnAdd;
         public event Action<Card> OnRemove;
 
-        public MultiCardSlot(List<Card> cards = null)
+        public MultiCardSlot()
         {
-            Cards = cards ?? new List<Card>();
+            Cards = new List<Card>();
         }
 
         public void AddCard(Card card)
@@ -65,6 +67,20 @@ namespace Ceres.Core.BattleSystem
             Card card = Cards[index];
             RemoveCard(card);
             return card;
+        }
+
+        public void Shuffle()
+        {
+            List<Card> newCards = new List<Card>();
+            Random random = new Random();
+            for (int i = Cards.Count - 1; i >= 0; i--)
+            {
+                int index = random.Next(0, newCards.Count);
+                newCards.Insert(index, Cards[i]);
+                Cards.RemoveAt(i);
+            }
+
+            Cards = newCards;
         }
     }
 }

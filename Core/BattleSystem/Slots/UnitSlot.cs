@@ -1,10 +1,12 @@
-﻿namespace Ceres.Core.BattleSystem
+﻿using Newtonsoft.Json;
+
+namespace Ceres.Core.BattleSystem
 {
     public class UnitSlot : Slot
     {
-        public readonly int X;
-        public readonly int Y;
-        public Card Card { get; private set; }
+        public int X { get; }
+        public int Y { get; }
+        [JsonProperty] public Card Card { get; private set; }
         public bool Exhausted { get; private set; }
 
         public UnitSlot(int x, int y)

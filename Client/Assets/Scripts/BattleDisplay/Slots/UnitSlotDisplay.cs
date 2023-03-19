@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Ceres.Core.BattleSystem;
 using UnityEngine;
 using Zenject;
 
@@ -34,6 +35,23 @@ namespace CardGame.BattleDisplay
             Card = display;
         }
 
+        public void Setup(UnitSlot slot)
+        {
+            if (slot.Card == null)
+                return;
+
+            CardDisplay display = cardDisplayFactory.Create(slot.Card); 
+            
+            display.transform.parent = transform;
+            display.SetParent(this);
+            
+            display.transform.localRotation = Quaternion.identity;
+            display.transform.localPosition = Vector3.zero;
+            display.SetSortingOrder(sortingOrderOffset);
+
+            Card = display;
+        }
+
         public void RemoveCard()
         {
             Card.transform.parent = null;
@@ -43,7 +61,8 @@ namespace CardGame.BattleDisplay
         
         public void DestroyCard()
         {
-            cardDisplayFactory.DestroyDisplay(Card.Card.ID);
+            // cardDisplayFactory.DestroyDisplay(Card.Card.ID);
+            Destroy(Card.gameObject);
             Card = null;
         }
     }

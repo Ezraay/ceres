@@ -18,10 +18,11 @@ namespace CardGame
         [SerializeField] private CardPreviewDisplay cardPreviewDisplay;
         [SerializeField] [ReadOnly] private CardDisplay draggedCard;
         [SerializeField] [ReadOnly] private SlotDisplay draggedSlot;
+        private readonly List<IInputCommand> commands = new();        
         private BattleDisplayManager battleDisplayManager;
         private BattleManager battleManager;
-        private readonly List<IInputCommand> commands = new();
         private Vector2 draggedCardStartPosition;
+        private Guid myPlayerId;
 
 
         private void Awake()
@@ -34,6 +35,14 @@ namespace CardGame
                 IInputCommand command = (IInputCommand) Activator.CreateInstance(type);
                 commands.Add(command);
             }
+            
+            battleManager.OnStartBattle += conditions =>
+            {
+                if (conditions.PlayerId != Guid.Empty)
+                    myPlayerId = conditions.PlayerId;
+                else
+                    Destroy(gameObject);
+            };
         }
 
         private void Update()
@@ -57,13 +66,25 @@ namespace CardGame
 
             if (Input.GetMouseButtonUp(0) && draggedCard != null)
             {
-                InputCommandData data = new InputCommandData(draggedSlot, RaycastSlot(), draggedCard,
-                    battleManager.Battle, battleDisplayManager.player);
-                IInputCommand command = GetInputCommand(data);
-                if (command != null)
-                    battleManager.Execute(command.GetCommand(data));
+                SlotDisplay endSlot = RaycastSlot();
+                if (endSlot != null)
+                {
+                    InputCommandData data = new InputCommandData(draggedSlot, endSlot, draggedCard,
+                        battleManager.Battle, battleDisplayManager.GetPlayerDisplay(myPlayerId));
+                    IInputCommand command = GetInputCommand(data);
+                    if (command != null)
+                    {
+                        battleManager.Execute(command.GetCommand(data));
+                    }
+                    else
+                    {
+                        draggedCard.transform.position = draggedCardStartPosition;
+                    }
+                }
                 else
+                {
                     draggedCard.transform.position = draggedCardStartPosition;
+                }
 
                 cardPreviewDisplay.Hide();
                 draggedSlot = null;
@@ -115,7 +136,7 @@ namespace CardGame
         {
             if (!battleDisplayManager.CanInteract)
                 return null;
-            
+
             IInputCommand result = null;
             // IEnumerable<Type> types = AppDomain.CurrentDomain.GetAssemblies()
             //     .SelectMany(s => s.GetTypes())

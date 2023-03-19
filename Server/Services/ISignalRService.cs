@@ -5,9 +5,13 @@ namespace Ceres.Server.Services;
 
 public interface ISignalRService
 {
-    GameUser? GetUserByServerPlayer(ServerPlayer serverPlayer);
+    // ConcurrentDictionary<Guid,GameUser> GameUsers();
+    GameUser? GetUserByServerPlayer(IPlayer serverPlayer);
     void SendServerBattleEnded(Guid gameId, string reason);
-    void SendListOfGamesUpdated(string[] games);
+
+    void SendListOfGamesUpdated(Guid[] gameIds);
+
+    // GameUser? FindGameUserByConnectionId(string connectionId);
     void UpdatePlayersName(string battleId, string? player1Name, string? player2Name);
     void PlayerLeftGame(string gameConnectionId);
     void TryToJoinGame(Guid gameIdGuid, Guid userIdGuid, string connectionId);
@@ -24,6 +28,6 @@ public interface ISignalRService
     event Action<GameUser> OnPlayerLeftGame;
 
     void UserJoinedGame(GameUser user, Guid gameId, string result);
-    void SendUserGoToGame(GameUser user);
+    void SendUserGoToGame(ClientBattle battle, GameUser user);
     void SendPlayerAction(GameUser user, IServerAction action);
 }

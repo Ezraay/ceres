@@ -1,6 +1,7 @@
 using Ceres.Server.Games;
 using Ceres.Server.Hubs;
 using Ceres.Server.Services;
+using Newtonsoft.Json.Serialization;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +14,8 @@ builder.Services.AddSignalR(hubOptions => {
     hubOptions.KeepAliveInterval = TimeSpan.FromSeconds(10);
     hubOptions.HandshakeTimeout = TimeSpan.FromSeconds(5);
 }).AddNewtonsoftJsonProtocol(options => {
-    options.PayloadSerializerSettings.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.All;
+    options.PayloadSerializerSettings.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Objects;
+    // ((DefaultContractResolver)options.PayloadSerializerSettings.ContractResolver).IgnoreSerializableAttribute = false;
 });
 
 builder.Services.AddSingleton<CardDatabaseLoader>();

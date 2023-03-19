@@ -14,21 +14,24 @@ namespace Ceres.Core.BattleSystem
             CardId = cardId;
         }
 
-        public bool CanExecute(ClientBattle battle)
+        public bool CanExecute(ClientBattle battle, IPlayer author)
         {
             return true;
-            
-            Card card = battle.AllyPlayer.Hand.GetCard(CardId);
 
-            if (card == null) return false;
-            if (card.Data.Tier < battle.AllyPlayer.Champion.Card.Data.Tier ||
-                card.Data.Tier > battle.AllyPlayer.Champion.Card.Data.Tier + 2) return false;
-            return battle.PhaseManager.Phase == BattlePhase.Ascend;
+            // Card card = battle.AllyPlayer.Hand.GetCard(CardId);
+
+            // if (card == null) return false;
+            // if (card.Data.Tier < battle.AllyPlayer.Champion.Card.Data.Tier ||
+            //     card.Data.Tier > battle.AllyPlayer.Champion.Card.Data.Tier + 2) return false;
+            // return battle.PhaseManager.Phase == BattlePhase.Ascend;
         }
 
-        public bool CanExecute(ServerBattle battle, ServerPlayer author)
+        public bool CanExecute(ServerBattle battle, IPlayer author)
         {
-            card = author.Hand.GetCard(CardId);
+            return true;
+            MultiCardSlot hand = author.GetMultiCardSlot(MultiCardSlotType.Hand) as MultiCardSlot;
+
+            card = hand.GetCard(CardId);
 
             if (card == null) return false;
             if (card.Data.Tier < author.Champion.Card.Data.Tier ||
@@ -36,23 +39,25 @@ namespace Ceres.Core.BattleSystem
             return battle.PhaseManager.Phase == BattlePhase.Ascend;
         }
 
-        public void Apply(ServerBattle battle, ServerPlayer author)
+        public void Apply(ServerBattle battle, IPlayer author)
         {
-            card = author.Hand.GetCard(CardId);
-            author.Hand.RemoveCard(card);
+            MultiCardSlot hand = author.GetMultiCardSlot(MultiCardSlotType.Hand) as MultiCardSlot;
+
+            card = hand.GetCard(CardId);
+            hand.RemoveCard(card);
             author.Champion.SetCard(card);
         }
 
-        public IServerAction[] GetActionsForAlly()
+        public IServerAction[] GetActionsForAlly(IPlayer author)
         {
-            return new IServerAction[] {new AllySummonAction(MultiCardSlotType.Hand, 1, 0, CardId)};
+            return new IServerAction[] {new AllySummonAction(author.Id, MultiCardSlotType.Hand, 1, 0, CardId)};
         }
 
-        public IServerAction[] GetActionsForOpponent()
+        public IServerAction[] GetActionsForOpponent(IPlayer author)
         {
             if (card == null)
                 throw new ArgumentNullException();
-            return new IServerAction[] {new OpponentSummonAction(MultiCardSlotType.Hand, 1, 0, card)};
+            return new IServerAction[] {new OpponentSummonAction(author.Id, MultiCardSlotType.Hand, 1, 0, card)};
         }
     }
 }

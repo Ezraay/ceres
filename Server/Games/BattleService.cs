@@ -7,11 +7,12 @@ namespace Ceres.Server.Games;
 public class BattleService : IBattleService
 {
     private readonly IServerBattleManager battleManager;
-    private readonly ISignalRService networkService;
     private readonly CardDeckLoader cardDeckLoader;
+    private readonly ISignalRService networkService;
 
 
-    public BattleService(ISignalRService networkService, IServerBattleManager battleManager, CardDeckLoader cardDeckLoader) 
+    public BattleService(ISignalRService networkService, IServerBattleManager battleManager,
+        CardDeckLoader cardDeckLoader)
     {
         this.battleManager = battleManager;
         this.networkService = networkService;
@@ -26,10 +27,9 @@ public class BattleService : IBattleService
 
 
 
-
     private void SendListOfGamesUpdated()
     {
-        var games = battleManager.ServerBattles().Values.Select(v=> v.GameId.ToString()).ToArray();
+        var games = battleManager.ServerBattles().Keys.ToArray();
         networkService.SendListOfGamesUpdated(games);
     }
 
@@ -38,32 +38,39 @@ public class BattleService : IBattleService
 
     private void StartBattle(GameUser user1, GameUser user2)
     {
-        var battle = battleManager.AllocateServerBattle();
-                        
-        user2.GameId = battle.GameId;
-        battle.Player2 = new ServerPlayer();
-        user2.ServerPlayer = battle.Player2;
+        Guid battleId = Guid.NewGuid();
+        var battle = battleManager.AllocateServerBattle(battleId);
 
-        user1.GameId = battle.GameId;
-        battle.Player1 = new ServerPlayer();
-        user1.ServerPlayer = battle.Player1;
+        IPlayer player1 = new StandardPlayer(Guid.NewGuid(), new MultiCardSlot(), new MultiCardSlot());
+        IPlayer player2 = new StandardPlayer(Guid.NewGuid(), new MultiCardSlot(), new MultiCardSlot());
+        BattleTeam team1 = new BattleTeam(Guid.NewGuid(), player1);
+        BattleTeam team2 = new BattleTeam(Guid.NewGuid(), player2);
+        
+        battle.TeamManager.AddTeam(team1);
+        battle.TeamManager.AddTeam(team2);
+        battle.TeamManager.MakeEnemies(team1, team2);
 
+        user1.GameId = battleId;
+        user1.ServerPlayer = player1;
+        player1.LoadDeck(cardDeckLoader.Deck);
+
+        user2.GameId = battleId;
+        user2.ServerPlayer = player2;
+        player2.LoadDeck(cardDeckLoader.Deck);
+
+        battle.StartGame();
         battle.OnPlayerAction += OnPlayerAction;
 
-        networkService.SendUserGoToGame(user1);
-        networkService.SendUserGoToGame(user2);
+        networkService.SendUserGoToGame(new ClientBattle(battle.TeamManager.SafeCopy(player1)), user1);
+        networkService.SendUserGoToGame(new ClientBattle(battle.TeamManager.SafeCopy(player2)), user2);
 
         SendListOfGamesUpdated();
     }
 
-    private void OnPlayerAction(ServerPlayer player, IServerAction action)
+    private void OnPlayerAction(IPlayer player, IServerAction action)
     {
         var gameUser = FindGameUser(player);
-        if (gameUser != null)
-        {
-            networkService.SendPlayerAction(gameUser, action);
-        }
-        
+        if (gameUser != null) networkService.SendPlayerAction(gameUser, action);
     }
 
     private void UserConnectedToLobby(GameUser user)
@@ -97,16 +104,11 @@ public class BattleService : IBattleService
         
     }
 
-    private void UpdatePlayersName(ServerBattle serverBattle){
-        networkService.UpdatePlayersName(serverBattle.GameId.ToString(), FindGameUser(serverBattle.Player1)?.UserName,
-            FindGameUser(serverBattle.Player2)?.UserName);  
-    }
-
-    private GameUser? FindGameUser(ServerPlayer serverPlayer)
+    private GameUser? FindGameUser(IPlayer serverPlayer)
     {
         return networkService.GetUserByServerPlayer(serverPlayer);
     }
-    
+
 
     private void JoinBattle(Guid battleId, GameUser gameUser)
     {
@@ -116,7 +118,7 @@ public class BattleService : IBattleService
         if (gameUser.ServerPlayer == null)
         {
             networkService.UserJoinedGame(gameUser, battleId, JoinGameResults.JoinedAsSpectator);
-            UpdatePlayersName(serverBattle);  
+            UpdatePlayersName(serverBattle);
         }
         else
         {
@@ -147,6 +149,4 @@ public class BattleService : IBattleService
             serverBattle.Execute(command, user.ServerPlayer);
         }
     }
-
-
 }

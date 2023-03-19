@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Ceres.Core.BattleSystem;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -14,7 +15,8 @@ namespace CardGame.BattleDisplay
         [SerializeField] private float cardLookOffset;
         private BoxCollider2D boxCollider2D;
         public List<CardDisplay> Displays { get; private set; } = new();
-
+        
+        
         private void Awake()
         {
             boxCollider2D = GetComponent<BoxCollider2D>();
@@ -25,6 +27,26 @@ namespace CardGame.BattleDisplay
             Displays.Add(display);
             display.SetParent(this);
             display.transform.parent = content;
+        }
+
+        public void Setup(IMultiCardSlot slot, CardDisplayFactory factory)
+        {
+            if (slot is MultiCardSlot multiCardSlot)
+            {
+                foreach (Card card in multiCardSlot.Cards)
+                {
+                    AddCard(factory.Create(card));
+                }
+            }
+            else
+            {
+                for (int i = 0; i < slot.Count; i++)
+                {
+                    AddCard(factory.CreateHidden());
+                }
+            }
+
+            StartCoroutine(UpdatePositions());
         }
 
         public void RemoveCard(CardDisplay display)

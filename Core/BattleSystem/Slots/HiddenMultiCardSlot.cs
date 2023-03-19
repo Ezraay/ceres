@@ -1,4 +1,7 @@
-﻿namespace Ceres.Core.BattleSystem
+﻿using System;
+using Newtonsoft.Json;
+
+namespace Ceres.Core.BattleSystem
 {
     public class HiddenMultiCardSlot : Slot, IMultiCardSlot
     {
@@ -18,6 +21,11 @@
         public void RemoveCard(Card card = null)
         {
             Count--;
+        }
+
+        public Card GetCard(Guid cardId)
+        {
+            return null;
         }
     }
 }

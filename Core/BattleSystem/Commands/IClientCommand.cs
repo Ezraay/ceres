@@ -2,10 +2,10 @@
 {
     public interface IClientCommand
     {
-        bool CanExecute(ClientBattle battle);
-        bool CanExecute(ServerBattle battle, ServerPlayer author);
-        void Apply(ServerBattle battle, ServerPlayer author);
-        IServerAction[] GetActionsForAlly();
-        IServerAction[] GetActionsForOpponent();
+        bool CanExecute(ClientBattle battle, IPlayer author);
+        bool CanExecute(ServerBattle battle, IPlayer author);
+        void Apply(ServerBattle battle, IPlayer author);
+        IServerAction[] GetActionsForAlly(IPlayer author);
+        IServerAction[] GetActionsForOpponent(IPlayer author);
     }
 }

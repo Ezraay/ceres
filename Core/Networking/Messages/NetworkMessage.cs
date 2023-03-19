@@ -21,7 +21,7 @@ public class ServerActionMessage : INetworkMessage
 public class UpdateGamesMessage : INetworkMessage
 {
     public string MessageName { get => "UpdateGames"; }
-    public string[] GameNames { get; set;} = Array.Empty<string>();
+    public Guid[] GameIds { get; set;}
 }
 
 public class GameEndedMessage : INetworkMessage
@@ -58,6 +58,13 @@ public class GoToGameMessage : INetworkMessage
     public string MessageName { get => "GoToGame"; }
     public Guid GameId { get; set;} 
     public Guid UserId { get; set;} 
+    public ClientBattle ClientBattle { get; set; }
+    // public IPlayer playerTest { get; set; }
+    // public IMultiCardSlot slotTest { get; set; }
+    // public IList<Card> cardsTest { get; set; }
+    // public List<int> listTest { get; set; }
+    // public Card cardTest { get; set; }
+    public Guid PlayerId { get; set; }
 }
 
 public class JoinedGame : INetworkMessage
