@@ -1,5 +1,6 @@
 using Ceres.Core.BattleSystem;
 using Ceres.Core.Entities;
+using Ceres.Core.Networking.Messages;
 using Ceres.Server.Games;
 using Ceres.Server.Hubs;
 using Microsoft.AspNetCore.SignalR;
