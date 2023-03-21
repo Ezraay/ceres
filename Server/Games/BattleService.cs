@@ -38,8 +38,7 @@ public class BattleService : IBattleService
 
     private void StartBattle(GameUser user1, GameUser user2)
     {
-        Guid battleId = Guid.NewGuid();
-        var battle = battleManager.AllocateServerBattle(battleId);
+        var battle = battleManager.AllocateServerBattle();
 
         IPlayer player1 = new StandardPlayer(Guid.NewGuid(), new MultiCardSlot(), new MultiCardSlot());
         IPlayer player2 = new StandardPlayer(Guid.NewGuid(), new MultiCardSlot(), new MultiCardSlot());
@@ -50,11 +49,11 @@ public class BattleService : IBattleService
         battle.TeamManager.AddTeam(team2);
         battle.TeamManager.MakeEnemies(team1, team2);
 
-        user1.GameId = battleId;
+        user1.GameId = battle.Id;
         user1.ServerPlayer = player1;
         player1.LoadDeck(cardDeckLoader.Deck);
 
-        user2.GameId = battleId;
+        user2.GameId = battle.Id;
         user2.ServerPlayer = player2;
         player2.LoadDeck(cardDeckLoader.Deck);
 
@@ -83,22 +82,22 @@ public class BattleService : IBattleService
         var battle = battleManager.FindServerBattleById(user.GameId);
         if (battle == null) { return; }
 
-        if (battle.Player1 == user.ServerPlayer)
-        {
-            battleManager.EndServerBattle(battle.GameId, EndServerBattleReasons.Player1Left);
-            networkService.SendServerBattleEnded(battle.GameId,EndServerBattleReasons.Player1Left);
-        }
-        else
-        {
-            if (battle.Player2 == user.ServerPlayer)
-            {
-                battleManager.EndServerBattle(battle.GameId, EndServerBattleReasons.Player2Left);
-                networkService.SendServerBattleEnded(battle.GameId,EndServerBattleReasons.Player2Left);
-                return;
-            } 
-            
-            battleManager.EndServerBattle(battle.GameId, EndServerBattleReasons.ReasonUnknown);
-        }
+        // if (battle.Player1 == user.ServerPlayer)
+        // {
+        //     battleManager.EndServerBattle(battle.GameId, EndServerBattleReasons.Player1Left);
+        //     networkService.SendServerBattleEnded(battle.GameId,EndServerBattleReasons.Player1Left);
+        // }
+        // else
+        // {
+        //     if (battle.Player2 == user.ServerPlayer)
+        //     {
+        //         battleManager.EndServerBattle(battle.GameId, EndServerBattleReasons.Player2Left);
+        //         networkService.SendServerBattleEnded(battle.GameId,EndServerBattleReasons.Player2Left);
+        //         return;
+        //     } 
+        //     
+        //     battleManager.EndServerBattle(battle.GameId, EndServerBattleReasons.ReasonUnknown);
+        // }
         
         SendListOfGamesUpdated();
         
@@ -118,24 +117,24 @@ public class BattleService : IBattleService
         if (gameUser.ServerPlayer == null)
         {
             networkService.UserJoinedGame(gameUser, battleId, JoinGameResults.JoinedAsSpectator);
-            UpdatePlayersName(serverBattle);
+            // UpdatePlayersName(serverBattle);
         }
         else
         {
-            if (gameUser.ServerPlayer.Equals(serverBattle.Player1))
-            {
-                serverBattle.Player1.LoadDeck(cardDeckLoader.Deck);
-                networkService.UserJoinedGame(gameUser, battleId, JoinGameResults.JoinedAsPlayer1);
-                UpdatePlayersName(serverBattle);
-                return;
-            }
-
-            if (gameUser.ServerPlayer.Equals(serverBattle.Player2))
-            {
-                serverBattle.Player2.LoadDeck(cardDeckLoader.Deck);
-                networkService.UserJoinedGame(gameUser, battleId, JoinGameResults.JoinedAsPlayer2);
-                UpdatePlayersName(serverBattle);
-            }
+            // if (gameUser.ServerPlayer.Equals(serverBattle.Player1))
+            // {
+            //     serverBattle.Player1.LoadDeck(cardDeckLoader.Deck);
+            //     networkService.UserJoinedGame(gameUser, battleId, JoinGameResults.JoinedAsPlayer1);
+            //     UpdatePlayersName(serverBattle);
+            //     return;
+            // }
+            //
+            // if (gameUser.ServerPlayer.Equals(serverBattle.Player2))
+            // {
+            //     serverBattle.Player2.LoadDeck(cardDeckLoader.Deck);
+            //     networkService.UserJoinedGame(gameUser, battleId, JoinGameResults.JoinedAsPlayer2);
+            //     UpdatePlayersName(serverBattle);
+            // }
         }
 
     }
@@ -144,9 +143,9 @@ public class BattleService : IBattleService
     private void PlayerCommandHandler(Guid gameId, GameUser user, IClientCommand command)
     {
         var serverBattle = battleManager.FindServerBattleById(gameId);
-        if (serverBattle?.GameId == user.GameId && user.ServerPlayer != null)
-        {
-            serverBattle.Execute(command, user.ServerPlayer);
-        }
+        // if (serverBattle?.GameId == user.GameId && user.ServerPlayer != null)
+        // {
+        //     serverBattle.Execute(command, user.ServerPlayer);
+        // }
     }
 }
