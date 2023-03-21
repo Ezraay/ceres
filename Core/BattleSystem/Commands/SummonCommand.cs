@@ -20,20 +20,16 @@ namespace Ceres.Core.BattleSystem
 
         public bool CanExecute(ClientBattle battle, IPlayer author)
         {
-            return true;
-
-            // card = battle.AllyPlayer.Hand.GetCard(CardId);
-            //
-            // if (card == null) return false;
-            // if (card.Data.Tier > battle.AllyPlayer.Champion.Card.Data.Tier) return false;
-            // if (X == 0 && Y == 1) return false;
-            // return battle.PhaseManager.Phase == BattlePhase.Main;
+            return GenericCanExecute(battle, author);
         }
 
         public bool CanExecute(ServerBattle battle, IPlayer author)
         {
-            return true;
-            
+            return GenericCanExecute(battle, author);
+        }
+
+        private bool GenericCanExecute(Battle battle, IPlayer author)
+        {
             MultiCardSlot hand = author.GetMultiCardSlot(MultiCardSlotType.Hand) as MultiCardSlot;
             card = hand.GetCard(CardId);
 
