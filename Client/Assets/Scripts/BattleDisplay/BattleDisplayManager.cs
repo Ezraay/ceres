@@ -81,8 +81,11 @@ namespace CardGame.BattleDisplay
         {
             currentAnimation = actionAnimator.GetAnimation(action);
 
-            AnimationData data = new AnimationData(cardDisplayFactory, actionAnimator, this);
-            yield return currentAnimation.GetEnumerator(action, data);
+            if (currentAnimation != null)
+            {
+                AnimationData data = new AnimationData(cardDisplayFactory, actionAnimator, this);
+                yield return currentAnimation.GetEnumerator(action, data);
+            }
 
             currentAnimation = null;
         }

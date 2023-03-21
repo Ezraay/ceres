@@ -18,7 +18,7 @@ namespace CardGame.BattleDisplay
                 OpponentDrawCardAction => new OpponentDrawCardAnimation(),
                 AllySummonAction => new AllySummonAnimation(),
                 OpponentSummonAction => new OpponentSummonAnimation(),
-                _ => throw new Exception("No action animation found for ServerAction: " + action)
+                _ => null
             };
         }
 
