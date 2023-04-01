@@ -17,21 +17,17 @@ namespace Ceres.Core.BattleSystem
 
         public bool CanExecute(ClientBattle battle, IPlayer author)
         {
-            return true;
-
-            // Card card = battle.AllyPlayer.Hand.GetCard(CardId);
-
-            // if (card == null) return false;
-            // if (card.Data.Tier < battle.AllyPlayer.Champion.Card.Data.Tier ||
-            //     card.Data.Tier > battle.AllyPlayer.Champion.Card.Data.Tier + 2) return false;
-            // return battle.PhaseManager.Phase == BattlePhase.Ascend;
+            return GenericCanExecute(battle, author);
         }
 
         public bool CanExecute(ServerBattle battle, IPlayer author)
         {
-            return true;
-            MultiCardSlot hand = author.GetMultiCardSlot(MultiCardSlotType.Hand) as MultiCardSlot;
+            return GenericCanExecute(battle, author);
+        }
 
+        private bool GenericCanExecute(Battle battle, IPlayer author)
+        {
+            MultiCardSlot hand = author.GetMultiCardSlot(MultiCardSlotType.Hand) as MultiCardSlot;
             card = hand.GetCard(CardId);
 
             if (card == null) return false;

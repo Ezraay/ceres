@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Ceres.Core.Networking.Messages;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;

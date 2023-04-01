@@ -12,12 +12,13 @@ namespace CardGame.BattleDisplay.Networking
         public event Action<IServerAction> OnServerAction;
         public event Action<BattleStartConditions> OnStartBattle;
         private ServerBattle serverBattle;
-        private IPlayer myPlayer;
         
         public SinglePlayerProcessor(ServerBattleStartConfig conditions)
         {
             this.conditions = conditions;
         }
+
+        public IPlayer MyPlayer { get; private set; }
 
         public void Start()
         {
@@ -26,7 +27,7 @@ namespace CardGame.BattleDisplay.Networking
             player1.LoadDeck(conditions.Player1Deck);
             player2.LoadDeck(conditions.Player2Deck);
 
-            myPlayer = player1;
+            MyPlayer = player1;
 
             TeamManager manager = new TeamManager();
             BattleTeam team1 = new BattleTeam(Guid.NewGuid());
@@ -37,14 +38,14 @@ namespace CardGame.BattleDisplay.Networking
             manager.AddTeam(team2);
             manager.MakeEnemies(team1, team2);
             
-            serverBattle = new ServerBattle(manager);
+            serverBattle = new ServerBattle(manager, Guid.NewGuid(), false);
             serverBattle.StartGame();
             
             ClientBattle = new ClientBattle(manager.SafeCopy(player1));
 
             serverBattle.OnPlayerAction += (player, action) =>
             {
-                if (player == player1) // Accept actions sent to us 
+                if (player == MyPlayer) // Accept actions sent to us 
                 {
                     ClientBattle.Execute(action);
                     OnServerAction?.Invoke(action);
@@ -62,7 +63,7 @@ namespace CardGame.BattleDisplay.Networking
 
         public void ProcessCommand(IClientCommand command)
         {
-            serverBattle.Execute(command, myPlayer);
+            serverBattle.Execute(command, MyPlayer);
         }
     }
 }

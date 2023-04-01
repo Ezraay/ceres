@@ -17,6 +17,8 @@ namespace Ceres.Client.BattleSystem
         private ICommandProcessor commandProcessor;
         public ICardDatabase CardDatabase { get; private set; }
         public IDeck Deck { get; private set; }
+        public IPlayer MyPlayer => commandProcessor.MyPlayer;
+
         [HideInInspector] public bool IsStarted = false;
         public event Action<IServerAction> OnAction;
         public event Action<BattleStartConditions> OnStartBattle;

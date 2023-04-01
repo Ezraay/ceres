@@ -5,12 +5,18 @@ namespace Ceres.Core.BattleSystem.Battles
     public class ServerBattle : Battle
     {
         public event Action<IPlayer, IServerAction> OnPlayerAction;
+        public readonly Guid Id;
+        private readonly bool checkCommands;
 
-        public ServerBattle(TeamManager teamManager) : base(teamManager) { }
+        public ServerBattle(TeamManager teamManager, Guid id, bool checkCommands = true) : base(teamManager)
+        {
+            this.checkCommands = checkCommands;
+            Id = id;
+        }
 
         public void Execute(IClientCommand command, IPlayer author)
         {
-            if (command.CanExecute(this, author))
+            if (command.CanExecute(this, author) || !checkCommands)
             {
                 command.Apply(this, author);
 

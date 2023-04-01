@@ -20,11 +20,15 @@ namespace CardGame.BattleDisplay.Networking
             
         }
 
+        public IPlayer MyPlayer { get; private set; }
+
         public void Start()
         {
             networkManager.OnStartGame += battleStartConditions =>
             {
                 ClientBattle = battleStartConditions.ClientBattle;
+                if (battleStartConditions.PlayerId != null)
+                    MyPlayer = ClientBattle.TeamManager.GetPlayer(battleStartConditions.PlayerId);
                 OnStartBattle?.Invoke(battleStartConditions);
             };
 
