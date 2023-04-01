@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Ceres.Core.BattleSystem;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +9,7 @@ using Logger = Ceres.Client.Utility.Logger;
 
 namespace CardGame.BattleDisplay
 {
-    public class CardDisplay : MonoBehaviour
+    public class CardDisplay : SerializedMonoBehaviour
     {
         private const float StoppingDistance = 0.05f;
         [SerializeField] private float movementSpeed = 20;

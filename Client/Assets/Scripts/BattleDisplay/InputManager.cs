@@ -23,6 +23,7 @@ namespace CardGame
         private BattleManager battleManager;
         private Vector2 draggedCardStartPosition;
         private Guid myPlayerId;
+        private int draggedCardOrder;
 
 
         private void Awake()
@@ -59,6 +60,7 @@ namespace CardGame
                 // Start dragging
                 draggedCard = display;
                 draggedSlot = display.Parent;
+                draggedCardOrder = draggedCard.SortingOrder;
                 draggedCard.transform.localRotation = Quaternion.identity;
                 draggedCardStartPosition = display.transform.position;
                 draggedCard.SetSortingOrder(10);
@@ -79,6 +81,7 @@ namespace CardGame
                     else
                     {
                         draggedCard.transform.position = draggedCardStartPosition;
+                        draggedCard.SetSortingOrder(draggedCardOrder);
                     }
                 }
                 else

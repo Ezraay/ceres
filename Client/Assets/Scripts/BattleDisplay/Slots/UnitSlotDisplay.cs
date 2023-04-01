@@ -21,7 +21,7 @@ namespace CardGame.BattleDisplay
         {
             display.transform.parent = transform;
             display.SetParent(this);
-            
+
             // if (Card != null)
             
             display.transform.localRotation = Quaternion.identity;

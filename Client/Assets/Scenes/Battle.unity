@@ -376,6 +376,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7545698568288003788, guid: ca7f65a0df4d2264fbf39ac4bc64e915, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 7545698568288003788, guid: ca7f65a0df4d2264fbf39ac4bc64e915, type: 3}
     - target: {fileID: 7656634444573796674, guid: ca7f65a0df4d2264fbf39ac4bc64e915, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -861,6 +865,71 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &814419253
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1283203249102462573, guid: 4e5a51fa5c29ce748b39a3e6b05c8aef, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 1283203249102462573, guid: 4e5a51fa5c29ce748b39a3e6b05c8aef, type: 3}
+    - target: {fileID: 6662901252720333333, guid: 4e5a51fa5c29ce748b39a3e6b05c8aef, type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662901252720333333, guid: 4e5a51fa5c29ce748b39a3e6b05c8aef, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662901252720333333, guid: 4e5a51fa5c29ce748b39a3e6b05c8aef, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662901252720333333, guid: 4e5a51fa5c29ce748b39a3e6b05c8aef, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662901252720333333, guid: 4e5a51fa5c29ce748b39a3e6b05c8aef, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662901252720333333, guid: 4e5a51fa5c29ce748b39a3e6b05c8aef, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662901252720333333, guid: 4e5a51fa5c29ce748b39a3e6b05c8aef, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662901252720333333, guid: 4e5a51fa5c29ce748b39a3e6b05c8aef, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662901252720333333, guid: 4e5a51fa5c29ce748b39a3e6b05c8aef, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662901252720333333, guid: 4e5a51fa5c29ce748b39a3e6b05c8aef, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662901252720333333, guid: 4e5a51fa5c29ce748b39a3e6b05c8aef, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662901252720333335, guid: 4e5a51fa5c29ce748b39a3e6b05c8aef, type: 3}
+      propertyPath: m_Name
+      value: Vanguard Card Display
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4e5a51fa5c29ce748b39a3e6b05c8aef, type: 3}
 --- !u!1 &867659839
 GameObject:
   m_ObjectHideFlags: 0
@@ -2191,6 +2260,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1594820040}
     m_Modifications:
+    - target: {fileID: 1283203249102462573, guid: 4e5a51fa5c29ce748b39a3e6b05c8aef, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 1283203249102462573, guid: 4e5a51fa5c29ce748b39a3e6b05c8aef, type: 3}
     - target: {fileID: 2216294972717465390, guid: 4e5a51fa5c29ce748b39a3e6b05c8aef, type: 3}
       propertyPath: m_Layer
       value: 0
