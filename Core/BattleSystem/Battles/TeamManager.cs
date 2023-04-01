@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace Ceres.Core.BattleSystem
@@ -7,6 +8,7 @@ namespace Ceres.Core.BattleSystem
     public class TeamManager
     {
         public readonly List<BattleTeam> AllTeams = new List<BattleTeam>();
+        public List<IPlayer> AllPlayers => this.AllTeams.SelectMany(x => x.Players).ToList();
 
         public void AddTeam(BattleTeam team)
         {

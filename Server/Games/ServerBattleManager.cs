@@ -18,9 +18,8 @@ public class ServerBattleManager : IServerBattleManager
     public ServerBattle AllocateServerBattle(){
         lock (Battles)
         {
-            var teamManager = new TeamManager();
             var gameId = Guid.NewGuid();
-            var battle = new ServerBattle(teamManager, gameId);
+            var battle = new ServerBattle(new TeamManager(), gameId);
             // battle.OnPlayerAction += battleService.PlayerAction;
             var gameAdded = Battles.TryAdd(gameId, battle);
             if (gameAdded){

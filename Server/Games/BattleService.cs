@@ -38,17 +38,18 @@ public class BattleService : IBattleService
 
     private void StartBattle(GameUser user1, GameUser user2)
     {
-        var battle = battleManager.AllocateServerBattle();
-
         IPlayer player1 = new StandardPlayer(Guid.NewGuid(), new MultiCardSlot(), new MultiCardSlot());
         IPlayer player2 = new StandardPlayer(Guid.NewGuid(), new MultiCardSlot(), new MultiCardSlot());
+
+        List<IPlayer> playerOrder = new List<IPlayer>() {player1, player2};
+        var battle = battleManager.AllocateServerBattle();
+ 
         BattleTeam team1 = new BattleTeam(Guid.NewGuid(), player1);
         BattleTeam team2 = new BattleTeam(Guid.NewGuid(), player2);
-        
         battle.TeamManager.AddTeam(team1);
         battle.TeamManager.AddTeam(team2);
         battle.TeamManager.MakeEnemies(team1, team2);
-
+        
         user1.GameId = battle.Id;
         user1.ServerPlayer = player1;
         player1.LoadDeck(cardDeckLoader.Deck);
@@ -57,7 +58,7 @@ public class BattleService : IBattleService
         user2.ServerPlayer = player2;
         player2.LoadDeck(cardDeckLoader.Deck);
 
-        battle.StartGame();
+        battle.StartGame(playerOrder);
         battle.OnPlayerAction += OnPlayerAction;
 
         networkService.SendUserGoToGame(new ClientBattle(battle.TeamManager.SafeCopy(player1)), user1);
