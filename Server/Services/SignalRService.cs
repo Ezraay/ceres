@@ -186,15 +186,10 @@ public class SignalRService :ISignalRService
     {
         if (user.LobbyConnectionId == null) return;
 
-        Guid playerId = user.ServerPlayer?.Id ?? Guid.Empty;
+        var playerId = user.ServerPlayer?.Id ?? Guid.Empty;
         var msg = new GoToGameMessage() {
             GameId = user.GameId, 
             UserId = user.UserId, 
-            // slotTest = battle.TeamManager.GetPlayer(playerId).GetMultiCardSlot(MultiCardSlotType.Damage),
-            // cardsTest = new List<Card>() {Card.TestCard()},
-            // cardTest = Card.TestCard(),
-            // listTest = new List<int> {1, 3, 5},
-            // playerTest = battle.TeamManager.GetPlayer(playerId), 
             ClientBattle = battle,
             PlayerId = playerId};
         // var msg = new GoToGameMessage() {GameId = user.GameId, UserId = user.UserId, ClientBattle = battle, PlayerId = playerId};

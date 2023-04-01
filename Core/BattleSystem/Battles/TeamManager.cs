@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
-namespace Ceres.Core.BattleSystem
+namespace Ceres.Core.BattleSystem.Battles
 {
     public class TeamManager
     {

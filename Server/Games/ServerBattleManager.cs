@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using Ceres.Core.BattleSystem;
+using Ceres.Core.BattleSystem.Battles;
 
 namespace Ceres.Server.Games;
 
@@ -15,16 +16,12 @@ public class ServerBattleManager : IServerBattleManager
             return Battles;
         }
     }
-    public ServerBattle AllocateServerBattle(Guid gameId){
-        lock (battles)
+    public ServerBattle AllocateServerBattle(){
+        lock (Battles)
         {
             var teamManager = new TeamManager();
             var battle = new ServerBattle(teamManager);
-            // battle.OnPlayerAction += battleService.PlayerAction;
-            var gameAdded = battles.TryAdd(gameId, battle);
-            if (gameAdded){
-                // battleService.SendListOfGamesUpdated(battles);
-            }
+            Battles.TryAdd(battle.GameId, battle);
             return battle;
         }
     }

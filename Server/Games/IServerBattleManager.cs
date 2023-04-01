@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using Ceres.Core.BattleSystem;
+using Ceres.Core.BattleSystem.Battles;
 
 namespace Ceres.Server.Games;
 

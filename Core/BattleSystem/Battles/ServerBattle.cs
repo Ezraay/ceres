@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ceres.Core.BattleSystem
+namespace Ceres.Core.BattleSystem.Battles
 {
     public class ServerBattle : Battle
     {

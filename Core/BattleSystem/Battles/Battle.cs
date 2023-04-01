@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Ceres.Core.BattleSystem.Battles;
 
 namespace Ceres.Core.BattleSystem
 {
     public class Battle
     {
+        public Guid GameId = Guid.NewGuid();
         public BattlePhaseManager PhaseManager { get; } = new BattlePhaseManager();
         public readonly TeamManager TeamManager;
 
@@ -12,8 +14,8 @@ namespace Ceres.Core.BattleSystem
         {
             return true; // TODO
         }
-        
-        public Battle(TeamManager teamManager)
+
+        protected Battle(TeamManager teamManager)
         {
             TeamManager = teamManager;
         }
