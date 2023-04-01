@@ -26,12 +26,20 @@ public class ServerBattleManager : IServerBattleManager
         }
     }
 
-    public void EndServerBattle(Guid gameId, string reason){
-        lock (Battles){
-            Battles.TryRemove(gameId, out var battle);
-            battle?.EndGame(reason);
+    public void DeallocateServerBattle(ServerBattle battle)
+    {
+        lock (Battles)
+        {
+            Battles.TryRemove(battle.Id, out _);
         }
-    } 
+    }
+
+    // public void EndServerBattle(Guid gameId, string reason){
+    //     lock (Battles){
+    //         Battles.TryRemove(gameId, out var battle);
+    //         battle?.EndGame(reason);
+    //     }
+    // } 
 
 
     public ServerBattle? FindServerBattleById(Guid gameId){

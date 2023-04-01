@@ -72,7 +72,7 @@ namespace CardGame
                 if (endSlot != null)
                 {
                     InputCommandData data = new InputCommandData(draggedSlot, endSlot, draggedCard,
-                        battleManager.Battle, battleDisplayManager.GetPlayerDisplay(myPlayerId));
+                        battleManager.Battle, battleDisplayManager.GetPlayerDisplay(myPlayerId), battleManager.Battle.TeamManager.GetPlayer(myPlayerId));
                     IInputCommand command = GetInputCommand(data);
                     if (command != null)
                     {

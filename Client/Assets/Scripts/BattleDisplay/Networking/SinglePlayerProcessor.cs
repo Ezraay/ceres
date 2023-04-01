@@ -1,6 +1,7 @@
 ﻿using System;
 using CardGame.Networking;
 using Ceres.Core.BattleSystem;
+using Ceres.Core.BattleSystem.Battles;
 using UnityEngine;
 using Logger = Ceres.Client.Utility.Logger;
 
@@ -30,15 +31,18 @@ namespace CardGame.BattleDisplay.Networking
             MyPlayer = player1;
 
             TeamManager manager = new TeamManager();
-            BattleTeam team1 = new BattleTeam(Guid.NewGuid());
-            BattleTeam team2 = new BattleTeam(Guid.NewGuid());
-            team1.AddPlayer(player1);
-            team2.AddPlayer(player2);
-            manager.AddTeam(team1);
-            manager.AddTeam(team2);
-            manager.MakeEnemies(team1, team2);
+            BattleTeam team1 = manager.CreateTeam();
+            BattleTeam team2 = manager.CreateTeam();
+            manager.AddPlayer(player1, team1);
+            manager.AddPlayer(player2, team2);
+            // manager.
+            // team1.AddPlayer(player1);
+            // team2.AddPlayer(player2);
+            // manager.AddTeam(team1);
+            // manager.AddTeam(team2);
+            // manager.MakeEnemies(team1, team2);
             
-            serverBattle = new ServerBattle(manager, Guid.NewGuid(), false);
+            serverBattle = new ServerBattle(manager, false);
             serverBattle.StartGame();
             
             ClientBattle = new ClientBattle(manager.SafeCopy(player1));

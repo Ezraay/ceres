@@ -1,4 +1,6 @@
+using System.Runtime.CompilerServices;
 using Ceres.Core.BattleSystem;
+using Ceres.Core.BattleSystem.Battles;
 using Ceres.Core.Entities;
 using Ceres.Server.Services;
 
@@ -26,14 +28,11 @@ public class BattleService : IBattleService
     }
 
 
-
     private void SendListOfGamesUpdated()
     {
         var games = battleManager.ServerBattles().Keys.ToArray();
         networkService.SendListOfGamesUpdated(games);
     }
-
-
 
 
     private void StartBattle(GameUser user1, GameUser user2)
@@ -42,12 +41,11 @@ public class BattleService : IBattleService
 
         IPlayer player1 = new StandardPlayer(Guid.NewGuid(), new MultiCardSlot(), new MultiCardSlot());
         IPlayer player2 = new StandardPlayer(Guid.NewGuid(), new MultiCardSlot(), new MultiCardSlot());
-        BattleTeam team1 = new BattleTeam(Guid.NewGuid(), player1);
-        BattleTeam team2 = new BattleTeam(Guid.NewGuid(), player2);
-        
-        battle.TeamManager.AddTeam(team1);
-        battle.TeamManager.AddTeam(team2);
-        battle.TeamManager.MakeEnemies(team1, team2);
+        BattleTeam team1 = battle.TeamManager.CreateTeam();
+        BattleTeam team2 = battle.TeamManager.CreateTeam();
+        battle.TeamManager.AddPlayer(player1, team1);
+        battle.TeamManager.AddPlayer(player2, team2);
+        battle.TeamManager.MakeAllies(team1, team2);
 
         user1.GameId = battle.GameId;
         user1.ServerPlayer = player1;
@@ -57,8 +55,9 @@ public class BattleService : IBattleService
         user2.ServerPlayer = player2;
         player2.LoadDeck(cardDeckLoader.Deck);
 
-        battle.StartGame();
         battle.OnPlayerAction += OnPlayerAction;
+        battle.OnBattleAction += action => OnBattleAction(action, battle);
+        battle.StartGame();
 
         networkService.SendUserGoToGame(new ClientBattle(battle.TeamManager.SafeCopy(player1)), user1);
         networkService.SendUserGoToGame(new ClientBattle(battle.TeamManager.SafeCopy(player2)), user2);
@@ -66,41 +65,69 @@ public class BattleService : IBattleService
         SendListOfGamesUpdated();
     }
 
+    private void OnBattleAction(IBattleAction action, ServerBattle battle)
+    {
+        switch (action)
+        {
+            case EndGameBattleAction endGameBattleAction:
+                // Send to client, game ended
+                List<GameUser> winners = new List<GameUser>();
+                List<GameUser> losers = new List<GameUser>();
+
+                foreach (BattleTeam team in endGameBattleAction.WinningTeams)
+                foreach (IPlayer player in team.GetAllPlayers())
+                {
+                    GameUser? user = FindGameUser(player);
+                    if (user != null)
+                    {
+                        winners.Add(user);
+                        user.LeaveGame();
+                    }
+                }
+
+                foreach (BattleTeam team in endGameBattleAction.LosingTeams)
+                foreach (IPlayer player in team.GetAllPlayers())
+                {
+                    GameUser? user = FindGameUser(player);
+                    if (user != null)
+                    {
+                        losers.Add(user);
+                        user.LeaveGame();
+                    }
+                }
+                
+                networkService.SendServerBattleWon(winners.ToArray());
+                networkService.SendServerBattleLost(losers.ToArray());
+                
+                battleManager.DeallocateServerBattle(battle);
+
+                break;
+            default:
+                throw new SwitchExpressionException("Couldn't handle SystemAction of type " + action);
+        }
+    }
+
     private void OnPlayerAction(IPlayer player, IServerAction action)
     {
         var gameUser = FindGameUser(player);
-        if (gameUser != null) networkService.SendPlayerAction(gameUser, action);
+        if (gameUser != null)
+            networkService.SendPlayerAction(gameUser, action);
     }
 
     private void UserConnectedToLobby(GameUser user)
     {
         SendListOfGamesUpdated();
     }
-    
+
     private void PlayerLeftGame(GameUser user)
     {
         var battle = battleManager.FindServerBattleById(user.GameId);
-        if (battle == null) { return; }
+        if (battle == null)
+            return;
+        
+        battle.TeamManager.RemovePlayer(user.ServerPlayer);
 
-        // if (battle.Player1 == user.ServerPlayer)
-        // {
-        //     battleManager.EndServerBattle(battle.GameId, EndServerBattleReasons.Player1Left);
-        //     networkService.SendServerBattleEnded(battle.GameId,EndServerBattleReasons.Player1Left);
-        // }
-        // else
-        // {
-        //     if (battle.Player2 == user.ServerPlayer)
-        //     {
-        //         battleManager.EndServerBattle(battle.GameId, EndServerBattleReasons.Player2Left);
-        //         networkService.SendServerBattleEnded(battle.GameId,EndServerBattleReasons.Player2Left);
-        //         return;
-        //     } 
-        //     
-        //     battleManager.EndServerBattle(battle.GameId, EndServerBattleReasons.ReasonUnknown);
-        // }
-        
         SendListOfGamesUpdated();
-        
     }
 
     private GameUser? FindGameUser(IPlayer serverPlayer)
@@ -136,7 +163,6 @@ public class BattleService : IBattleService
         //         UpdatePlayersName(serverBattle);
         //     }
         // }
-
     }
 
 

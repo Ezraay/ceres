@@ -4,10 +4,8 @@ namespace Ceres.Core.Entities
 {
     public class EndServerBattleReasons{
         public const string
-            Player1Left = "Player1Left",
-            Player2Left = "Player2Left",
-            Player1Win = "Player1Win",
-            Player2Win = "Player1Win",
+            YouLost = "YouLost",
+            YouWon = "YouWon",
             ReasonUnknown = "ReasonUnknown";
     }
 

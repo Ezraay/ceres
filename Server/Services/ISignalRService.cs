@@ -7,8 +7,9 @@ public interface ISignalRService
 {
     // ConcurrentDictionary<Guid,GameUser> GameUsers();
     GameUser? GetUserByServerPlayer(IPlayer serverPlayer);
-    void SendServerBattleEnded(Guid gameId, string reason);
-
+    // void SendServerBattleEnded(Guid gameId, string reason);
+    void SendServerBattleWon(GameUser[] winners);
+    void SendServerBattleLost(GameUser[] losers);
     void SendListOfGamesUpdated(Guid[] gameIds);
 
     // GameUser? FindGameUserByConnectionId(string connectionId);

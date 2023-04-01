@@ -44,15 +44,18 @@ namespace CardGame.BattleDisplay
 
         private void StartBattle(BattleStartConditions conditions)
         {
-            for (var i = 0; i < conditions.ClientBattle.TeamManager.AllTeams.Count; i++)
+            List<BattleTeam> teams = conditions.ClientBattle.TeamManager.GetAllTeams() as List<BattleTeam>;
+
+            for (var i = 0; i < teams.Count; i++)
             {
-                BattleTeam team = conditions.ClientBattle.TeamManager.AllTeams[i];
-                Transform[] positions = team.Players.Any(x => x.Id == conditions.PlayerId) ? 
-                    team.Players.Count == 1 ? solo1Position : duo1Position :
-                    team.Players.Count == 1 ? solo2Position : duo2Position;
-                for (var j = 0; j < team.Players.Count; j++)
+                BattleTeam team = teams[i];
+                List<IPlayer> players = team.GetAllPlayers() as List<IPlayer>;
+                Transform[] positions = players.Any(x => x.Id == conditions.PlayerId) ? 
+                    players.Count == 1 ? solo1Position : duo1Position :
+                    players.Count == 1 ? solo2Position : duo2Position;
+                for (var j = 0; j < players.Count; j++)
                 {
-                    IPlayer player = team.Players[j];
+                    IPlayer player = players[j];
                     Transform playerTransform = positions[j];
                     PlayerDisplay newDisplay = playerDisplayFactory.Create();
                     newDisplay.transform.SetPositionAndRotation(playerTransform.position, playerTransform.rotation);

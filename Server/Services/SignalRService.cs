@@ -31,9 +31,11 @@ public class SignalRService :ISignalRService
 
 
 
-    private void SendHubMessage(IHubContext<Hub> context, string connectionId, INetworkMessage message)
+    private void SendHubMessage(IHubContext<Hub> context, INetworkMessage message, params string[] connectionIds)
     {
-        context.Clients.Client(connectionId).SendAsync(message.MessageName, message).GetAwaiter().GetResult();
+        context.Clients.Clients(connectionIds).SendAsync(message.MessageName, message).GetAwaiter().GetResult();
+        
+        // context.Clients.Client(connectionId).SendAsync(message.MessageName, message).GetAwaiter().GetResult();
     }
     private void SendHubAllMessage(IHubContext<Hub> context, INetworkMessage message)
     {
@@ -166,12 +168,24 @@ public class SignalRService :ISignalRService
         {
             Action = action
         };
-        SendHubMessage(gameHub, user.GameConnectionId, msg);
+        SendHubMessage(gameHub, msg, user.GameConnectionId);
     }
 
-    public void SendServerBattleEnded(Guid gameId, string reason){
-        var msg = new GameEndedMessage() {GameId = gameId.ToString(), Reason = reason};
-        SendHubGroupMessage(gameHub, msg.GameId, msg);
+    // public void SendServerBattleEnded(Guid gameId, string reason){
+    //     var msg = new GameEndedMessage() {GameId = gameId.ToString(), Reason = reason};
+    //     SendHubGroupMessage(gameHub, msg.GameId, msg);
+    // }
+
+    public void SendServerBattleLost(GameUser[] losers)
+    {
+        var msg = new GameEndedMessage() {Reason = EndServerBattleReasons.YouLost};
+        SendHubMessage(gameHub, msg, losers.Select(x => x.GameConnectionId).ToArray());   
+    }
+
+    public void SendServerBattleWon(GameUser[] winners)
+    {
+        var msg = new GameEndedMessage() {Reason = EndServerBattleReasons.YouWon};
+        SendHubMessage(gameHub, msg, winners.Select(x => x.GameConnectionId).ToArray());
     }
 
     public void PlayerLeftGame(string gameConnectionId)
@@ -194,7 +208,7 @@ public class SignalRService :ISignalRService
             PlayerId = playerId};
         // var msg = new GoToGameMessage() {GameId = user.GameId, UserId = user.UserId, ClientBattle = battle, PlayerId = playerId};
 
-        SendHubMessage(lobbyHub, user.LobbyConnectionId, msg);
+        SendHubMessage(lobbyHub, msg, user.LobbyConnectionId);
     }
 
     public void PlayerSentCommand(Guid gameId, Guid userId, IClientCommand command){
@@ -213,7 +227,7 @@ public class SignalRService :ISignalRService
         gameHub.Groups.AddToGroupAsync(user.GameConnectionId, gameId.ToString()).GetAwaiter().GetResult();
         
         var msg = new JoinedGame() { GameJoiningResult = result };
-        SendHubMessage(gameHub, user.GameConnectionId, msg);
+        SendHubMessage(gameHub, msg, user.GameConnectionId);
     }
     
     #endregion

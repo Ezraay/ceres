@@ -76,5 +76,10 @@ namespace Ceres.Client.Networking
 
             return connection;
         }
+
+        public async Task DisconnectFromGameHub()
+        {
+            await GameHub.StopAsync();
+        }
     }
 }
