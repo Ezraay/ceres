@@ -8,10 +8,10 @@ namespace Ceres.Core.BattleSystem.Battles
         public readonly Guid Id;
         private readonly bool checkCommands;
 
-        public ServerBattle(TeamManager teamManager, Guid id, bool checkCommands = true) : base(teamManager)
+        public ServerBattle(TeamManager teamManager, bool checkCommands = true) : base(teamManager)
         {
             this.checkCommands = checkCommands;
-            Id = id;
+            Id = Guid.NewGuid();
         }
 
         public void Execute(IClientCommand command, IPlayer author)
