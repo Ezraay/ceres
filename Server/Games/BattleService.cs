@@ -45,13 +45,12 @@ public class BattleService : IBattleService
         BattleTeam team2 = battle.TeamManager.CreateTeam();
         battle.TeamManager.AddPlayer(player1, team1);
         battle.TeamManager.AddPlayer(player2, team2);
-        battle.TeamManager.MakeAllies(team1, team2);
 
-        user1.GameId = battle.GameId;
+        user1.GameId = battle.Id;
         user1.ServerPlayer = player1;
         player1.LoadDeck(cardDeckLoader.Deck);
 
-        user2.GameId = battle.GameId;
+        user2.GameId = battle.Id;
         user2.ServerPlayer = player2;
         player2.LoadDeck(cardDeckLoader.Deck);
 
@@ -169,7 +168,7 @@ public class BattleService : IBattleService
     private void PlayerCommandHandler(Guid gameId, GameUser user, IClientCommand command)
     {
         var serverBattle = battleManager.FindServerBattleById(gameId);
-        if (serverBattle?.GameId == user.GameId && user.ServerPlayer != null)
+        if (serverBattle?.Id == user.GameId && user.ServerPlayer != null)
         {
             serverBattle.Execute(command, user.ServerPlayer);
         }

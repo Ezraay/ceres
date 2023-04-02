@@ -6,7 +6,6 @@ namespace Ceres.Core.BattleSystem
 {
     public class Battle
     {
-        public Guid GameId = Guid.NewGuid();
         public BattlePhaseManager PhaseManager { get; } = new BattlePhaseManager();
         public readonly TeamManager TeamManager;
 

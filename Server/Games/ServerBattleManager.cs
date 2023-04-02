@@ -21,7 +21,7 @@ public class ServerBattleManager : IServerBattleManager
         {
             var teamManager = new TeamManager();
             var battle = new ServerBattle(teamManager);
-            Battles.TryAdd(battle.GameId, battle);
+            Battles.TryAdd(battle.Id, battle);
             return battle;
         }
     }

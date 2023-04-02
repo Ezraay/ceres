@@ -71,7 +71,7 @@ namespace Ceres.Core.BattleSystem.Battles
         public BattleTeam? GetPlayerTeam(Guid playerId)
         {
             foreach (BattleTeam team in teams)
-                if (GetPlayer(playerId) != null)
+                if (team.GetPlayer(playerId) != null)
                     return team;
             
             return null;
