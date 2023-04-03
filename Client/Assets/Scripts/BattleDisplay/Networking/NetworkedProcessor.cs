@@ -11,6 +11,7 @@ namespace CardGame.BattleDisplay.Networking
     {
         public event Action<IServerAction> OnServerAction;
         public event Action<BattleStartConditions> OnStartBattle;
+        public event Action<string> OnGameEnd;
         private ClientBattle ClientBattle { get; set; }
         private readonly NetworkManager networkManager;
         
@@ -37,6 +38,8 @@ namespace CardGame.BattleDisplay.Networking
                 ClientBattle.Execute(action);
                 OnServerAction?.Invoke(action);
             };
+
+            this.networkManager.OnGameEnd += OnGameEnd;
         }
 
         public void ProcessCommand(IClientCommand command)

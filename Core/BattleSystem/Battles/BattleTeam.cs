@@ -43,13 +43,18 @@ namespace Ceres.Core.BattleSystem
             foreach (IPlayer otherPlayer in players)
             {
                 IMultiCardSlot hand;
+                MultiCardSlot serverHand = otherPlayer.GetMultiCardSlot(MultiCardSlotType.Hand) as MultiCardSlot;
                 if (ContainsPlayer(player)) // Same team
                 {
-                    hand = otherPlayer.GetMultiCardSlot(MultiCardSlotType.Hand);
+                    // IMultiCardSlot multiCardSlot = otherPlayer.GetMultiCardSlot(MultiCardSlotType.Hand);
+                    hand = new MultiCardSlot();
+                    foreach (var card in serverHand.Cards)
+                    {
+                        hand.AddCard(card);
+                    }
                 }
                 else // Separate teams
                 {
-                    IMultiCardSlot serverHand = otherPlayer.GetMultiCardSlot(MultiCardSlotType.Hand);
                     hand = new HiddenMultiCardSlot(serverHand.Count);
                 }
 

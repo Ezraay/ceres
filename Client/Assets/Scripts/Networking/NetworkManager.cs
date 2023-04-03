@@ -1,4 +1,5 @@
 ﻿using System;
+using CardGame.BattleDisplay.Networking;
 using CardGame.Networking;
 using Ceres.Client.BattleSystem;
 using Ceres.Client.Networking;
@@ -17,21 +18,23 @@ namespace Ceres.Client
         private Guid gameId;
 
         private MainThreadManager mainThreadManager;
-
         private SignalRManager signalRManager;
+        private SceneManager sceneManager;
 
         private Guid userId;
         public bool IsConnected { get; private set; }
 
         public event Action<BattleStartConditions> OnStartGame;
-        public event Action OnEndGame;
+        public event Action<string> OnGameEnd;
         public event Action<IServerAction> OnBattleAction;
 
         [Inject]
-        public void Construct(MainThreadManager mainThread, SignalRManager signalR)
+        public void Construct(MainThreadManager mainThread, SignalRManager signalR, SceneManager scene)
         {
             mainThreadManager = mainThread;
             signalRManager = signalR;
+            this.sceneManager = scene;
+            
             
             signalRManager.OnConnected += Connected;
         }
@@ -52,11 +55,11 @@ namespace Ceres.Client
             {
                 await signalRManager.DisconnectFromGameHub();
                 mainThreadManager.Execute(async () => 
-                    await SceneManager.LoadScene(GameScene.MainMenu));
+                    this.OnGameEnd?.Invoke(message.Reason));
             });
             
             IsConnected = true;
-            SceneManager.LoadScene(GameScene.MainMenu);
+            sceneManager.LoadScene(new MainMenuScene());
         }
 
         public void JoinQueue()
@@ -72,7 +75,7 @@ namespace Ceres.Client
 
         private async void OnGoToGame(ClientBattle battle, Guid playerId)
         {
-            await SceneManager.LoadScene(GameScene.Battle);
+            await sceneManager.LoadSceneAsync(new BattleScene(new NetworkedProcessor(this)));
 
             BattleStartConditions conditions = new BattleStartConditions()
             {

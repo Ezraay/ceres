@@ -18,11 +18,6 @@ namespace CardGame.BattleDisplay
         public void Construct(BattleManager battle)
         {
             battleManager = battle;
-        }
-
-        private void Start()
-        {
-            command = new AdvancePhaseCommand();
             battleManager.OnStartBattle += conditions =>
             {
                 UpdatePhase(battleManager.Battle.PhaseManager.Phase);
@@ -31,7 +26,9 @@ namespace CardGame.BattleDisplay
                     UpdatePhase(battleManager.Battle.PhaseManager.Phase);
                 };
             };
+            command = new AdvancePhaseCommand();
         }
+
 
         public void NextPhase()
         {

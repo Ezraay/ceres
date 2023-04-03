@@ -2,6 +2,7 @@
 using CardGame.Networking;
 using Ceres.Core.BattleSystem;
 using Ceres.Core.BattleSystem.Battles;
+using Ceres.Core.Entities;
 using UnityEngine;
 using Logger = Ceres.Client.Utility.Logger;
 
@@ -12,6 +13,7 @@ namespace CardGame.BattleDisplay.Networking
         private readonly ServerBattleStartConfig conditions;
         public event Action<IServerAction> OnServerAction;
         public event Action<BattleStartConditions> OnStartBattle;
+        public event Action<string> OnGameEnd;
         private ServerBattle serverBattle;
         
         public SinglePlayerProcessor(ServerBattleStartConfig conditions)
@@ -20,6 +22,7 @@ namespace CardGame.BattleDisplay.Networking
         }
 
         public IPlayer MyPlayer { get; private set; }
+        private BattleTeam myTeam;
 
         public void Start()
         {
@@ -27,20 +30,15 @@ namespace CardGame.BattleDisplay.Networking
             IPlayer player2 = new StandardPlayer(Guid.NewGuid(), new MultiCardSlot(), new MultiCardSlot());
             player1.LoadDeck(conditions.Player1Deck);
             player2.LoadDeck(conditions.Player2Deck);
-
-            MyPlayer = player1;
-
+            
             TeamManager manager = new TeamManager();
             BattleTeam team1 = manager.CreateTeam();
             BattleTeam team2 = manager.CreateTeam();
             manager.AddPlayer(player1, team1);
             manager.AddPlayer(player2, team2);
-            // manager.
-            // team1.AddPlayer(player1);
-            // team2.AddPlayer(player2);
-            // manager.AddTeam(team1);
-            // manager.AddTeam(team2);
-            // manager.MakeEnemies(team1, team2);
+            
+            MyPlayer = player1;
+            this.myTeam = team1;
             
             serverBattle = new ServerBattle(manager, false);
             serverBattle.StartGame();
@@ -56,11 +54,23 @@ namespace CardGame.BattleDisplay.Networking
                 }
             };
             
+            this.serverBattle.OnBattleAction += OnServerBattleAction;
+            
             OnStartBattle?.Invoke(new BattleStartConditions()
             {
                 ClientBattle = ClientBattle,
                 PlayerId = player1.Id
             });
+        }
+
+        private void OnServerBattleAction(IBattleAction action)
+        {
+            switch (action)
+            {
+                case EndGameBattleAction endGame:
+                    OnGameEnd?.Invoke(endGame.WinningTeams.Contains(this.myTeam) ? EndServerBattleReasons.YouWon : EndServerBattleReasons.YouLost);
+                    break;
+            }
         }
 
         private ClientBattle ClientBattle { get; set; }

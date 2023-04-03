@@ -44,6 +44,7 @@ namespace CardGame.BattleDisplay
 
         private void StartBattle(BattleStartConditions conditions)
         {
+            Debug.Log("Starting battle display");
             List<BattleTeam> teams = conditions.ClientBattle.TeamManager.GetAllTeams() as List<BattleTeam>;
 
             for (var i = 0; i < teams.Count; i++)

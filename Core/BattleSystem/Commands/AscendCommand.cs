@@ -28,7 +28,7 @@ namespace Ceres.Core.BattleSystem
         private bool GenericCanExecute(Battle battle, IPlayer author)
         {
             MultiCardSlot hand = author.GetMultiCardSlot(MultiCardSlotType.Hand) as MultiCardSlot;
-            card = hand.GetCard(CardId);
+            card = hand?.GetCard(CardId);
 
             if (card == null) return false;
             if (card.Data.Tier < author.Champion.Card.Data.Tier ||

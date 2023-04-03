@@ -6,11 +6,17 @@ namespace Ceres.Client
 {
     public class MainMenuManager : MonoBehaviour
     {
-        [SerializeField] [Scene] private string queueScene;
-
+        private SceneManager sceneManager;
+        
+        [Inject]
+        public void Construct(SceneManager scene)
+        {
+            this.sceneManager = scene;
+        }
+        
         public void JoinQueue()
         {
-            SceneManager.LoadScene(queueScene);
+            sceneManager.LoadScene(new QueueScene());
         }
 
         public void Quit()
