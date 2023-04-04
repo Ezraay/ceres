@@ -2,9 +2,9 @@
 
 namespace Ceres.Client
 {
-	public class BattleScene : ISceneData
+	public class BattleScene : SceneData
 	{
-		public string SceneName => "Battle";
+		public override string SceneName => "Battle";
 		public readonly ICommandProcessor Processor;
 
 		public BattleScene(ICommandProcessor processor)

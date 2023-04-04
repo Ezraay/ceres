@@ -1,4 +1,5 @@
-﻿using CardGame.BattleDisplay.HUD;
+﻿using System;
+using CardGame.BattleDisplay.HUD;
 using CardGame.Networking;
 using Ceres.Client.BattleSystem;
 using Ceres.Core.BattleSystem;
@@ -13,6 +14,7 @@ namespace CardGame.BattleDisplay
 		[SerializeField] private GameObject nextPhaseCommand;
 		[SerializeField] private TMP_Text phaseText;
 		[SerializeField] private EndBattleScreen endBattleScreen;
+		[SerializeField] private BattlePauseScreen battlePauseScreen;
 		private BattleManager battleManager;
 		private AdvancePhaseCommand command;
 
@@ -29,6 +31,12 @@ namespace CardGame.BattleDisplay
 				this.battleManager.OnEnd -= ShowEnd;
 				this.battleManager.Battle.PhaseManager.OnPhaseEnter -= UpdatePhase;
 			}
+		}
+
+		private void Update()
+		{
+			if (Input.GetKeyDown(KeyCode.Escape))
+				this.battlePauseScreen.Toggle();
 		}
 
 		[Inject]

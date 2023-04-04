@@ -84,7 +84,9 @@ namespace Ceres.Client
 
         private async void OnGoToGame(ClientBattle battle, Guid playerId)
         {
-            await sceneManager.LoadSceneAsync(new BattleScene(new NetworkedProcessor(this)));
+            BattleScene battleScene = new BattleScene(new NetworkedProcessor(this));
+            battleScene.OnSceneLeave += LeaveGame;
+            await sceneManager.LoadSceneAsync(battleScene);
 
             BattleStartConditions conditions = new BattleStartConditions()
             {
@@ -93,9 +95,12 @@ namespace Ceres.Client
             };
             OnStartGame?.Invoke(conditions);
 
-            
+            await signalRManager.GameHub.SendAsync("JoinGame",  gameId, userId);
+        }
 
-            signalRManager.GameHub.SendAsync("JoinGame",  gameId, userId);
+        private void LeaveGame()
+        {
+            // this.signalRManager.DisconnectGameHub();
         }
     }
 }

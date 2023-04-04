@@ -1,7 +1,7 @@
 ﻿namespace Ceres.Client
 {
-	public class QueueScene : ISceneData
+	public class QueueScene : SceneData
 	{
-		public string SceneName => "Queue";
+		public override string SceneName => "Queue";
 	}
 }

@@ -1,7 +1,7 @@
 ﻿namespace Ceres.Client
 {
-	public class MainMenuScene : ISceneData
+	public class MainMenuScene : SceneData
 	{
-		public string SceneName => "Main Menu";
+		public override string SceneName => "Main Menu";
 	}
 }

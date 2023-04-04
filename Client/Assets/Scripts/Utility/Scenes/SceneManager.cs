@@ -7,7 +7,7 @@ namespace Ceres.Client
 {
 	public class SceneManager
 	{
-		public ISceneData CurrentScene { get; private set; }
+		public SceneData CurrentScene { get; private set; }
 
 		public SceneManager(IDeck testingDeck)
 		{
@@ -23,7 +23,7 @@ namespace Ceres.Client
 			}
 		}
 
-		public async Task LoadSceneAsync(ISceneData scene)
+		public async Task LoadSceneAsync(SceneData scene)
 		{
 			PreLoad(scene);
 			AsyncOperation task = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(scene.SceneName);
@@ -31,14 +31,17 @@ namespace Ceres.Client
 				await Task.Yield();
 		}
 
-		public void LoadScene(ISceneData scene)
+		public void LoadScene(SceneData scene)
 		{
 			PreLoad(scene);
 			UnityEngine.SceneManagement.SceneManager.LoadScene(scene.SceneName);
 		}
 
-		private void PreLoad(ISceneData scene)
+		private void PreLoad(SceneData scene)
 		{
+			if (this.CurrentScene != null)
+				this.CurrentScene.SceneCleanup();
+			
 			this.CurrentScene = scene;
 			Debug.Log("Loading scene: " + scene.SceneName);
 		}

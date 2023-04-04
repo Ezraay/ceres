@@ -43,6 +43,11 @@ namespace Ceres.Client.Networking
             await GameHub.StartAsync();
         }
 
+        public async void DisconnectGameHub()
+        {
+            await GameHub.StopAsync();
+        }
+
         public event Action OnConnected;
 
         public void On<T>(HubConnection connection, Action<T> callback) where T : INetworkMessage, new()
