@@ -17,8 +17,10 @@ namespace Ceres.Client.BattleSystem
         private ICommandProcessor commandProcessor;
         public IPlayer MyPlayer => commandProcessor.MyPlayer;
         public event Action<IServerAction> OnAction;
-        public event Action<BattleStartConditions> OnStartBattle;
-
+        public event Action<BattleStartConditions> OnStart;
+        public event Action<EndBattleReason> OnEnd;
+        public bool IsBattleOngoing { get; private set; }
+        public bool IsStarted { get; private set; }
 
         [Inject]
         public void Construct(SceneManager sceneManager)
@@ -26,49 +28,46 @@ namespace Ceres.Client.BattleSystem
             if (sceneManager.CurrentScene is not BattleScene battleScene)
                 throw new Exception();
             this.commandProcessor = battleScene.Processor;
-            this.commandProcessor.OnStartBattle += battleStartConditions =>
-            {
-                Battle = battleStartConditions.ClientBattle;
-                OnStartBattle?.Invoke(battleStartConditions);
-            };
-            this.commandProcessor.OnServerAction += action => OnAction(action);
+        }
+
+        private void OnEnable()
+        {
+            this.commandProcessor.OnStartBattle += OnStartBattle;
+            this.commandProcessor.OnServerAction += OnServerAction;
+            this.commandProcessor.OnEndBattle += OnEndBattle;
+        }
+
+        private void OnDisable()
+        {
+            this.commandProcessor.OnStartBattle -= OnStartBattle;
+            this.commandProcessor.OnServerAction -= OnServerAction;
+            this.commandProcessor.OnEndBattle -= OnEndBattle;
+        }
+
+        private void OnStartBattle(BattleStartConditions battleStartConditions)
+        {
+            this.Battle = battleStartConditions.ClientBattle;
+            this.OnStart?.Invoke(battleStartConditions);
+            this.IsBattleOngoing = true;
+            this.IsStarted = true;
+        }
+
+        private void OnEndBattle(EndBattleReason reason)
+        {
+            Action<EndBattleReason> action = this.OnEnd;
+            action?.Invoke(reason);
+            this.IsBattleOngoing = false;
+        }
+
+        private void OnServerAction(IServerAction action)
+        {
+            OnAction?.Invoke(action);
         }
 
         private void Start()
         {
             this.commandProcessor.Start();
         }
-
-        // public void StartMultiplayer(NetworkManager networkManager)
-        // {
-            // Logger.Log("Starting multiplayer battle");
-            // commandProcessor = new NetworkedProcessor(networkManager);
-            // commandProcessor.OnServerAction += action => OnAction?.Invoke(action);
-            // commandProcessor.OnStartBattle += battleStartConditions =>
-            // {
-            //     Battle = battleStartConditions.ClientBattle;
-            //     OnStartBattle?.Invoke(battleStartConditions);
-            // };
-            // commandProcessor.Start();
-        //     IsStarted = true;
-        // }
-
-        // public void StartSinglePlayer()
-        // {
-            // Logger.Log("Starting single-player battle");
-            // bool myTurn = Random.Range(0f, 1f) < 0.5f; // In this case, local player is player 1
-            // ServerBattleStartConfig config = new ServerBattleStartConfig(Deck, Deck, myTurn);
-            // SinglePlayerProcessor singlePlayerProcessor = new SinglePlayerProcessor(config);
-            // commandProcessor = singlePlayerProcessor;
-            // commandProcessor.OnServerAction += action => OnAction?.Invoke(action);
-            // commandProcessor.OnStartBattle += conditions =>
-            // {
-            //     Battle = conditions.ClientBattle;
-            //     OnStartBattle?.Invoke(conditions);
-            // };
-            // commandProcessor.Start();
-            // IsStarted = true;
-        // }
 
         public void Execute(IClientCommand command)
         {

@@ -178,13 +178,13 @@ public class SignalRService :ISignalRService
 
     public void SendServerBattleLost(GameUser[] losers)
     {
-        var msg = new GameEndedMessage() {Reason = EndServerBattleReasons.YouLost};
+        var msg = new GameEndedMessage() {Reason = EndBattleReason.YouLost};
         SendHubMessage(gameHub, msg, losers.Select(x => x.GameConnectionId).ToArray());   
     }
 
     public void SendServerBattleWon(GameUser[] winners)
     {
-        var msg = new GameEndedMessage() {Reason = EndServerBattleReasons.YouWon};
+        var msg = new GameEndedMessage() {Reason = EndBattleReason.YouWon};
         SendHubMessage(gameHub, msg, winners.Select(x => x.GameConnectionId).ToArray());
     }
 

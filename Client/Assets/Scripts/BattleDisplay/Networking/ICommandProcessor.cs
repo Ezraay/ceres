@@ -8,7 +8,7 @@ namespace CardGame.BattleDisplay.Networking
     {
         public event Action<IServerAction> OnServerAction;
         public event Action<BattleStartConditions> OnStartBattle;
-        public event Action<string> OnGameEnd;
+        public event Action<EndBattleReason> OnEndBattle;
         public IPlayer MyPlayer { get; }
         public void Start();
 

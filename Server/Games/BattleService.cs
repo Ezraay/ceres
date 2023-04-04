@@ -68,7 +68,7 @@ public class BattleService : IBattleService
     {
         switch (action)
         {
-            case EndGameBattleAction endGameBattleAction:
+            case EndBattleAction endGameBattleAction:
                 // Send to client, game ended
                 List<GameUser> winners = new List<GameUser>();
                 List<GameUser> losers = new List<GameUser>();

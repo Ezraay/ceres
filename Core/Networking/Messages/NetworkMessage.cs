@@ -19,7 +19,7 @@ namespace Ceres.Core.Networking.Messages
     public class GameEndedMessage : INetworkMessage
     {
         public string MessageName { get => "GameEnded"; }
-        public string Reason { get; set;} = "";
+        public EndBattleReason Reason { get; set;}
     }
 
     public class PlayerSentCommandMessage : EventArgs, INetworkMessage

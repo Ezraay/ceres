@@ -37,7 +37,7 @@ namespace CardGame
                 commands.Add(command);
             }
             
-            battleManager.OnStartBattle += conditions =>
+            battleManager.OnStart += conditions =>
             {
                 if (conditions.PlayerId != Guid.Empty)
                     myPlayerId = conditions.PlayerId;
@@ -48,6 +48,8 @@ namespace CardGame
 
         private void Update()
         {
+            if (!this.battleManager.IsBattleOngoing) return;
+            
             CardDisplay display = RaycastCard();
 
             if (display != null && display.Card != null && draggedCard == null)

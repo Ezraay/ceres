@@ -25,7 +25,7 @@ namespace Ceres.Client
         public bool IsConnected { get; private set; }
 
         public event Action<BattleStartConditions> OnStartGame;
-        public event Action<string> OnGameEnd;
+        public event Action<EndBattleReason> OnGameEnd;
         public event Action<IServerAction> OnBattleAction;
 
         [Inject]
@@ -58,6 +58,15 @@ namespace Ceres.Client
                     this.OnGameEnd?.Invoke(message.Reason));
             });
             
+            signalRManager.On<ServerActionMessage>(signalRManager.GameHub, message =>
+            {
+                mainThreadManager.Execute(() =>
+                {
+                    Logger.Log("Got action: " + message.Action);
+                    OnBattleAction?.Invoke(message.Action);
+                });
+            });
+            
             IsConnected = true;
             sceneManager.LoadScene(new MainMenuScene());
         }
@@ -84,14 +93,7 @@ namespace Ceres.Client
             };
             OnStartGame?.Invoke(conditions);
 
-            signalRManager.On<ServerActionMessage>(signalRManager.GameHub, message =>
-            {
-                mainThreadManager.Execute(() =>
-                {
-                    Logger.Log("Got action: " + message.Action);
-                    OnBattleAction?.Invoke(message.Action);
-                });
-            });
+            
 
             signalRManager.GameHub.SendAsync("JoinGame",  gameId, userId);
         }

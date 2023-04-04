@@ -13,8 +13,8 @@ namespace CardGame.BattleDisplay.Networking
         private readonly ServerBattleStartConfig conditions;
         public event Action<IServerAction> OnServerAction;
         public event Action<BattleStartConditions> OnStartBattle;
-        public event Action<string> OnGameEnd;
-        private ServerBattle serverBattle;
+        public event Action<EndBattleReason> OnEndBattle;
+        public ServerBattle ServerBattle { get; private set; }
         
         public SinglePlayerProcessor(ServerBattleStartConfig conditions)
         {
@@ -40,12 +40,12 @@ namespace CardGame.BattleDisplay.Networking
             MyPlayer = player1;
             this.myTeam = team1;
             
-            serverBattle = new ServerBattle(manager, false);
-            serverBattle.StartGame();
+            this.ServerBattle = new ServerBattle(manager, false);
+            this.ServerBattle.StartGame();
             
             ClientBattle = new ClientBattle(manager.SafeCopy(player1));
 
-            serverBattle.OnPlayerAction += (player, action) =>
+            this.ServerBattle.OnPlayerAction += (player, action) =>
             {
                 if (player == MyPlayer) // Accept actions sent to us 
                 {
@@ -54,7 +54,7 @@ namespace CardGame.BattleDisplay.Networking
                 }
             };
             
-            this.serverBattle.OnBattleAction += OnServerBattleAction;
+            this.ServerBattle.OnBattleAction += OnServerBattleAction;
             
             OnStartBattle?.Invoke(new BattleStartConditions()
             {
@@ -67,8 +67,8 @@ namespace CardGame.BattleDisplay.Networking
         {
             switch (action)
             {
-                case EndGameBattleAction endGame:
-                    OnGameEnd?.Invoke(endGame.WinningTeams.Contains(this.myTeam) ? EndServerBattleReasons.YouWon : EndServerBattleReasons.YouLost);
+                case EndBattleAction endGame:
+                    this.OnEndBattle?.Invoke(endGame.WinningTeams.Contains(this.myTeam) ? EndBattleReason.YouWon : EndBattleReason.YouLost);
                     break;
             }
         }
@@ -77,7 +77,7 @@ namespace CardGame.BattleDisplay.Networking
 
         public void ProcessCommand(IClientCommand command)
         {
-            serverBattle.Execute(command, MyPlayer);
+            this.ServerBattle.Execute(command, MyPlayer);
         }
     }
 }
