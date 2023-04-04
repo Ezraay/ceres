@@ -28,7 +28,7 @@ public interface ISignalRService
     event Action<Guid, GameUser, IClientCommand>? OnPlayerSentCommand;
     event Action<GameUser> OnPlayerLeftGame;
 
-    void UserJoinedGame(GameUser user, Guid gameId, string result);
+    // void UserJoinedGame(GameUser user, Guid gameId, string result);
     void SendUserGoToGame(ClientBattle battle, GameUser user);
     void SendPlayerAction(GameUser user, IServerAction action);
 }

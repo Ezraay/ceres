@@ -125,6 +125,7 @@ public class BattleService : IBattleService
             return;
         
         battle.TeamManager.RemovePlayer(user.ServerPlayer);
+        user.GameId = Guid.Empty;
 
         SendListOfGamesUpdated();
     }
