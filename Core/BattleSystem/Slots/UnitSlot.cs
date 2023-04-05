@@ -4,15 +4,13 @@ namespace Ceres.Core.BattleSystem
 {
     public class UnitSlot : Slot
     {
-        public int X { get; }
-        public int Y { get; }
+        public readonly CardPosition Position;
         [JsonProperty] public Card Card { get; private set; }
         public bool Exhausted { get; private set; }
 
-        public UnitSlot(int x, int y)
+        public UnitSlot(CardPosition position)
         {
-            X = x;
-            Y = y;
+            this.Position = position;
         }
         
         public void Exhaust()

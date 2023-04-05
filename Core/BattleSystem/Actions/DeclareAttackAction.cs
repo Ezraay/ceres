@@ -5,27 +5,22 @@ namespace Ceres.Core.BattleSystem
 	public class DeclareAttackAction : IServerAction
 	{
 		public readonly Guid Attacker;
-		public readonly int AttackerX;
-		public readonly int AttackerY;
-		public readonly Guid Defender;
-		public readonly int TargetX;
-		public readonly int TargetY;
+		public readonly CardPosition AttackerPosition;
+		public readonly Guid Target;
+		public readonly CardPosition TargetPosition;
 
-		public DeclareAttackAction(Guid attacker, int attackerX, int attackerY, Guid defender, int targetX, int targetY)
+		public DeclareAttackAction(Guid attacker, CardPosition attackerPosition, Guid target, CardPosition targetPosition)
 		{
 			this.Attacker = attacker;
-			this.AttackerX = attackerX;
-			this.AttackerY = attackerY;
-			this.Defender = defender;
-			this.TargetX = targetX;
-			this.TargetY = targetY;
+			this.AttackerPosition = attackerPosition;
+			this.Target = target;
+			this.TargetPosition = targetPosition;
 		}
 
 		public void Apply(ClientBattle battle)
 		{
 			IPlayer attacker = battle.TeamManager.GetPlayer(this.Attacker);
-			attacker.GetUnitSlot(this.AttackerX, this.AttackerY)
-				.Exhaust();
+			attacker.GetUnitSlot(this.AttackerPosition).Exhaust();
 		}
 	}
 }

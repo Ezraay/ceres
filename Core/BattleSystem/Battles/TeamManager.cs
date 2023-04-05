@@ -15,7 +15,7 @@ namespace Ceres.Core.BattleSystem
             AllTeams.Add(team);
         }
 
-        public BattleTeam GetPlayerTeam(Guid playerId)
+        public BattleTeam? GetPlayerTeam(Guid playerId)
         {
             foreach (BattleTeam team in AllTeams)
             {
@@ -40,7 +40,7 @@ namespace Ceres.Core.BattleSystem
             team2.AddEnemy(team1.Id);
         }
 
-        public IPlayer GetPlayer(Guid playerId)
+        public IPlayer? GetPlayer(Guid playerId)
         {
             foreach (BattleTeam team in AllTeams)
             {
@@ -65,6 +65,11 @@ namespace Ceres.Core.BattleSystem
             }
 
             return teamManager;
+        }
+
+        public bool AreAllies(BattleTeam myTeam, BattleTeam targetTeam)
+        {
+            return myTeam.IsAlly(targetTeam);
         }
     }
 }

@@ -5,21 +5,19 @@ namespace Ceres.Core.BattleSystem
 	public class SupportUnitAction : IServerAction
 	{
 		public readonly Guid PlayerId;
-		public readonly int X;
-		public readonly int Y;
+		public readonly CardPosition Position;
 
-		public SupportUnitAction(Guid playerId, int x, int y)
+		public SupportUnitAction(Guid playerId, CardPosition position)
 		{
 			this.PlayerId = playerId;
-			this.X = x;
-			this.Y = y;
+			this.Position = position;
 		}
 
 		public void Apply(ClientBattle battle)
 		{
 			IPlayer player = battle.TeamManager.GetPlayer(this.PlayerId);
-			UnitSlot support = player.GetUnitSlot(this.X, this.Y);
-			UnitSlot supported = player.GetUnitSlot(this.X, this.Y - 1);
+			UnitSlot support = player.GetUnitSlot(Position);
+			UnitSlot supported = player.GetUnitSlot(new CardPosition(Position.X, Position.Y - 1));
 
 			support.Exhaust();
 			supported.Card.AddAttack(support.Card.Attack);

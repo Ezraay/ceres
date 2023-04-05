@@ -2,12 +2,7 @@
 {
     public class AdvancePhaseCommand : IClientCommand
     {
-        public bool CanExecute(ClientBattle battle, IPlayer author)
-        {
-            return battle.HasPriority(author);
-        }
-
-        public bool CanExecute(ServerBattle battle, IPlayer author)
+        public bool CanExecute(Battle battle, IPlayer author)
         {
             return battle.HasPriority(author);
         }

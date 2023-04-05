@@ -10,7 +10,7 @@ namespace Ceres.Core.BattleSystem
         [JsonProperty] public int Height { get; }
         [JsonProperty] public UnitSlot Champion { get; }
         public void LoadDeck(IDeck deck);
-        public UnitSlot GetUnitSlot(int x, int y);
+        public UnitSlot? GetUnitSlot(CardPosition position);
         public IMultiCardSlot GetMultiCardSlot(MultiCardSlotType type);
     }
 }

@@ -76,7 +76,8 @@ namespace Ceres.Core.BattleSystem
                 {
                     for (int y = 0; y < otherPlayer.Height; y++)
                     {
-                        newPlayer.GetUnitSlot(x, y).SetCard(otherPlayer.GetUnitSlot(x, y).Card);
+                        CardPosition position = new CardPosition(x, y);
+                        newPlayer.GetUnitSlot(position).SetCard(otherPlayer.GetUnitSlot(position).Card);
                     }
                 }
                 

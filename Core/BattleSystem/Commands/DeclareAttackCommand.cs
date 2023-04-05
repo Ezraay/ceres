@@ -1,53 +1,66 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace Ceres.Core.BattleSystem
 {
 	public class DeclareAttackCommand : IClientCommand
 	{
-		public readonly int AttackerX;
-		public readonly int AttackerY;
+		public readonly CardPosition AttackerPosition;
 		public readonly Guid TargetPlayerId;
-		public readonly int TargetX;
-		public readonly int TargetY;
+		public readonly CardPosition TargetPosition;
 
-		public DeclareAttackCommand(int attackerX, int attackerY, Guid targetPlayerId, int targetX, int targetY)
+		public DeclareAttackCommand(CardPosition attackerPosition, Guid targetPlayerId, CardPosition targetPosition)
 		{
-			this.AttackerX = attackerX;
-			this.AttackerY = attackerY;
+			this.AttackerPosition = attackerPosition;
 			this.TargetPlayerId = targetPlayerId;
-			this.TargetX = targetX;
-			this.TargetY = targetY;
+			this.TargetPosition = targetPosition;
 		}
 
-		public bool CanExecute(ClientBattle battle, IPlayer author)
+		public bool CanExecute(Battle battle, IPlayer author)
 		{
-			return CanExecuteGeneric(battle, author);
-		}
+			if (battle.PhaseManager.Phase != BattlePhase.Attack) return false;
+			if (battle.PhaseManager.CurrentTurnPlayer != author) return false;
+			if (AttackerPosition.Y != 0) return false;
 
-		public bool CanExecute(ServerBattle battle, IPlayer author)
-		{
-			return CanExecuteGeneric(battle, author);
-		}
-
-		private bool CanExecuteGeneric(Battle battle, IPlayer author)
-		{
-			return battle.PhaseManager.Phase == BattlePhase.Attack &&
-			       battle.PhaseManager.CurrentTurnPlayer == author; // TODO: Check for false values
+			IPlayer? target = battle.TeamManager.GetPlayer(TargetPlayerId);
+			if (target == null) return false;
+			
+			BattleTeam? myTeam = battle.TeamManager.GetPlayerTeam(author.Id);
+			if (myTeam == null) return false;
+			
+			BattleTeam? targetTeam = battle.TeamManager.GetPlayerTeam(target.Id);
+			if (targetTeam == null) return false;
+			
+			UnitSlot? slot = target.GetUnitSlot(TargetPosition);
+			if (targetTeam.ContainsPlayer(author)) return false; // Can't attack own team
+			if (battle.TeamManager.AreAllies(myTeam, targetTeam)) return false; // Can't attack ally
+			if (slot?.Card == null) return false;
+			if (slot.Position.Y != 0) return false;
+			return true;
 		}
 
 		public void Apply(ServerBattle battle, IPlayer author)
 		{
-			throw new System.NotImplementedException();
+			IPlayer target = battle.TeamManager.GetPlayer(TargetPlayerId);
+			UnitSlot attackerSlot = target?.GetUnitSlot(TargetPosition);
+			UnitSlot targetSlot = target?.GetUnitSlot(TargetPosition); 
+			battle.CombatManager.AddAttacker(attackerSlot);
+			battle.CombatManager.AddTarget(targetSlot, target);
+			battle.PhaseManager.Advance();
 		}
 
 		public IServerAction[] GetActionsForAlly(IPlayer author)
 		{
-			throw new System.NotImplementedException();
+			return new IServerAction[]
+			{
+				new DeclareAttackAction(author.Id, AttackerPosition, TargetPlayerId, TargetPosition),
+				new AdvancePhaseAction()
+			};
 		}
 
 		public IServerAction[] GetActionsForOpponent(IPlayer author)
 		{
-			throw new System.NotImplementedException();
+			return GetActionsForAlly(author);
 		}
 	}
 }

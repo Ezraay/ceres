@@ -7,12 +7,8 @@ namespace Ceres.Core.BattleSystem
     {
         private Card drawnCard;
 
-        public bool CanExecute(ClientBattle battle, IPlayer author)
-        {
-            return true;
-        }
 
-        public bool CanExecute(ServerBattle battle, IPlayer author)
+        public bool CanExecute(Battle battle, IPlayer author)
         {
             return true;
         }

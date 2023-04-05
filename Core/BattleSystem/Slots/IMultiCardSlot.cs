@@ -7,6 +7,6 @@ namespace Ceres.Core.BattleSystem
         public int Count { get; }
         public void AddCard(Card card);
         public void RemoveCard(Card card);
-        Card GetCard(Guid cardId);
+        Card? GetCard(Guid cardId);
     }
 }

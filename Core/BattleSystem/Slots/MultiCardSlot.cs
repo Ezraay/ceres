@@ -24,7 +24,7 @@ namespace Ceres.Core.BattleSystem
             OnAdd?.Invoke(card);
         }
 
-        public Card GetCard(Guid id)
+        public Card? GetCard(Guid id)
         {
             foreach (Card card in Cards)
                 if (card.ID == id)

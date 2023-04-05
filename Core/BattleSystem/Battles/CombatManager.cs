@@ -4,11 +4,12 @@ namespace Ceres.Core.BattleSystem
 {
     public class CombatManager
     {
-        public bool ValidAttack => Attacker != null;
+        public bool ValidAttack => Attacker != null && Target != null;
         public UnitSlot Target { get; private set; }
         public UnitSlot Attacker { get; private set; }
         private readonly int damage = 1;
         public readonly MultiCardSlot Defenders = new MultiCardSlot();
+        public IPlayer TargetPlayer { get; private set; }
 
         public void AddAttacker(UnitSlot slot)
         {
@@ -16,9 +17,10 @@ namespace Ceres.Core.BattleSystem
             slot.Exhaust();
         }
 
-        public void AddTarget(UnitSlot slot)
+        public void AddTarget(UnitSlot slot, IPlayer target)
         {
             Target = slot;
+            TargetPlayer = target;
         }
 
         public void AddDefender(Card card)
@@ -31,7 +33,6 @@ namespace Ceres.Core.BattleSystem
         {
             Attacker = null;
             Target = null;
-            foreach (var defender in Defenders.Cards) graveyard.AddCard(defender);
             Defenders.Clear();
         }
 
@@ -41,6 +42,12 @@ namespace Ceres.Core.BattleSystem
             int attack = Attacker.Card.Data.Attack;
             int defense = Defenders.Cards.Sum(card => card.Data.Defense);
             return defense + Target.Card.Data.Attack > attack ? 0 : damage;
+        }
+
+        public void AddSupport(UnitSlot slot)
+        {
+            Attacker.Card.AddAttack(slot.Card.Attack);
+            slot.Exhaust();
         }
     }
 }

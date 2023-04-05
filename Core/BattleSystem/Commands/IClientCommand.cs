@@ -2,8 +2,7 @@
 {
     public interface IClientCommand
     {
-        bool CanExecute(ClientBattle battle, IPlayer author);
-        bool CanExecute(ServerBattle battle, IPlayer author);
+        bool CanExecute(Battle battle, IPlayer author);
         void Apply(ServerBattle battle, IPlayer author);
         IServerAction[] GetActionsForAlly(IPlayer author);
         IServerAction[] GetActionsForOpponent(IPlayer author);

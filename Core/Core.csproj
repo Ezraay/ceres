@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Ceres.Core</RootNamespace>
-    <Nullable>disable</Nullable>
+    <Nullable>enable</Nullable>
     <OutDir>../Client/Assets/Plugins/Core</OutDir>
     <AssemblyName>Core</AssemblyName>
     <LangVersion>8.0</LangVersion>

@@ -7,15 +7,13 @@ namespace Ceres.Core.BattleSystem
         public readonly Card Card;
         public readonly Guid OpponentId;
         public readonly MultiCardSlotType SlotType;
-        public readonly int X;
-        public readonly int Y;
+        public readonly CardPosition Position;
 
-        public OpponentSummonAction(Guid opponentId, MultiCardSlotType slotType, int x, int y, Card card)
+        public OpponentSummonAction(Guid opponentId, MultiCardSlotType slotType, CardPosition position, Card card)
         {
             OpponentId = opponentId;
             SlotType = slotType;
-            Y = y;
-            X = x;
+            this.Position = position;
             Card = card;
         }
 
@@ -23,7 +21,7 @@ namespace Ceres.Core.BattleSystem
         {
             IPlayer opponent = battle.TeamManager.GetPlayer(OpponentId);
 
-            UnitSlot unitSlot = opponent.GetUnitSlot(X, Y);
+            UnitSlot unitSlot = opponent.GetUnitSlot(Position);
             IMultiCardSlot multiSlot = opponent.GetMultiCardSlot(SlotType);
 
             unitSlot.SetCard(Card);
