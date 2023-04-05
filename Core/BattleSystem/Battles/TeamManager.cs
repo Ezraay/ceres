@@ -108,9 +108,11 @@ namespace Ceres.Core.BattleSystem.Battles
             return null;
         }
 
-        public List<BattleTeam> GetAllies(BattleTeam team)
+        public List<BattleTeam> GetAllies(BattleTeam? team)
         {
             List<BattleTeam> result = new List<BattleTeam>();
+            if (team == null)
+                return result;
             allies.TryGetValue(team.Id, out var allyIds);
 
             if (allyIds == null)
@@ -125,6 +127,14 @@ namespace Ceres.Core.BattleSystem.Battles
             return result;
         }
 
+        public List<BattleTeam> GetAllies(IPlayer? player)
+        {
+            if (player == null)
+                return new List<BattleTeam>();
+            var team = GetPlayerTeam(player.Id);
+            return GetAllies(team);
+        }
+
         private bool AreAllies(BattleTeam team1, BattleTeam team2)
         {
             List<BattleTeam> team1Allies = GetAllies(team1);
@@ -132,10 +142,12 @@ namespace Ceres.Core.BattleSystem.Battles
             return team1Allies.Contains(team2) && team2Allies.Contains(team1);
         }
 
-        public List<BattleTeam> GetEnemies(BattleTeam team)
+        public List<BattleTeam> GetEnemies(BattleTeam? team)
         {
             List<BattleTeam> result = new List<BattleTeam>(teams);
-            result.Remove(team);
+            if (team == null)
+                return result;
+            result.Remove(team);                // excluding own team - the rest are enemies 
             
             if (!allies.ContainsKey(team.Id))
                 return result;
@@ -147,6 +159,14 @@ namespace Ceres.Core.BattleSystem.Battles
             }
             
             return result;
+        }
+        
+        public List<BattleTeam> GetEnemies(IPlayer? player)
+        {
+            if (player == null)
+                return new List<BattleTeam>();
+            var team = GetPlayerTeam(player.Id);
+            return GetEnemies(team);
         }
 
         public TeamManager SafeCopy(IPlayer author)

@@ -20,7 +20,7 @@ public class BattleService : IBattleService
         this.networkService = networkService;
         this.cardDeckLoader = cardDeckLoader;
 
-        this.networkService.OnTryToJoinGame += JoinBattle;
+        this.networkService.OnTryToJoinBattle += TryToJoinBattle;
         this.networkService.OnUsersReadyToPlay += StartBattle;
         this.networkService.OnPlayerSentCommand += PlayerCommandHandler;
         this.networkService.OnUserConnectedToLobby += UserConnectedToLobby;
@@ -136,33 +136,15 @@ public class BattleService : IBattleService
     }
 
 
-    private void JoinBattle(Guid battleId, GameUser gameUser)
+    private void TryToJoinBattle(Guid battleId, GameUser gameUser)
     {
         var serverBattle = battleManager.FindServerBattleById(battleId);
         if (serverBattle == null)
             return;
-        // if (gameUser.ServerPlayer == null)
-        // {
-        //     networkService.UserJoinedGame(gameUser, battleId, JoinGameResults.JoinedAsSpectator);
-        //     UpdatePlayersName(serverBattle);
-        // }
-        // else
-        // {
-        //     if (gameUser.ServerPlayer.Equals(serverBattle.Player1))
-        //     {
-        //         serverBattle.Player1.LoadDeck(cardDeckLoader.Deck);
-        //         networkService.UserJoinedGame(gameUser, battleId, JoinGameResults.JoinedAsPlayer1);
-        //         UpdatePlayersName(serverBattle);
-        //         return;
-        //     }
-        //
-        //     if (gameUser.ServerPlayer.Equals(serverBattle.Player2))
-        //     {
-        //         serverBattle.Player2.LoadDeck(cardDeckLoader.Deck);
-        //         networkService.UserJoinedGame(gameUser, battleId, JoinGameResults.JoinedAsPlayer2);
-        //         UpdatePlayersName(serverBattle);
-        //     }
-        // }
+        
+        // var player = gameUser.ServerPlayer;
+        // networkService.UpdatePlayersName(serverBattle.Id.ToString(), serverBattle.TeamManager.GetAllies(player),
+        //     serverBattle.TeamManager.GetEnemies(player));
     }
 
 

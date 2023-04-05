@@ -17,7 +17,7 @@ public class SignalRService :ISignalRService
     public event Action<GameUser>? OnUserConnectedToLobby;
     public event Action<GameUser>? OnPlayerLeftGame;
     public event Action<GameUser, GameUser>? OnUsersReadyToPlay;
-    public event Action<Guid, GameUser>? OnTryToJoinGame;
+    public event Action<Guid, GameUser>? OnTryToJoinBattle;
     public event Action<Guid, GameUser, IClientCommand>? OnPlayerSentCommand;
 
 
@@ -136,7 +136,6 @@ public class SignalRService :ISignalRService
                 if (firstPlayer == null){
                     firstPlayer = user;
                 } else {
-                    // var battle = battleService.AllocateServerBattle();
                     OnUsersReadyToPlay?.Invoke(firstPlayer, user);
                 }
             }
@@ -149,13 +148,16 @@ public class SignalRService :ISignalRService
         var gameUser = gameUsers.UpdateUserGameConnectionId(userId, gameConnectionId);
 
         if (gameUser == null) return;
-        OnTryToJoinGame?.Invoke(gameId, gameUser);
+
+        gameHub.Groups.AddToGroupAsync(gameConnectionId, gameId.ToString()).GetAwaiter().GetResult();
+        
+        OnTryToJoinBattle?.Invoke(gameId, gameUser);
         SendLobbyClientListMessage();
     }
 
-    public void UpdatePlayersName(string battleId, string? player1Name, string? player2Name)
+    public void UpdatePlayersName(string battleId, List<BattleTeam> allies, List<BattleTeam> enemies)
     {
-        var msg = new UpdatePlayersNameMessage(){Player1Name = player1Name, Player2Name = player2Name};
+        var msg = new UpdatePlayersNameMessage(){Allies = allies, Enemies = enemies};
         SendHubGroupMessage(gameHub,battleId, msg);
 
     }
@@ -197,7 +199,7 @@ public class SignalRService :ISignalRService
 
     public void SendUserGoToGame(ClientBattle battle, GameUser user)
     {
-        if (user.LobbyConnectionId == null) return;
+        if (user.LobbyConnectionId == "") return;
 
         var playerId = user.ServerPlayer?.Id ?? Guid.Empty;
         var msg = new GoToGameMessage() {
