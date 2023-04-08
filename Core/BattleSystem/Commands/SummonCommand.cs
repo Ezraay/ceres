@@ -1,4 +1,5 @@
 ﻿using System;
+using Ceres.Core.BattleSystem.Battles;
 using Newtonsoft.Json;
 
 namespace Ceres.Core.BattleSystem

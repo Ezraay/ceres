@@ -1,4 +1,5 @@
 using Ceres.Core.BattleSystem;
+using Ceres.Core.BattleSystem.Battles;
 using Ceres.Server.Games;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

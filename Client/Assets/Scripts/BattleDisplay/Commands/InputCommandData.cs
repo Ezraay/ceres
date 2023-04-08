@@ -10,13 +10,16 @@ namespace CardGame.BattleDisplay.Commands
         public PlayerDisplay PlayerDisplay;
         public ClientBattle ClientBattle;
         
-        public InputCommandData(SlotDisplay startSlot, SlotDisplay endSlot, CardDisplay card, ClientBattle clientBattle, PlayerDisplay playerDisplay)
+        public InputCommandData(SlotDisplay startSlot, SlotDisplay endSlot, CardDisplay card, ClientBattle clientBattle, PlayerDisplay playerDisplay, IPlayer myPlayer)
         {
             StartSlot = startSlot;
             EndSlot = endSlot;
             Card = card;
             ClientBattle = clientBattle;
             PlayerDisplay = playerDisplay;
+            MyPlayer = myPlayer;
         }
+
+        public IPlayer MyPlayer;
     }
 }

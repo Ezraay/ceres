@@ -20,7 +20,8 @@ namespace Ceres.Client
 
             Container.Bind<ICardDatabase>().FromInstance(database);
             Container.Bind<IDeck>().FromInstance(deck);
-            
+
+            Container.Bind<SceneManager>().AsSingle().NonLazy();
             Container.Bind<MainThreadManager>().FromComponentInNewPrefab(mainThreadManager).AsSingle().NonLazy();
 
             Container.Bind<SignalRManager>().FromComponentInNewPrefab(signalRManager).AsSingle().NonLazy();

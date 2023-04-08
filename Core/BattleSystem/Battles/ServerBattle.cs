@@ -1,20 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Ceres.Core.Entities;
 
-namespace Ceres.Core.BattleSystem
+namespace Ceres.Core.BattleSystem.Battles
 {
-	public class ServerBattle : Battle
-	{
-		private readonly bool checkCommands;
-		public readonly Guid Id;
-		public event Action<IPlayer, IServerAction> OnPlayerAction;
+    public class ServerBattle : Battle
+    {
+        public event Action<IPlayer, IServerAction> OnPlayerAction;
+        public readonly Guid Id;
+        private readonly bool checkCommands;
+        private const int MaxDamage = 6;
 
-		public ServerBattle(TeamManager teamManager, Guid id,
-			bool checkCommands = true) : base(teamManager)
-		{
-			this.checkCommands = checkCommands;
-			this.Id = id;
-		}
+        public ServerBattle(TeamManager teamManager, bool checkCommands = true) : base(teamManager)
+        {
+            this.checkCommands = checkCommands;
+            Id = Guid.NewGuid();
+            
+            teamManager.OnCallAction += CallBattleAction;
+        }
 
 		public void Execute(IClientCommand command, IPlayer author)
 		{
@@ -22,34 +26,46 @@ namespace Ceres.Core.BattleSystem
 			{
 				command.Apply(this, author);
 
-				BattleTeam myTeam = this.TeamManager.GetPlayerTeam(author.Id);
+                BattleTeam? myTeam = TeamManager.GetPlayerTeam(author.Id);
 
-				foreach (IPlayer player in myTeam.Players)
-					foreach (IServerAction action in command.GetActionsForAlly(author))
-						this.OnPlayerAction?.Invoke(player, action);
+                if (myTeam == null) 
+                    return;
 
-				foreach (var team in this.TeamManager.AllTeams)
-					if (team != myTeam)
-						foreach (IPlayer player in team.Players)
-							foreach (var action in command.GetActionsForOpponent(author))
-								this.OnPlayerAction?.Invoke(player, action);
-			}
-		}
+                foreach (IPlayer player in myTeam.GetAllPlayers())
+                foreach (IServerAction action in command.GetActionsForAlly(author))
+                    OnPlayerAction?.Invoke(player, action);
 
-		public void EndGame(string reason) { }
+                foreach (BattleTeam team in TeamManager.GetAllTeams())
+                    if (team != myTeam)
+                        foreach (IPlayer player in team.GetAllPlayers())
+                        foreach (var action in command.GetActionsForOpponent(author))
+                            OnPlayerAction?.Invoke(player, action);
+            }
+        }
 
-		public override void StartGame(List<IPlayer> playerOrder)
-		{
-			base.StartGame(playerOrder);
-			
-			foreach (IPlayer player in this.TeamManager.AllPlayers)
-			{
-				MultiCardSlot pile = player.GetMultiCardSlot(MultiCardSlotType.Pile) as MultiCardSlot;
-				pile.Shuffle();
+        public void StartGame()
+        {
+            foreach (BattleTeam team in TeamManager.GetAllTeams())
+            {
+                foreach (IPlayer player in team.GetAllPlayers())
+                {
+                    MultiCardSlot? pile = player.GetMultiCardSlot(MultiCardSlotType.Pile) as MultiCardSlot;
+                    if (pile == null)
+                        throw new Exception("Pile is hidden");
+                    pile.Shuffle();
 
-				for (int i = 0; i < 5; i++)
-					player.GetMultiCardSlot(MultiCardSlotType.Hand).AddCard(pile.PopCard());
-			}
-		}
-	}
+                    for (int i = 0; i < 5; i++)
+                        player.GetMultiCardSlot(MultiCardSlotType.Hand).AddCard(pile.PopCard());
+                    
+                }
+            }
+        }
+
+        public event Action<IBattleAction> OnBattleAction;
+
+        public void CallBattleAction(IBattleAction action)
+        {
+            OnBattleAction?.Invoke(action);
+        }
+    }
 }

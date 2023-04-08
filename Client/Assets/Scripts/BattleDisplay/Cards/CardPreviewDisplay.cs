@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using Ceres.Client.BattleSystem;
+using Ceres.Core.BattleSystem;
+using UnityEngine;
+using Zenject;
 using Logger = Ceres.Client.Utility.Logger;
 
 namespace CardGame.BattleDisplay
@@ -8,6 +12,28 @@ namespace CardGame.BattleDisplay
         [SerializeField] private CardDisplay display;
         [SerializeField] private LayerMask cardMask;
         private Vector2 cardColliderSize;
+        private BattleManager battleManager;
+
+        [Inject]
+        public void Construct(BattleManager battle)
+        {
+            this.battleManager = battle;
+        }
+
+        private void OnEnable()
+        {
+            this.battleManager.OnEnd += OnBattleEnd;
+        }
+
+        private void OnDisable()
+        {
+            this.battleManager.OnEnd -= OnBattleEnd;
+        }
+
+        private void OnBattleEnd(EndBattleReason _)
+        {
+            Hide();
+        }
 
         private void Start()
         {

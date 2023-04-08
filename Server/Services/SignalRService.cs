@@ -17,7 +17,7 @@ public class SignalRService :ISignalRService
     public event Action<GameUser>? OnUserConnectedToLobby;
     public event Action<GameUser>? OnPlayerLeftGame;
     public event Action<GameUser, GameUser>? OnUsersReadyToPlay;
-    public event Action<Guid, GameUser>? OnTryToJoinGame;
+    public event Action<Guid, GameUser>? OnTryToJoinBattle;
     public event Action<Guid, GameUser, IClientCommand>? OnPlayerSentCommand;
 
 
@@ -31,9 +31,11 @@ public class SignalRService :ISignalRService
 
 
 
-    private void SendHubMessage(IHubContext<Hub> context, string connectionId, INetworkMessage message)
+    private void SendHubMessage(IHubContext<Hub> context, INetworkMessage message, params string[] connectionIds)
     {
-        context.Clients.Client(connectionId).SendAsync(message.MessageName, message).GetAwaiter().GetResult();
+        context.Clients.Clients(connectionIds).SendAsync(message.MessageName, message).GetAwaiter().GetResult();
+        
+        // context.Clients.Client(connectionId).SendAsync(message.MessageName, message).GetAwaiter().GetResult();
     }
     private void SendHubAllMessage(IHubContext<Hub> context, INetworkMessage message)
     {
@@ -57,7 +59,7 @@ public class SignalRService :ISignalRService
     private void SendLobbyClientListMessage()
     {
         var inLobbyOnlyGameUsers = gameUsers.GetUsers()
-            .Where(pair => !string.IsNullOrEmpty(pair.Value.LobbyConnectionId) && pair.Value.GameId.Equals(Guid.Empty))
+            .Where(pair => !string.IsNullOrEmpty(pair.Value.LobbyConnectionId) )
             .Select(p => p.Value ).ToArray();
         var msg = new ClientsListMessage(){LobbyUsers = inLobbyOnlyGameUsers};
         SendHubAllMessage(lobbyHub,msg);
@@ -134,7 +136,6 @@ public class SignalRService :ISignalRService
                 if (firstPlayer == null){
                     firstPlayer = user;
                 } else {
-                    // var battle = battleService.AllocateServerBattle();
                     OnUsersReadyToPlay?.Invoke(firstPlayer, user);
                 }
             }
@@ -146,14 +147,17 @@ public class SignalRService :ISignalRService
     public void TryToJoinGame(Guid gameId, Guid userId, string gameConnectionId){
         var gameUser = gameUsers.UpdateUserGameConnectionId(userId, gameConnectionId);
 
-        if ( gameUser != null) {
-            OnTryToJoinGame?.Invoke(gameId, gameUser);
-        }
+        if (gameUser == null) return;
+
+        gameHub.Groups.AddToGroupAsync(gameConnectionId, gameId.ToString()).GetAwaiter().GetResult();
+        
+        OnTryToJoinBattle?.Invoke(gameId, gameUser);
+        SendLobbyClientListMessage();
     }
 
-    public void UpdatePlayersName(string battleId, string? player1Name, string? player2Name)
+    public void UpdatePlayersName(string battleId, List<BattleTeam> allies, List<BattleTeam> enemies)
     {
-        var msg = new UpdatePlayersNameMessage(){Player1Name = player1Name, Player2Name = player2Name};
+        var msg = new UpdatePlayersNameMessage(){Allies = allies, Enemies = enemies};
         SendHubGroupMessage(gameHub,battleId, msg);
 
     }
@@ -166,40 +170,46 @@ public class SignalRService :ISignalRService
         {
             Action = action
         };
-        SendHubMessage(gameHub, user.GameConnectionId, msg);
+        SendHubMessage(gameHub, msg, user.GameConnectionId);
     }
 
-    public void SendServerBattleEnded(Guid gameId, string reason){
-        var msg = new GameEndedMessage() {GameId = gameId.ToString(), Reason = reason};
-        SendHubGroupMessage(gameHub, msg.GameId, msg);
+    // public void SendServerBattleEnded(Guid gameId, string reason){
+    //     var msg = new GameEndedMessage() {GameId = gameId.ToString(), Reason = reason};
+    //     SendHubGroupMessage(gameHub, msg.GameId, msg);
+    // }
+
+    public void SendServerBattleLost(GameUser[] losers)
+    {
+        var msg = new GameEndedMessage() {Reason = EndBattleReason.YouLost};
+        SendHubMessage(gameHub, msg, losers.Select(x => x.GameConnectionId).ToArray());   
+    }
+
+    public void SendServerBattleWon(GameUser[] winners)
+    {
+        var msg = new GameEndedMessage() {Reason = EndBattleReason.YouWon};
+        SendHubMessage(gameHub, msg, winners.Select(x => x.GameConnectionId).ToArray());
     }
 
     public void PlayerLeftGame(string gameConnectionId)
     {
         gameUsers.GetUserByGameConnectionId(gameConnectionId, out var user);
-        if (user != null){
-            OnPlayerLeftGame?.Invoke(user);
-        }
+        if (user == null) return;
+        OnPlayerLeftGame?.Invoke(user);
     }
 
     public void SendUserGoToGame(ClientBattle battle, GameUser user)
     {
-        if (user.LobbyConnectionId == null) return;
+        if (user.LobbyConnectionId == "") return;
 
-        Guid playerId = user.ServerPlayer?.Id ?? Guid.Empty;
+        var playerId = user.ServerPlayer?.Id ?? Guid.Empty;
         var msg = new GoToGameMessage() {
             GameId = user.GameId, 
             UserId = user.UserId, 
-            // slotTest = battle.TeamManager.GetPlayer(playerId).GetMultiCardSlot(MultiCardSlotType.Damage),
-            // cardsTest = new List<Card>() {Card.TestCard()},
-            // cardTest = Card.TestCard(),
-            // listTest = new List<int> {1, 3, 5},
-            // playerTest = battle.TeamManager.GetPlayer(playerId), 
             ClientBattle = battle,
             PlayerId = playerId};
         // var msg = new GoToGameMessage() {GameId = user.GameId, UserId = user.UserId, ClientBattle = battle, PlayerId = playerId};
 
-        SendHubMessage(lobbyHub, user.LobbyConnectionId, msg);
+        SendHubMessage(lobbyHub, msg, user.LobbyConnectionId);
     }
 
     public void PlayerSentCommand(Guid gameId, Guid userId, IClientCommand command){
@@ -210,16 +220,16 @@ public class SignalRService :ISignalRService
         }
     }
 
-    public void UserJoinedGame(GameUser user, Guid gameId, string result)
-    {
-        if (result == JoinGameResults.NoGameFound) return;
-        
-        // Adding player or spectator to the Game group
-        gameHub.Groups.AddToGroupAsync(user.GameConnectionId, gameId.ToString()).GetAwaiter().GetResult();
-        
-        var msg = new JoinedGame() { GameJoiningResult = result };
-        SendHubMessage(gameHub, user.GameConnectionId, msg);
-    }
+    // public void UserJoinedGame(GameUser user, Guid gameId, string result)
+    // {
+    //     if (result == JoinGameResults.NoGameFound) return;
+    //     
+    //     // Adding player or spectator to the Game group
+    //     gameHub.Groups.AddToGroupAsync(user.GameConnectionId, gameId.ToString()).GetAwaiter().GetResult();
+    //     
+    //     var msg = new JoinedGame() { GameJoiningResult = result };
+    //     SendHubMessage(gameHub, msg, user.GameConnectionId);
+    // }
     
     #endregion
 }

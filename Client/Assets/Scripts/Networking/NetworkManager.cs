@@ -1,4 +1,5 @@
 ﻿using System;
+using CardGame.BattleDisplay.Networking;
 using CardGame.Networking;
 using Ceres.Client.BattleSystem;
 using Ceres.Client.Networking;
@@ -17,20 +18,23 @@ namespace Ceres.Client
         private Guid gameId;
 
         private MainThreadManager mainThreadManager;
-
         private SignalRManager signalRManager;
+        private SceneManager sceneManager;
 
         private Guid userId;
         public bool IsConnected { get; private set; }
 
         public event Action<BattleStartConditions> OnStartGame;
+        public event Action<EndBattleReason> OnGameEnd;
         public event Action<IServerAction> OnBattleAction;
 
         [Inject]
-        public void Construct(MainThreadManager mainThread, SignalRManager signalR)
+        public void Construct(MainThreadManager mainThread, SignalRManager signalR, SceneManager scene)
         {
             mainThreadManager = mainThread;
             signalRManager = signalR;
+            this.sceneManager = scene;
+            
             
             signalRManager.OnConnected += Connected;
         }
@@ -43,11 +47,28 @@ namespace Ceres.Client
                 gameId = message.GameId;
                 await signalRManager.ConnectToGameHub();
 
-                mainThreadManager.Execute(() => OnGoToGame(message.ClientBattle, message.PlayerId));
+                mainThreadManager.Execute(() => 
+                    OnGoToGame(message.ClientBattle, message.PlayerId));
             });
 
+            signalRManager.On<GameEndedMessage>(signalRManager.GameHub, async message =>
+            {
+                await signalRManager.DisconnectFromGameHub();
+                mainThreadManager.Execute(async () => 
+                    this.OnGameEnd?.Invoke(message.Reason));
+            });
+            
+            signalRManager.On<ServerActionMessage>(signalRManager.GameHub, message =>
+            {
+                mainThreadManager.Execute(() =>
+                {
+                    Logger.Log("Got action: " + message.Action);
+                    OnBattleAction?.Invoke(message.Action);
+                });
+            });
+            
             IsConnected = true;
-            SceneManager.LoadScene(GameScene.MainMenu);
+            sceneManager.LoadScene(new MainMenuScene());
         }
 
         public void JoinQueue()
@@ -63,7 +84,9 @@ namespace Ceres.Client
 
         private async void OnGoToGame(ClientBattle battle, Guid playerId)
         {
-            await SceneManager.LoadScene(GameScene.Battle);
+            BattleScene battleScene = new BattleScene(new NetworkedProcessor(this));
+            battleScene.OnSceneLeave += LeaveGame;
+            await sceneManager.LoadSceneAsync(battleScene);
 
             BattleStartConditions conditions = new BattleStartConditions()
             {
@@ -72,16 +95,12 @@ namespace Ceres.Client
             };
             OnStartGame?.Invoke(conditions);
 
-            signalRManager.On<ServerActionMessage>(signalRManager.GameHub, message =>
-            {
-                mainThreadManager.Execute(() =>
-                {
-                    Logger.Log("Got action: " + message.Action);
-                    OnBattleAction?.Invoke(message.Action);
-                });
-            });
+            await signalRManager.GameHub.SendAsync("JoinGame",  gameId, userId);
+        }
 
-            signalRManager.GameHub.SendAsync("JoinGame",  gameId, userId);
+        private void LeaveGame()
+        {
+            // this.signalRManager.DisconnectGameHub();
         }
     }
 }

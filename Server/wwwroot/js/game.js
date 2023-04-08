@@ -37,34 +37,35 @@ function rejected() {
 }
 
 GameHubConnection.on("JoinedGame", msg =>{
-    let res = msg.gameJoiningResult;
-    console.log(res)
-    if (res === "JoinedAsPlayer1") {
-        ImPlayer1 = true;
-        document.getElementById("P2Action").hidden = true;
-        document.getElementById("P1Action").disabled =false;
-        document.getElementById("player1Name").innerText += " (You)"
-    }
-    if (res === "JoinedAsPlayer2") {
-        ImPlayer2 = true;
-        document.getElementById("P1Action").hidden = true;
-        document.getElementById("P2Action").disabled =false;
-        document.getElementById("player2Name").innerText += " (You)"
-    }
+    console.log(msg)
+    // let res = msg.gameJoiningResult;
+    // if (res === "JoinedAsPlayer1") {
+    //     ImPlayer1 = true;
+    //     document.getElementById("P2Action").hidden = true;
+    //     document.getElementById("P1Action").disabled =false;
+    //     document.getElementById("player1Name").innerText += " (You)"
+    // }
+    // if (res === "JoinedAsPlayer2") {
+    //     ImPlayer2 = true;
+    //     document.getElementById("P1Action").hidden = true;
+    //     document.getElementById("P2Action").disabled =false;
+    //     document.getElementById("player2Name").innerText += " (You)"
+    // }
 })
 
 GameHubConnection.on("UpdatePlayersName", msg => {
-    let p1Name = msg.player1Name;
-    let p2Name = msg.player2Name;
-    console.log("UpdatePlayersName")
-    document.getElementById("player1Name").innerText = p1Name;
-    document.getElementById("player2Name").innerText = p2Name;
-    if (ImPlayer1){
-        document.getElementById("player1Name").innerText += " (You)"
-    }
-    if (ImPlayer2){
-        document.getElementById("player2Name").innerText += " (You)"
-    }
+    console.log(msg);
+    // let p1Name = msg.player1Name;
+    // let p2Name = msg.player2Name;
+    // console.log("UpdatePlayersName")
+    // document.getElementById("player1Name").innerText = p1Name;
+    // document.getElementById("player2Name").innerText = p2Name;
+    // if (ImPlayer1){
+    //     document.getElementById("player1Name").innerText += " (You)"
+    // }
+    // if (ImPlayer2){
+    //     document.getElementById("player2Name").innerText += " (You)"
+    // }
 })
 
 GameHubConnection.on("ServerAction", actionMsg => {

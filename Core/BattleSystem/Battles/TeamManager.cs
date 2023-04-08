@@ -1,75 +1,212 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Ceres.Core.Utility.Json;
 using Newtonsoft.Json;
 
-namespace Ceres.Core.BattleSystem
+namespace Ceres.Core.BattleSystem.Battles
 {
-    public class TeamManager
+    public class TeamManager : BattleActionCaller
     {
-        public readonly List<BattleTeam> AllTeams = new List<BattleTeam>();
-        public List<IPlayer> AllPlayers => this.AllTeams.SelectMany(x => x.Players).ToList();
+        [JsonProperty] private List<BattleTeam> teams = new List<BattleTeam>();
+        [JsonProperty] private SerializableDictionary<Guid, List<Guid>> allies = new SerializableDictionary<Guid, List<Guid>>();
 
-        public void AddTeam(BattleTeam team)
+        public BattleTeam CreateTeam()
         {
-            AllTeams.Add(team);
+            BattleTeam team = new BattleTeam();
+            teams.Add(team);
+            allies.Add(team.Id, new List<Guid>());
+            return team;
+        }
+
+        private BattleTeam AddExistingTeam(Guid id)
+        {
+            BattleTeam team = new BattleTeam(id);
+            teams.Add(team);
+            allies.Add(team.Id, new List<Guid>());
+            return team;
+        }
+        
+        public void AddPlayer(IPlayer player, BattleTeam team)
+        {
+            team.AddPlayer(player);
+        }
+        
+        public void RemovePlayer(IPlayer player)
+        {
+            BattleTeam? team = GetPlayerTeam(player.Id);
+
+            if (team == null)
+                return;
+            
+            team.RemovePlayer(player);
+            if (team.PlayerCount == 0)
+            {
+                teams.Remove(team);
+                foreach (BattleTeam ally in GetAllies(team))
+                    allies[ally.Id].Remove(team.Id);
+                allies.Remove(team.Id);
+                
+                CheckGameOver();
+            }
+        }
+
+        private void CheckGameOver()
+        {
+            BattleTeam first = teams[0];
+
+            for (var i = 1; i < teams.Count; i++)
+            {
+                var team = teams[i];
+                if (!allies[first.Id].Contains(team.Id))
+                    return;
+            }
+
+            // Game over
+            List<BattleTeam> winningTeams = GetAllies(first);
+            winningTeams.Add(first);
+            CallBattleAction(new EndBattleAction(winningTeams, GetEnemies(first)));
         }
 
         public BattleTeam? GetPlayerTeam(Guid playerId)
         {
-            foreach (BattleTeam team in AllTeams)
-            {
-                if (team.Players.Find(x => x.Id == playerId) != null)
-                {
+            foreach (BattleTeam team in teams)
+                if (team.GetPlayer(playerId) != null)
                     return team;
-                }
-            }
             
             return null;
         }
 
         public void MakeAllies(BattleTeam team1, BattleTeam team2)
         {
-            team1.AddAlly(team2.Id);
-            team2.AddAlly(team1.Id);
-        }
-
-        public void MakeEnemies(BattleTeam team1, BattleTeam team2)
-        {
-            team1.AddEnemy(team2.Id);
-            team2.AddEnemy(team1.Id);
+            if (AreAllies(team1, team2))
+                return;
+          
+            foreach (BattleTeam team in this.teams)
+            foreach (var team1Ally in allies[team1.Id])
+            {
+                allies[team2.Id].Add(team1Ally);
+            }
+            
+            foreach (var team2Ally in allies[team2.Id])
+            {
+                allies[team1.Id].Add(team2Ally);
+            }
+            
+            allies[team1.Id].Add(team2.Id);
+            allies[team2.Id].Add(team1.Id);
         }
 
         public IPlayer? GetPlayer(Guid playerId)
         {
-            foreach (BattleTeam team in AllTeams)
+            foreach (BattleTeam team in teams)
             {
-                foreach (IPlayer player in team.Players)
-                {
-                    if (player.Id == playerId)
-                        return player;
-                }
+                IPlayer? player = team.GetPlayer(playerId);
+                if (player != null)
+                    return player;
             }
 
             return null;
         }
 
-        public TeamManager SafeCopy(IPlayer player)
+        public List<BattleTeam> GetAllies(BattleTeam? team)
+        {
+            List<BattleTeam> result = new List<BattleTeam>();
+            if (team == null)
+                return result;
+            allies.TryGetValue(team.Id, out var allyIds);
+
+            if (allyIds == null)
+                return result;
+            
+            foreach (Guid allyId in allyIds)
+            {
+                BattleTeam ally = teams.Find(x => x.Id == allyId);
+                result.Add(ally);
+            }
+
+            return result;
+        }
+
+        public List<BattleTeam> GetAllies(IPlayer? player)
+        {
+            if (player == null)
+                return new List<BattleTeam>();
+            var team = GetPlayerTeam(player.Id);
+            return GetAllies(team);
+        }
+
+        public bool AreAllies(BattleTeam team1, BattleTeam team2)
+        {
+            List<BattleTeam> team1Allies = GetAllies(team1);
+            List<BattleTeam> team2Allies = GetAllies(team2);
+            return team1Allies.Contains(team2) && team2Allies.Contains(team1);
+        }
+
+        public List<BattleTeam> GetEnemies(BattleTeam? team)
+        {
+            List<BattleTeam> result = new List<BattleTeam>(teams);
+            if (team == null)
+                return result;
+            result.Remove(team);                // excluding own team - the rest are enemies 
+            
+            if (!allies.ContainsKey(team.Id))
+                return result;
+            List<Guid> allyIds = allies[team.Id];
+
+            foreach (Guid allyId in allyIds)
+            {
+                result.Remove(result.Find(x => x.Id == allyId));
+            }
+            
+            return result;
+        }
+        
+        public List<BattleTeam> GetEnemies(IPlayer? player)
+        {
+            if (player == null)
+                return new List<BattleTeam>();
+            var team = GetPlayerTeam(player.Id);
+            return GetEnemies(team);
+        }
+
+        public TeamManager SafeCopy(IPlayer author)
         {
             TeamManager teamManager = new TeamManager();
 
-            foreach (var team in AllTeams)
+            foreach (var team in teams)
             {
-                BattleTeam newTeam = team.GetSafeTeam(player);
-                teamManager.AddTeam(newTeam);
+                List<IPlayer> teamPlayers = team.GetSafeTeam(author);
+                BattleTeam newTeam  = teamManager.AddExistingTeam(team.Id);
+                foreach (IPlayer player in teamPlayers)
+                {
+                    newTeam.AddPlayer(player);
+                }
             }
+            
+            foreach (BattleTeam team in teams)
+            {
+                foreach (BattleTeam ally in GetAllies(team))
+                {
+                    BattleTeam? team1 = teamManager.GetTeam(team.Id);
+                    BattleTeam? team2 = teamManager.GetTeam(ally.Id);
+                    if (team2 != null && team1 != null) 
+                        teamManager.MakeAllies(team1, team2);
+                }
+            }
+            
 
             return teamManager;
         }
 
-        public bool AreAllies(BattleTeam myTeam, BattleTeam targetTeam)
+        private BattleTeam? GetTeam(Guid teamId)
         {
-            return myTeam.IsAlly(targetTeam);
+            return teams.FirstOrDefault(x => x.Id == teamId) ?? null;
+        }
+
+        public IEnumerable<BattleTeam> GetAllTeams()
+        {
+            return teams;
         }
     }
 }

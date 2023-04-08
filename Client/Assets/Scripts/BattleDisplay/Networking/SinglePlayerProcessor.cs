@@ -1,6 +1,8 @@
 ﻿using System;
 using CardGame.Networking;
 using Ceres.Core.BattleSystem;
+using Ceres.Core.BattleSystem.Battles;
+using Ceres.Core.Entities;
 using UnityEngine;
 using Logger = Ceres.Client.Utility.Logger;
 
@@ -11,7 +13,8 @@ namespace CardGame.BattleDisplay.Networking
         private readonly ServerBattleStartConfig conditions;
         public event Action<IServerAction> OnServerAction;
         public event Action<BattleStartConditions> OnStartBattle;
-        private ServerBattle serverBattle;
+        public event Action<EndBattleReason> OnEndBattle;
+        public ServerBattle ServerBattle { get; private set; }
         
         public SinglePlayerProcessor(ServerBattleStartConfig conditions)
         {
@@ -19,6 +22,7 @@ namespace CardGame.BattleDisplay.Networking
         }
 
         public IPlayer MyPlayer { get; private set; }
+        private BattleTeam myTeam;
 
         public void Start()
         {
@@ -26,24 +30,22 @@ namespace CardGame.BattleDisplay.Networking
             IPlayer player2 = new StandardPlayer(Guid.NewGuid(), new MultiCardSlot(), new MultiCardSlot());
             player1.LoadDeck(conditions.Player1Deck);
             player2.LoadDeck(conditions.Player2Deck);
-
-            MyPlayer = player1;
-
-            TeamManager manager = new TeamManager();
-            BattleTeam team1 = new BattleTeam(Guid.NewGuid());
-            BattleTeam team2 = new BattleTeam(Guid.NewGuid());
-            team1.AddPlayer(player1);
-            team2.AddPlayer(player2);
-            manager.AddTeam(team1);
-            manager.AddTeam(team2);
-            manager.MakeEnemies(team1, team2);
             
-            serverBattle = new ServerBattle(manager, Guid.NewGuid(), false);
-            serverBattle.StartGame();
+            TeamManager manager = new TeamManager();
+            BattleTeam team1 = manager.CreateTeam();
+            BattleTeam team2 = manager.CreateTeam();
+            manager.AddPlayer(player1, team1);
+            manager.AddPlayer(player2, team2);
+            
+            MyPlayer = player1;
+            this.myTeam = team1;
+            
+            this.ServerBattle = new ServerBattle(manager, false);
+            this.ServerBattle.StartGame();
             
             ClientBattle = new ClientBattle(manager.SafeCopy(player1));
 
-            serverBattle.OnPlayerAction += (player, action) =>
+            this.ServerBattle.OnPlayerAction += (player, action) =>
             {
                 if (player == MyPlayer) // Accept actions sent to us 
                 {
@@ -52,6 +54,8 @@ namespace CardGame.BattleDisplay.Networking
                 }
             };
             
+            this.ServerBattle.OnBattleAction += OnServerBattleAction;
+            
             OnStartBattle?.Invoke(new BattleStartConditions()
             {
                 ClientBattle = ClientBattle,
@@ -59,11 +63,21 @@ namespace CardGame.BattleDisplay.Networking
             });
         }
 
+        private void OnServerBattleAction(IBattleAction action)
+        {
+            switch (action)
+            {
+                case EndBattleAction endGame:
+                    this.OnEndBattle?.Invoke(endGame.WinningTeams.Contains(this.myTeam) ? EndBattleReason.YouWon : EndBattleReason.YouLost);
+                    break;
+            }
+        }
+
         private ClientBattle ClientBattle { get; set; }
 
         public void ProcessCommand(IClientCommand command)
         {
-            serverBattle.Execute(command, MyPlayer);
+            this.ServerBattle.Execute(command, MyPlayer);
         }
     }
 }

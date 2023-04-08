@@ -66,7 +66,7 @@ connection.on("GoToGame",msg => {
     console.log("/games?gameid="+gameId.toString())
     sessionStorage.setItem("gameId", gameId);
     
-    window.location = "/games?gameid="+gameId.toString();
+    // window.location = "/games?gameid="+gameId.toString();
 })
 
 connection.on("ClientsList",(msg) => {

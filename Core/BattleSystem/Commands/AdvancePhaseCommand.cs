@@ -1,4 +1,6 @@
-﻿namespace Ceres.Core.BattleSystem
+﻿using Ceres.Core.BattleSystem.Battles;
+
+namespace Ceres.Core.BattleSystem
 {
     public class AdvancePhaseCommand : IClientCommand
     {

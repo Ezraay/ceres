@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
+using Ceres.Core.BattleSystem.Battles;
 
 namespace Ceres.Core.BattleSystem
 {
@@ -16,13 +19,13 @@ namespace Ceres.Core.BattleSystem
 
 			this.PhaseManager.OnTurnEnd += () =>
 			{
-				foreach (BattleTeam team in teamManager.AllTeams)
+				foreach (BattleTeam team in teamManager.GetAllTeams())
 				{
-					foreach (IPlayer player in team.Players)
+					foreach (IPlayer player in team.GetAllPlayers())
 						for (int x = 0; x < player.Width; x++)
 						{
 							for (int y = 0; y < player.Height; y++)
-								player.GetUnitSlot(x, y).Card.Reset();
+								player.GetUnitSlot(new CardPosition(x, y))?.Card.Reset();
 						}
 				}
 			};

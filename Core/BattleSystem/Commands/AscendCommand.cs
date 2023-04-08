@@ -1,4 +1,5 @@
 ﻿using System;
+using Ceres.Core.BattleSystem.Battles;
 using Newtonsoft.Json;
 
 namespace Ceres.Core.BattleSystem
@@ -17,7 +18,7 @@ namespace Ceres.Core.BattleSystem
         public bool CanExecute(Battle battle, IPlayer author)
         {
             MultiCardSlot hand = author.GetMultiCardSlot(MultiCardSlotType.Hand) as MultiCardSlot;
-            card = hand.GetCard(CardId);
+            card = hand?.GetCard(CardId);
 
             if (card == null) return false;
             if (card.Data.Tier < author.Champion.Card.Data.Tier) return false;
