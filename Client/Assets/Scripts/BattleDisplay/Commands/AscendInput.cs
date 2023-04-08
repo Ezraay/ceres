@@ -6,11 +6,9 @@ namespace CardGame.BattleDisplay.Commands
     {
         public bool CanExecute(InputCommandData data)
         {
-            AscendCommand command = new AscendCommand(data.Card.Card.ID);
-            return data.StartSlot == data.PlayerDisplay.Hand &&
-                   data.EndSlot == data.PlayerDisplay.Champion && 
-                   data.EndSlot.Owner == data.PlayerDisplay &&
-                   command.CanExecute(data.ClientBattle, data.MyPlayer);
+            return data.StartSlot == data.MyPlayerDisplay.Hand &&
+                   data.EndSlot == data.MyPlayerDisplay.Champion && 
+                   data.EndSlot.Owner == data.MyPlayerDisplay;
         }
 
         public IClientCommand GetCommand(InputCommandData data)

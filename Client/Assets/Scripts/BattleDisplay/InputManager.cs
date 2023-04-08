@@ -97,7 +97,7 @@ namespace CardGame
                 return;
             }
 
-            if (draggedCard != null)
+            if (draggedCard != null && this.draggedSlot.CanDrag(this.battleManager.Battle, this.battleDisplayManager.GetPlayerDisplay(this.battleManager.MyPlayer.Id)))
             {
                 Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 draggedCard.transform.position = mousePosition;

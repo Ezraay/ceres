@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CardGame.Networking;
 using Ceres.Core.BattleSystem;
 using Ceres.Core.BattleSystem.Battles;
@@ -41,10 +42,9 @@ namespace CardGame.BattleDisplay.Networking
             this.myTeam = team1;
             
             this.ServerBattle = new ServerBattle(manager, false);
-            this.ServerBattle.StartGame();
+            List<IPlayer> playerOrder = new List<IPlayer>() {player1, player2};
             
-            ClientBattle = new ClientBattle(manager.SafeCopy(player1));
-
+            this.ServerBattle.OnBattleAction += OnServerBattleAction;
             this.ServerBattle.OnPlayerAction += (player, action) =>
             {
                 if (player == MyPlayer) // Accept actions sent to us 
@@ -54,13 +54,15 @@ namespace CardGame.BattleDisplay.Networking
                 }
             };
             
-            this.ServerBattle.OnBattleAction += OnServerBattleAction;
+            ClientBattle = new ClientBattle(manager.SafeCopy(player1), ServerBattle.PhaseManager.Copy());
             
             OnStartBattle?.Invoke(new BattleStartConditions()
             {
                 ClientBattle = ClientBattle,
                 PlayerId = player1.Id
             });
+            
+            this.ServerBattle.StartGame(playerOrder);
         }
 
         private void OnServerBattleAction(IBattleAction action)

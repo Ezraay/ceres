@@ -49,7 +49,7 @@ namespace Ceres.Core.BattleSystem
                     // IMultiCardSlot multiCardSlot = otherPlayer.GetMultiCardSlot(MultiCardSlotType.Hand);
                     hand = new MultiCardSlot();
                     foreach (var card in serverHand.Cards)
-                    {
+                    { 
                         hand.AddCard(card);
                     }
                 }

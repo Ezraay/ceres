@@ -12,7 +12,7 @@ namespace CardGame.BattleDisplay
 
             PlayerDisplay playerDisplay = data.BattleDisplayManager.GetPlayerDisplay(action.PlayerId);
             MultiCardSlotDisplay multiCard = playerDisplay.GetMultiCardSlot(action.SlotType);
-            UnitSlotDisplay slot = playerDisplay.GetUnitSlot(action.X, action.Y);
+            UnitSlotDisplay slot = playerDisplay.GetUnitSlot(action.Position);
             CardDisplay card = data.CardDisplayFactory.GetDisplay(action.CardId);
             
             multiCard.RemoveCard(card);

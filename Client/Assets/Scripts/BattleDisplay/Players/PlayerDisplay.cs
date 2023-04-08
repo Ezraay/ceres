@@ -1,4 +1,5 @@
-﻿using Ceres.Core.BattleSystem;
+﻿using System;
+using Ceres.Core.BattleSystem;
 using UnityEngine;
 using Zenject;
 
@@ -22,6 +23,7 @@ namespace CardGame.BattleDisplay
         [field: SerializeField] public UnitSlotDisplay LeftSupport { get; private set; }
         [field: SerializeField] public UnitSlotDisplay RightSupport { get; private set; }
         [field: SerializeField] public UnitSlotDisplay ChampionSupport { get; private set; }
+        public Guid PlayerId { get; private set; }
 
         [Inject]
         public void Construct(CardDisplayFactory factory)
@@ -41,19 +43,20 @@ namespace CardGame.BattleDisplay
             };
         }
 
-        public UnitSlotDisplay GetUnitSlot(int x, int y)
+        public UnitSlotDisplay GetUnitSlot(CardPosition position)
         {
-            return x switch
+            return position.X switch
             {
-                1 => y == 0 ? Champion : ChampionSupport,
-                0 => y == 0 ? LeftUnit : LeftSupport,
-                2 => y == 0 ? RightUnit : RightSupport,
+                1 => position.Y == 0 ? Champion : ChampionSupport,
+                0 => position.Y == 0 ? LeftUnit : LeftSupport,
+                2 => position.Y == 0 ? RightUnit : RightSupport,
                 _ => null
             };
         }
 
         public void Setup(IPlayer player)
         {
+            PlayerId = player.Id;
             allSlots = new SlotDisplay[]
             {
                 Hand, Damage, Defense, Champion, LeftUnit, RightUnit, LeftSupport, RightSupport, ChampionSupport
@@ -71,7 +74,7 @@ namespace CardGame.BattleDisplay
             Defense.Setup(player.GetMultiCardSlot(MultiCardSlotType.Defense), cardFactory);
 
             foreach (UnitSlotDisplay slot in unitSlots)
-                slot.Setup(player.GetUnitSlot(slot.Position.x, slot.Position.y));
+                slot.Setup(player.GetUnitSlot(slot.Position));
 
 
             foreach (SlotDisplay slot in allSlots) slot.SetOwner(this);

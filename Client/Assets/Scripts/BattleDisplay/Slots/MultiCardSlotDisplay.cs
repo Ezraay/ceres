@@ -94,5 +94,12 @@ namespace CardGame.BattleDisplay
 
             return moving;
         }
+
+        public override bool CanDrag(ClientBattle battle, PlayerDisplay myPlayer)
+        {
+            if (battle.PhaseManager.Phase == BattlePhase.Main && myPlayer.Hand == this) return true;
+            if (battle.PhaseManager.Phase == BattlePhase.Ascend && myPlayer.Hand == this) return true;
+            return false;
+        }
     }
 }

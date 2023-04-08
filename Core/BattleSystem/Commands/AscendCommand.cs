@@ -38,14 +38,22 @@ namespace Ceres.Core.BattleSystem
 
         public IServerAction[] GetActionsForAlly(IPlayer author)
         {
-            return new IServerAction[] {new AllySummonAction(author.Id, MultiCardSlotType.Hand, author.Champion.Position, CardId)};
+            return new IServerAction[]
+            {
+                new AllySummonAction(author.Id, MultiCardSlotType.Hand, author.Champion.Position, CardId),
+                new AdvancePhaseAction()
+            };
         }
 
         public IServerAction[] GetActionsForOpponent(IPlayer author)
         {
             if (card == null)
                 throw new ArgumentNullException();
-            return new IServerAction[] {new OpponentSummonAction(author.Id, MultiCardSlotType.Hand, author.Champion.Position, card)};
+            return new IServerAction[]
+            {
+                new OpponentSummonAction(author.Id, MultiCardSlotType.Hand, author.Champion.Position, card),
+                new AdvancePhaseAction()
+            };
         }
     }
 }

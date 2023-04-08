@@ -4,14 +4,14 @@ using Ceres.Core.BattleSystem.Battles;
 namespace Ceres.Core.BattleSystem
 {
     [Serializable]
-    public class TestDrawCommand : IClientCommand
+    public class DrawCommand : IClientCommand
     {
         private Card drawnCard;
 
 
         public bool CanExecute(Battle battle, IPlayer author)
         {
-            return true;
+            return false;
         }
 
         public void Apply(ServerBattle battle, IPlayer author)

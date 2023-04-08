@@ -8,7 +8,7 @@ namespace Ceres.Core.BattleSystem
     public class ClientBattle : Battle
     {
         [JsonConstructor]
-        public ClientBattle(TeamManager teamManager) : base(teamManager) { }
+        public ClientBattle(TeamManager teamManager, PhaseManager phaseManager) : base(teamManager, phaseManager) { }
 
         public void Execute(IServerAction action)
         {

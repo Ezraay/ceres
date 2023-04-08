@@ -29,7 +29,7 @@ namespace Ceres.Core.BattleSystem
                 Defenders.AddCard(card);
         }
 
-        public void Reset(MultiCardSlot graveyard)
+        public void Reset()
         {
             Attacker = null;
             Target = null;
@@ -42,12 +42,6 @@ namespace Ceres.Core.BattleSystem
             int attack = Attacker.Card.Data.Attack;
             int defense = Defenders.Cards.Sum(card => card.Data.Defense);
             return defense + Target.Card.Data.Attack > attack ? 0 : damage;
-        }
-
-        public void AddSupport(UnitSlot slot)
-        {
-            Attacker.Card.AddAttack(slot.Card.Attack);
-            slot.Exhaust();
         }
     }
 }

@@ -18,6 +18,8 @@ namespace CardGame.BattleDisplay
                 OpponentDrawCardAction => new OpponentDrawCardAnimation(),
                 AllySummonAction => new AllySummonAnimation(),
                 OpponentSummonAction => new OpponentSummonAnimation(),
+                DeclareAttackAction => new DeclareAttackAnimation(),
+                SupportUnitAction => new SupportUnitAnimation(),
                 _ => null
             };
         }

@@ -5,7 +5,7 @@ namespace Ceres.Core.BattleSystem
     public class UnitSlot : Slot
     {
         public readonly CardPosition Position;
-        [JsonProperty] public Card Card { get; private set; }
+        [JsonProperty] public Card? Card { get; private set; }
         public bool Exhausted { get; private set; }
 
         public UnitSlot(CardPosition position)
@@ -26,6 +26,11 @@ namespace Ceres.Core.BattleSystem
         public void Clear()
         {
             Card = null;
+        }
+
+        public void Alert()
+        {
+            Exhausted = false;
         }
     }
 }

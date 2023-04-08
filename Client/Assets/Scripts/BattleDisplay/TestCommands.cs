@@ -16,7 +16,7 @@ namespace Ceres.Client.BattleSystem
 
         public void TestDrawCommand()
         {
-            battleManager.Execute(new TestDrawCommand());
+            battleManager.Execute(new DrawCommand());
         }
 
         public void TestOpponentDrawAndAscend()

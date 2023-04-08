@@ -60,8 +60,8 @@ public class BattleService : IBattleService
         battle.OnBattleAction += action => OnBattleAction(action, battle);
         battle.StartGame(playerOrder);
 
-        networkService.SendUserGoToGame(new ClientBattle(battle.TeamManager.SafeCopy(player1)), user1);
-        networkService.SendUserGoToGame(new ClientBattle(battle.TeamManager.SafeCopy(player2)), user2);
+        networkService.SendUserGoToGame(new ClientBattle(battle.TeamManager.SafeCopy(player1), battle.PhaseManager.Copy()), user1);
+        networkService.SendUserGoToGame(new ClientBattle(battle.TeamManager.SafeCopy(player2), battle.PhaseManager.Copy()), user2);
 
         SendListOfGamesUpdated();
     }

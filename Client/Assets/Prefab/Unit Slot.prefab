@@ -130,6 +130,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0d7409f59dc4b7888d4f8d01ee41d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sortingOrderOffset: 0
+  exhaustSpeed: 720
+  <Position>k__BackingField:
+    X: 0
+    Y: 0
 --- !u!61 &3280230038780499126
 BoxCollider2D:
   m_ObjectHideFlags: 0

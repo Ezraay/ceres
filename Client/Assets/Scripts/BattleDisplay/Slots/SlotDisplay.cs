@@ -7,13 +7,9 @@ namespace CardGame.BattleDisplay
     {
         [SerializeField] protected int sortingOrderOffset;
         public PlayerDisplay Owner { get; private set; }
+
+        public abstract bool CanDrag(ClientBattle battle, PlayerDisplay myPlayer);
         
-        // public Slot Slot { get; private set; }
-        //
-        // public virtual void SetSlot(Slot slot)
-        // {
-        //     Slot = slot;
-        // }
         public void SetOwner(PlayerDisplay playerDisplay)
         {
             Owner = playerDisplay;

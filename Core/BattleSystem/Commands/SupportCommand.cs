@@ -1,4 +1,6 @@
-﻿namespace Ceres.Core.BattleSystem
+﻿using Ceres.Core.BattleSystem.Battles;
+
+namespace Ceres.Core.BattleSystem
 {
 	public class SupportCommand : IClientCommand
 	{
@@ -26,8 +28,10 @@
 
 		public void Apply(ServerBattle battle, IPlayer author)
 		{
-			UnitSlot slot = author.GetUnitSlot(CardPosition);
-			battle.CombatManager.AddSupport(slot);
+			UnitSlot support = author.GetUnitSlot(CardPosition);
+			UnitSlot supported = author.GetUnitSlot(new CardPosition(this.CardPosition.X, this.CardPosition.Y - 1));
+			supported.Card.AddAttack(support.Card.Attack);
+			support.Exhaust();
 		}
 
 		public IServerAction[] GetActionsForAlly(IPlayer author)
