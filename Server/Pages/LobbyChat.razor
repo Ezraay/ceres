@@ -1,5 +1,6 @@
 @using System.Diagnostics
 @using Microsoft.AspNetCore.SignalR.Client;
+@using Core.Networking.Messages;
 @inject NavigationManager Navigation
 @implements IAsyncDisposable
 
@@ -17,7 +18,8 @@
         <input @bind="messageInput" size="50" />
     </label>
 </div>
-<button @onclick="Send" >Send</button>
+<button disabled="@(!IsConnected())" @onclick="Send" >Send</button>
+
 
 <hr>
 
@@ -40,9 +42,9 @@
             .WithUrl(Navigation.ToAbsoluteUri("/LobbyHub"))
             .Build();
 
-        hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
+        hubConnection.On<ReceiveMessageMessage>("ReceiveMessage", (msg) =>
         {
-            var encodedMsg = $"{user}: {message}";
+            var encodedMsg = $"{msg.UserName}: {msg.MessageText}";
             messages.Add(encodedMsg);
             InvokeAsync(StateHasChanged);
         });
@@ -52,15 +54,16 @@
 
     private async Task Send()
     {
-        Console.WriteLine("Send pressed");
         if (hubConnection is not null)
         {
             await hubConnection.SendAsync("SendMessage", userInput, messageInput);
         }
     }
 
-    public bool IsConnected =>
-        hubConnection?.State == HubConnectionState.Connected;
+    public bool IsConnected()
+    {
+        return hubConnection?.State == HubConnectionState.Connected;
+    }
 
     public async ValueTask DisposeAsync()
     {

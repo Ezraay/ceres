@@ -15,14 +15,14 @@ document.getElementById("readytToPlayButton").disabled = true;
 
 var readyToPlay = false;
 
-connection.on("ReceiveMessage", function (user, message) {
+connection.on("ReceiveMessage", function (msg) {
     var li = document.createElement("li");
     var message_list_ul = document.getElementById("messagesList")
     message_list_ul.appendChild(li).classList.add("list-group-item");
     // We can assign user-supplied strings to an element's textContent because it
     // is not interpreted as markup. If you're assigning in any other way, you 
     // should be aware of possible script injection concerns.
-    li.textContent = `${user}: ${message}`;
+    li.textContent = `${msg.userName}: ${msg.messageText}`;
 
     $('#messagesList').animate({
         scrollTop: $("#messagesList li").last().offset().top
