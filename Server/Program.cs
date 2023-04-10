@@ -17,6 +17,8 @@ builder.Services.AddSignalR(hubOptions => {
     // ((DefaultContractResolver)options.PayloadSerializerSettings.ContractResolver).IgnoreSerializableAttribute = false;
 });
 
+builder.Services.AddServerSideBlazor(o => o.DetailedErrors = true);
+
 builder.Services.AddSingleton<CardDatabaseLoader>();
 builder.Services.AddSingleton<CardDeckLoader>();
 builder.Services.AddSingleton<ISignalRService, SignalRService>();
@@ -44,6 +46,12 @@ app.UseRouting();
 
 // app.UseAuthorization();
 app.MapRazorPages();
+app.MapBlazorHub();
+// app.UseEndpoints(endpoints =>
+// {
+//     endpoints.MapBlazorHub();
+//     endpoints.MapRazorPages();
+// });
 
 app.MapHub<LobbyHub>("/LobbyHub");
 app.MapHub<GameHub>("/GameHub");
