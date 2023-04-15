@@ -1,0 +1,107 @@
+﻿@page "/Lobby"
+@using web_client.Pages.Components
+@using Microsoft.AspNetCore.SignalR.Client;
+@using Ceres.Core.Networking.Messages;
+@implements IAsyncDisposable
+
+<h3>Lobby - @(IsConnected ? "Connected" : "Disconnected")</h3>
+
+<CascadingValue Value="IsConnected">
+    <LobbyChat @ref="LobbyChat" LobbyHubConnection="_hubConnection"   />
+    <hr>
+</CascadingValue>
+
+@code {
+
+    private static HubConnection? _hubConnection;
+    
+    private LobbyChat? LobbyChat { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        _hubConnection = new HubConnectionBuilder() 
+            .WithUrl("https://localhost:44381/LobbyHub")
+            .WithAutomaticReconnect()
+            .Build();
+    
+        _hubConnection.On<ReceiveMessageMessage>("ReceiveMessage", (msg) =>
+        {
+            LobbyChat?.AddMessage(msg.UserName, msg.MessageText);
+        });
+        
+        _hubConnection.Closed += NotifyUserOfServerDisconnected;
+        _hubConnection.Reconnecting += NotifyUserOfReconnecting;
+        _hubConnection.Reconnected += NotifyUserOfReconnected;
+        
+        
+
+        
+        await ConnectWithRetryAsync(CancellationToken.None);
+    }
+
+    private Task NotifyUserOfReconnected(string? connectionId)
+    {
+        Console.WriteLine($"Lobby Connection successfully reconnected. The ConnectionId is now: {connectionId}");
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private async Task NotifyUserOfServerDisconnected(Exception? e)
+    {
+        Console.WriteLine(e != null ? $"Lobby Connection: Connection to server closed. Error: {e!.Message}" : $"Lobby Connection closed.");
+        StateHasChanged();
+        await ConnectWithRetryAsync(CancellationToken.None);
+        // return Task.CompletedTask;
+    }
+    
+    private Task NotifyUserOfReconnecting(Exception? e)
+    {
+        Console.WriteLine($"Lobby Connection started to reconnect due to an error: {e!.Message}");
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+    
+    private async Task<bool> ConnectWithRetryAsync( CancellationToken token){
+    // Keep trying to until we can start or the token is canceled.
+        while (true)
+        {
+            try
+            {
+                Console.WriteLine($"Lobby Connection - trying to connect..");
+                if (_hubConnection != null)
+                    await _hubConnection.StartAsync(token);
+                Console.WriteLine($"Lobby Connection - connected.");
+                StateHasChanged();
+                return true;
+            }
+            catch when (token.IsCancellationRequested)
+            {
+                return false;
+            }
+            catch
+            {
+                // Failed to connect, trying again in 5000 ms.
+                await Task.Delay(5000, token);
+            }
+        }}
+
+
+    private bool IsConnected
+    {
+        get
+        {
+            if (_hubConnection == null) return false;
+            return _hubConnection.State == HubConnectionState.Connected;
+        }
+    }
+
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_hubConnection != null)
+            await _hubConnection.DisposeAsync();
+    }
+
+    
+
+}

@@ -12,8 +12,11 @@
         </Content>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.15" />
         <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="7.0.2" />
+    </ItemGroup>
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Pages\Components\GamesList.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Components\LobbyChat.razor" />
     </ItemGroup>
     <PropertyGroup>
         <LangVersion>latest</LangVersion>

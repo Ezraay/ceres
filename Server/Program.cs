@@ -17,7 +17,7 @@ builder.Services.AddSignalR(hubOptions => {
     // ((DefaultContractResolver)options.PayloadSerializerSettings.ContractResolver).IgnoreSerializableAttribute = false;
 });
 
-builder.Services.AddServerSideBlazor(o => o.DetailedErrors = true);
+// builder.Services.AddServerSideBlazor(o => o.DetailedErrors = true);
 
 builder.Services.AddSingleton<CardDatabaseLoader>();
 builder.Services.AddSingleton<CardDeckLoader>();
@@ -25,6 +25,8 @@ builder.Services.AddSingleton<ISignalRService, SignalRService>();
 builder.Services.AddSingleton<IBattleService, BattleService>();
 builder.Services.AddSingleton<IServerBattleManager, ServerBattleManager>();
 
+builder.Services.AddCors(options =>
+    options.AddPolicy("OpenCORS", policyBuilder => policyBuilder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
 
 var app = builder.Build();
@@ -44,19 +46,13 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseCors("OpenCORS");
 // app.UseAuthorization();
+
 app.MapRazorPages();
-app.MapBlazorHub();
-// app.UseEndpoints(endpoints =>
-// {
-//     endpoints.MapBlazorHub();
-//     endpoints.MapRazorPages();
-// });
+// app.MapBlazorHub();
 
 app.MapHub<LobbyHub>("/LobbyHub");
 app.MapHub<GameHub>("/GameHub");
-
-// Console.WriteLine(typeof(TestDrawCommand).FullName);
-// Console.WriteLine(typeof(TestDrawCommand).Assembly.GetName().Name);
 
 app.Run();
