@@ -4,35 +4,37 @@
 @using Ceres.Core.Networking.Messages;
 @using Ceres.Core.Entities
 @implements IAsyncDisposable
+@inject IConfiguration Configuration
 
 <h3>Lobby - @(IsConnected ? "Connected" : "Disconnected")</h3>
 
 <CascadingValue Value="IsConnected">
-    <LobbyChat @ref="LobbyChat" LobbyHubConnection="_hubConnection"   />
+    <LobbyChat @ref="LobbyChat" LobbyHubConnection="hubConnection"   />
     <hr>
     <ClientsList @ref="ClientList"/>
 </CascadingValue>
 
 @code {
 
-    private static HubConnection? _hubConnection;
+    private static HubConnection? hubConnection;
     
     private LobbyChat? LobbyChat { get; set; }
     private ClientsList? ClientList { get; set; }
     
     protected override async Task OnInitializedAsync()
     {
-        _hubConnection = new HubConnectionBuilder() 
-            .WithUrl("http://localhost:5146/LobbyHub")
+        var uri = $"{Configuration.GetSection("ceres")["server-address"]}/{Configuration.GetSection("ceres")["lobby-hub"]}";
+        hubConnection = new HubConnectionBuilder() 
+            .WithUrl(uri)
             .WithAutomaticReconnect()
             .Build();
 
-        _hubConnection.On<ReceiveMessageMessage>("ReceiveMessage", LobbyChatAddMessage);
-        _hubConnection.On<ClientsListMessage>("ClientsList", ClientsListUpdate);
+        hubConnection.On<ReceiveMessageMessage>("ReceiveMessage", LobbyChatAddMessage);
+        hubConnection.On<ClientsListMessage>("ClientsList", ClientsListUpdate);
         
-        _hubConnection.Closed += NotifyUserOfServerDisconnected;
-        _hubConnection.Reconnecting += NotifyUserOfReconnecting;
-        _hubConnection.Reconnected += NotifyUserOfReconnected;
+        hubConnection.Closed += NotifyUserOfServerDisconnected;
+        hubConnection.Reconnecting += NotifyUserOfReconnecting;
+        hubConnection.Reconnected += NotifyUserOfReconnected;
         
         
 
@@ -78,8 +80,8 @@
             try
             {
                 Console.WriteLine($"Lobby Connection - trying to connect..");
-                if (_hubConnection != null)
-                    await _hubConnection.StartAsync(token);
+                if (hubConnection != null)
+                    await hubConnection.StartAsync(token);
                 Console.WriteLine($"Lobby Connection - connected.");
                 StateHasChanged();
                 return true;
@@ -100,16 +102,16 @@
     {
         get
         {
-            if (_hubConnection == null) return false;
-            return _hubConnection.State == HubConnectionState.Connected;
+            if (hubConnection == null) return false;
+            return hubConnection.State == HubConnectionState.Connected;
         }
     }
 
 
     public async ValueTask DisposeAsync()
     {
-        if (_hubConnection != null)
-            await _hubConnection.DisposeAsync();
+        if (hubConnection != null)
+            await hubConnection.DisposeAsync();
     }
 
     
