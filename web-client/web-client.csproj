@@ -21,9 +21,4 @@
     </Content>
   </ItemGroup>
 
-  <ItemGroup>
-    <AdditionalFiles Include="Pages\Components\GamesList.razor" />
-    <AdditionalFiles Include="Pages\Components\LobbyChat.razor" />
-  </ItemGroup>
-
 </Project>
