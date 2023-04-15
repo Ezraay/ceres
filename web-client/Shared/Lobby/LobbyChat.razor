@@ -1,21 +1,20 @@
-@inject NavigationManager Navigation
 @using Microsoft.AspNetCore.SignalR.Client
 
 <h4>Chat</h4>
 
 <label class="row p-1">
     <div class="col-3">User</div>
-    <div class="col col-sm-9"><input @bind="userInput" class="w-100" /></div>
+    <div class="col col-sm-9"><input @bind="userInput" class="w-100" disabled="@(!IsConnected)" /></div>
 </label>
 <label class="row p-1">
     <div class="col-3">Message</div>
-    <div class="col"><input @bind="messageInput" class="w-100" /></div>
+    <div class="col"><input @bind="messageInput" class="w-100" disabled="@(!IsConnected)" /></div>
 </label>
 <button disabled="@(!IsConnected)" @onclick="Send" >Send</button>
 
 <hr>
 <ul class="scrollable-box list-group list-group-flush">
-    @for (int i = messages.Count-1; i >= 0; i--)
+    @for (var i = messages.Count-1; i >= 0; i--)
     {
         <li class="list-group-item">@messages[i]</li>
     }

@@ -2,6 +2,7 @@
 @using web_client.Shared.Lobby
 @using Microsoft.AspNetCore.SignalR.Client;
 @using Ceres.Core.Networking.Messages;
+@using Ceres.Core.Entities
 @implements IAsyncDisposable
 
 <h3>Lobby - @(IsConnected ? "Connected" : "Disconnected")</h3>
@@ -9,6 +10,7 @@
 <CascadingValue Value="IsConnected">
     <LobbyChat @ref="LobbyChat" LobbyHubConnection="_hubConnection"   />
     <hr>
+    <ClientsList @ref="ClientList"/>
 </CascadingValue>
 
 @code {
@@ -16,18 +18,17 @@
     private static HubConnection? _hubConnection;
     
     private LobbyChat? LobbyChat { get; set; }
+    private ClientsList? ClientList { get; set; }
     
     protected override async Task OnInitializedAsync()
     {
         _hubConnection = new HubConnectionBuilder() 
-            .WithUrl("https://localhost:44381/LobbyHub")
+            .WithUrl("http://localhost:5146/LobbyHub")
             .WithAutomaticReconnect()
             .Build();
-    
-        _hubConnection.On<ReceiveMessageMessage>("ReceiveMessage", (msg) =>
-        {
-            LobbyChat?.AddMessage(msg.UserName, msg.MessageText);
-        });
+
+        _hubConnection.On<ReceiveMessageMessage>("ReceiveMessage", LobbyChatAddMessage);
+        _hubConnection.On<ClientsListMessage>("ClientsList", ClientsListUpdate);
         
         _hubConnection.Closed += NotifyUserOfServerDisconnected;
         _hubConnection.Reconnecting += NotifyUserOfReconnecting;
@@ -37,6 +38,15 @@
 
         
         await ConnectWithRetryAsync(CancellationToken.None);
+    }
+    
+    private void LobbyChatAddMessage(ReceiveMessageMessage msg) => LobbyChat?.AddMessage(msg.UserName, msg.MessageText);
+
+    private void ClientsListUpdate(ClientsListMessage msg)
+    {
+        if (ClientList == null) return;
+        ClientList.Clients = msg.LobbyUsers.ToList();
+        ClientList.Refresh();
     }
 
     private Task NotifyUserOfReconnected(string? connectionId)
