@@ -1,0 +1,29 @@
+﻿
+
+<div class="row p-1">
+    <div class="col-10">
+        <h2 id="gamesListHeader">Games</h2>
+    </div>
+</div>        
+<div class="row p-1">
+    <div class="col-10">
+        <ul class="scrollable-box list-group">
+            @foreach (var game in gamesList)
+            {
+                <li>@game.ToString()</li>
+            }
+        </ul>
+    </div>
+</div>
+
+@code {
+
+    private Guid[] gamesList;
+    
+    protected override Task OnInitializedAsync()
+    {
+        
+        return Task.CompletedTask;
+    }
+
+}

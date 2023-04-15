@@ -1,5 +1,4 @@
 ﻿@page
-@using Ceres.Server.Pages
 @model Ceres.Server.Pages.IndexModel
 
 @{
@@ -7,9 +6,7 @@
 }
 
 <div class="container">
-    <div>
-        @(await Html.RenderComponentAsync<LobbyChat>(RenderMode.Server))
-    </div>
+
 
 </div>
 
