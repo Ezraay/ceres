@@ -3,15 +3,19 @@
 @using Microsoft.AspNetCore.SignalR.Client;
 @using Ceres.Core.Networking.Messages;
 @using Ceres.Core.Entities
+@using webclient.Services
 @implements IAsyncDisposable
 @inject IConfiguration Configuration
+@inject LobbyHub LobbyHubService;
 
 <h3>Lobby - @(IsConnected ? "Connected" : "Disconnected")</h3>
 
 <CascadingValue Value="IsConnected">
-    <LobbyChat @ref="LobbyChat" LobbyHubConnection="hubConnection"   />
+    <GamesList @ref="GamesList"/>
     <hr>
     <ClientsList @ref="ClientList"/>
+    <hr>
+    <LobbyChat @ref="LobbyChat" LobbyHubConnection="hubConnection"   />
 </CascadingValue>
 
 @code {
@@ -20,17 +24,20 @@
     
     private LobbyChat? LobbyChat { get; set; }
     private ClientsList? ClientList { get; set; }
+    private GamesList? GamesList { get; set; }
     
     protected override async Task OnInitializedAsync()
     {
-        var uri = $"{Configuration.GetSection("ceres")["server-address"]}/{Configuration.GetSection("ceres")["lobby-hub"]}";
-        hubConnection = new HubConnectionBuilder() 
-            .WithUrl(uri)
-            .WithAutomaticReconnect()
-            .Build();
+        // var uri = $"{Configuration.GetSection("ceres")["server-address"]}/{Configuration.GetSection("ceres")["lobby-hub"]}";
+        // hubConnection = new HubConnectionBuilder() 
+        //     .WithUrl(uri)
+        //     .WithAutomaticReconnect()
+        //     .Build();
+        hubConnection = LobbyHubService.LobbyHubConnection;
 
         hubConnection.On<ReceiveMessageMessage>("ReceiveMessage", LobbyChatAddMessage);
         hubConnection.On<ClientsListMessage>("ClientsList", ClientsListUpdate);
+        hubConnection.On<UpdateGamesMessage>("UpdateGames",GamesListUpdate);
         
         hubConnection.Closed += NotifyUserOfServerDisconnected;
         hubConnection.Reconnecting += NotifyUserOfReconnecting;
@@ -41,7 +48,14 @@
         
         await ConnectWithRetryAsync(CancellationToken.None);
     }
-    
+
+    private void GamesListUpdate(UpdateGamesMessage msg)
+    {
+        if (GamesList == null) return;
+        GamesList.Games = msg.GameIds.ToList();
+        GamesList.Refresh();
+    }
+
     private void LobbyChatAddMessage(ReceiveMessageMessage msg) => LobbyChat?.AddMessage(msg.UserName, msg.MessageText);
 
     private void ClientsListUpdate(ClientsListMessage msg)

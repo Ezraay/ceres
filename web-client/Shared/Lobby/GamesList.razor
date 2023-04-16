@@ -1,29 +1,21 @@
-﻿
-
-<div class="row p-1">
-    <div class="col-10">
-        <h2 id="gamesListHeader">Games</h2>
-    </div>
-</div>        
-<div class="row p-1">
-    <div class="col-10">
-        <ul class="scrollable-box list-group">
-            @foreach (var game in gamesList)
-            {
-                <li>@game.ToString()</li>
-            }
-        </ul>
-    </div>
-</div>
-
+﻿@if (IsConnected)
+{
+<h4>Games</h4>
+<ul class="scrollable-box list-group list-group-flush">
+    @foreach (var game in Games)
+    {
+        <li>@game.ToString()</li>
+    }
+</ul>
+}
 @code {
 
-    private Guid[] gamesList;
+    [CascadingParameter]
+    public bool IsConnected { get; set; }
     
-    protected override Task OnInitializedAsync()
-    {
-        
-        return Task.CompletedTask;
-    }
+    public List<Guid> Games = new();
+
+    public void Refresh() => StateHasChanged();
+
 
 }
