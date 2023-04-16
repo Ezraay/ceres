@@ -1,25 +1,26 @@
 @using Microsoft.AspNetCore.SignalR.Client
+@if (IsConnected)
+{
+    <h4>Chat</h4>
 
-<h4>Chat</h4>
+    <label class="row p-1">
+        <div class="col-3">User</div>
+        <div class="col col-sm-9"><input @bind="userInput" class="w-100" disabled="@(!IsConnected)"/></div>
+    </label>
+    <label class="row p-1">
+        <div class="col-3">Message</div>
+        <div class="col"><input @bind="messageInput" class="w-100" disabled="@(!IsConnected)"/></div>
+    </label>
+    <button disabled="@(!IsConnected)" @onclick="Send">Send</button>
 
-<label class="row p-1">
-    <div class="col-3">User</div>
-    <div class="col col-sm-9"><input @bind="userInput" class="w-100" disabled="@(!IsConnected)" /></div>
-</label>
-<label class="row p-1">
-    <div class="col-3">Message</div>
-    <div class="col"><input @bind="messageInput" class="w-100" disabled="@(!IsConnected)" /></div>
-</label>
-<button disabled="@(!IsConnected)" @onclick="Send" >Send</button>
-
-<hr>
-<ul class="scrollable-box list-group list-group-flush">
-    @for (var i = messages.Count-1; i >= 0; i--)
-    {
-        <li class="list-group-item">@messages[i]</li>
-    }
-</ul>
-
+    <hr>
+    <ul class="scrollable-box list-group list-group-flush">
+        @for (var i = messages.Count - 1; i >= 0; i--)
+        {
+            <li class="list-group-item">@messages[i]</li>
+        }
+    </ul>
+}
 @code {
 
     private List<string> messages = new();
