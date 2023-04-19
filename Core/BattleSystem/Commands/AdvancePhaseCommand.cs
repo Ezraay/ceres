@@ -21,7 +21,7 @@ namespace Ceres.Core.BattleSystem
 
         public IServerAction[] GetActionsForOpponent(IPlayer author)
         {
-            return GetActionsForAlly(null);
+            return GetActionsForAlly(author);
         }
     }
 }

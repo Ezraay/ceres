@@ -27,22 +27,6 @@ namespace Ceres.Core.BattleSystem
 						break;
 				}
 			};
-
-			// this.PhaseManager.OnTurnEnd += () =>
-			// {
-			// 	foreach (BattleTeam team in teamManager.GetAllTeams())
-			// 	{
-			// 		foreach (IPlayer player in team.GetAllPlayers())
-			// 			for (int x = 0; x < player.Width; x++)
-			// 			{
-			// 				for (int y = 0; y < player.Height; y++)
-			// 				{
-			// 					UnitSlot? slot = player.GetUnitSlot(new CardPosition(x, y));
-			// 					slot?.Card?.Reset();
-			// 				}
-			// 			}
-			// 	}
-			// };
 		}
 
 		public virtual void StartGame(List<IPlayer> playerOrder)

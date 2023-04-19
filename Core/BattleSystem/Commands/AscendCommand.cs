@@ -34,14 +34,15 @@ namespace Ceres.Core.BattleSystem
 
             hand.RemoveCard(card);
             author.Champion.SetCard(card);
+            
+            battle.AddToStack(new AdvancePhaseCommand(), author, false);
         }
 
         public IServerAction[] GetActionsForAlly(IPlayer author)
         {
             return new IServerAction[]
             {
-                new AllySummonAction(author.Id, MultiCardSlotType.Hand, author.Champion.Position, CardId),
-                new AdvancePhaseAction()
+                new AllySummonAction(author.Id, MultiCardSlotType.Hand, author.Champion.Position, CardId)
             };
         }
 
@@ -51,8 +52,7 @@ namespace Ceres.Core.BattleSystem
                 throw new ArgumentNullException();
             return new IServerAction[]
             {
-                new OpponentSummonAction(author.Id, MultiCardSlotType.Hand, author.Champion.Position, card),
-                new AdvancePhaseAction()
+                new OpponentSummonAction(author.Id, MultiCardSlotType.Hand, author.Champion.Position, card)
             };
         }
     }

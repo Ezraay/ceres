@@ -18,8 +18,8 @@ namespace Ceres.Core.BattleSystem
         {
             units = new UnitSlot[Width, Height];
             for (int x = 0; x < Width; x++)
-            for (int y = 0; y < Height; y++)
-                units[x, y] = new UnitSlot(new CardPosition(x, y));
+                for (int y = 0; y < Height; y++)
+                    units[x, y] = new UnitSlot(new CardPosition(x, y));
 
             Id = id == Guid.Empty ? Guid.NewGuid() : id;
             
@@ -41,9 +41,10 @@ namespace Ceres.Core.BattleSystem
             Champion.SetCard(new Card(deck.GetChampion()));
         }
 
-        public UnitSlot? GetUnitSlot(CardPosition position)
+        public UnitSlot GetUnitSlot(CardPosition position)
         {
-            if (position.X < 0 || position.Y < 0 || position.X >= Width || position.Y >= Height) return null;
+            if (position.X < 0 || position.Y < 0 || position.X >= Width || position.Y >= Height)
+                throw new Exception("Can't find slot with position: " + position);
             return units[position.X, position.Y];
         }
 

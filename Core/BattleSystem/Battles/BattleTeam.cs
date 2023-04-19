@@ -46,7 +46,6 @@ namespace Ceres.Core.BattleSystem
                 MultiCardSlot serverHand = otherPlayer.GetMultiCardSlot(MultiCardSlotType.Hand) as MultiCardSlot;
                 if (ContainsPlayer(player)) // Same team
                 {
-                    // IMultiCardSlot multiCardSlot = otherPlayer.GetMultiCardSlot(MultiCardSlotType.Hand);
                     hand = new MultiCardSlot();
                     foreach (var card in serverHand.Cards)
                     { 

@@ -5,8 +5,8 @@ namespace Ceres.Core.BattleSystem
     public class CombatManager
     {
         public bool ValidAttack => Attacker != null && Target != null;
-        public UnitSlot Target { get; private set; }
-        public UnitSlot Attacker { get; private set; }
+        public UnitSlot? Target { get; private set; }
+        public UnitSlot? Attacker { get; private set; }
         private readonly int damage = 1;
         public readonly MultiCardSlot Defenders = new MultiCardSlot();
         public IPlayer TargetPlayer { get; private set; }

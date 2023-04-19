@@ -79,7 +79,8 @@ namespace CardGame.BattleDisplay.Networking
 
         public void ProcessCommand(IClientCommand command)
         {
-            this.ServerBattle.Execute(command, MyPlayer);
+            this.ServerBattle.AddToStack(command, MyPlayer);
+            Debug.Log(this.ServerBattle.PhaseManager.Phase);
         }
     }
 }

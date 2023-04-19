@@ -14,6 +14,7 @@ namespace CardGame.BattleDisplay
         {
             return action switch
             {
+                AdvancePhaseAction => new AdvancePhaseAnimation(),
                 DrawCardAction => new DrawCardAnimation(),
                 OpponentDrawCardAction => new OpponentDrawCardAnimation(),
                 AllySummonAction => new AllySummonAnimation(),

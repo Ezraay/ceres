@@ -29,7 +29,7 @@ namespace CardGame.BattleDisplay
 			if (this.battleManager.IsStarted)
 			{
 				this.battleManager.OnEnd -= ShowEnd;
-				this.battleManager.Battle.PhaseManager.OnPhaseEnter -= UpdatePhase;
+				// this.battleManager.Battle.PhaseManager.OnPhaseEnter -= UpdatePhase;
 			}
 		}
 
@@ -49,7 +49,7 @@ namespace CardGame.BattleDisplay
 		private void OnStart(BattleStartConditions conditions)
 		{
 			UpdatePhase(this.battleManager.Battle.PhaseManager.Phase);
-			this.battleManager.Battle.PhaseManager.OnPhaseEnter += UpdatePhase;
+			// this.battleManager.Battle.PhaseManager.OnPhaseEnter += UpdatePhase;
 			this.battleManager.OnEnd += ShowEnd;
 		}
 
@@ -61,9 +61,6 @@ namespace CardGame.BattleDisplay
 		private void UpdatePhase(BattlePhase phase)
 		{
 			this.phaseText.text = phase.ToString();
-			Debug.Log(this.nextPhaseCommand);
-			Debug.Log(this.command);
-			Debug.Log(this.battleManager);
 			this.nextPhaseCommand.SetActive(this.command.CanExecute(this.battleManager.Battle,
 				this.battleManager.MyPlayer));
 		}
@@ -71,6 +68,11 @@ namespace CardGame.BattleDisplay
 		private void ShowEnd(EndBattleReason reason)
 		{
 			this.endBattleScreen.Show(reason);
+		}
+
+		public void ShowPhase(BattlePhase newPhase)
+		{
+			UpdatePhase(newPhase);
 		}
 	}
 }

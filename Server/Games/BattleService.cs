@@ -155,7 +155,7 @@ public class BattleService : IBattleService
         var serverBattle = battleManager.FindServerBattleById(gameId);
         if (serverBattle?.Id == user.GameId && user.ServerPlayer != null)
         {
-            serverBattle.Execute(command, user.ServerPlayer);
+            serverBattle.AddToStack(command, user.ServerPlayer);
         }
     }
 }

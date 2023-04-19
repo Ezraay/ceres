@@ -7,7 +7,6 @@ namespace Ceres.Core.BattleSystem
     {
         public int Count { get; private set; }
 
-
         public HiddenMultiCardSlot(int count = 0)
         {
             Count = count;
@@ -23,7 +22,7 @@ namespace Ceres.Core.BattleSystem
             Count--;
         }
 
-        public Card GetCard(Guid cardId)
+        public Card? GetCard(Guid cardId)
         {
             return null;
         }

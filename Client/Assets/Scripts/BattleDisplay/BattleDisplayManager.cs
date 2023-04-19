@@ -16,6 +16,7 @@ namespace CardGame.BattleDisplay
 		[SerializeField] private Transform[] solo2Position;
 		[SerializeField] private Transform[] duo1Position;
 		[SerializeField] private Transform[] duo2Position;
+		[SerializeField] private BattleHUD battleHUD;
 
 		private readonly Queue<IServerAction> actions = new Queue<IServerAction>();
 		private ActionAnimator actionAnimator;
@@ -101,7 +102,7 @@ namespace CardGame.BattleDisplay
 
 			if (this.currentAnimation != null)
 			{
-				AnimationData data = new AnimationData(this.cardDisplayFactory, this.actionAnimator, this);
+				AnimationData data = new AnimationData(this.cardDisplayFactory, this.actionAnimator, this, this.battleHUD, this.battleManager.Battle);
 				yield return this.currentAnimation.GetEnumerator(action, data);
 			}
 
