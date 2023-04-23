@@ -1,37 +1,61 @@
 @using Microsoft.AspNetCore.SignalR.Client
+@using global::Shared.States
+@implements IDisposable
+@inject UserState userState
+
 @if (IsConnected)
 {
-    <h4>Chat</h4>
-
-    <label class="row p-1">
-        <div class="col-3">User</div>
-        <div class="col col-sm-9"><input @bind="userInput" class="w-100" disabled="@(!IsConnected)"/></div>
-    </label>
-    <label class="row p-1">
-        <div class="col-3">Message</div>
-        <div class="col"><input @bind="messageInput" class="w-100" disabled="@(!IsConnected)"/></div>
-    </label>
-    <button disabled="@(!IsConnected)" @onclick="Send">Send</button>
-
-    <hr>
-    <ul class="scrollable-box list-group list-group-flush">
-        @for (var i = messages.Count - 1; i >= 0; i--)
-        {
-            <li class="list-group-item">@messages[i]</li>
-        }
-    </ul>
+    <div class="card text-dark bg-light mb-3">
+        <div class="card-header">Chat</div>
+        <div class="card-body">
+            <label class="row p-1">
+                <div class="col-3">User</div>
+                <div class="col col-sm-9">
+                    <input type="text" @bind="UserNameInput" class="w-100" disabled="@(!IsConnected)"/>
+                </div>
+            </label>
+            <div class="row">
+                <div class="col">
+                    <label class="row p-1">
+                        <div class="col-3">Message</div>
+                        <div class="col-9"><input @bind="messageInput" class="w-100" disabled="@(!IsConnected)"/></div>
+                    </label>
+                </div>
+                <button class="col-2" disabled="@(!IsConnected)" @onclick="Send">Send</button>
+            </div>
+            <hr>
+            <ul class="scrollable-box list-group list-group-flush">
+                @for (var i = messages.Count - 1; i >= 0; i--)
+                {
+                    <li class="list-group-item">@messages[i]</li>
+                }
+            </ul>
+        </div>
+    </div>
 }
 @code {
 
     private List<string> messages = new();
-    private string? userInput;
     private string? messageInput;
 
     [Parameter]
     public HubConnection? LobbyHubConnection { get; set; }
-    
     [CascadingParameter]
     public bool IsConnected { get; set; }
+
+    private string? UserNameInput
+    {
+        get => userState.UserName;
+        set
+        {
+            if (value != null) userState.UserName = value;
+        }
+    }
+    
+    protected override void OnInitialized()
+    {
+        userState.OnChange += StateHasChanged;
+    }
 
     public void AddMessage(string userName, string message)
     {
@@ -44,11 +68,19 @@
     {
         if (LobbyHubConnection is not null && IsConnected)
         {
-            await LobbyHubConnection.SendAsync("SendMessage", userInput, messageInput);
+            await LobbyHubConnection.SendAsync("SendMessage", UserNameInput, messageInput);
         }
     }
 
+    private void UserNameChanged()
+    {
+        if (UserNameInput != null) userState.UserName = UserNameInput;
+    }
 
+    public void Dispose()
+    {
+        userState.OnChange -= StateHasChanged;
+    }
 
 
 

@@ -1,12 +1,16 @@
 ﻿@if (IsConnected)
 {
-<h4>Games</h4>
-<ul class="scrollable-box list-group list-group-flush">
-    @foreach (var game in Games)
-    {
-        <li>@game.ToString()</li>
-    }
-</ul>
+    <div class="card text-dark bg-light mb-3">
+        <div class="card-header">Games</div>
+        <div class="card-body">
+            <ul class="scrollable-box list-group list-group-flush">
+                @foreach (var game in Games)
+                {
+                    <li>@game.ToString()</li>
+                }
+            </ul>
+        </div>
+    </div>
 }
 @code {
 

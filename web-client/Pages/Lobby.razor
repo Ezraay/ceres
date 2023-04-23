@@ -1,18 +1,27 @@
 ﻿@page "/Lobby"
 @using web_client.Shared.Lobby
-@using Microsoft.AspNetCore.SignalR.Client;
-@using Ceres.Core.Networking.Messages;
+@using Microsoft.AspNetCore.SignalR.Client
+@using Ceres.Core.Networking.Messages
+@using global::Shared.States
 @using webclient.Services
-@inject ISignalRHub LobbyHubService;
 
-<h3>Lobby - @(IsConnected ? "Connected" : "Disconnected")</h3>
+@implements IDisposable
+
+@inject ISignalRHub LobbyHubService
+@inject UserState UserState
+
 
 <CascadingValue Value="IsConnected">
-    <GamesList @ref="GamesList"/>
-    <hr>
-    <ClientsList @ref="ClientList"/>
-    <hr>
-    <LobbyChat @ref="LobbyChat" LobbyHubConnection="hubConnection"   />
+    <div class="card">
+        <h4 class="card-header">Lobby</h4>
+        <GamesList @ref="GamesList"/>
+        <ClientsList @ref="ClientList"/>
+        <LobbyChat @ref="LobbyChat" LobbyHubConnection="hubConnection"/>
+        <div class="card-footer">
+            @($"User:{UserState.UserName} Lobby:{(IsConnected ? "Connected" : "Disconnected")}")
+        </div>
+    </div>
+    
 </CascadingValue>
 
 @code {
@@ -25,6 +34,8 @@
     
     protected override async Task OnInitializedAsync()
     {
+        UserState.OnChange += StateHasChanged;
+        
         hubConnection = LobbyHubService.LobbyHubConnection;
 
         LobbyHubService.OnHubStataHasChanged += StateHasChanged;
@@ -50,6 +61,11 @@
     {
         if (ClientList == null) return;
         ClientList.Clients = msg.LobbyUsers.ToList();
+        foreach (var u in msg.LobbyUsers)
+        {
+            if (u.LobbyConnectionId == LobbyHubService.LobbyHubConnection.ConnectionId)
+                UserState.UserName = u.UserName;
+        }
         ClientList.Refresh();
     }
 
@@ -60,6 +76,11 @@
             if (hubConnection == null) return false;
             return hubConnection.State == HubConnectionState.Connected;
         }
+    }
+    
+    public void Dispose()
+    {
+        UserState.OnChange -= StateHasChanged;
     }
     
     

@@ -1,13 +1,17 @@
 ﻿@using Ceres.Core.Entities
 @if (IsConnected)
 {
-    <h4>Players In Lobby</h4>
-    <ul class="scrollable-box list-group list-group-flush">
-        @for (var i = Clients.Count - 1; i >= 0; i--)
-        {
-            <li class="list-group-item">@Clients[i].UserName</li>
-        }
-    </ul>
+    <div class="card text-dark bg-light mb-3">
+        <div class="card-header">Players In Lobby</div>
+        <div class="card-body">
+            <ul class="scrollable-box list-group list-group-flush">
+                @for (var i = Clients.Count - 1; i >= 0; i--)
+                {
+                    <li class="list-group-item">@Clients[i].UserName</li>
+                }
+            </ul>
+        </div>
+    </div>
 }
 
 @code {
