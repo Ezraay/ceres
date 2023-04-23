@@ -1,27 +1,23 @@
 @using Microsoft.AspNetCore.SignalR.Client
 @using global::Shared.States
+@using Ceres.Core.Networking.Messages
 @implements IDisposable
-@inject UserState userState
+@inject UserState UserState
 
 @if (IsConnected)
 {
-    <div class="card text-dark bg-light mb-3">
-        <div class="card-header">Chat</div>
+    <div class="card text-dark bg-light m-3">
+        <h5 class="card-header">Chat</h5>
         <div class="card-body">
-            <label class="row p-1">
-                <div class="col-3">User</div>
-                <div class="col col-sm-9">
-                    <input type="text" @bind="UserNameInput" class="w-100" disabled="@(!IsConnected)"/>
-                </div>
-            </label>
-            <div class="row">
-                <div class="col">
-                    <label class="row p-1">
-                        <div class="col-3">Message</div>
-                        <div class="col-9"><input @bind="messageInput" class="w-100" disabled="@(!IsConnected)"/></div>
-                    </label>
-                </div>
-                <button class="col-2" disabled="@(!IsConnected)" @onclick="Send">Send</button>
+            <div class="row p-1">
+                <label class="col-2" for="userNameInput">User</label>
+                <div class="col"><input class="w-100" id="userNameInput" type="text" @bind="UserNameInput" disabled="@(!IsConnected)"/></div>
+                <button class="col-auto btn btn-outline-secondary btn-sm" disabled="@(!IsConnected)" @onclick="ChangeName">ChangeName</button>
+            </div>
+            <div class="row p-1">
+                <label class="col-2" for="messageInput">Message</label>
+                <div class="col"><input class="w-100" id="messageInput" @bind="messageInput" disabled="@(!IsConnected)"/></div>
+                <button class="col-auto btn btn-outline-secondary btn-sm" disabled="@(!IsConnected)" @onclick="Send">Send</button>
             </div>
             <hr>
             <ul class="scrollable-box list-group list-group-flush">
@@ -38,23 +34,23 @@
     private List<string> messages = new();
     private string? messageInput;
 
-    [Parameter]
+    [CascadingParameter]
     public HubConnection? LobbyHubConnection { get; set; }
     [CascadingParameter]
     public bool IsConnected { get; set; }
 
     private string? UserNameInput
     {
-        get => userState.UserName;
+        get => UserState.UserName;
         set
         {
-            if (value != null) userState.UserName = value;
+            if (value != null) UserState.UserName = value;
         }
     }
     
     protected override void OnInitialized()
     {
-        userState.OnChange += StateHasChanged;
+        UserState.OnChange += StateHasChanged;
     }
 
     public void AddMessage(string userName, string message)
@@ -66,20 +62,29 @@
 
     private async Task Send()
     {
+        if (LobbyHubConnection is not null && IsConnected && messageInput != null)
+        {
+            var msg = new ClientSendMessageNetworkMessage() { UserName = UserState.UserName, Message = messageInput };
+            await LobbyHubConnection.SendAsync(msg.MessageName, msg);
+        }
+    }
+    private async Task ChangeName()
+    {
         if (LobbyHubConnection is not null && IsConnected)
         {
-            await LobbyHubConnection.SendAsync("SendMessage", UserNameInput, messageInput);
+            var msg = new ClientChangeUserNameNetworkMessage() {NewName = UserState.UserName};
+            await LobbyHubConnection.SendAsync(msg.MessageName, msg);
         }
     }
 
     private void UserNameChanged()
     {
-        if (UserNameInput != null) userState.UserName = UserNameInput;
+        if (UserNameInput != null) UserState.UserName = UserNameInput;
     }
 
     public void Dispose()
     {
-        userState.OnChange -= StateHasChanged;
+        UserState.OnChange -= StateHasChanged;
     }
 
 

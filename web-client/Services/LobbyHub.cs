@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.SignalR.Client;
+using Newtonsoft.Json;
 
 
 namespace webclient.Services;
@@ -13,6 +14,10 @@ public class LobbyHub : ISignalRHub
         var uri = $"{configuration.GetSection("ceres")["server-address"]}/{configuration.GetSection("ceres")["lobby-hub"]}";
         LobbyHubConnection = new HubConnectionBuilder() 
             .WithUrl(uri)
+            .AddNewtonsoftJsonProtocol(options =>
+            {
+                options.PayloadSerializerSettings.TypeNameHandling = TypeNameHandling.Objects;
+            })
             .WithAutomaticReconnect()
             .Build();
         LobbyHubConnection.Closed += NotifyUserOfServerDisconnected;

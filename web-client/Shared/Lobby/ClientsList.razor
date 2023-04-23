@@ -1,8 +1,8 @@
 ﻿@using Ceres.Core.Entities
 @if (IsConnected)
 {
-    <div class="card text-dark bg-light mb-3">
-        <div class="card-header">Players In Lobby</div>
+    <div class="card text-dark bg-light m-3">
+        <h5 class="card-header">Players In Lobby</h5>
         <div class="card-body">
             <ul class="scrollable-box list-group list-group-flush">
                 @for (var i = Clients.Count - 1; i >= 0; i--)

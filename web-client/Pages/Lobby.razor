@@ -12,17 +12,24 @@
 
 
 <CascadingValue Value="IsConnected">
-    <div class="card">
-        <h4 class="card-header">Lobby</h4>
-        <GamesList @ref="GamesList"/>
-        <ClientsList @ref="ClientList"/>
-        <LobbyChat @ref="LobbyChat" LobbyHubConnection="hubConnection"/>
-        <div class="card-footer">
-            @($"User:{UserState.UserName} Lobby:{(IsConnected ? "Connected" : "Disconnected")}")
+    <CascadingValue Value="hubConnection">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <h4 class="col">Lobby</h4>
+                    <div class="col-auto"><Ready2Play/></div>
+                </div>
+            </div>
+            <LobbyChat @ref="LobbyChat"/>
+            <ClientsList @ref="ClientList"/>
+            <GamesList @ref="GamesList"/>
+            <div class="card-footer">
+                @($"Lobby:{(IsConnected ? "Connected" : "Disconnected")}   User:{UserState.UserName} {(UserState.ReadyToPlay ? " - Ready To Play" : "")}")
+            </div>
         </div>
-    </div>
-    
+    </CascadingValue>
 </CascadingValue>
+
 
 @code {
 

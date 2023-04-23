@@ -1,3 +1,4 @@
+using Ceres.Core.Networking.Messages;
 using Ceres.Server.Services;
 using Microsoft.AspNetCore.SignalR;
 
@@ -29,23 +30,23 @@ public class LobbyHub : Hub
         return base.OnDisconnectedAsync(exception);
     }
 
-    public void SendMessage(string userName, string message)
+    public void SendMessage(ClientSendMessageNetworkMessage msg)
     {
-        if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(message))
+        if (string.IsNullOrEmpty(msg.UserName) || string.IsNullOrEmpty(msg.Message))
             return;
-        networkService.UserSentMessage(Context.ConnectionId, userName, message);
+        networkService.UserSentMessage(Context.ConnectionId, msg.UserName, msg.Message);
     }
 
-    public void ChangeUserName(string newName){
-        if (string.IsNullOrEmpty(newName))
+    public void ChangeUserName(ClientChangeUserNameNetworkMessage msg){
+        if (string.IsNullOrEmpty(msg.NewName))
             return;
-        networkService.ChangeUserName(Context.ConnectionId, newName);
+        networkService.ChangeUserName(Context.ConnectionId, msg.NewName);
     }
 
-    public void UserIsReadyToPlay(string userName, bool ready){
-        if (string.IsNullOrEmpty(userName))
+    public void UserIsReadyToPlay(ClientReadyToPlayNetworkMessage msg){
+        if (string.IsNullOrEmpty(msg.UserName))
             return;
-        networkService.UserIsReadyToPlay(Context.ConnectionId, userName, ready);
+        networkService.UserIsReadyToPlay(Context.ConnectionId, msg.UserName, msg.Ready);
     }
 
 

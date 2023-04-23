@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.SignalR.Client
+@using Ceres.Core.Networking.Messages
+@using global::Shared.States
+@inject UserState UserState
+
+<button class="btn btn-secondary btn-sm" disabled="@(!IsConnected)" @onclick="ChangeReadyToPlay">Ready To Play</button>
+
+
+
+@code {
+    [CascadingParameter]
+    public bool IsConnected { get; set; }    
+    [CascadingParameter]
+    public HubConnection? LobbyHubConnection { get; set; }
+
+    
+    private async Task ChangeReadyToPlay()
+    {
+        if (LobbyHubConnection is not null && IsConnected)
+        {
+            UserState.ReadyToPlay = !UserState.ReadyToPlay;
+            var msg = new ClientReadyToPlayNetworkMessage() { UserName = UserState.UserName, Ready = UserState.ReadyToPlay };
+            await LobbyHubConnection.SendAsync(msg.MessageName, msg);
+        }
+    }
+
+
+}
