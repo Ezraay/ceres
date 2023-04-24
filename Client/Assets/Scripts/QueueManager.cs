@@ -13,9 +13,9 @@ namespace Ceres.Client
         private NetworkManager networkManager;
 
         [Inject]
-        public void Construct(NetworkManager networkManager)
+        public void Construct(NetworkManager manager)
         {
-            this.networkManager = networkManager;
+            networkManager = manager;
         }
         
         void Start()

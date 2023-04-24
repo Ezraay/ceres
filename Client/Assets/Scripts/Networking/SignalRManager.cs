@@ -15,56 +15,66 @@ namespace Ceres.Client.Networking
         private readonly string connectionString = "http://localhost:5146";
         private readonly string gameHubPath = "GameHub";
         private readonly string lobbyHubPath = "LobbyHub";
-        public HubConnection LobbyHub { get; private set; }
-        public HubConnection GameHub { get; private set; }
+        private HubConnection lobbyHub;
+        private HubConnection gameHub;
 
         public async void Connect()
         {
-            LobbyHub = CreateHubConnection(connectionString, lobbyHubPath);
-            GameHub = CreateHubConnection(connectionString, gameHubPath);
+            lobbyHub = CreateHubConnection(connectionString, lobbyHubPath);
+            gameHub = CreateHubConnection(connectionString, gameHubPath);
 
             try
             {
-                await LobbyHub.StartAsync();
+                await lobbyHub.StartAsync();
             }
             catch (Exception ex)
             {
-                Logger.Log("Error connecting to the SignalR server: " + ex.Message);
+                Logger.Log("Error connecting to Lobby: " + ex.Message);
                 Logger.Log("StackTrace: " + ex.StackTrace);
             }
 
-            Logger.Log("Connected to server");
+            Logger.Log("Connected to Lobby");
 
-            OnConnected?.Invoke();
+            OnLobbyConnected?.Invoke();
         }
 
-        public async Task ConnectToGameHub()
+        public event Action OnLobbyConnected;
+
+        public async Task ConnectToGameHubAsync()
         {
-            await GameHub.StartAsync();
+            await gameHub.StartAsync();
         }
 
         public async void DisconnectGameHub()
         {
-            await GameHub.StopAsync();
+            await gameHub.StopAsync();
         }
 
-        public event Action OnConnected;
+        public void OnLobbyMessage<T>(Action<T> callback) where T : INetworkMessage, new()
+        {
+            var temporaryMessage = new T();
+            lobbyHub.On(temporaryMessage.MessageName, callback);
+        }
 
-        public void On<T>(HubConnection connection, Action<T> callback) where T : INetworkMessage, new()
+        public void OnGameMesage<T>(Action<T> callback) where T : INetworkMessage, new()
         {
             T temporaryMessage = new T();
-            connection.On(temporaryMessage.MessageName, callback);
+            gameHub.On(temporaryMessage.MessageName, callback);
         }
 
-        public async Task<T> SendAsync<T>(HubConnection connection, INetworkMessage message)
-        {
-            T result = await connection.InvokeAsync<T>(message.MessageName, message);
-            return result;
-        }
+        // public async Task<T> SendAsync<T>(HubConnection connection, INetworkMessage message)
+        // {
+        //     T result = await connection.InvokeAsync<T>(message.MessageName, message);
+        //     return result;
+        // }
 
-        public void Send(HubConnection connection, INetworkMessage message)
+        public async void SendToLobby(INetworkMessage message)
         {
-            connection.SendAsync(message.MessageName, message);
+            await lobbyHub.SendAsync(message.MessageName, message);
+        }
+        public async void SendToGame(INetworkMessage message)
+        {
+            await gameHub.SendAsync(message.MessageName, message);
         }
 
         private HubConnection CreateHubConnection(string hostname, string hubName)
@@ -84,7 +94,7 @@ namespace Ceres.Client.Networking
 
         public async Task DisconnectFromGameHub()
         {
-            await GameHub.StopAsync();
+            await gameHub.StopAsync();
         }
     }
 }

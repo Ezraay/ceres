@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 using UnityEngine;
 using Zenject;
 using Logger = Ceres.Client.Utility.Logger;
+using Random = System.Random;
 
 namespace Ceres.Client
 {
@@ -36,36 +37,40 @@ namespace Ceres.Client
             this.sceneManager = scene;
             
             
-            signalRManager.OnConnected += Connected;
+            signalRManager.OnLobbyConnected += LobbyConnected;
         }
 
-        private void Connected()
+        private async void OnGoToGameMessage(GoToGameMessage message)
         {
-            signalRManager.On<GoToGameMessage>(signalRManager.LobbyHub, async message =>
-            {
-                userId = message.UserId;
-                gameId = message.GameId;
-                await signalRManager.ConnectToGameHub();
+            userId = message.UserId;
+            gameId = message.GameId;
+            await signalRManager.ConnectToGameHubAsync();
 
-                mainThreadManager.Execute(() => 
-                    OnGoToGame(message.ClientBattle, message.PlayerId));
-            });
+            mainThreadManager.Execute(() => 
+                OnGoToGame(message.ClientBattle, message.PlayerId));
+        }
 
-            signalRManager.On<GameEndedMessage>(signalRManager.GameHub, async message =>
+        private async void OnGameEndedMessage(GameEndedMessage message)
+        {
+            await signalRManager.DisconnectFromGameHub();
+            mainThreadManager.Execute(async () => 
+                this.OnGameEnd?.Invoke(message.Reason));
+        }
+
+        private void OnServerActionMessage(ServerActionMessage message)
+        {
+            mainThreadManager.Execute(() =>
             {
-                await signalRManager.DisconnectFromGameHub();
-                mainThreadManager.Execute(async () => 
-                    this.OnGameEnd?.Invoke(message.Reason));
+                Logger.Log("Got action: " + message.Action);
+                OnBattleAction?.Invoke(message.Action);
             });
-            
-            signalRManager.On<ServerActionMessage>(signalRManager.GameHub, message =>
-            {
-                mainThreadManager.Execute(() =>
-                {
-                    Logger.Log("Got action: " + message.Action);
-                    OnBattleAction?.Invoke(message.Action);
-                });
-            });
+        }
+
+        private void LobbyConnected()
+        {
+            signalRManager.OnLobbyMessage<GoToGameMessage>(OnGoToGameMessage);
+            signalRManager.OnGameMesage<GameEndedMessage>(OnGameEndedMessage);
+            signalRManager.OnGameMesage<ServerActionMessage>(OnServerActionMessage);
             
             IsConnected = true;
             sceneManager.LoadScene(new MainMenuScene());
@@ -73,13 +78,18 @@ namespace Ceres.Client
 
         public void JoinQueue()
         {
-            string userName = "Unity";
-            signalRManager.LobbyHub.SendAsync("UserIsReadyToPlay", userName, true);
+            var userName = "Unity" + new Random().Next(42).ToString();
+            var msg = new ClientReadyToPlayNetworkMessage() { UserName = userName, Ready = true };
+            signalRManager.SendToLobby(msg);
         }
 
         public void SendCommand(IClientCommand command)
         {
-            signalRManager.GameHub.SendAsync("PlayerSentCommand", gameId, userId, command);
+            var msg = new ClientPlayerSentCommandMessage()
+            {
+                PlayerCommand = command, GameId = gameId, UserId = userId
+            };
+            signalRManager.SendToGame(msg);
         }
 
         private async void OnGoToGame(ClientBattle battle, Guid playerId)
@@ -95,7 +105,8 @@ namespace Ceres.Client
             };
             OnStartGame?.Invoke(conditions);
 
-            await signalRManager.GameHub.SendAsync("JoinGame",  gameId, userId);
+            var msg = new ClientJoinGameMessage() { GameId = gameId, UserId = userId };
+            signalRManager.SendToGame(msg);
         }
 
         private void LeaveGame()
