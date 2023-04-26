@@ -44,12 +44,11 @@ namespace Ceres.Client.Networking
         {
             await gameHub.StartAsync();
         }
-
-        public async void DisconnectGameHub()
+        public async Task DisconnectFromGameHubAsync()
         {
             await gameHub.StopAsync();
         }
-
+        
         public void OnLobbyMessage<T>(Action<T> callback) where T : INetworkMessage, new()
         {
             var temporaryMessage = new T();
@@ -68,11 +67,11 @@ namespace Ceres.Client.Networking
         //     return result;
         // }
 
-        public async void SendToLobby(INetworkMessage message)
+        public async void SendToLobbyAsync(INetworkMessage message)
         {
             await lobbyHub.SendAsync(message.MessageName, message);
         }
-        public async void SendToGame(INetworkMessage message)
+        public async void SendToGameAsync(INetworkMessage message)
         {
             await gameHub.SendAsync(message.MessageName, message);
         }
@@ -92,9 +91,5 @@ namespace Ceres.Client.Networking
             return connection;
         }
 
-        public async Task DisconnectFromGameHub()
-        {
-            await gameHub.StopAsync();
-        }
     }
 }

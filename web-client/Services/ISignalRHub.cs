@@ -4,7 +4,7 @@ namespace webclient.Services;
 
 public interface ISignalRHub
 {
-    HubConnection LobbyHubConnection { get; }
+    HubConnection HubConnection { get; }
     Task<bool> ConnectWithRetryAsync(CancellationToken token);
     event Action? OnHubStataHasChanged;
 }

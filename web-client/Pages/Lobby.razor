@@ -43,7 +43,7 @@
     {
         UserState.OnChange += StateHasChanged;
         
-        hubConnection = LobbyHubService.LobbyHubConnection;
+        hubConnection = LobbyHubService.HubConnection;
 
         LobbyHubService.OnHubStataHasChanged += StateHasChanged;
         
@@ -70,7 +70,7 @@
         ClientList.Clients = msg.LobbyUsers.ToList();
         foreach (var u in msg.LobbyUsers)
         {
-            if (u.LobbyConnectionId == LobbyHubService.LobbyHubConnection.ConnectionId)
+            if (u.LobbyConnectionId == LobbyHubService.HubConnection.ConnectionId)
                 UserState.UserName = u.UserName;
         }
         ClientList.Refresh();

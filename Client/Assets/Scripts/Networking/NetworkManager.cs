@@ -52,7 +52,7 @@ namespace Ceres.Client
 
         private async void OnGameEndedMessage(GameEndedMessage message)
         {
-            await signalRManager.DisconnectFromGameHub();
+            await signalRManager.DisconnectFromGameHubAsync();
             mainThreadManager.Execute(async () => 
                 this.OnGameEnd?.Invoke(message.Reason));
         }
@@ -80,7 +80,7 @@ namespace Ceres.Client
         {
             var userName = "Unity" + new Random().Next(42).ToString();
             var msg = new ClientReadyToPlayNetworkMessage() { UserName = userName, Ready = true };
-            signalRManager.SendToLobby(msg);
+            signalRManager.SendToLobbyAsync(msg);
         }
 
         public void SendCommand(IClientCommand command)
@@ -89,7 +89,7 @@ namespace Ceres.Client
             {
                 PlayerCommand = command, GameId = gameId, UserId = userId
             };
-            signalRManager.SendToGame(msg);
+            signalRManager.SendToGameAsync(msg);
         }
 
         private async void OnGoToGame(ClientBattle battle, Guid playerId)
@@ -106,12 +106,12 @@ namespace Ceres.Client
             OnStartGame?.Invoke(conditions);
 
             var msg = new ClientJoinGameMessage() { GameId = gameId, UserId = userId };
-            signalRManager.SendToGame(msg);
+            signalRManager.SendToGameAsync(msg);
         }
 
-        private void LeaveGame()
+        private async void LeaveGame()
         {
-            // this.signalRManager.DisconnectGameHub();
+            await signalRManager.DisconnectFromGameHubAsync();
         }
     }
 }

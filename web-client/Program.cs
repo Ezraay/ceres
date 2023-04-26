@@ -9,6 +9,7 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped<ISignalRHub,LobbyHub>();
+builder.Services.AddScoped<ISignalRHub,GameHub>();
 builder.Services.AddSingleton<UserState>();
 
 await builder.Build().RunAsync();
