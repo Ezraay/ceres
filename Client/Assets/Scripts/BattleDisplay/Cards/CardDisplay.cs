@@ -25,6 +25,7 @@ namespace CardGame.BattleDisplay
         public SlotDisplay Parent { get; private set; }
         public event Action OnDestroyed;
         public event Action<Card> OnShowFront;
+        private Vector3 velocity;
 
         private void OnDestroy()
         {
@@ -74,12 +75,13 @@ namespace CardGame.BattleDisplay
             float distance;
             do
             {
+                transform.localPosition = Vector3.SmoothDamp(transform.localPosition, position, ref this.velocity, this.movementSpeed * Time.deltaTime);
                 distance = Vector3.Distance(transform.localPosition, position);
-                Vector3 direction = position - transform.localPosition;
-                Vector3 velocity = direction.normalized * movementSpeed;
-                Vector3 delta = velocity * Time.deltaTime * Mathf.Min(distance, 1f);
-                
-                transform.localPosition += delta;
+                // Vector3 direction = position - transform.localPosition;
+                // Vector3 velocity = direction.normalized * movementSpeed;
+                // Vector3 delta = velocity * Time.deltaTime * Mathf.Min(distance, 1f);
+                //
+                // transform.localPosition += delta;
                 yield return null;
             } while (distance > StoppingDistance);
 
