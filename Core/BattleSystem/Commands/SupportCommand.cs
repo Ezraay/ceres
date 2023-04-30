@@ -2,7 +2,7 @@
 
 namespace Ceres.Core.BattleSystem
 {
-	public class SupportCommand : IClientCommand
+	public class SupportCommand : ClientCommand
 	{
 		public readonly CardPosition CardPosition;
 
@@ -11,7 +11,7 @@ namespace Ceres.Core.BattleSystem
 			this.CardPosition = cardPosition;
 		}
 
-		public bool CanExecute(Battle battle, IPlayer author)
+		public override bool CanExecute(Battle battle, IPlayer author)
 		{
 			UnitSlot? slot = author.GetUnitSlot(CardPosition);
 			UnitSlot? supported = author.GetUnitSlot(new CardPosition(CardPosition.X, CardPosition.Y - 1));
@@ -26,7 +26,7 @@ namespace Ceres.Core.BattleSystem
 			return true;
 		}
 
-		public void Apply(ServerBattle battle, IPlayer author)
+		public override void Apply(ServerBattle battle, IPlayer author)
 		{
 			UnitSlot support = author.GetUnitSlot(CardPosition);
 			UnitSlot supported = author.GetUnitSlot(new CardPosition(this.CardPosition.X, this.CardPosition.Y - 1));
@@ -34,17 +34,12 @@ namespace Ceres.Core.BattleSystem
 			support.Exhaust();
 		}
 
-		public IServerAction[] GetActionsForAlly(IPlayer author)
+		public override ServerAction[] GetActionsForAlly(IPlayer author)
 		{
-			return new IServerAction[]
+			return new ServerAction[]
 			{
 				new SupportUnitAction(author.Id, CardPosition)
 			};
-		}
-
-		public IServerAction[] GetActionsForOpponent(IPlayer author)
-		{
-			return GetActionsForAlly(author);
 		}
 	}
 }

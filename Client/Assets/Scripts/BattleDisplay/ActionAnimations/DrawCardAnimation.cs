@@ -7,7 +7,7 @@ namespace CardGame.BattleDisplay
 {
     public class DrawCardAnimation : ActionAnimation
     {
-        public override IEnumerator GetEnumerator(IServerAction baseAction, AnimationData data)
+        public override IEnumerator GetEnumerator(ServerAction baseAction, AnimationData data)
         {
             DrawCardAction action = (DrawCardAction)baseAction;
             PlayerDisplay playerDisplay = data.BattleDisplayManager.GetPlayerDisplay(action.PlayerId);

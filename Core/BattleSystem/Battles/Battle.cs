@@ -6,17 +6,19 @@ using System.Collections.Generic;
 
 namespace Ceres.Core.BattleSystem
 {
-	public class Battle
+	public abstract class Battle
 	{
 		public readonly CombatManager CombatManager;
 		public readonly PhaseManager PhaseManager;
-		public readonly TeamManager TeamManager;
+		public readonly IPlayer Player1;
+		public readonly IPlayer Player2;
 
-		public Battle(TeamManager teamManager, PhaseManager phaseManager)
+		protected Battle(PhaseManager phaseManager, IPlayer player1, IPlayer player2)
 		{
 			this.CombatManager = new CombatManager();
-			this.PhaseManager = new PhaseManager();
-			this.TeamManager = teamManager;
+			this.PhaseManager = phaseManager;
+			this.Player1 = player1;
+			this.Player2 = player2;
 
 			this.PhaseManager.OnPhaseEnter += phase =>
 			{
@@ -29,14 +31,14 @@ namespace Ceres.Core.BattleSystem
 			};
 		}
 
+		public IPlayer GetEnemy(IPlayer player)
+		{
+			return player == this.Player1 ? this.Player2 : this.Player1;
+		}
+
 		public virtual void StartGame(List<IPlayer> playerOrder)
 		{
 			this.PhaseManager.SetPlayers(playerOrder);
-		}
-
-		public bool HasPriority(IPlayer player)
-		{
-			return true; // TODO
 		}
 	}
 }

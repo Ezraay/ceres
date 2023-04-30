@@ -1,52 +1,56 @@
-﻿using System;
+﻿#region
+
+using System;
 using Ceres.Core.BattleSystem.Battles;
 using Newtonsoft.Json;
 
+#endregion
+
 namespace Ceres.Core.BattleSystem
 {
-	public class AddDefenderCommand : IClientCommand
+	public class AddDefenderCommand : ClientCommand
 	{
-		[JsonIgnore] private Card? card;
 		public readonly Guid CardId;
+		[JsonIgnore] private Card? card;
 
 		public AddDefenderCommand(Guid cardId)
 		{
-			CardId = cardId;
+			this.CardId = cardId;
 		}
 
-		public bool CanExecute(Battle battle, IPlayer author)
+		public override bool CanExecute(Battle battle, IPlayer author)
 		{
 			IMultiCardSlot hand = author.GetMultiCardSlot(MultiCardSlotType.Hand);
-			card = hand.GetCard(CardId);
-			if (card == null) return false;
-			if (card.Data.Tier > author.Champion.Card.Data.Tier) return false;
+			this.card = hand.GetCard(this.CardId);
+			if (this.card == null) return false;
+			if (this.card.Data.Tier > author.Champion.Card.Data.Tier) return false;
 			if (battle.PhaseManager.Phase != BattlePhase.Defend) return false;
 
 			if (!battle.CombatManager.ValidAttack) return false;
-			BattleTeam? targetTeam = battle.TeamManager.GetPlayerTeam(battle.CombatManager.TargetPlayer.Id);
-			if (targetTeam == null) return false;
-			if (!targetTeam.ContainsPlayer(author)) return false; // Only players on targets team can defend
+			// BattleTeam? targetTeam = battle.TeamManager.GetPlayerTeam(battle.CombatManager.TargetPlayer.Id);
+			// if (targetTeam == null) return false;
+			// if (!targetTeam.ContainsPlayer(author)) return false; // Only players on targets team can defend
 			return true;
 		}
 
-		public void Apply(ServerBattle battle, IPlayer author)
+		public override void Apply(ServerBattle battle, IPlayer author)
 		{
-			MultiCardSlot hand = author.GetMultiCardSlot(MultiCardSlotType.Hand) as MultiCardSlot;
-			Card card = hand.GetCard(CardId);
-			hand.RemoveCard(card);
-			author.GetMultiCardSlot(MultiCardSlotType.Defense).AddCard(card);
+			IMultiCardSlot hand = author.GetMultiCardSlot(MultiCardSlotType.Hand);
+			// card = hand.GetCard(CardId);
+			hand.RemoveCard(this.card);
+			author.GetMultiCardSlot(MultiCardSlotType.Defense).AddCard(this.card);
 		}
 
-		public IServerAction[] GetActionsForAlly(IPlayer author)
+		public override ServerAction[] GetActionsForAlly(IPlayer author)
 		{
-			return new IServerAction[] { new AllyDefendAction(author.Id, CardId)};
+			return new ServerAction[] { new AllyDefendAction(author.Id, this.CardId) };
 		}
 
-		public IServerAction[] GetActionsForOpponent(IPlayer author)
+		public override ServerAction[] GetActionsForOpponent(IPlayer author)
 		{
-			if (card == null)
+			if (this.card == null)
 				throw new ArgumentNullException();
-			return new IServerAction[] {new OpponentDefendAction(author.Id, card)};
+			return new ServerAction[] { new OpponentDefendAction(author.Id, this.card) };
 		}
 	}
 }

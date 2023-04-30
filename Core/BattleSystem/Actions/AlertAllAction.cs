@@ -2,7 +2,7 @@
 
 namespace Ceres.Core.BattleSystem
 {
-	public class AlertAllAction : IServerAction
+	public class AlertAllAction : ServerAction
 	{
 		public readonly Guid playerId;
 		
@@ -11,9 +11,9 @@ namespace Ceres.Core.BattleSystem
 			this.playerId = playerId;
 		}
 		
-		public void Apply(ClientBattle battle)
+		public override void Apply(ClientBattle battle, IPlayer author)
 		{
-			IPlayer player = battle.TeamManager.GetPlayer(this.playerId);
+			IPlayer player = battle.GetPlayerById(this.playerId);
 			for (int x = 0; x < player.Width; x++)
 			{
 				for (int y = 0; y < player.Height; y++)

@@ -6,19 +6,18 @@ using CardGame.Networking;
 using Ceres.Client.BattleSystem;
 using Ceres.Core.BattleSystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace CardGame.BattleDisplay
 {
 	public class BattleDisplayManager : MonoBehaviour
 	{
-		[SerializeField] private Transform[] solo1Position;
-		[SerializeField] private Transform[] solo2Position;
-		[SerializeField] private Transform[] duo1Position;
-		[SerializeField] private Transform[] duo2Position;
+		[FormerlySerializedAs("solo1Position"),SerializeField] private Transform player1Position;
+		[FormerlySerializedAs("solo2Position"),SerializeField] private Transform player2Position;
 		[SerializeField] private BattleHUD battleHUD;
 
-		private readonly Queue<IServerAction> actions = new Queue<IServerAction>();
+		private readonly Queue<ServerAction> actions = new Queue<ServerAction>();
 		private ActionAnimator actionAnimator;
 		private BattleManager battleManager;
 		private CardDisplayFactory cardDisplayFactory;
@@ -37,7 +36,7 @@ namespace CardGame.BattleDisplay
 		{
 			if (this.actions.Count > 0 && this.currentAnimation == null)
 			{
-				IServerAction action = this.actions.Dequeue();
+				ServerAction action = this.actions.Dequeue();
 				StartCoroutine(ShowAction(action));
 			}
 		}
@@ -67,36 +66,48 @@ namespace CardGame.BattleDisplay
 		private void OnStart(BattleStartConditions conditions)
 		{
 			Debug.Log("Starting battle display");
-			List<BattleTeam> teams = conditions.ClientBattle.TeamManager.GetAllTeams() as List<BattleTeam>;
+			// List<BattleTeam> teams = conditions.ClientBattle.TeamManager.GetAllTeams() as List<BattleTeam>;
+			SetupPlayer(conditions.ClientBattle.Player1, this.player1Position);
+			SetupPlayer(conditions.ClientBattle.Player2, this.player2Position);
 
-			for (var i = 0; i < teams.Count; i++)
-			{
-				BattleTeam team = teams[i];
-				List<IPlayer> players = team.GetAllPlayers() as List<IPlayer>;
-				Transform[] positions = players.Any(x => x.Id == conditions.PlayerId) ? players.Count == 1
-						?
-						this.solo1Position
-						: this.duo1Position :
-					players.Count == 1 ? this.solo2Position : this.duo2Position;
-				for (var j = 0; j < players.Count; j++)
-				{
-					IPlayer player = players[j];
-					Transform playerTransform = positions[j];
-					PlayerDisplay newDisplay = this.playerDisplayFactory.Create();
-					newDisplay.transform.SetPositionAndRotation(playerTransform.position, playerTransform.rotation);
-					newDisplay.transform.SetParent(this.transform);
-					newDisplay.Setup(player);
-					this.playerDisplays.Add(player.Id, newDisplay);
-				}
-			}
+			// for (var i = 0; i < teams.Count; i++)
+			// {
+				// BattleTeam team = teams[i];
+				// List<IPlayer> players = team.GetAllPlayers() as List<IPlayer>;
+				// Transform[] positions = players.Any(x => x.Id == conditions.MyPlayerId) ? players.Count == 1
+				// 		?
+				// 		this.player1Position
+				// 		: this.duo1Position :
+				// 	players.Count == 1 ? this.player2Position : this.duo2Position;
+				
+				// for (var j = 0; j < players.Count; j++)
+				// {
+					// IPlayer player = players[j];
+					// Transform playerTransform = positions[j];
+					// PlayerDisplay newDisplay = this.playerDisplayFactory.Create();
+					// newDisplay.transform.SetPositionAndRotation(playerTransform.position, playerTransform.rotation);
+					// newDisplay.transform.SetParent(this.transform);
+					// newDisplay.Setup(player);
+					// this.playerDisplays.Add(player.Id, newDisplay);
+				// }
+			// }
 		}
 
-		public void QueueAction(IServerAction action)
+		private void SetupPlayer(IPlayer player, Transform positionParent)
+		{
+			PlayerDisplay newDisplay = this.playerDisplayFactory.Create();
+			newDisplay.transform.SetPositionAndRotation(positionParent.position, positionParent.rotation);
+			newDisplay.transform.SetParent(this.transform);
+			newDisplay.Setup(player);
+			this.playerDisplays.Add(player.Id, newDisplay);
+		}
+
+		public void QueueAction(ServerAction action)
 		{
 			this.actions.Enqueue(action);
 		}
 
-		private IEnumerator ShowAction(IServerAction action)
+		private IEnumerator ShowAction(ServerAction action)
 		{
 			this.currentAnimation = this.actionAnimator.GetAnimation(action);
 

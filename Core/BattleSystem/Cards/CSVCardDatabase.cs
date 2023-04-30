@@ -16,9 +16,10 @@ namespace Ceres.Core.BattleSystem
                 ICardData cardData = new CardData(
                     values[0],
                     values[1],
-                    int.Parse(values[2]),
+                    values[2],
                     int.Parse(values[3]),
-                    int.Parse(values[4]));
+                    int.Parse(values[4]),
+                    int.Parse(values[5]));
                 data.Add(cardData.ID, cardData);
             }
         }

@@ -6,14 +6,9 @@ using Ceres.Core.BattleSystem.Battles;
 
 namespace Ceres.Core.BattleSystem
 {
-	public class AlertAllCommand : IClientCommand
+	public class AlertAllCommand : ClientCommand
 	{
-		public bool CanExecute(Battle battle, IPlayer author)
-		{
-			return false;
-		}
-
-		public void Apply(ServerBattle battle, IPlayer author)
+		public override void Apply(ServerBattle battle, IPlayer author)
 		{
 			for (int x = 0; x < author.Width; x++)
 				for (int y = 0; y < author.Height; y++)
@@ -23,14 +18,9 @@ namespace Ceres.Core.BattleSystem
 				}
 		}
 
-		public IServerAction[] GetActionsForAlly(IPlayer author)
+		public override ServerAction[] GetActionsForAlly(IPlayer author)
 		{
-			return new IServerAction[] { new AlertAllAction(author.Id) };
-		}
-
-		public IServerAction[] GetActionsForOpponent(IPlayer author)
-		{
-			return GetActionsForAlly(author);
+			return new ServerAction[] { new AlertAllAction(author.Id) };
 		}
 	}
 }

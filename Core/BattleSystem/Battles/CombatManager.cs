@@ -9,7 +9,6 @@ namespace Ceres.Core.BattleSystem
         public UnitSlot? Attacker { get; private set; }
         private readonly int damage = 1;
         public readonly MultiCardSlot Defenders = new MultiCardSlot();
-        public IPlayer TargetPlayer { get; private set; }
 
         public void AddAttacker(UnitSlot slot)
         {
@@ -17,10 +16,9 @@ namespace Ceres.Core.BattleSystem
             slot.Exhaust();
         }
 
-        public void AddTarget(UnitSlot slot, IPlayer target)
+        public void AddTarget(UnitSlot slot)
         {
             Target = slot;
-            TargetPlayer = target;
         }
 
         public void AddDefender(Card card)

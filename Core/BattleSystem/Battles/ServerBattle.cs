@@ -10,48 +10,49 @@ namespace Ceres.Core.BattleSystem.Battles
 	public class ServerBattle : Battle
 	{
 		private const int MaxDamage = 6;
+		private readonly IPlayer[] allPlayers;
 		private readonly bool checkCommands;
 		public readonly Guid Id;
 		private readonly Queue<CommandData> stack = new Queue<CommandData>();
-		private bool isExecutingStack = false;
+		private bool isExecutingStack;
 
-		public ServerBattle(TeamManager teamManager, bool checkCommands = true) : base(teamManager, new PhaseManager())
+		public ServerBattle(IPlayer player1, IPlayer player2, bool checkCommands = true) : base(new PhaseManager(),
+			player1, player2)
 		{
 			this.checkCommands = checkCommands;
 			this.Id = Guid.NewGuid();
+			this.allPlayers = new[] { player1, player2 };
 		}
 
-		public event Action<IPlayer, IServerAction> OnPlayerAction;
+		public event Action<IPlayer, ServerAction>? OnPlayerAction;
+
 
 		private void OnPhaseEnter(BattlePhase phase)
 		{
-			IPlayer player = this.PhaseManager.CurrentTurnPlayer;
+			IPlayer currentPlayer = this.PhaseManager.CurrentTurnPlayer;
 			switch (phase)
 			{
 				case BattlePhase.Stand:
-					AddToStack(new AlertAllCommand(), player, false);
-					AddToStack(new AdvancePhaseCommand(), player, false);
+					AddToStack(new AlertAllCommand(), currentPlayer, false);
+					AddToStack(new AdvancePhaseCommand(), currentPlayer, false);
 					break;
 				case BattlePhase.Draw:
-					AddToStack(new DrawCommand(), player, false);
-					AddToStack(new AdvancePhaseCommand(), player, false);
+					AddToStack(new DrawCommand(), currentPlayer, false);
+					AddToStack(new AdvancePhaseCommand(), currentPlayer, false);
 					break;
 				case BattlePhase.Defend:
 					if (!this.CombatManager.ValidAttack)
-						AddToStack(new AdvancePhaseCommand(), player, false);
+						AddToStack(new AdvancePhaseCommand(), currentPlayer, false);
 					break;
 				case BattlePhase.Damage:
 					if (!this.CombatManager.ValidAttack)
-						AddToStack(new AdvancePhaseCommand(), player, false);
+						AddToStack(new AdvancePhaseCommand(), currentPlayer, false);
 					break;
 				case BattlePhase.End:
-					foreach (BattleTeam team in this.TeamManager.GetAllTeams())
-					{
-						foreach (IPlayer allPlayer in team.GetAllPlayers())
-							AddToStack(new ResetAllUnitsCommand(), allPlayer, false);
-					}
+					foreach (IPlayer player in this.allPlayers)
+						AddToStack(new ResetAllUnitsCommand(), currentPlayer, false);
 
-					AddToStack(new AdvancePhaseCommand(), player, false);
+					AddToStack(new AdvancePhaseCommand(), currentPlayer, false);
 					break;
 			}
 		}
@@ -59,78 +60,71 @@ namespace Ceres.Core.BattleSystem.Battles
 		private void ExecuteStack()
 		{
 			this.isExecutingStack = true;
-			
+
 			while (this.stack.Count > 0)
 			{
 				CommandData data = this.stack.Dequeue();
-				IClientCommand command = data.Command;
+				ClientCommand command = data.Command;
 				IPlayer author = data.Author;
 				bool checkCommand = data.CheckCommand;
-				
+
 				if (command.CanExecute(this, author) || !this.checkCommands || !checkCommand)
-				{
 					command.Apply(this, author);
 
-					BattleTeam? myTeam = this.TeamManager.GetPlayerTeam(author.Id);
+				foreach (ServerAction action in command.GetActionsForAlly(author))
+				{
+					action.SetAuthor(author.Id);	
+					OnPlayerAction?.Invoke(author, action);
+				}
 
-					if (myTeam == null)
-						return;
-
-					foreach (IPlayer player in myTeam.GetAllPlayers())
-						foreach (IServerAction action in command.GetActionsForAlly(author))
-							OnPlayerAction?.Invoke(player, action);
-
-					foreach (BattleTeam team in this.TeamManager.GetAllTeams())
-						if (team != myTeam)
-							foreach (IPlayer player in team.GetAllPlayers())
-								foreach (IServerAction action in command.GetActionsForOpponent(author))
-									OnPlayerAction?.Invoke(player, action);
+				foreach (ServerAction action in command.GetActionsForOpponent(author))
+				{
+					action.SetAuthor(author.Id);
+					OnPlayerAction?.Invoke(GetEnemy(author), action);
 				}
 			}
 
 			this.isExecutingStack = false;
 		}
 
-		public void AddToStack(IClientCommand command, IPlayer author, bool checkCommand = true)
+		public void AddToStack(ClientCommand command, IPlayer author, bool checkCommand = true)
 		{
 			CommandData data = new CommandData { Command = command, Author = author, CheckCommand = checkCommand };
 			this.stack.Enqueue(data);
-			
-			if (!isExecutingStack)
+
+			if (!this.isExecutingStack)
 				ExecuteStack();
 		}
-		
+
 
 		public override void StartGame(List<IPlayer> playerOrder)
 		{
 			base.StartGame(playerOrder);
 
-			this.TeamManager.OnCallAction += CallBattleAction;
 			this.PhaseManager.OnPhaseEnter += OnPhaseEnter;
 
-			foreach (BattleTeam team in this.TeamManager.GetAllTeams())
-			{
-				foreach (IPlayer player in team.GetAllPlayers())
-				{
-					MultiCardSlot? pile = player.GetMultiCardSlot(MultiCardSlotType.Pile) as MultiCardSlot;
-					if (pile == null)
-						throw new Exception("Pile is hidden");
-					pile.Shuffle();
 
-					for (int i = 0; i < 5; i++)
-						// player.GetMultiCardSlot(MultiCardSlotType.Hand).AddCard(pile.PopCard());
-						AddToStack(new DrawCommand(), player, false);
-				}
+			foreach (IPlayer player in this.allPlayers)
+			{
+				MultiCardSlot? pile = player.GetMultiCardSlot(MultiCardSlotType.Pile) as MultiCardSlot;
+				if (pile == null)
+					throw new Exception("Pile is hidden");
+				pile.Shuffle();
+
+				for (int i = 0; i < 5; i++)
+					player.GetMultiCardSlot(MultiCardSlotType.Hand).AddCard(pile.PopCard());
+					// AddToStack(new DrawCommand(), player, false);
 			}
 
-			OnPhaseEnter(this.PhaseManager.Phase);
+			// OnPhaseEnter(this.PhaseManager.Phase);
 		}
-
 		public event Action<IBattleAction> OnBattleAction;
-
-		public void CallBattleAction(IBattleAction action)
+		public void RemovePlayer(IPlayer leavingPlayer)
 		{
-			OnBattleAction?.Invoke(action);
+			if (this.Player1 == leavingPlayer)
+			{
+				OnBattleAction?.Invoke(new EndBattleAction(this.Player2, this.Player1));
+			}
 		}
 	}
 }

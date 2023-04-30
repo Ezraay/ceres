@@ -65,7 +65,7 @@ namespace Ceres.Core.BattleSystem.Battles
             // Game over
             List<BattleTeam> winningTeams = GetAllies(first);
             winningTeams.Add(first);
-            CallBattleAction(new EndBattleAction(winningTeams, GetEnemies(first)));
+            // CallBattleAction(new EndBattleAction(winningTeams, GetEnemies(first)));
         }
 
         public BattleTeam? GetPlayerTeam(Guid playerId)

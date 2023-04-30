@@ -10,6 +10,7 @@ namespace CardGame.BattleDisplay
         private SlotDisplay[] allSlots;
 
         private UnitSlotDisplay[] unitSlots;
+        private MultiCardSlotDisplay[] multiSlots;
         private CardDisplayFactory
             cardFactory;
         [field: SerializeField] public MultiCardSlotDisplay Hand { get; private set; }
@@ -65,6 +66,10 @@ namespace CardGame.BattleDisplay
             {
                 Champion, LeftUnit, RightUnit, ChampionSupport, LeftSupport, RightSupport
             };
+            this.multiSlots = new[]
+            {
+                Hand, Damage, Defense
+            };
 
             // IMultiCardSlot hand = player.GetMultiCardSlot(MultiCardSlotType.Hand);
 
@@ -77,6 +82,11 @@ namespace CardGame.BattleDisplay
                 slot.Setup(player.GetUnitSlot(slot.Position));
 
 
+            // foreach (MultiCardSlotDisplay slot in this.multiSlots)
+            // {
+            //     slot.Setup(player.GetMultiCardSlot(slot.Type), this.cardFactory);
+            // }
+            
             foreach (SlotDisplay slot in allSlots) slot.SetOwner(this);
         }
 

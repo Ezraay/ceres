@@ -2,7 +2,7 @@
 
 namespace Ceres.Core.BattleSystem
 {
-    public class OpponentDefendAction : IServerAction
+    public class OpponentDefendAction : ServerAction
     {
         public readonly Guid PlayerId;
         public readonly Card Card;
@@ -13,9 +13,9 @@ namespace Ceres.Core.BattleSystem
             PlayerId = playerId;
         }
 
-        public void Apply(ClientBattle battle)
+        public override void Apply(ClientBattle battle, IPlayer author)
         {
-            IPlayer player = battle.TeamManager.GetPlayer(PlayerId);
+            IPlayer player = battle.GetPlayerById(PlayerId);
             player.GetMultiCardSlot(MultiCardSlotType.Hand).RemoveCard(Card);
             player.GetMultiCardSlot(MultiCardSlotType.Defense).AddCard(Card);
         }

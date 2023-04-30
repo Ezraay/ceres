@@ -2,20 +2,18 @@
 
 namespace Ceres.Core.BattleSystem
 {
-	public class TakeDamageAction : IServerAction
+	public class TakeDamageAction : ServerAction
 	{
 		public readonly Card Damage;
-		public readonly Guid PlayerId;
 
 		public TakeDamageAction(Guid playerId, Card damage)
 		{
-			this.PlayerId = playerId;
 			this.Damage = damage;
 		}
 
-		public void Apply(ClientBattle battle)
+		public override void Apply(ClientBattle battle, IPlayer author)
 		{
-			IPlayer player = battle.TeamManager.GetPlayer(this.PlayerId);
+			IPlayer player = battle.GetPlayerById(this.AuthorId);
 
 			player.GetMultiCardSlot(MultiCardSlotType.Pile).RemoveCard(this.Damage);
 			player.GetMultiCardSlot(MultiCardSlotType.Damage).RemoveCard(this.Damage);

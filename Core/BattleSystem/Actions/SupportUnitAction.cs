@@ -2,20 +2,20 @@
 
 namespace Ceres.Core.BattleSystem
 {
-	public class SupportUnitAction : IServerAction
+	public class SupportUnitAction : ServerAction
 	{
-		public readonly Guid PlayerId;
+		// public readonly Guid PlayerId;
 		public readonly CardPosition Position;
 
 		public SupportUnitAction(Guid playerId, CardPosition position)
 		{
-			this.PlayerId = playerId;
+			// this.PlayerId = playerId;
 			this.Position = position;
 		}
 
-		public void Apply(ClientBattle battle)
+		public override void Apply(ClientBattle battle, IPlayer author)
 		{
-			IPlayer player = battle.TeamManager.GetPlayer(this.PlayerId);
+			IPlayer player = battle.GetPlayerById(this.AuthorId);
 			UnitSlot support = player.GetUnitSlot(Position);
 			UnitSlot supported = player.GetUnitSlot(new CardPosition(Position.X, Position.Y - 1));
 

@@ -5,13 +5,13 @@ namespace Ceres.Core.BattleSystem
 {
     public class EndBattleAction : IBattleAction
     {
-        public readonly List<BattleTeam> WinningTeams;
-        public readonly List<BattleTeam> LosingTeams;
+        public readonly IPlayer Winner;
+        public readonly IPlayer Loser;
 
-        public EndBattleAction(List<BattleTeam> winningTeams, List<BattleTeam> losingTeams)
+        public EndBattleAction(IPlayer winner, IPlayer loser)
         {
-            this.WinningTeams = winningTeams;
-            LosingTeams = losingTeams;
+            this.Winner = winner;
+            this.Loser = loser;
         }
     }
 }

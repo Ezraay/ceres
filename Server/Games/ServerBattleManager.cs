@@ -16,11 +16,11 @@ public class ServerBattleManager : IServerBattleManager
             return Battles;
         }
     }
-    public ServerBattle AllocateServerBattle(){
+    public ServerBattle AllocateServerBattle(IPlayer player1, IPlayer player2){
         lock (Battles)
         {
-            var teamManager = new TeamManager();
-            var battle = new ServerBattle(teamManager);
+            // var teamManager = new TeamManager();
+            var battle = new ServerBattle(player1, player2);
             Battles.TryAdd(battle.Id, battle);
             return battle;
         }

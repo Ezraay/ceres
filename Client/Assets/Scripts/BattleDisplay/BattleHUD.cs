@@ -48,7 +48,7 @@ namespace CardGame.BattleDisplay
 
 		private void OnStart(BattleStartConditions conditions)
 		{
-			UpdatePhase(this.battleManager.Battle.PhaseManager.Phase);
+			// UpdatePhase(this.battleManager.Battle.PhaseManager.Phase);
 			// this.battleManager.Battle.PhaseManager.OnPhaseEnter += UpdatePhase;
 			this.battleManager.OnEnd += ShowEnd;
 		}
@@ -61,8 +61,9 @@ namespace CardGame.BattleDisplay
 		private void UpdatePhase(BattlePhase phase)
 		{
 			this.phaseText.text = phase.ToString();
-			this.nextPhaseCommand.SetActive(this.command.CanExecute(this.battleManager.Battle,
-				this.battleManager.MyPlayer));
+			bool canAdvance = this.command.CanExecute(this.battleManager.Battle,
+				this.battleManager.MyPlayer);
+			this.nextPhaseCommand.SetActive(canAdvance);
 		}
 
 		private void ShowEnd(EndBattleReason reason)

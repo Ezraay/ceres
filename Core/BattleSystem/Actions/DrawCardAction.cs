@@ -2,7 +2,7 @@
 
 namespace Ceres.Core.BattleSystem
 {
-    public class DrawCardAction : IServerAction
+    public class DrawCardAction : ServerAction
     {
         public readonly Card Card;
         public readonly Guid PlayerId;
@@ -13,9 +13,9 @@ namespace Ceres.Core.BattleSystem
             Card = card;
         }
 
-        public void Apply(ClientBattle battle)
+        public override void Apply(ClientBattle battle, IPlayer author)
         {
-            IPlayer player = battle.TeamManager.GetPlayer(PlayerId);
+            IPlayer player = battle.GetPlayerById(PlayerId);
 
             IMultiCardSlot pile = player.GetMultiCardSlot(MultiCardSlotType.Pile);
             IMultiCardSlot hand = player.GetMultiCardSlot(MultiCardSlotType.Hand);

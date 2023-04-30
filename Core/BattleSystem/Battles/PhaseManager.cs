@@ -1,65 +1,68 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
+
+#endregion
 
 namespace Ceres.Core.BattleSystem
 {
-    public class PhaseManager
-    {
-        public BattlePhase Phase { get; private set; }
-        public IPlayer CurrentTurnPlayer => this.players[this.playerIndex % this.players.Count];
+	public class PhaseManager
+	{
+		private readonly BattlePhase FirstPhase = Enum.GetValues(typeof(BattlePhase)).Cast<BattlePhase>().Min();
+		private readonly BattlePhase LastPhase = Enum.GetValues(typeof(BattlePhase)).Cast<BattlePhase>().Max();
+		private int playerIndex;
+		private List<IPlayer> players;
 
-        private readonly BattlePhase FirstPhase = Enum.GetValues(typeof(BattlePhase)).Cast<BattlePhase>().Min();
-        private readonly BattlePhase LastPhase = Enum.GetValues(typeof(BattlePhase)).Cast<BattlePhase>().Max();
-        private List<IPlayer> players;
-        private int playerIndex;
+		public PhaseManager(BattlePhase? phase = null)
+		{
+			this.Phase = phase ?? this.FirstPhase;
+		}
 
-        public PhaseManager(BattlePhase? phase = null)
-        {
-            Phase = phase ?? this.FirstPhase;
-        }
+		public BattlePhase Phase { get; private set; }
+		public IPlayer CurrentTurnPlayer => this.players[this.playerIndex % this.players.Count];
 
-        public event Action OnTurnEnd;
-        public event Action<BattlePhase> OnPhaseExit;
-        public event Action<BattlePhase> OnPhaseEnter;
+		public event Action OnTurnEnd;
+		public event Action<BattlePhase> OnPhaseExit;
+		public event Action<BattlePhase> OnPhaseEnter;
 
-        public void SetPlayers(List<IPlayer> players)
-        {
-            this.players = players;
-        }
-        
-        public void Set(BattlePhase phase)
-        {
-            OnPhaseExit?.Invoke(Phase);
-            if (phase <= Phase) OnTurnEnd?.Invoke();
-            Phase = phase;
+		public void SetPlayers(List<IPlayer> players)
+		{
+			this.players = players;
+		}
 
-            OnPhaseEnter?.Invoke(Phase);
-        }
+		public void Set(BattlePhase phase)
+		{
+			OnPhaseExit?.Invoke(this.Phase);
+			if (phase <= this.Phase) OnTurnEnd?.Invoke();
+			this.Phase = phase;
 
-        public void Advance()
-        {
-            OnPhaseExit?.Invoke(Phase);
-            if (Phase == LastPhase)
-            {
-                Phase = FirstPhase;
-                this.playerIndex++;
-                OnTurnEnd?.Invoke();
-            }
-            else
-            {
-                Phase++;
-            }
+			OnPhaseEnter?.Invoke(this.Phase);
+		}
 
-            OnPhaseEnter?.Invoke(Phase);
-        }
+		public void Advance()
+		{
+			OnPhaseExit?.Invoke(this.Phase);
+			if (this.Phase == this.LastPhase)
+			{
+				this.Phase = this.FirstPhase;
+				this.playerIndex++;
+				OnTurnEnd?.Invoke();
+			}
+			else
+			{
+				this.Phase++;
+			}
 
-        public PhaseManager Copy()
-        {
-            PhaseManager result = new PhaseManager(Phase);
-            
-            return result;
-        }
-    }
+			OnPhaseEnter?.Invoke(this.Phase);
+		}
+
+		public PhaseManager Copy()
+		{
+			PhaseManager copy = new PhaseManager(this.Phase);
+			copy.Set(this.Phase);
+			return copy;
+		}
+	}
 }

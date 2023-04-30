@@ -6,7 +6,7 @@ namespace CardGame.BattleDisplay
 {
     public class OpponentSummonAnimation : ActionAnimation
     {
-        public override IEnumerator GetEnumerator(IServerAction baseAction, AnimationData data)
+        public override IEnumerator GetEnumerator(ServerAction baseAction, AnimationData data)
         {
             OpponentSummonAction action = baseAction as OpponentSummonAction;
 

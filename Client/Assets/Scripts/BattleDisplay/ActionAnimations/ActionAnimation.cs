@@ -7,7 +7,7 @@ namespace CardGame.BattleDisplay
 {
     public abstract class ActionAnimation
     {
-        public abstract IEnumerator GetEnumerator(IServerAction baseAction, AnimationData data);
+        public abstract IEnumerator GetEnumerator(ServerAction baseAction, AnimationData data);
 
         protected Coroutine StartCoroutine(AnimationData data, IEnumerator enumerator)
         {

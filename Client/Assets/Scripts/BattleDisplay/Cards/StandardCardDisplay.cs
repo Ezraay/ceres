@@ -12,10 +12,11 @@ namespace CardGame.BattleDisplay
 		[SerializeField] private SpriteCollection tierSprites;
 		[SerializeField] private SpriteCollection attackNumbers;
 		[SerializeField] private SpriteCollection defendNumbers;
-		[FormerlySerializedAs("sprite"),SerializeField] private Image cardSprite;
+		[SerializeField] private Image cardSprite;
 		// [SerializeField] private TMP_Text attack;
 		// [SerializeField] private TMP_Text defense;
-		[SerializeField] private new TMP_Text name;
+		[SerializeField] private TMP_Text title;
+		[SerializeField] private TMP_Text subtitle;
 		[SerializeField] private Image tier;
 		[SerializeField] private Image statPrefab;
 		[SerializeField] private Transform attackParent;
@@ -25,7 +26,8 @@ namespace CardGame.BattleDisplay
 		{
 			base.ShowFront(card);
 
-			this.name.text = card.Data.Name;
+			this.title.text = card.Data.Title;
+			this.subtitle.text = card.Data.Subtitle;
 			// this.attack.text = card.Data.Attack.ToString();
 			// this.defense.text = card.Data.Defense.ToString();
 

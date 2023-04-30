@@ -4,9 +4,9 @@ using Newtonsoft.Json;
 
 namespace Ceres.Core.BattleSystem
 {
-    public class AscendCommand : IClientCommand
+    public class AscendCommand : ClientCommand
     {
-        [JsonIgnore] private Card card;
+        [JsonIgnore] private Card? card;
 
         public Guid CardId;
 
@@ -15,10 +15,10 @@ namespace Ceres.Core.BattleSystem
             CardId = cardId;
         }
 
-        public bool CanExecute(Battle battle, IPlayer author)
+        public override bool CanExecute(Battle battle, IPlayer author)
         {
-            MultiCardSlot hand = author.GetMultiCardSlot(MultiCardSlotType.Hand) as MultiCardSlot;
-            card = hand?.GetCard(CardId);
+            IMultiCardSlot hand = author.GetMultiCardSlot(MultiCardSlotType.Hand);
+            card = hand.GetCard(CardId);
 
             if (card == null) return false;
             if (card.Data.Tier < author.Champion.Card.Data.Tier) return false;
@@ -27,7 +27,7 @@ namespace Ceres.Core.BattleSystem
             return true;
         }
 
-        public void Apply(ServerBattle battle, IPlayer author)
+        public override void Apply(ServerBattle battle, IPlayer author)
         {
             MultiCardSlot hand = author.GetMultiCardSlot(MultiCardSlotType.Hand) as MultiCardSlot;
             card = hand.GetCard(CardId);
@@ -38,19 +38,19 @@ namespace Ceres.Core.BattleSystem
             battle.AddToStack(new AdvancePhaseCommand(), author, false);
         }
 
-        public IServerAction[] GetActionsForAlly(IPlayer author)
+        public override ServerAction[] GetActionsForAlly(IPlayer author)
         {
-            return new IServerAction[]
+            return new ServerAction[]
             {
-                new AllySummonAction(author.Id, MultiCardSlotType.Hand, author.Champion.Position, CardId)
+                new AllySummonAction(MultiCardSlotType.Hand, author.Champion.Position, CardId)
             };
         }
 
-        public IServerAction[] GetActionsForOpponent(IPlayer author)
+        public override ServerAction[] GetActionsForOpponent(IPlayer author)
         {
             if (card == null)
                 throw new ArgumentNullException();
-            return new IServerAction[]
+            return new ServerAction[]
             {
                 new OpponentSummonAction(author.Id, MultiCardSlotType.Hand, author.Champion.Position, card)
             };

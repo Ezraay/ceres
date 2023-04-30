@@ -12,5 +12,7 @@ namespace Ceres.Core.BattleSystem
         public void LoadDeck(IDeck deck);
         public UnitSlot GetUnitSlot(CardPosition position);
         public IMultiCardSlot GetMultiCardSlot(MultiCardSlotType type);
+        IPlayer GetAllyCopy();
+        IPlayer GetEnemyCopy();
     }
 }

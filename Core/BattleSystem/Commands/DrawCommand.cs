@@ -4,17 +4,11 @@ using Ceres.Core.BattleSystem.Battles;
 namespace Ceres.Core.BattleSystem
 {
     [Serializable]
-    public class DrawCommand : IClientCommand
+    public class DrawCommand : ClientCommand
     {
         private Card drawnCard;
-
-
-        public bool CanExecute(Battle battle, IPlayer author)
-        {
-            return false;
-        }
-
-        public void Apply(ServerBattle battle, IPlayer author)
+        
+        public override void Apply(ServerBattle battle, IPlayer author)
         {
             MultiCardSlot hand = author.GetMultiCardSlot(MultiCardSlotType.Hand) as MultiCardSlot;
             MultiCardSlot pile = author.GetMultiCardSlot(MultiCardSlotType.Pile) as MultiCardSlot;
@@ -23,14 +17,14 @@ namespace Ceres.Core.BattleSystem
             hand.AddCard(drawnCard);
         }
 
-        public IServerAction[] GetActionsForAlly(IPlayer author)
+        public override ServerAction[] GetActionsForAlly(IPlayer author)
         {
-            return new IServerAction[] {new DrawCardAction(author.Id, drawnCard)};
+            return new ServerAction[] {new DrawCardAction(author.Id, drawnCard)};
         }
 
-        public IServerAction[] GetActionsForOpponent(IPlayer author)
+        public override ServerAction[] GetActionsForOpponent(IPlayer author)
         {
-            return new IServerAction[] {new OpponentDrawCardAction(author.Id)};
+            return new ServerAction[] {new OpponentDrawCardAction(author.Id)};
         }
     }
 }

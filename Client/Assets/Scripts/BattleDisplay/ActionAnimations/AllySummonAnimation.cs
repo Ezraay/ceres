@@ -6,11 +6,11 @@ namespace CardGame.BattleDisplay
 {
     public class AllySummonAnimation : ActionAnimation
     {
-        public override IEnumerator GetEnumerator(IServerAction baseAction, AnimationData data)
+        public override IEnumerator GetEnumerator(ServerAction baseAction, AnimationData data)
         {
             AllySummonAction action = baseAction as AllySummonAction;
 
-            PlayerDisplay playerDisplay = data.BattleDisplayManager.GetPlayerDisplay(action.PlayerId);
+            PlayerDisplay playerDisplay = data.BattleDisplayManager.GetPlayerDisplay(action.AuthorId);
             MultiCardSlotDisplay multiCard = playerDisplay.GetMultiCardSlot(action.SlotType);
             UnitSlotDisplay slot = playerDisplay.GetUnitSlot(action.Position);
             CardDisplay card = data.CardDisplayFactory.GetDisplay(action.CardId);

@@ -10,7 +10,7 @@ namespace CardGame.BattleDisplay
     {
         [SerializeField] private CameraController cameraController;
         
-        public ActionAnimation GetAnimation(IServerAction action)
+        public ActionAnimation GetAnimation(ServerAction action)
         {
             return action switch
             {

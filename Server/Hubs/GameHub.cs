@@ -37,7 +37,7 @@ public class GameHub : Hub
 
 
 
-    public void PlayerSentCommand(string gameId, string userId, IClientCommand command)
+    public void PlayerSentCommand(string gameId, string userId, ClientCommand command)
     {
         if (Guid.TryParse(gameId, out var gameIdGuid) && Guid.TryParse(userId, out var userIdGuid))
         {

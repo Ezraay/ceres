@@ -3,84 +3,79 @@ using System.Collections.Generic;
 using CardGame.Networking;
 using Ceres.Core.BattleSystem;
 using Ceres.Core.BattleSystem.Battles;
-using Ceres.Core.Entities;
 using UnityEngine;
-using Logger = Ceres.Client.Utility.Logger;
 
 namespace CardGame.BattleDisplay.Networking
 {
-    public class SinglePlayerProcessor : ICommandProcessor
-    {
-        private readonly ServerBattleStartConfig conditions;
-        public event Action<IServerAction> OnServerAction;
-        public event Action<BattleStartConditions> OnStartBattle;
-        public event Action<EndBattleReason> OnEndBattle;
-        public ServerBattle ServerBattle { get; private set; }
-        
-        public SinglePlayerProcessor(ServerBattleStartConfig conditions)
-        {
-            this.conditions = conditions;
-        }
+	public class SinglePlayerProcessor : ICommandProcessor
+	{
+		public ServerBattle ServerBattle { get; private set; }
 
-        public IPlayer MyPlayer { get; private set; }
-        private BattleTeam myTeam;
+		public IPlayer MyPlayer { get; private set; }
 
-        public void Start()
-        {
-            IPlayer player1 = new StandardPlayer(Guid.NewGuid(), new MultiCardSlot(), new MultiCardSlot());
-            IPlayer player2 = new StandardPlayer(Guid.NewGuid(), new MultiCardSlot(), new MultiCardSlot());
-            player1.LoadDeck(conditions.Player1Deck);
-            player2.LoadDeck(conditions.Player2Deck);
-            
-            TeamManager manager = new TeamManager();
-            BattleTeam team1 = manager.CreateTeam();
-            BattleTeam team2 = manager.CreateTeam();
-            manager.AddPlayer(player1, team1);
-            manager.AddPlayer(player2, team2);
-            
-            MyPlayer = player1;
-            this.myTeam = team1;
-            
-            this.ServerBattle = new ServerBattle(manager, false);
-            List<IPlayer> playerOrder = new List<IPlayer>() {player1, player2};
-            
-            this.ServerBattle.OnBattleAction += OnServerBattleAction;
-            this.ServerBattle.OnPlayerAction += (player, action) =>
-            {
-                if (player == MyPlayer) // Accept actions sent to us 
-                {
-                    ClientBattle.Execute(action);
-                    OnServerAction?.Invoke(action);
-                }
-            };
-            
-            ClientBattle = new ClientBattle(manager.SafeCopy(player1), ServerBattle.PhaseManager.Copy());
-            
-            OnStartBattle?.Invoke(new BattleStartConditions()
-            {
-                ClientBattle = ClientBattle,
-                PlayerId = player1.Id
-            });
-            
-            this.ServerBattle.StartGame(playerOrder);
-        }
+		private ClientBattle ClientBattle { get; set; }
+		private readonly ServerBattleStartConfig conditions;
+		public event Action<ServerAction> OnServerAction;
+		public event Action<BattleStartConditions> OnStartBattle;
+		public event Action<EndBattleReason> OnEndBattle;
 
-        private void OnServerBattleAction(IBattleAction action)
-        {
-            switch (action)
-            {
-                case EndBattleAction endGame:
-                    this.OnEndBattle?.Invoke(endGame.WinningTeams.Contains(this.myTeam) ? EndBattleReason.YouWon : EndBattleReason.YouLost);
-                    break;
-            }
-        }
+		public SinglePlayerProcessor(ServerBattleStartConfig conditions)
+		{
+			this.conditions = conditions;
+		}
+		// private BattleTeam myTeam;
 
-        private ClientBattle ClientBattle { get; set; }
+		public void Start()
+		{
+			IPlayer player1 = new StandardPlayer(Guid.NewGuid(), new MultiCardSlot(), new MultiCardSlot());
+			IPlayer player2 = new StandardPlayer(Guid.NewGuid(), new MultiCardSlot(), new MultiCardSlot());
+			player1.LoadDeck(this.conditions.Player1Deck);
+			player2.LoadDeck(this.conditions.Player2Deck);
 
-        public void ProcessCommand(IClientCommand command)
-        {
-            this.ServerBattle.AddToStack(command, MyPlayer);
-            Debug.Log(this.ServerBattle.PhaseManager.Phase);
-        }
-    }
+			this.ServerBattle = new ServerBattle(player1, player2, false);
+			List<IPlayer> playerOrder = new List<IPlayer> {player1, player2,};
+
+			this.ServerBattle.OnBattleAction += OnServerBattleAction;
+			this.ServerBattle.OnPlayerAction += (player, action) =>
+			{
+				if (player == this.MyPlayer) // Accept actions sent to us 
+				{
+					this.ClientBattle.Execute(action);
+					this.OnServerAction?.Invoke(action);
+				}
+			};
+
+			this.ServerBattle.StartGame(playerOrder);
+
+			this.MyPlayer = player1.GetAllyCopy();
+			IPlayer enemy = player2.GetEnemyCopy();
+			PhaseManager phaseManagerCopy = this.ServerBattle.PhaseManager.Copy();
+			phaseManagerCopy.SetPlayers(new List<IPlayer> {this.MyPlayer, enemy,});
+			this.ClientBattle = new ClientBattle(phaseManagerCopy, this.MyPlayer, enemy);
+
+			this.OnStartBattle?.Invoke(new BattleStartConditions
+			{
+				ClientBattle = this.ClientBattle,
+				MyPlayerId = player1.Id,
+			});
+		}
+
+		private void OnServerBattleAction(IBattleAction action)
+		{
+			switch (action)
+			{
+				case EndBattleAction endGame:
+					this.OnEndBattle?.Invoke(endGame.Winner == this.MyPlayer
+						? EndBattleReason.YouWon
+						: EndBattleReason.YouLost);
+					break;
+			}
+		}
+
+		public void ProcessCommand(ClientCommand command)
+		{
+			this.ServerBattle.AddToStack(command, this.MyPlayer);
+			Debug.Log(this.ServerBattle.PhaseManager.Phase);
+		}
+	}
 }

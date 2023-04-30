@@ -542,7 +542,8 @@ MonoBehaviour:
   attackNumbers: {fileID: 11400000, guid: 6d224c37e60521b48be5a2c068064253, type: 2}
   defendNumbers: {fileID: 11400000, guid: fdfaf7c12a29f704e95a28d6ebe331c1, type: 2}
   cardSprite: {fileID: 997139517108023238}
-  name: {fileID: 6916578101123191833}
+  title: {fileID: 6916578101123191833}
+  subtitle: {fileID: 6916578101461118874}
   tier: {fileID: 6448787214982867945}
   statPrefab: {fileID: 520392498287398682, guid: cdfa7fd9a875118408324afa04c6653f, type: 3}
   attackParent: {fileID: 9173931169399567627}
@@ -1202,7 +1203,7 @@ GameObject:
   - component: {fileID: 6916578101123191832}
   - component: {fileID: 6916578101123191833}
   m_Layer: 0
-  m_Name: Name
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

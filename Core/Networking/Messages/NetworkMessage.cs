@@ -9,7 +9,7 @@ namespace Ceres.Core.Networking.Messages
     public class ServerActionMessage : INetworkMessage
     {
         public string MessageName => "ServerAction";
-        public IServerAction Action { get; set;}
+        public ServerAction Action { get; set;}
     }
 
     public class UpdateGamesMessage : INetworkMessage
@@ -29,7 +29,7 @@ namespace Ceres.Core.Networking.Messages
         public string MessageName => "PlayerSentCommand";
         public string GameId { get; set;} = "";
         public string UserId { get; set;} = "";
-        public IClientCommand Command { get; set;}
+        public ClientCommand Command { get; set;}
     }
 
     public class ClientsListMessage : INetworkMessage

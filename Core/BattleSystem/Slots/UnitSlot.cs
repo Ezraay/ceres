@@ -18,7 +18,7 @@ namespace Ceres.Core.BattleSystem
             Exhausted = true;
         }
 
-        public void SetCard(Card card)
+        public void SetCard(Card? card)
         {
             Card = card;
         }

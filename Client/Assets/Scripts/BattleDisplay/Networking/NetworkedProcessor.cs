@@ -11,7 +11,7 @@ namespace CardGame.BattleDisplay.Networking
 
 		public IPlayer MyPlayer { get; private set; }
 		private readonly NetworkManager networkManager;
-		public event Action<IServerAction> OnServerAction;
+		public event Action<ServerAction> OnServerAction;
 		public event Action<BattleStartConditions> OnStartBattle;
 		public event Action<EndBattleReason> OnEndBattle;
 
@@ -30,8 +30,8 @@ namespace CardGame.BattleDisplay.Networking
 		private void OnStartGame(BattleStartConditions battleStartConditions)
 		{
 			this.ClientBattle = battleStartConditions.ClientBattle;
-			if (battleStartConditions.PlayerId != null)
-				this.MyPlayer = this.ClientBattle.TeamManager.GetPlayer(battleStartConditions.PlayerId);
+			if (battleStartConditions.MyPlayerId != Guid.Empty)
+				this.MyPlayer = this.ClientBattle.GetPlayerById(battleStartConditions.MyPlayerId);
 			this.OnStartBattle?.Invoke(battleStartConditions);
 		}
 
@@ -44,13 +44,13 @@ namespace CardGame.BattleDisplay.Networking
 			this.OnEndBattle?.Invoke(reason);
 		}
 
-		private void OnBattleAction(IServerAction action)
+		private void OnBattleAction(ServerAction action)
 		{
 			this.ClientBattle.Execute(action);
 			this.OnServerAction?.Invoke(action);
 		}
 
-		public void ProcessCommand(IClientCommand command)
+		public void ProcessCommand(ClientCommand command)
 		{
 			this.networkManager.SendCommand(command);
 		}

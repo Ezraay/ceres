@@ -12,7 +12,7 @@ namespace CardGame.BattleDisplay.Commands
                    data.EndSlot.Owner == data.MyPlayerDisplay;
         }
 
-        public IClientCommand GetCommand(InputCommandData data)
+        public ClientCommand GetCommand(InputCommandData data)
         {
             UnitSlotDisplay display = data.EndSlot as UnitSlotDisplay;
             return new SummonCommand(display.Position, data.Card.Card.ID);

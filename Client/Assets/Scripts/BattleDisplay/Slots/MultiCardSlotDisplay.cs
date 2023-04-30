@@ -15,8 +15,8 @@ namespace CardGame.BattleDisplay
         [SerializeField] private float cardLookOffset;
         private BoxCollider2D boxCollider2D;
         public List<CardDisplay> Displays { get; private set; } = new();
-        
-        
+
+
         private void Awake()
         {
             boxCollider2D = GetComponent<BoxCollider2D>();
@@ -99,6 +99,8 @@ namespace CardGame.BattleDisplay
         {
             if (battle.PhaseManager.Phase == BattlePhase.Main && myPlayer.Hand == this) return true;
             if (battle.PhaseManager.Phase == BattlePhase.Ascend && myPlayer.Hand == this) return true;
+            if (battle.PhaseManager.Phase == BattlePhase.Defend && myPlayer.Hand == this &&
+                battle.PhaseManager.CurrentTurnPlayer.Id != myPlayer.PlayerId) return true;
             return false;
         }
     }

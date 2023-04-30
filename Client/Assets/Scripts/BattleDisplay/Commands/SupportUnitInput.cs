@@ -13,7 +13,7 @@ namespace CardGame.BattleDisplay.Commands
 			       (data.StartSlot as UnitSlotDisplay).Position.Y != 0;
 		}
 
-		public IClientCommand GetCommand(InputCommandData data)
+		public ClientCommand GetCommand(InputCommandData data)
 		{
 			UnitSlotDisplay slot = data.StartSlot as UnitSlotDisplay;
 			return new SupportCommand(slot.Position);

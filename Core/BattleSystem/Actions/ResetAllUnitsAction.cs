@@ -2,26 +2,22 @@
 
 namespace Ceres.Core.BattleSystem
 {
-	public class ResetAllUnitsAction : IServerAction
+	public class ResetAllUnitsAction : ServerAction
 	{
-		public readonly Guid playerId;
-		
 		public ResetAllUnitsAction(Guid playerId)
 		{
-			this.playerId = playerId;
 		}
 		
-		public void Apply(ClientBattle battle)
+		public override void Apply(ClientBattle battle, IPlayer author)
 		{
-			IPlayer player = battle.TeamManager.GetPlayer(this.playerId);
+			IPlayer player = battle.GetPlayerById(this.AuthorId);
 			for (int x = 0; x < player.Width; x++)
-			{
 				for (int y = 0; y < player.Height; y++)
 				{
 					CardPosition position = new CardPosition(x, y);
 					player.GetUnitSlot(position).Card?.Reset();
 				}
-			}
+			
 		}
 	}
 }

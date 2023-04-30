@@ -2,26 +2,22 @@
 
 namespace Ceres.Core.BattleSystem
 {
-    public class AdvancePhaseCommand : IClientCommand
+    public class AdvancePhaseCommand : ClientCommand
     {
-        public bool CanExecute(Battle battle, IPlayer author)
+        public override bool CanExecute(Battle battle, IPlayer author)
         {
-            return battle.HasPriority(author);
+            if (battle.PhaseManager.Phase == BattlePhase.Defend) return author != battle.PhaseManager.CurrentTurnPlayer;
+            return author == battle.PhaseManager.CurrentTurnPlayer;
         }
 
-        public void Apply(ServerBattle battle, IPlayer author)
+        public override void Apply(ServerBattle battle, IPlayer author)
         {
             battle.PhaseManager.Advance();
         }
 
-        public IServerAction[] GetActionsForAlly(IPlayer author)
+        public override ServerAction[] GetActionsForAlly(IPlayer author)
         {
-            return new IServerAction[] {new AdvancePhaseAction()};
-        }
-
-        public IServerAction[] GetActionsForOpponent(IPlayer author)
-        {
-            return GetActionsForAlly(author);
+            return new ServerAction[] {new AdvancePhaseAction()};
         }
     }
 }

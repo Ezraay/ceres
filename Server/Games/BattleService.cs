@@ -41,17 +41,17 @@ public class BattleService : IBattleService
         IPlayer player2 = new StandardPlayer(Guid.NewGuid(), new MultiCardSlot(), new MultiCardSlot());
 
         List<IPlayer> playerOrder = new List<IPlayer>() {player1, player2};
-        var battle = battleManager.AllocateServerBattle();
+        var battle = battleManager.AllocateServerBattle(player1, player2);
  
-        BattleTeam team1 = battle.TeamManager.CreateTeam();
-        BattleTeam team2 = battle.TeamManager.CreateTeam();
+        // BattleTeam team1 = battle.TeamManager.CreateTeam();
+        // BattleTeam team2 = battle.TeamManager.CreateTeam();
         
-        team1.AddPlayer(player1);
+        // team1.AddPlayer(player1);
         user1.GameId = battle.Id;
         user1.ServerPlayer = player1;
         player1.LoadDeck(cardDeckLoader.Deck);
 
-        team2.AddPlayer(player2);
+        // team2.AddPlayer(player2);
         user2.GameId = battle.Id;
         user2.ServerPlayer = player2;
         player2.LoadDeck(cardDeckLoader.Deck);
@@ -60,8 +60,8 @@ public class BattleService : IBattleService
         battle.OnBattleAction += action => OnBattleAction(action, battle);
         battle.StartGame(playerOrder);
 
-        networkService.SendUserGoToGame(new ClientBattle(battle.TeamManager.SafeCopy(player1), battle.PhaseManager.Copy()), user1);
-        networkService.SendUserGoToGame(new ClientBattle(battle.TeamManager.SafeCopy(player2), battle.PhaseManager.Copy()), user2);
+        networkService.SendUserGoToGame(new ClientBattle(battle.PhaseManager.Copy(), player1.GetAllyCopy(), player2.GetEnemyCopy()), user1);
+        networkService.SendUserGoToGame(new ClientBattle(battle.PhaseManager.Copy(), player1.GetEnemyCopy(), player2.GetAllyCopy()), user2);
 
         SendListOfGamesUpdated();
     }
@@ -72,33 +72,20 @@ public class BattleService : IBattleService
         {
             case EndBattleAction endGameBattleAction:
                 // Send to client, game ended
-                List<GameUser> winners = new List<GameUser>();
-                List<GameUser> losers = new List<GameUser>();
 
-                foreach (BattleTeam team in endGameBattleAction.WinningTeams)
-                foreach (IPlayer player in team.GetAllPlayers())
+                GameUser? winner = FindGameUser(endGameBattleAction.Winner);
+                if (winner != null)
                 {
-                    GameUser? user = FindGameUser(player);
-                    if (user != null)
-                    {
-                        winners.Add(user);
-                        user.LeaveGame();
-                    }
-                }
-
-                foreach (BattleTeam team in endGameBattleAction.LosingTeams)
-                foreach (IPlayer player in team.GetAllPlayers())
-                {
-                    GameUser? user = FindGameUser(player);
-                    if (user != null)
-                    {
-                        losers.Add(user);
-                        user.LeaveGame();
-                    }
+                    winner.LeaveGame();
+                    networkService.SendServerBattleWon(winner);
                 }
                 
-                networkService.SendServerBattleWon(winners.ToArray());
-                networkService.SendServerBattleLost(losers.ToArray());
+                GameUser? loser = FindGameUser(endGameBattleAction.Loser);
+                if (loser != null)
+                {
+                    loser.LeaveGame();
+                    networkService.SendServerBattleLost(loser);
+                }
                 
                 battleManager.DeallocateServerBattle(battle);
 
@@ -108,7 +95,7 @@ public class BattleService : IBattleService
         }
     }
 
-    private void OnPlayerAction(IPlayer player, IServerAction action)
+    private void OnPlayerAction(IPlayer player, ServerAction action)
     {
         var gameUser = FindGameUser(player);
         if (gameUser != null)
@@ -126,7 +113,7 @@ public class BattleService : IBattleService
         if (battle == null)
             return;
         
-        battle.TeamManager.RemovePlayer(user.ServerPlayer);
+        battle.RemovePlayer(user.ServerPlayer);
         user.GameId = Guid.Empty;
 
         SendListOfGamesUpdated();
@@ -150,7 +137,7 @@ public class BattleService : IBattleService
     }
 
 
-    private void PlayerCommandHandler(Guid gameId, GameUser user, IClientCommand command)
+    private void PlayerCommandHandler(Guid gameId, GameUser user, ClientCommand command)
     {
         var serverBattle = battleManager.FindServerBattleById(gameId);
         if (serverBattle?.Id == user.GameId && user.ServerPlayer != null)

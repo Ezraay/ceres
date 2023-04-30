@@ -11,7 +11,7 @@ namespace CardGame.BattleDisplay.Commands
                    data.EndSlot.Owner == data.MyPlayerDisplay;
         }
 
-        public IClientCommand GetCommand(InputCommandData data)
+        public ClientCommand GetCommand(InputCommandData data)
         {
             return new AscendCommand(data.Card.Card.ID);
         }

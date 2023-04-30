@@ -23,7 +23,7 @@ namespace Ceres.Core.BattleSystem
 
 		static public Card TestCard()
 		{
-			return new Card(new CardData("archer", "Archer", 1, 5, 5));
+			return new Card(new CardData("archer", "Archer", "Subtitle", 1, 5, 5));
 		}
 
 		public void Reset()

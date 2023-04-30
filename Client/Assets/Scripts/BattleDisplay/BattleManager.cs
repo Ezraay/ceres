@@ -16,7 +16,7 @@ namespace Ceres.Client.BattleSystem
         public ClientBattle Battle { get; private set; }
         private ICommandProcessor commandProcessor;
         public IPlayer MyPlayer => commandProcessor.MyPlayer;
-        public event Action<IServerAction> OnAction;
+        public event Action<ServerAction> OnAction;
         public event Action<BattleStartConditions> OnStart;
         public event Action<EndBattleReason> OnEnd;
         public bool IsBattleOngoing { get; private set; }
@@ -59,7 +59,7 @@ namespace Ceres.Client.BattleSystem
             this.IsBattleOngoing = false;
         }
 
-        private void OnServerAction(IServerAction action)
+        private void OnServerAction(ServerAction action)
         {
             OnAction?.Invoke(action);
         }
@@ -69,7 +69,7 @@ namespace Ceres.Client.BattleSystem
             this.commandProcessor.Start();
         }
 
-        public void Execute(IClientCommand command)
+        public void Execute(ClientCommand command)
         {
             Logger.Log("Executing command: " + command);
             commandProcessor.ProcessCommand(command);

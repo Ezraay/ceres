@@ -44,7 +44,7 @@ namespace Ceres.Core.BattleSystem
         public UnitSlot GetUnitSlot(CardPosition position)
         {
             if (position.X < 0 || position.Y < 0 || position.X >= Width || position.Y >= Height)
-                throw new Exception("Can't find slot with position: " + position);
+                throw new ArgumentException("Position outside board size: " + position);
             return units[position.X, position.Y];
         }
 
@@ -64,6 +64,46 @@ namespace Ceres.Core.BattleSystem
                 MultiCardSlotType.Pile => Pile,
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
             };
+        }
+
+        public IPlayer GetAllyCopy()
+        {
+            MultiCardSlot hand = new MultiCardSlot();
+            MultiCardSlot serverHand = GetMultiCardSlot(MultiCardSlotType.Hand) as MultiCardSlot;
+            foreach (var card in serverHand.Cards)
+            { 
+                hand.AddCard(card);
+            }
+
+            IPlayer newPlayer = GetCopy(hand);
+            return newPlayer;
+        }
+
+        private IPlayer GetCopy(IMultiCardSlot hand)
+        {
+            IMultiCardSlot serverPile = GetMultiCardSlot(MultiCardSlotType.Pile);
+            IMultiCardSlot pile = new HiddenMultiCardSlot(serverPile.Count);
+            IPlayer newPlayer = new StandardPlayer(Id, hand, pile);
+
+            for (int x = 0; x < Width; x++)
+            {
+                for (int y = 0; y < Height; y++)
+                {
+                    CardPosition position = new CardPosition(x, y);
+                    newPlayer.GetUnitSlot(position).SetCard(GetUnitSlot(position).Card);
+                }
+            }
+
+            return newPlayer;
+        }
+
+        public IPlayer GetEnemyCopy()
+        {
+            IMultiCardSlot serverHand = GetMultiCardSlot(MultiCardSlotType.Hand);
+            IMultiCardSlot hand = new HiddenMultiCardSlot(serverHand.Count);
+
+            IPlayer newPlayer = GetCopy(hand);
+            return newPlayer;
         }
     }
 }

@@ -5,7 +5,7 @@ namespace CardGame.BattleDisplay
 {
 	public class DeclareAttackAnimation : ActionAnimation
 	{
-		public override IEnumerator GetEnumerator(IServerAction baseAction, AnimationData data)
+		public override IEnumerator GetEnumerator(ServerAction baseAction, AnimationData data)
 		{
 			DeclareAttackAction action = baseAction as DeclareAttackAction;
 

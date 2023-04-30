@@ -2,21 +2,19 @@
 
 namespace Ceres.Core.BattleSystem
 {
-    public class AllyDefendAction : IServerAction
+    public class AllyDefendAction : ServerAction
     {
         public readonly Guid CardId;
-        public readonly Guid PlayerId;
 
 
         public AllyDefendAction(Guid playerId, Guid cardId)
         {
-            this.PlayerId = playerId;
             this.CardId = cardId;
         }
 
-        public void Apply(ClientBattle battle)
+        public override void Apply(ClientBattle battle, IPlayer author)
         {
-            IPlayer player = battle.TeamManager.GetPlayer(PlayerId);
+            IPlayer player = battle.Player1;
             
             IMultiCardSlot hand = player.GetMultiCardSlot(MultiCardSlotType.Hand);
             IMultiCardSlot defense = player.GetMultiCardSlot(MultiCardSlotType.Defense);

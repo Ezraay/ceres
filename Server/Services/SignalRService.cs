@@ -18,7 +18,7 @@ public class SignalRService :ISignalRService
     public event Action<GameUser>? OnPlayerLeftGame;
     public event Action<GameUser, GameUser>? OnUsersReadyToPlay;
     public event Action<Guid, GameUser>? OnTryToJoinBattle;
-    public event Action<Guid, GameUser, IClientCommand>? OnPlayerSentCommand;
+    public event Action<Guid, GameUser, ClientCommand>? OnPlayerSentCommand;
 
 
     public SignalRService( IHubContext<GameHub> gameHub, IHubContext<LobbyHub> lobbyHub)
@@ -163,7 +163,7 @@ public class SignalRService :ISignalRService
     }
 
 
-    public void SendPlayerAction(GameUser user, IServerAction action) {
+    public void SendPlayerAction(GameUser user, ServerAction action) {
         // var gameId = user. GameId;
         // Console.WriteLine("Sending action: " + action + " to: " + connectionId);
         var msg = new ServerActionMessage()
@@ -178,16 +178,16 @@ public class SignalRService :ISignalRService
     //     SendHubGroupMessage(gameHub, msg.GameId, msg);
     // }
 
-    public void SendServerBattleLost(GameUser[] losers)
+    public void SendServerBattleLost(GameUser loser)
     {
         var msg = new GameEndedMessage() {Reason = EndBattleReason.YouLost};
-        SendHubMessage(gameHub, msg, losers.Select(x => x.GameConnectionId).ToArray());   
+        SendHubMessage(gameHub, msg, new string[] {loser.GameConnectionId});   
     }
 
-    public void SendServerBattleWon(GameUser[] winners)
+    public void SendServerBattleWon(GameUser winner)
     {
         var msg = new GameEndedMessage() {Reason = EndBattleReason.YouWon};
-        SendHubMessage(gameHub, msg, winners.Select(x => x.GameConnectionId).ToArray());
+        SendHubMessage(gameHub, msg, new string[] {winner.GameConnectionId});   
     }
 
     public void PlayerLeftGame(string gameConnectionId)
@@ -212,7 +212,7 @@ public class SignalRService :ISignalRService
         SendHubMessage(lobbyHub, msg, user.LobbyConnectionId);
     }
 
-    public void PlayerSentCommand(Guid gameId, Guid userId, IClientCommand command){
+    public void PlayerSentCommand(Guid gameId, Guid userId, ClientCommand command){
         var gameUser = gameUsers.GetUserById(userId);
 
         if ( gameUser != null) {

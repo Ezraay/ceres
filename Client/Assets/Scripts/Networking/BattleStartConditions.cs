@@ -6,6 +6,6 @@ namespace CardGame.Networking
     public class BattleStartConditions
     {
         public ClientBattle ClientBattle;
-        public Guid PlayerId;
+        public Guid MyPlayerId;
     }
 }

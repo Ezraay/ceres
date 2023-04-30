@@ -12,12 +12,11 @@ namespace CardGame.BattleDisplay.Commands
 			       data.StartSlot.Owner == data.MyPlayerDisplay;
 		}
 
-		public IClientCommand GetCommand(InputCommandData data)
+		public ClientCommand GetCommand(InputCommandData data)
 		{
 			UnitSlotDisplay attacker = data.StartSlot as UnitSlotDisplay;
 			UnitSlotDisplay target = data.EndSlot as UnitSlotDisplay;
-			return new DeclareAttackCommand(
-				attacker.Position, target.Owner.PlayerId, target.Position);
+			return new DeclareAttackCommand(attacker.Position, target.Position);
 		}
 	}
 }

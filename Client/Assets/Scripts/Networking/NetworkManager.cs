@@ -26,7 +26,7 @@ namespace Ceres.Client
 
         public event Action<BattleStartConditions> OnStartGame;
         public event Action<EndBattleReason> OnGameEnd;
-        public event Action<IServerAction> OnBattleAction;
+        public event Action<ServerAction> OnBattleAction;
 
         [Inject]
         public void Construct(MainThreadManager mainThread, SignalRManager signalR, SceneManager scene)
@@ -77,7 +77,7 @@ namespace Ceres.Client
             signalRManager.LobbyHub.SendAsync("UserIsReadyToPlay", userName, true);
         }
 
-        public void SendCommand(IClientCommand command)
+        public void SendCommand(ClientCommand command)
         {
             signalRManager.GameHub.SendAsync("PlayerSentCommand", gameId, userId, command);
         }
@@ -91,7 +91,7 @@ namespace Ceres.Client
             BattleStartConditions conditions = new BattleStartConditions()
             {
                 ClientBattle = battle,
-                PlayerId = playerId
+                MyPlayerId = playerId
             };
             OnStartGame?.Invoke(conditions);
 

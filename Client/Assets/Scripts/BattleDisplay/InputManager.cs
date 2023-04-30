@@ -39,8 +39,8 @@ namespace CardGame
             
             battleManager.OnStart += conditions =>
             {
-                if (conditions.PlayerId != Guid.Empty)
-                    myPlayerId = conditions.PlayerId;
+                if (conditions.MyPlayerId != Guid.Empty)
+                    myPlayerId = conditions.MyPlayerId;
                 else
                     Destroy(gameObject);
             };
@@ -74,7 +74,7 @@ namespace CardGame
                 if (endSlot != null)
                 {
                     InputCommandData data = new InputCommandData(draggedSlot, endSlot, draggedCard,
-                        battleManager.Battle, battleDisplayManager.GetPlayerDisplay(myPlayerId), battleManager.Battle.TeamManager.GetPlayer(myPlayerId));
+                        battleManager.Battle, battleDisplayManager.GetPlayerDisplay(myPlayerId), battleManager.Battle.GetPlayerById(myPlayerId));
                     IInputCommand command = GetInputCommand(data);
                     if (command != null)
                     {
