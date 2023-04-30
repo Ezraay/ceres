@@ -3,11 +3,12 @@ using Ceres.Core.BattleSystem;
 
 namespace CardGame.BattleDisplay
 {
-	public class AdvancePhaseAnimation : ActionAnimation
+	public class SetPhaseAnimation : ActionAnimation
 	{
 		public override IEnumerator GetEnumerator(ServerAction baseAction, AnimationData data)
 		{
-			data.BattleHUD.ShowPhase(data.ClientBattle.PhaseManager.Phase);
+			SetPhaseAction action = baseAction as SetPhaseAction;
+			data.BattleHUD.ShowPhase(action.Phase);
 			yield return null;
 		}
 	}

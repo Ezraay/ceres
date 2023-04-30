@@ -12,7 +12,7 @@ namespace Ceres.Core.BattleSystem
 	{
 		private readonly BattlePhase FirstPhase = Enum.GetValues(typeof(BattlePhase)).Cast<BattlePhase>().Min();
 		private readonly BattlePhase LastPhase = Enum.GetValues(typeof(BattlePhase)).Cast<BattlePhase>().Max();
-		private int playerIndex;
+		private int turn;
 		private List<IPlayer> players;
 
 		public PhaseManager(BattlePhase? phase = null)
@@ -21,7 +21,7 @@ namespace Ceres.Core.BattleSystem
 		}
 
 		public BattlePhase Phase { get; private set; }
-		public IPlayer CurrentTurnPlayer => this.players[this.playerIndex % this.players.Count];
+		public IPlayer CurrentTurnPlayer => this.players[this.turn % this.players.Count];
 
 		public event Action OnTurnEnd;
 		public event Action<BattlePhase> OnPhaseExit;
@@ -47,7 +47,7 @@ namespace Ceres.Core.BattleSystem
 			if (this.Phase == this.LastPhase)
 			{
 				this.Phase = this.FirstPhase;
-				this.playerIndex++;
+				this.turn++;
 				OnTurnEnd?.Invoke();
 			}
 			else

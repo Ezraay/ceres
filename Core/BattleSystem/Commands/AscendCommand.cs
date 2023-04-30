@@ -52,7 +52,7 @@ namespace Ceres.Core.BattleSystem
                 throw new ArgumentNullException();
             return new ServerAction[]
             {
-                new OpponentSummonAction(author.Id, MultiCardSlotType.Hand, author.Champion.Position, card)
+                new OpponentSummonAction(MultiCardSlotType.Hand, author.Champion.Position, card)
             };
         }
     }

@@ -20,7 +20,7 @@ namespace Ceres.Core.BattleSystem
 
 		public override ServerAction[] GetActionsForAlly(IPlayer author)
 		{
-			return new ServerAction[] { new AlertAllAction(author.Id) };
+			return new ServerAction[] { new AlertAllAction() };
 		}
 	}
 }

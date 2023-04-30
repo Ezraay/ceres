@@ -30,6 +30,7 @@ namespace Ceres.Core.BattleSystem.Battles
 		private void OnPhaseEnter(BattlePhase phase)
 		{
 			IPlayer currentPlayer = this.PhaseManager.CurrentTurnPlayer;
+			IPlayer enemy = GetEnemy(currentPlayer);
 			switch (phase)
 			{
 				case BattlePhase.Stand:
@@ -42,11 +43,17 @@ namespace Ceres.Core.BattleSystem.Battles
 					break;
 				case BattlePhase.Defend:
 					if (!this.CombatManager.ValidAttack)
-						AddToStack(new AdvancePhaseCommand(), currentPlayer, false);
+						AddToStack(new SetPhaseCommand(BattlePhase.End), enemy, false);
 					break;
 				case BattlePhase.Damage:
-					if (!this.CombatManager.ValidAttack)
-						AddToStack(new AdvancePhaseCommand(), currentPlayer, false);
+					if (this.CombatManager.ValidAttack)
+					{
+						int damageCount = this.CombatManager.DamageCount(enemy.GetMultiCardSlot(MultiCardSlotType.Defense) as MultiCardSlot);
+						for (int i = 0; i < damageCount; i++)
+							AddToStack(new TakeDamageCommand(), enemy, false);
+						this.CombatManager.Reset();
+					}
+					AddToStack(new SetPhaseCommand(BattlePhase.Attack), currentPlayer, false);
 					break;
 				case BattlePhase.End:
 					foreach (IPlayer player in this.allPlayers)
@@ -66,6 +73,7 @@ namespace Ceres.Core.BattleSystem.Battles
 				CommandData data = this.stack.Dequeue();
 				ClientCommand command = data.Command;
 				IPlayer author = data.Author;
+				IPlayer enemy = GetEnemy(author);
 				bool checkCommand = data.CheckCommand;
 
 				if (command.CanExecute(this, author) || !this.checkCommands || !checkCommand)
@@ -80,7 +88,7 @@ namespace Ceres.Core.BattleSystem.Battles
 				foreach (ServerAction action in command.GetActionsForOpponent(author))
 				{
 					action.SetAuthor(author.Id);
-					OnPlayerAction?.Invoke(GetEnemy(author), action);
+					OnPlayerAction?.Invoke(enemy, action);
 				}
 			}
 

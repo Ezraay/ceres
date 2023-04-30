@@ -51,7 +51,7 @@ namespace Ceres.Core.BattleSystem
 			if (this.card == null)
 				throw new ArgumentNullException();
 			return new ServerAction[]
-				{ new OpponentSummonAction(author.Id, MultiCardSlotType.Hand, this.Position, this.card) };
+				{ new OpponentSummonAction(MultiCardSlotType.Hand, this.Position, this.card) };
 		}
 	}
 }

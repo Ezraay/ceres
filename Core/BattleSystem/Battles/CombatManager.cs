@@ -8,7 +8,7 @@ namespace Ceres.Core.BattleSystem
         public UnitSlot? Target { get; private set; }
         public UnitSlot? Attacker { get; private set; }
         private readonly int damage = 1;
-        public readonly MultiCardSlot Defenders = new MultiCardSlot();
+        // public readonly MultiCardSlot Defenders = new MultiCardSlot();
 
         public void AddAttacker(UnitSlot slot)
         {
@@ -21,24 +21,24 @@ namespace Ceres.Core.BattleSystem
             Target = slot;
         }
 
-        public void AddDefender(Card card)
-        {
-            if (card != null)
-                Defenders.AddCard(card);
-        }
+        // public void AddDefender(Card card)
+        // {
+        //     if (card != null)
+        //         Defenders.AddCard(card);
+        // }
 
         public void Reset()
         {
             Attacker = null;
             Target = null;
-            Defenders.Clear();
+            // Defenders.Clear();
         }
 
-        public int DamageCount()
+        public int DamageCount(MultiCardSlot defenders)
         {
             if (!ValidAttack) return 0;
             int attack = Attacker.Card.Data.Attack;
-            int defense = Defenders.Cards.Sum(card => card.Data.Defense);
+            int defense = defenders.Cards.Sum(card => card.Data.Defense);
             return defense + Target.Card.Data.Attack > attack ? 0 : damage;
         }
     }

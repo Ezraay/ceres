@@ -116,6 +116,10 @@ namespace CardGame.BattleDisplay
 				AnimationData data = new AnimationData(this.cardDisplayFactory, this.actionAnimator, this, this.battleHUD, this.battleManager.Battle);
 				yield return this.currentAnimation.GetEnumerator(action, data);
 			}
+			else
+			{
+				Debug.LogWarning("No animation found for action: " + action);
+			}
 
 			this.currentAnimation = null;
 		}

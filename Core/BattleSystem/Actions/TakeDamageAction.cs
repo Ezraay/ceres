@@ -13,10 +13,8 @@ namespace Ceres.Core.BattleSystem
 
 		public override void Apply(ClientBattle battle, IPlayer author)
 		{
-			IPlayer player = battle.GetPlayerById(this.AuthorId);
-
-			player.GetMultiCardSlot(MultiCardSlotType.Pile).RemoveCard(this.Damage);
-			player.GetMultiCardSlot(MultiCardSlotType.Damage).RemoveCard(this.Damage);
+			author.GetMultiCardSlot(MultiCardSlotType.Pile).RemoveCard(this.Damage);
+			author.GetMultiCardSlot(MultiCardSlotType.Damage).AddCard(this.Damage);
 		}
 	}
 }

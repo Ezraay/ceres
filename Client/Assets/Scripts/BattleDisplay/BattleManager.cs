@@ -21,6 +21,7 @@ namespace Ceres.Client.BattleSystem
         public event Action<EndBattleReason> OnEnd;
         public bool IsBattleOngoing { get; private set; }
         public bool IsStarted { get; private set; }
+        public bool IsSinglePlayer => this.commandProcessor is SinglePlayerProcessor;
 
         [Inject]
         public void Construct(SceneManager sceneManager)

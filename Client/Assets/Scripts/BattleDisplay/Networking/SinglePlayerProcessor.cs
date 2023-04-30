@@ -12,6 +12,7 @@ namespace CardGame.BattleDisplay.Networking
 		public ServerBattle ServerBattle { get; private set; }
 
 		public IPlayer MyPlayer { get; private set; }
+		private IPlayer myServerPlayer;
 
 		private ClientBattle ClientBattle { get; set; }
 		private readonly ServerBattleStartConfig conditions;
@@ -31,6 +32,7 @@ namespace CardGame.BattleDisplay.Networking
 			IPlayer player2 = new StandardPlayer(Guid.NewGuid(), new MultiCardSlot(), new MultiCardSlot());
 			player1.LoadDeck(this.conditions.Player1Deck);
 			player2.LoadDeck(this.conditions.Player2Deck);
+			this.myServerPlayer = player1;
 
 			this.ServerBattle = new ServerBattle(player1, player2, false);
 			List<IPlayer> playerOrder = new List<IPlayer> {player1, player2,};
@@ -38,7 +40,7 @@ namespace CardGame.BattleDisplay.Networking
 			this.ServerBattle.OnBattleAction += OnServerBattleAction;
 			this.ServerBattle.OnPlayerAction += (player, action) =>
 			{
-				if (player == this.MyPlayer) // Accept actions sent to us 
+				if (player == this.myServerPlayer) // Accept actions sent to us 
 				{
 					this.ClientBattle.Execute(action);
 					this.OnServerAction?.Invoke(action);
@@ -74,7 +76,7 @@ namespace CardGame.BattleDisplay.Networking
 
 		public void ProcessCommand(ClientCommand command)
 		{
-			this.ServerBattle.AddToStack(command, this.MyPlayer);
+			this.ServerBattle.AddToStack(command, this.myServerPlayer);
 			Debug.Log(this.ServerBattle.PhaseManager.Phase);
 		}
 	}

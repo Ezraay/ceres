@@ -33,7 +33,9 @@ namespace Ceres.Core.BattleSystem
 
 		public IPlayer GetEnemy(IPlayer player)
 		{
-			return player == this.Player1 ? this.Player2 : this.Player1;
+			if (player == this.Player1) return this.Player2;
+			if (player == this.Player2) return this.Player1;
+			throw new Exception("No such player in game");
 		}
 
 		public virtual void StartGame(List<IPlayer> playerOrder)

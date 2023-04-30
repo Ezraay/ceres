@@ -35,15 +35,14 @@ namespace Ceres.Core.BattleSystem
 			UnitSlot targetSlot = opponent.GetUnitSlot(TargetPosition); 
 			battle.CombatManager.AddAttacker(attackerSlot);
 			battle.CombatManager.AddTarget(targetSlot);
-			battle.PhaseManager.Advance();
+			battle.AddToStack(new AdvancePhaseCommand(), author, false);
 		}
 
 		public override ServerAction[] GetActionsForAlly(IPlayer author)
 		{
 			return new ServerAction[]
 			{
-				new DeclareAttackAction(author.Id, AttackerPosition, TargetPosition),
-				new AdvancePhaseAction()
+				new DeclareAttackAction(author.Id, AttackerPosition, TargetPosition)
 			};
 		}
 	}

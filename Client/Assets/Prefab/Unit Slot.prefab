@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sortingOrderOffset: 0
-  exhaustSpeed: 720
+  rotateSpeed: 20
   <Position>k__BackingField:
     X: 0
     Y: 0

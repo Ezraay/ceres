@@ -721,6 +721,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9116892387265391749, guid: 7444e9720b40cb8489e08e7c82be2a9f, type: 3}
+      propertyPath: cardLookOffset
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116892387265391749, guid: 7444e9720b40cb8489e08e7c82be2a9f, type: 3}
+      propertyPath: positionOffset.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116892387265391749, guid: 7444e9720b40cb8489e08e7c82be2a9f, type: 3}
+      propertyPath: positionOffset.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9116892387265391750, guid: 7444e9720b40cb8489e08e7c82be2a9f, type: 3}
       propertyPath: m_Name
       value: Damage

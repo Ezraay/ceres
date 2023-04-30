@@ -62,7 +62,7 @@ namespace CardGame.BattleDisplay
 		{
 			this.phaseText.text = phase.ToString();
 			bool canAdvance = this.command.CanExecute(this.battleManager.Battle,
-				this.battleManager.MyPlayer);
+				this.battleManager.MyPlayer) || this.battleManager.IsSinglePlayer;
 			this.nextPhaseCommand.SetActive(canAdvance);
 		}
 

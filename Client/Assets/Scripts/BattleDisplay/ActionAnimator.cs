@@ -14,14 +14,16 @@ namespace CardGame.BattleDisplay
         {
             return action switch
             {
-                AdvancePhaseAction => new AdvancePhaseAnimation(),
+                SetPhaseAction => new SetPhaseAnimation(),
                 DrawCardAction => new DrawCardAnimation(),
                 OpponentDrawCardAction => new OpponentDrawCardAnimation(),
                 AllySummonAction => new AllySummonAnimation(),
                 OpponentSummonAction => new OpponentSummonAnimation(),
                 DeclareAttackAction => new DeclareAttackAnimation(),
                 SupportUnitAction => new SupportUnitAnimation(),
-                _ => null
+                TakeDamageAction => new TakeDamageAnimation(),
+                AlertAllAction => new AlertAllAnimation(),
+                _ => null,
             };
         }
 

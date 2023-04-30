@@ -71,6 +71,7 @@ namespace CardGame
             if (Input.GetMouseButtonUp(0) && draggedCard != null)
             {
                 SlotDisplay endSlot = RaycastSlot();
+                draggedCard.SetSortingOrder(draggedCardOrder);
                 if (endSlot != null)
                 {
                     InputCommandData data = new InputCommandData(draggedSlot, endSlot, draggedCard,
@@ -83,7 +84,6 @@ namespace CardGame
                     else
                     {
                         draggedCard.transform.position = draggedCardStartPosition;
-                        draggedCard.SetSortingOrder(draggedCardOrder);
                     }
                 }
                 else

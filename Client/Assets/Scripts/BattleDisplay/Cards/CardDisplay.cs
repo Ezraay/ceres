@@ -92,5 +92,15 @@ namespace CardGame.BattleDisplay
         {
             Parent = slotDisplay;
         }
+
+        public IEnumerator RotateTo(float angle, float speed)
+        {
+            while (Math.Abs(this.transform.localEulerAngles.z - angle) % 360f > 2f)
+            {
+                transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(0f, 0, angle), speed * Time.deltaTime);
+                yield return null;
+            }
+            transform.localRotation = Quaternion.Euler(0f, 0, angle);
+        }
     }
 }

@@ -25,6 +25,8 @@ namespace CardGame.BattleDisplay
         [field: SerializeField] public UnitSlotDisplay RightSupport { get; private set; }
         [field: SerializeField] public UnitSlotDisplay ChampionSupport { get; private set; }
         public Guid PlayerId { get; private set; }
+        public int Width { get; private set; }
+        public int Height { get; private set; }
 
         [Inject]
         public void Construct(CardDisplayFactory factory)
@@ -58,6 +60,9 @@ namespace CardGame.BattleDisplay
         public void Setup(IPlayer player)
         {
             PlayerId = player.Id;
+            Width = player.Width;
+            Height = player.Height;
+            
             allSlots = new SlotDisplay[]
             {
                 Hand, Damage, Defense, Champion, LeftUnit, RightUnit, LeftSupport, RightSupport, ChampionSupport
