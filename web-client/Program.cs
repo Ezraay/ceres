@@ -8,8 +8,8 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddScoped<ISignalRHub,LobbyHub>();
-builder.Services.AddScoped<ISignalRHub,GameHub>();
+builder.Services.AddScoped<LobbyHub>();
+builder.Services.AddScoped<GameHub>();
 builder.Services.AddSingleton<UserState>();
 
 await builder.Build().RunAsync();

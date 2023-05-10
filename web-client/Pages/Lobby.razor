@@ -7,8 +7,9 @@
 
 @implements IDisposable
 
-@inject ISignalRHub LobbyHubService
+@inject LobbyHub LobbyHubService
 @inject UserState UserState
+@inject NavigationManager NavigationManager
 
 
 <CascadingValue Value="IsConnected">
@@ -50,11 +51,17 @@
         hubConnection.On<ReceiveMessageMessage>("ReceiveMessage", LobbyChatAddMessage);
         hubConnection.On<ClientsListMessage>("ClientsList", ClientsListUpdate);
         hubConnection.On<UpdateGamesMessage>("UpdateGames",GamesListUpdate);
+        hubConnection.On<GoToGameMessage>("GoToGame",OnGoToGame);
 
         if (hubConnection.State == HubConnectionState.Disconnected)
             await LobbyHubService.ConnectWithRetryAsync(CancellationToken.None);
     }
 
+    private void OnGoToGame(GoToGameMessage msg)
+    {
+        NavigationManager.NavigateTo($"/game/{msg.GameId}");
+    }
+    
     private void GamesListUpdate(UpdateGamesMessage msg)
     {
         if (GamesList == null) return;
